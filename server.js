@@ -25,7 +25,7 @@ app.get('*',(req,res)=>{
 });
 
 
-port= 5000|| process.env.PORT;
+port=process.env.PORT || 5000;
 
 app.listen(port,()=>{console.log('Server On');});
 
