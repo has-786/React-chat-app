@@ -3,7 +3,6 @@ import React from 'react';
 import '../css/home.css';
 import '../css/header.css';
 
-
 export default function Home(props)
 {
   return <div>
