@@ -62,9 +62,7 @@ render(){
 	return <div>
 			 <Navbar />
        <h2 style={{backgroundColor:"white",fontSize:"25pt",fontStyle:'bold',padding:"10px",marginTop:"0%"}}>University</h2>
-       <div style={{marginTop:'0px'}}>
-       <center><img id="MainImage" src={url+"/uploads/admission.jpeg"}  width="1100" height="350"/></center>
-       </div>
+       
        <br></br>
   <div class="table-responsive" style={{marginTop:'-10px'}}>
     <table class="table table-bordered table-hover">

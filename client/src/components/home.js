@@ -6,18 +6,9 @@ import {Link} from 'react-router-dom';
 import url from './url';
 export default function Home(props)
 {
-   return (
-    <div>
-
- <h4 style={{backgroundColor:"beige",fontStyle:'bold',padding:"20px",marginTop:"0%"}}>
-		<img src="http://bjmcpune.org/logo.png" class='img img-square' style={{float:"left",marginTop:"-10px",marginLeft:"0%",width:"60px" ,height:"60px"}}/>
-					BYRAMJEE JEEJEEBHOY GOVERNMENT MEDICAL COLLEGE AND SASSOON GENERAL HOSPITALS, PUNE
-   </h4>
-      <div style={{marginTop:'0px'}}>
-      <img src={url+'/uploads/academic.jpg'} width="1600" height="250"/>
-      </div>
+   return (  <div>
+      
       <Navbar/>
-	  	<br></br><br></br>
 
     <div>
 	<section id="doctors" class="doctors">
@@ -147,59 +138,55 @@ export default function Home(props)
 
 
 
+      <section id="services" class="services">
+        <div class="container">
+          <div class="row">
 
-    <section id="services" class="services">
-      <div class="container">
+            <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/dean2.jpg" class="img-fluid"/></div><br/>
+                  <h5>Dr Ajay S. Chandanwale Dean</h5>
+                </div>
+              </div>
 
+            <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/index.4.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr Rajesh Karyakarte Dy. Dean (UG)</h5>
+                </div>
+              </div>
 
-        <div class="row">
+              <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/index.5.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr. S. V. Joshi Dy. Dean (PG)</h5>
+                </div>
+              </div>
 
-          <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-            <div class="pic"><img src="http://bjmcpune.org/dean2.jpg" class="img-fluid" alt="" /></div><br/>
-              <h4>Dr Ajay S. Chandanwale Dean</h4>
-             </div>
+              <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/tambe.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr. M. P. Tambe Dy. Dean (Administration)</h5>
+                </div>
+              </div>
+
+            <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/Medical-Superintendent.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr. Ajay A. Taware Medical Superintendent</h5>
+                </div>
+              </div>
+
+              <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/vj.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr. Vijay Jadhav Dy. Medical Superintendent</h5>
+                </div>
+              </div>
+
           </div>
-
-         <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-            <div class="pic"><img src="http://bjmcpune.org/index.4.jpg" class="img-fluid" alt="" /></div><br/>
-              <h4>Dr Rajesh Karyakarte Dy. Dean (UG)</h4>
-             </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-            <div class="pic"><img src="http://bjmcpune.org/index.5.jpg" class="img-fluid" alt="" /></div><br/>
-              <h4>Dr. S. V. Joshi Dy. Dean (PG)</h4>
-             </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-            <div class="pic"><img src="http://bjmcpune.org/tambe.jpg" class="img-fluid" alt="" /></div><br/>
-              <h4>Dr. M. P. Tambe Dy. Dean (Administration)</h4>
-             </div>
-          </div>
-
-         <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-            <div class="pic"><img src="http://bjmcpune.org/Medical-Superintendent.jpg" class="img-fluid" alt="" /></div><br/>
-              <h4>Dr. Ajay A. Taware Medical Superintendent</h4>
-             </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-            <div class="pic"><img src="http://bjmcpune.org/vj.jpg" class="img-fluid" alt="" /></div><br/>
-              <h4>Dr. Vijay Jadhav Dy. Medical Superintendent</h4>
-             </div>
-          </div>
-
         </div>
-
-      </div>
-    </section>
+      </section>
 		<br></br><br></br>
 
 
@@ -214,7 +201,7 @@ export default function Home(props)
 </div>
 
 
-      </div>
     </div>
-    </div>);
+    </div>
+  </div>);
 }

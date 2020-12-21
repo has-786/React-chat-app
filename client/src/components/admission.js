@@ -176,9 +176,6 @@ render(){
 
      </div>
 
-<div style={{marginTop:'0px'}}>
-<center><img id="MainImage" src="https://globalhealth.weill.cornell.edu/sites/default/files/styles/panopoly_image_original/public/sasoon_hospital_and_b.j._medical_college_2_0.jpeg?itok=aHVdLJh5" width="1100" height="350"/></center>
-</div>
 <br></br><br></br>
 
      <div id='ug'  style={{backgroundColor:'beige',border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>

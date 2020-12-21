@@ -3,7 +3,14 @@ import {Link} from 'react-router-dom';
 
 export default function Navbar(props)
 {
-  return   <nav>
+  return  <div>
+            <div id="imgBack">
+              <center><img src="./assets/img/gallery/slogo.png"/></center>
+              <div id="imgDiv">
+                <h2>BYRAMJEE JEEJEEBHOY GOVERNMENT MEDICAL COLLEGE AND SASSOON GENERAL HOSPITALS, PUNE</h2>
+              </div>
+            </div>
+   <nav>
   <label for="drop" class="toggle" style={{marginTop:'0px'}}>Menu</label>
   <input type="checkbox" id="drop" />
       <ul class="menu">
@@ -69,6 +76,6 @@ export default function Navbar(props)
           <li><a href="#">Archives</a></li>
       </ul>
   </nav>
-
+</div>
 
 }

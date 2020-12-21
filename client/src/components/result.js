@@ -61,7 +61,7 @@ render(){
 
            <div id="mySidenav" class="sidenav" >
             <a href="javascript:void(0)" class="closebtn" onClick={this.closeNav}>&times;</a>
-            <ul  >
+            <ul>
              {
                 this.state.arr.map((res,ind)=>{
                  return  <li><a href='#' onClick={this.linkOneClick.bind(this,ind)} >{res.type}</a></li>
@@ -70,10 +70,8 @@ render(){
 
              </ul>
          </div>
-         <div style={{marginTop:'0px'}}>
-         <center><img id="MainImage" src={url+"/uploads/academic.jpg"} width="1100" height="350"/></center>
-         </div>
 
+         <br></br>
            <div>
              <section class='jumbotron'>
                    <div class="container">

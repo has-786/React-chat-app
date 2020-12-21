@@ -75,8 +75,8 @@ nav:after {
  * and adding "position:reltive" */
 nav ul {
   z-index:1;
-	float: right;
-  margin-top: -10px;
+	float: left;
+  margin-top: 0px;
 	padding:0;
 	list-style: none;
 	position: relative;
@@ -112,7 +112,7 @@ nav ul ul {
 	display: none;
 	position: absolute;
 	/* has to be the same number as the "line-height" of "nav a" */
-	top: 60px;
+	top: 50px;
 }
 
 /* Display Dropdowns on Hover */
