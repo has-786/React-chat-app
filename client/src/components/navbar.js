@@ -14,66 +14,66 @@ export default function Navbar(props)
   <label for="drop" class="toggle" style={{marginTop:'0px'}}>Menu</label>
   <input type="checkbox" id="drop" />
       <ul class="menu">
-          <li><a href="/">Home</a></li>
+          <li><Link to="/">Home</Link></li>
           <li>
               <label for="drop-1" class="toggle">About Us +</label>
-              <a href="#">About us</a>
+              <Link to="#">About us</Link>
               <input type="checkbox" id="drop-1"/>
               <ul>
-                  <li><a href="#">History</a></li>
-                  <li><a href="#">Past Deans</a></li>
-                  <li><a href="#">Organogram</a></li>
-                  <li><a href="#">Committees</a></li>
+                  <li><Link to="#">History</Link></li>
+                  <li><Link to="#">Past Deans</Link></li>
+                  <li><Link to="#">Organogram</Link></li>
+                  <li><Link to="#">Committees</Link></li>
               </ul>
           </li>
-          <li><a href="#">Hospital</a></li>
-          <li><a href="#">Departments</a></li>
+          <li><Link to="#">Hospital</Link></li>
+          <li><Link to="#">Departments</Link></li>
           <li>
           <label for="drop-2" class="toggle">Academics +</label>
-          <a href="#">Academics</a>
+          <Link to="#">Academics</Link>
           <input type="checkbox" id="drop-2"/>
           <ul>
-              <li><a href="/university">University</a></li>
-              <li><a href="/admission">Admission</a></li>
-              <li><a href="/result">Results</a></li>
-              <li><a href="/academicActivities">Academic Activities</a></li>
+              <li><Link to="/university">University</Link></li>
+              <li><Link to="/admission">Admission</Link></li>
+              <li><Link to="/result">Results</Link></li>
+              <li><Link to="/academicActivities">Academic Activities</Link></li>
           </ul>
           </li>
           <li>
           <label for="drop-3" class="toggle">Research & Resources +</label>
-          <a href="#">Research & Resources</a>
+          <Link to="#">Research & Resources</Link>
           <input type="checkbox" id="drop-3"/>
           <ul>
-              <li><a href="#">Recognition</a></li>
-              <li><a href="#">Awards & Achievements</a></li>
+              <li><Link to="#">Recognition</Link></li>
+              <li><Link to="#">Awards & Achievements</Link></li>
           </ul>
           </li>
           <li>
           <label for="drop-4" class="toggle">Achievements +</label>
-          <a href="#">Achievements</a>
+          <Link to="#">Achievements</Link>
           <input type="checkbox" id="drop-4"/>
           <ul>
-              <li><a href="#">Journals</a></li>
-              <li><a href="#">Useful Links</a></li>
-              <li><a href="#">Educational Videos</a></li>
-              <li><a href="#">Research Society</a></li>
-              <li><a href="#">Research Publication</a></li>
+              <li><Link to="#">Journals</Link></li>
+              <li><Link to="#">Useful Links</Link></li>
+              <li><Link to="#">Educational Videos</Link></li>
+              <li><Link to="#">Research Society</Link></li>
+              <li><Link to="#">Research Publication</Link></li>
           </ul>
           </li>
           <li>
           <label for="drop-5" class="toggle">Staffs +</label>
-          <a href="#">Staffs</a>
+          <Link href="#">Staffs</Link>
           <input type="checkbox" id="drop-5"/>
           <ul>
-              <li><a href="#">Dean</a></li>
-              <li><a href="#">Superintendent</a></li>
-              <li><a href="#">Teaching Staff</a></li>
-              <li><a href="#">Non-Teaching Staff</a></li>
+              <li><Link to="#">Dean</Link></li>
+              <li><Link to="#">Superintendent</Link></li>
+              <li><Link to="#">Teaching Staff</Link></li>
+              <li><Link to="#">Non-Teaching Staff</Link></li>
           </ul>
           </li>
-          <li><a href="/gallery">Gallery</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Archives</a></li>
+          <li><Link to="/gallery">Gallery</Link></li>
+          <li><Link to="#">Contact</Link></li>
+          <li><Link to="#">Archives</Link></li>
       </ul>
   </nav>
 </div>

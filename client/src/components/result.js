@@ -53,7 +53,7 @@ export default class Result extends React.Component
      }
 
 render(){
-	return <div>
+	return <div id="mainBody">
 			 <Navbar />
            <div id="main">
              <span style={{fontSize:'30px',cursor:'pointer',float:'left'}} onClick={this.openNav.bind(this)}>&#9776; Result</span>

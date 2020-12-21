@@ -6,9 +6,8 @@ import {Link} from 'react-router-dom';
 import url from './url';
 export default function Home(props)
 {
-   return (  <div>
-      
-      <Navbar/>
+   return (  <div id="mainBody">
+         <Navbar/>
 
     <div>
 	<section id="doctors" class="doctors">
@@ -17,7 +16,7 @@ export default function Home(props)
           <div class="row">
             <div class="col-lg-6">
               <div class="member d-flex align-items-start">
-                <div class='pic'><img src="http://bjmcpune.org/gandhi.jpg"  class="img-fluid" style={{zIndex:-1}} alt="" /></div>
+                <div class='pic'><img src="assets/img/doctors/gandhi.jpg"  class="img-fluid" style={{zIndex:-1}} alt="" /></div>
                 <div class="member-info">
                   <h4>MAHATMA GANDHI</h4>
                   <span>( October 2, 1869 – January 30, 1948)</span>
@@ -29,7 +28,7 @@ export default function Home(props)
 
             <div class="col-lg-6 mt-4 mt-lg-0">
               <div class="member d-flex align-items-start">
-                <div class="pic"><img src="http://bjmcpune.org/bj.png" class="img-fluid" style={{zIndex:-1}} alt="" /></div>
+                <div class="pic"><img src="assets/img/doctors/david.jpg" class="img-fluid" style={{zIndex:-1}} alt="" /></div>
                 <div class="member-info">
                   <h4>David Sassoon</h4>
                   <span> (October 1792 – November 7, 1864)</span>
@@ -43,58 +42,54 @@ export default function Home(props)
 
         </div>
       </section>
-	<br></br><br></br>
-
-  <section class="features-icons bg-light text-center">
-    <div class="container" >
-      <div class="row">
-        <div class="col-lg-6" style={{padding:"50px"}}>
-          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-			        <i class='fa fa-hospital' style={{fontSize:"40px",color:"green"}}></i>
-            </div>
-            <h4 ><Link to='/hospital'>Hospital</Link></h4>
-            <p class="lead mb-0" style={{fontWeight:"bold"}}>See the details of Hospital</p>
-          </div>
-        </div>
-
-        <div class="col-lg-6" style={{padding:"50px"}}>
-          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-			          <i class='fas fa-graduation-cap' style={{fontSize:"40px",color:"green"}}></i>
-            </div>
-            <h4><Link to='/admission'>Admission</Link></h4>
-            <p class="lead mb-0" style={{fontWeight:"bold"}}>Get an admission </p>
-          </div>
-        </div>
-      </div>
 
 
-      <div class="row">
-        <div class="col-lg-6" style={{padding:"50px"}}>
-          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class='fas fa-book-reader' style={{fontSize:"40px",color:"green"}}></i>
-            </div>
-            <h4><Link to='/researchPublication'>Research Publications</Link></h4>
-            <p class="lead mb-0" style={{fontWeight:"bold"}}>See our Research Publications</p>
-          </div>
-        </div>
+  <section id="why-us" class="why-us">
+       <div class="container">
 
-        <div class="col-lg-6" style={{padding:"50px"}}>
-          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <center><i class='fas fa-columns' style={{fontSize:"40px",color:"green"}}></i></center>
-            </div>
-            <h4><Link to='/department'>Departments</Link></h4>
-            <p class="lead mb-0" style={{fontWeight:"bold"}}>Check all the Departments</p>
-          </div>
+         <div class="row">
+           <div class="col-lg-4 d-flex align-items-stretch">
+             <div class="content">
+               <h3>Know about us?</h3>
+               <p>
+                  Sassoon General Hospitals is a large state-run hospital in Pune, India with 1296 beds. It is affiliated to the B. J. Medical College and a Nurses training School.
+               </p>
+               <div class="text-center">
+                 <Link to='/history' class="more-btn">Learn More <i class="bx bx-chevron-right"></i></Link>
+               </div>
+             </div>
+           </div>
+           <div class="col-lg-8 d-flex align-items-stretch">
+             <div class="icon-boxes d-flex flex-column justify-content-center">
+               <div class="row">
+                 <div class="col-xl-4 d-flex align-items-stretch">
+                   <div class="icon-box mt-4 mt-xl-0">
+                     <i class="fa fa-hospital"></i>
+                     <h4><Link  style={{color:'black'}} to='/hospital'>Hospital</Link></h4>
+                     <p class="lead mb-0" style={{fontWeight:"bold"}}>See the details of Hospital</p>
+                   </div>
+                 </div>
+                 <div class="col-xl-4 d-flex align-items-stretch">
+                   <div class="icon-box mt-4 mt-xl-0">
+                     <i class="fas fa-graduation-cap"></i>
+                     <h4><Link style={{color:'black'}} to='/admission'>Admission</Link></h4>
+                     <p>Get an admission here</p>
+                   </div>
+                 </div>
+                 <div class="col-xl-4 d-flex align-items-stretch">
+                   <div class="icon-box mt-4 mt-xl-0">
+                     <i class="fas fa-book-reader"></i>
+                     <h4><Link style={{color:'black'}} to='/researchActivities'>Research Activities</Link></h4>
+                     <p>Check out the Research Activities done by us</p>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
          </div>
-      </div>
-	  </div>
-  </section>
-  <br></br><br></br>
 
+       </div>
+     </section>
 
       <section id="services" class="services">
           <div class="container">

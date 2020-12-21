@@ -17,7 +17,7 @@ fetch(url+'/api/gallery',{ method:'GET'})
      .catch(err=>{return err;});
 
 
-return  <div>
+return  <div id="mainBody">
   <Navbar/>
 <div class='row'>
           {imgs.map(img=>{

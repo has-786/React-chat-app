@@ -2,6 +2,7 @@ import Navbar from './navbar';
 import React from 'react';
 import url from './url';
 import '../css/home.css';
+import {Link} from 'react-router-dom';
 
 export default class Admission extends React.Component
 {
@@ -134,44 +135,46 @@ componentDidMount(){
 }
 
 render(){
-	return <div >
+	return <div>
+   <div id="mainBody">
+
 			 <Navbar />
 
        <div id="main">
          <span style={{fontSize:'30px',cursor:'pointer',float:'left'}} onClick={this.openNav.bind(this)}>&#9776; Admission</span>
        </div>
 
+
        <div id="mySidenav" class="sidenav" >
-        <a href="javascript:void(0)" class="closebtn" onClick={this.closeNav}>&times;</a>
-        <a  href="#" onClick={this.allClick.bind(this)}>All</a>
-        <a  href="#" onClick={this.ugClick.bind(this)}>UG</a>
-        <a href="#demo1" data-toggle="collapse" class="dropdown-toggle">
+        <Link href="javascript:void(0)" class="closebtn" onClick={this.closeNav}>&times;</Link>
+        <Link  href="#" onClick={this.allClick.bind(this)}>All</Link>
+        <Link  href="#" onClick={this.ugClick.bind(this)}>UG</Link>
+        <Link href="#demo1" data-toggle="collapse" class="dropdown-toggle">
         <ul class="dropdown-menu"  id="demo1" class="collapse" >
          {
-
            this.state.ug.type.map((res,ind)=>{
              return  <li><a href='#' onClick={this.ugOneClick.bind(this,ind)} >{res.name}</a></li>
            })
          }
 
          </ul>
-         </a>
+         </Link>
         <ul>
-         <li><a href="#" onClick={this.ugotherClick.bind(this)}>Other Facilities</a></li>
+         <li><Link href="#" onClick={this.ugotherClick.bind(this)}>Other Facilities</Link></li>
         </ul>
-           <a  href='#' onClick={this.pgClick.bind(this)}>PG</a>
+           <Link href='#' onClick={this.pgClick.bind(this)}>PG</Link>
 
            <a href="#demo2" data-toggle="collapse" class="dropdown-toggle">
              <ul class="dropdown-menu"  id="demo2" class="collapse" >
              {
              this.state.pg.type.map((res,ind)=>{
-                 return <li><a href='#' onClick={this.pgOneClick.bind(this,ind)} >{res.name}</a></li>
+                 return <li><Link href='#' onClick={this.pgOneClick.bind(this,ind)} >{res.name}</Link></li>
              })
             }
              </ul>
              </a>
              <ul>
-             <li><a href="#" onClick={this.pgotherClick.bind(this)}>Other Facilities</a></li>
+             <li><Link href="#" onClick={this.pgotherClick.bind(this)}>Other Facilities</Link></li>
              </ul>
 
      </div>
@@ -284,7 +287,7 @@ render(){
            </div>
         </div>
 
-
+        </div>
 
 	</div>
 }

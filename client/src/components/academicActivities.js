@@ -228,7 +228,7 @@ export default class AcademicActivities extends React.Component
         this.closeNav();
       }
 render(){
-	return <div>
+	return <div id="mainBody">
 			 <Navbar />
 
            <div id="main">
@@ -263,7 +263,7 @@ render(){
                <a href="#" onClick={this.otherClick.bind(this)}>Other Activities</a>
 
          </div>
-         
+
          <br></br><br></br>
 
          <div id='dept'  style={{backgroundColor:'beige',border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>

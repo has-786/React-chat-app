@@ -89,7 +89,7 @@ nav ul li {
 	background-color: #254441;
 	}
 
-/* Styling the links */
+/* Styling the as */
 nav a {
 	display:block;
 	padding:14px 20px;
@@ -163,7 +163,7 @@ li > a:only-child:after { content: ''; }
 	}
 
 	/* Hide the navigation menu by default */
-	/* Also hide the  */
+	/* also hide the  */
 	.toggle + a,
 	.menu {
 		display: none;
