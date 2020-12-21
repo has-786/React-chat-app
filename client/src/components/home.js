@@ -3,7 +3,7 @@ import Navbar from './navbar';
 import '../css/home.css';
 import React from 'react';
 import {Link} from 'react-router-dom';
-
+import url from './url';
 export default function Home(props)
 {
    return (
@@ -14,7 +14,7 @@ export default function Home(props)
 					BYRAMJEE JEEJEEBHOY GOVERNMENT MEDICAL COLLEGE AND SASSOON GENERAL HOSPITALS, PUNE
    </h4>
       <div style={{marginTop:'0px'}}>
-      <img src="https://images.pexels.com/photos/1080722/pexels-photo-1080722.jpeg" width="1600" height="250"/>
+      <img src={url+'/uploads/academic.jpg'} width="1600" height="250"/>
       </div>
       <Navbar/>
 	  	<br></br><br></br>
