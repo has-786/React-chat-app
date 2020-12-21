@@ -149,7 +149,7 @@ render(){
         <Link href="javascript:void(0)" class="closebtn" onClick={this.closeNav}>&times;</Link>
         <Link  href="#" onClick={this.allClick.bind(this)}>All</Link>
         <Link  href="#" onClick={this.ugClick.bind(this)}>UG</Link>
-        <Link href="#demo1" data-toggle="collapse" class="dropdown-toggle">
+        <a href="#demo1" data-toggle="collapse" class="dropdown-toggle">
         <ul class="dropdown-menu"  id="demo1" class="collapse" >
          {
            this.state.ug.type.map((res,ind)=>{
@@ -158,7 +158,7 @@ render(){
          }
 
          </ul>
-         </Link>
+         </a>
         <ul>
          <li><Link href="#" onClick={this.ugotherClick.bind(this)}>Other Facilities</Link></li>
         </ul>
