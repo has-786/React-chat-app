@@ -1,4 +1,3 @@
-import Header from './header';
 import Navbar from './navbar';
 import '../css/home.css';
 import React from 'react';
