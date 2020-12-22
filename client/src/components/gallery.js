@@ -5,16 +5,26 @@ import Navbar from './navbar';
 
 export default function Gallery(props){
 
-let [imgs,setImgs]=useState([{name:'An Image of Hospital',link:'http://bjmcpune.org/gandhi.jpg'}]);
+let [imgs,setImgs]=useState([{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'},
+{name:'An Image of Hospital',link:'assets1/img/a.png'}]);
 
-fetch(url+'/api/gallery',{ method:'GET'})
+/*fetch(url+'/api/gallery',{ method:'GET'})
      .then(response=>{ return response.json()})
      .then((body)=>{
           setImgs(body.img);
             //  alert(body.img);
             //  dispatch({type:'add_video',payload:body.video});
       })
-     .catch(err=>{return err;});
+     .catch(err=>{return err;});*/
 
 
 return  <div id="mainBody">

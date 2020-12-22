@@ -149,7 +149,7 @@ export default class AcademicActivities extends React.Component
 
       componentDidMount(){
 
-        fetch(url+'/api/academicActivities',{ method:'GET'})
+      /*  fetch(url+'/api/academicActivities',{ method:'GET'})
              .then(response=>{ return response.json()})
              .then((body)=>{
                     this.setState({deptsData:body.deptsData});
@@ -161,7 +161,7 @@ export default class AcademicActivities extends React.Component
                     //  dispatch({type:'add_video',payload:body.video});
               })
              .catch(err=>alert(JSON.stringify(err)));
-
+*/
 
 
 

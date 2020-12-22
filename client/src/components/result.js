@@ -22,7 +22,7 @@ export default class Result extends React.Component
 
 
     componentDidMount(){
-      fetch(url+'/api/result',{ method:'GET'})
+    /*  fetch(url+'/api/result',{ method:'GET'})
            .then(response=>{ return response.json()})
            .then((body)=>{
                   this.setState({arr:body});
@@ -30,7 +30,7 @@ export default class Result extends React.Component
                   //  dispatch({type:'add_video',payload:body.video});
             })
            .catch(err=>alert(JSON.stringify(err)));
-
+*/
       this.setState({show:{type:this.state.arr[0].type,link:this.state.arr[0].link}});
     }
 

@@ -120,7 +120,7 @@ export default class Admission extends React.Component
 
 
 componentDidMount(){
-  fetch(url+'/api/admission',{ method:'GET'})
+/*  fetch(url+'/api/admission',{ method:'GET'})
        .then(response=>{ return response.json()})
        .then((body)=>{
               this.setState({ug:body.ug});
@@ -130,7 +130,7 @@ componentDidMount(){
               //  dispatch({type:'add_video',payload:body.video});
         })
        .catch(err=>alert(JSON.stringify(err)));
-
+*/
 
 }
 
