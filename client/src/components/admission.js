@@ -56,7 +56,7 @@ export default class Admission extends React.Component
        document.getElementById('pg').style.display='none';
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='none';
-       this.closeNav();
+    //   this.closeNav();
      }
 
      ugOneClick(ind){
@@ -65,7 +65,7 @@ export default class Admission extends React.Component
        document.getElementById('ugtype').style.display='block';
        document.getElementById('ugother').style.display='none';
        document.getElementById('pg').style.display='none';
-       this.closeNav();
+    //   this.closeNav();
      }
 
      pgClick(){
@@ -76,7 +76,7 @@ export default class Admission extends React.Component
        document.getElementById('pg').style.display='block';
        document.getElementById('pgtype').style.display='block';
        document.getElementById('pgother').style.display='block';
-       this.closeNav();
+  //     this.closeNav();
      }
 
      pgOneClick(ind){
@@ -85,7 +85,7 @@ export default class Admission extends React.Component
        document.getElementById('pgtype').style.display='block';
        document.getElementById('pgother').style.display='none';
        document.getElementById('ug').style.display='none';
-       this.closeNav();
+    //   this.closeNav();
      }
 
      ugotherClick(){
@@ -94,7 +94,7 @@ export default class Admission extends React.Component
        document.getElementById('ugtype').style.display='none';
        document.getElementById('ugother').style.display='block';
        document.getElementById('pg').style.display='none';
-       this.closeNav();
+    //   this.closeNav();
      }
 
      pgotherClick(){
@@ -103,7 +103,7 @@ export default class Admission extends React.Component
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='block';
        document.getElementById('ug').style.display='none';
-       this.closeNav();
+  //     this.closeNav();
      }
 
 
@@ -115,7 +115,7 @@ export default class Admission extends React.Component
         document.getElementById('pg').style.display='block';
         document.getElementById('pgtype').style.display='block';
         document.getElementById('pgother').style.display='block';
-        this.closeNav();
+    //    this.closeNav();
       }
 
 
@@ -140,117 +140,96 @@ render(){
 
 			 <Navbar />
 
-       <div id="main">
-         <span style={{fontSize:'30px',cursor:'pointer',float:'left'}} onClick={this.openNav.bind(this)}>&#9776; Admission</span>
-       </div>
 
+       <section id="departments" class="departments">
+         <div class="container">
 
-       <div id="mySidenav" class="sidenav" >
-        <Link href="javascript:void(0)" class="closebtn" onClick={this.closeNav}>&times;</Link>
-        <Link  href="#" onClick={this.allClick.bind(this)}>All</Link>
-        <Link  href="#" onClick={this.ugClick.bind(this)}>UG</Link>
-        <a href="#demo1" data-toggle="collapse" class="dropdown-toggle">
-        <ul class="dropdown-menu"  id="demo1" class="collapse" >
-         {
-           this.state.ug.type.map((res,ind)=>{
-             return  <li><a href='#' onClick={this.ugOneClick.bind(this,ind)} >{res.name}</a></li>
-           })
-         }
-
-         </ul>
-         </a>
-        <ul>
-         <li><Link href="#" onClick={this.ugotherClick.bind(this)}>Other Facilities</Link></li>
-        </ul>
-           <Link href='#' onClick={this.pgClick.bind(this)}>PG</Link>
-
-           <a href="#demo2" data-toggle="collapse" class="dropdown-toggle">
-             <ul class="dropdown-menu"  id="demo2" class="collapse" >
-             {
-             this.state.pg.type.map((res,ind)=>{
-                 return <li><Link href='#' onClick={this.pgOneClick.bind(this,ind)} >{res.name}</Link></li>
-             })
-            }
-             </ul>
-             </a>
-             <ul>
-             <li><Link href="#" onClick={this.pgotherClick.bind(this)}>Other Facilities</Link></li>
-             </ul>
-
-     </div>
-
-<br></br><br></br>
-
-     <div id='ug'  style={{backgroundColor:'beige',border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
-     <center><button class='btn btn-primary'>UG</button></center>
-        <br></br>
-        <div id='ugtype'>
-          <h5 style={{color:"blue"}}> Available admissions</h5>
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-              <thead>
-                 <tr>
-                   <th>Course Name</th>
-                   <th>Details</th>
-                 </tr>
-              </thead>
-              <tbody>
-                 {
-                   this.state.show.ug.type.map(r=>{
-                      return <tr>
-                         <td>{r.name}</td>
-                         <td>{r.desc}</td>
-                       </tr>
-                   })
-                 }
-              </tbody>
-           </table>
+           <div class="section-title">
+             <h2>Admission</h2>
+             <p>Get all the details related to admissions here</p>
            </div>
-        </div>
-        <br></br>
-        <div id='ugother'>
-        <h5 style={{color:"blue"}}>Other Facilities</h5>
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover">
-            <thead>
-               <tr>
-                 <th>Name</th>
-                 <th>Details</th>
-               </tr>
-            </thead>
-            <tbody>
-               {
-                 this.state.show.ug.other.map(r=>{
-                    return <tr>
-                       <td>{r.name}</td>
-                       <td>{r.desc}</td>
-                     </tr>
-                 })
-               }
-            </tbody>
-         </table>
+       <div class='row'>
+         <div class='col-lg-2'>
+         <ul class='nav nav-tabs flex-column'>
+           <li class='nav-item'><Link class="nav-link"  href="#" onClick={this.allClick.bind(this)}>All</Link></li>
+           <li class="nav-item"><Link class="nav-link" href="#" onClick={this.ugClick.bind(this)}>UG</Link></li>
+           <li class="nav-item">
+             <Link href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-link">
+               <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo1" class="collapse" >
+                {
+                  this.state.ug.type.map((res,ind)=>{
+                    return  <li class="nav-item"><Link class="nav-link" href='#' onClick={this.ugOneClick.bind(this,ind)} >{res.name}</Link></li>
+                  })
+                }
+                </ul>
+             </Link>
+            </li>
+            <li>
+              <ul>
+              <li class="nav-item"><Link href="#" class="nav-link" onClick={this.ugotherClick.bind(this)}>Other Facilities</Link></li>
+              </ul>
+            </li>
+               <li class="nav-item"><Link href='#' class="nav-link" onClick={this.pgClick.bind(this)}>PG</Link></li>
+                     <li class="nav-item">
+                     <a href="#demo2" data-toggle="collapse" class="dropdown-toggle nav-link">
+                       <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo2" class="collapse" >
+                          {
+                          this.state.pg.type.map((res,ind)=>{
+                              return <li><Link href='#' class="nav-link" onClick={this.pgOneClick.bind(this,ind)} >{res.name}</Link></li>
+                          })
+                           }
+                       </ul>
+                     </a>
+                     </li>
+                     <li>
+                    <ul>
+                     <li  class="nav-item"><Link href="#" class="nav-link" onClick={this.pgotherClick.bind(this)}>Other Facilities</Link></li>
+                    </ul>
+                    </li>
+              </ul>
          </div>
-        </div>
-      </div>
 
-
-        <br></br><br></br><br></br><br></br>
-        <div id='pg' style={{backgroundColor:'beige',border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
-        <center><button class='btn btn-success'>PG</button></center>
-          <br></br>
-          <div id='pgtype'>
-            <h5 style={{color:"green"}}>Available admissions</h5>
+         <div class='col-lg-10'>
+           <div id='ug'  style={{backgroundColor:'beige',border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
+           <center><button class='btn btn-primary'>UG</button></center>
+             <br></br>
+             <div id='ugtype'>
+              <h5 style={{color:"blue"}}> Available admissions</h5>
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                  <thead>
+                     <tr>
+                       <th>Course Name</th>
+                       <th>Details</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {
+                       this.state.show.ug.type.map(r=>{
+                          return <tr>
+                             <td>{r.name}</td>
+                             <td>{r.desc}</td>
+                           </tr>
+                       })
+                     }
+                  </tbody>
+               </table>
+               </div>
+            </div>
+            <br></br>
+            <div id='ugother'>
+            <h5 style={{color:"blue"}}>Other Facilities</h5>
             <div class="table-responsive">
               <table class="table table-bordered table-hover">
                 <thead>
                    <tr>
-                     <th>Course Name</th>
+                     <th>Name</th>
                      <th>Details</th>
                    </tr>
                 </thead>
                 <tbody>
                    {
-                     this.state.show.pg.type.map(r=>{
+                     this.state.show.ug.other.map(r=>{
                         return <tr>
                            <td>{r.name}</td>
                            <td>{r.desc}</td>
@@ -260,34 +239,77 @@ render(){
                 </tbody>
              </table>
              </div>
-          </div>
-          <br></br><br></br>
-          <div id='pgother'>
-           <h5 style={{color:"green"}}>Other Facilities</h5>
-           <div class="table-responsive">
-             <table class="table table-bordered table-hover">
-               <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Details</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {
-                    this.state.show.pg.other.map(r=>{
-                       return <tr>
-                          <td>{r.name}</td>
-                          <td>{r.desc}</td>
-                        </tr>
-                    })
-                  }
-               </tbody>
-            </table>
             </div>
-           </div>
-        </div>
+          </div>
 
-        </div>
+
+            <br></br><br></br><br></br><br></br>
+            <div id='pg' style={{backgroundColor:'beige',border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
+            <center><button class='btn btn-success'>PG</button></center>
+              <br></br>
+              <div id='pgtype'>
+                <h5 style={{color:"green"}}>Available admissions</h5>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                       <tr>
+                         <th>Course Name</th>
+                         <th>Details</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       {
+                         this.state.show.pg.type.map(r=>{
+                            return <tr>
+                               <td>{r.name}</td>
+                               <td>{r.desc}</td>
+                             </tr>
+                         })
+                       }
+                    </tbody>
+                 </table>
+                 </div>
+              </div>
+              <br></br><br></br>
+              <div id='pgother'>
+               <h5 style={{color:"green"}}>Other Facilities</h5>
+               <div class="table-responsive">
+                 <table class="table table-bordered table-hover table-striped">
+                   <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Details</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                      {
+                        this.state.show.pg.other.map(r=>{
+                           return <tr>
+                              <td>{r.name}</td>
+                              <td>{r.desc}</td>
+                            </tr>
+                        })
+                      }
+                   </tbody>
+                </table>
+                </div>
+               </div>
+            </div>
+
+
+
+         </div>
+
+       </div>
+       </div>
+       </section>
+
+
+
+
+
+
+    </div>
 
 	</div>
 }

@@ -61,11 +61,16 @@ Maharashtra University of Health Sciences, Nashik came into existence by Maharas
 render(){
 	return <div id="mainBody">
 			 <Navbar />
-       <h2 style={{backgroundColor:"white",fontSize:"25pt",fontStyle:'bold',padding:"10px",marginTop:"0%"}}>University</h2>
+       <section id="departments" class="departments">
+         <div class="container">
 
+           <div class="section-title">
+             <h2>University</h2>
+             <p>Get all the information of our University here</p>
+           </div>
        <br></br>
   <div class="table-responsive" style={{marginTop:'-10px'}}>
-    <table class="table table-bordered table-hover" >
+    <table class="table table-bordered table-hover table-striped" >
       <tbody>
       {
          this.state.details.map((res,ind)=>{
@@ -78,6 +83,8 @@ render(){
         </tbody>
       </table>
     </div>
+   </div>
+  </section>
 
 	</div>
 }

@@ -7,6 +7,7 @@ import Result from './components/result';
 import University from './components/university';
 import Admission from './components/admission';
 import Gallery from './components/gallery';
+import About from './components/about';
 
 import {BrowserRouter,Switch,Route,Link} from 'react-router-dom';
 
@@ -14,6 +15,8 @@ ReactDom.render(
 <BrowserRouter>
   <Switch>
     <Route exact path='/' component={Home} />
+    <Route exact path='/about' component={About} />
+
     <Route  path='/academicActivities' component={AcademicActivities} />
     <Route  path='/result' component={Result} />
     <Route  path='/university' component={University} />

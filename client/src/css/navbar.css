@@ -267,11 +267,3 @@ th{
 	background-color:black;
 	color:white;
 }
-
-td:hover{
-	background-color:white;
-}
-
-td{
-	background-color:cyan;
-}

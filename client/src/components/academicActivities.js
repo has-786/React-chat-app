@@ -1,6 +1,9 @@
 import Navbar from './navbar';
 import React from 'react';
 import url from './url';
+import '../css/home.css';
+import {Link} from 'react-router-dom';
+
 
 export default class AcademicActivities extends React.Component
 {
@@ -184,7 +187,7 @@ export default class AcademicActivities extends React.Component
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='none';
 
-       this.closeNav();
+    //   this.closeNav();
      }
 
      deptOneClick(ind){
@@ -192,7 +195,7 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='block';
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='none';
-       this.closeNav();
+    //   this.closeNav();
      }
 
      guestClick(){
@@ -200,7 +203,7 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='block';
        document.getElementById('other').style.display='none';
-       this.closeNav();
+    //   this.closeNav();
      }
 
      guestOneClick(ind){
@@ -208,7 +211,7 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='block';
        document.getElementById('other').style.display='none';
-       this.closeNav();
+    //   this.closeNav();
      }
 
      otherClick(){
@@ -216,7 +219,7 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='block';
-       this.closeNav();
+      // this.closeNav();
      }
 
 
@@ -225,146 +228,166 @@ export default class AcademicActivities extends React.Component
         document.getElementById('dept').style.display='block';
         document.getElementById('guest').style.display='block';
         document.getElementById('other').style.display='block';
-        this.closeNav();
+    //    this.closeNav();
       }
 render(){
 	return <div id="mainBody">
 			 <Navbar />
+       <section id="departments" class="departments">
+         <div class="container">
 
-           <div id="main">
-             <span style={{fontSize:'30px',cursor:'pointer',float:'left'}} onClick={this.openNav.bind(this)}>&#9776; Academic Activities</span>
+           <div class="section-title">
+             <h2>Academic Activities</h2>
+             <p>Academic activities in the Sassoon Hospital and College</p>
            </div>
+        <div class='row'>
+          <div class='col-lg-2'>
+          <ul class='nav nav-tabs flex-column'>
+            <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.allClick.bind(this)}>All</Link></li>
+            <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.deptClick.bind(this)}>By Departments</Link></li>
+            <li class='nav-item'>
+              <Link href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-links">
+              <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo1" class="collapse" >
+               {
+                  this.state.deptsData.map((res,ind)=>{
+                   return  <li class='nav-item'><Link href='#' class='nav-link' onClick={this.deptOneClick.bind(this,ind)} >{res.name}</Link></li>
+                 })
+               }
+               </ul>
+               </Link>
+             </li>
 
-           <div id="mySidenav" class="sidenav" >
-            <a href="javascript:void(0)" class="closebtn" onClick={this.closeNav}>&times;</a>
-            <a  href="#" onClick={this.allClick.bind(this)}>All</a>
-            <a  href="#" onClick={this.deptClick.bind(this)}>By Departments</a>
-            <a href="#demo1" data-toggle="collapse" class="dropdown-toggle">
-            <ul class="dropdown-menu"  id="demo1" class="collapse" >
-             {
-                this.state.deptsData.map((res,ind)=>{
-                 return  <li><a href='#' onClick={this.deptOneClick.bind(this,ind)} >{res.name}</a></li>
-               })
-             }
-
-             </ul>
-           </a>
-               <a  href='#' onClick={this.guestClick.bind(this)}>By Guests</a>
-
-               <a href="#demo2" data-toggle="collapse" class="dropdown-toggle">
-                 <ul class="dropdown-menu"  id="demo2" class="collapse" >
+             <li class='nav-item'><Link  href='#' class='nav-link' onClick={this.guestClick.bind(this)}>By Guests</Link></li>
+              <li class='nav-item'><Link href="#demo2"  data-toggle="collapse" class="dropdown-toggle nav-links">
+                 <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo2" class="collapse" >
                  {
                  this.state.guestsData.map((res,ind)=>{
-                     return <li><a href='#' onClick={this.guestOneClick.bind(this,ind)} >{res.name}</a></li>
+                     return <li class='nav-item'><Link href='#' class='nav-link' onClick={this.guestOneClick.bind(this,ind)} >{res.name}</Link></li>
                  })
                 }
                  </ul>
-               </a>
-               <a href="#" onClick={this.otherClick.bind(this)}>Other Activities</a>
+               </Link>
+               </li>
+               <li class='nav-item'><Link href="#" class='nav-link' onClick={this.otherClick.bind(this)}>Other Activities</Link></li>
+            </ul>
+          </div>
 
-         </div>
 
-         <br></br><br></br>
+          <div class='col-lg-10'>
 
-         <div id='dept'  style={{backgroundColor:'beige',border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
-         <center><button class='btn btn-primary'>By Departments</button></center>
-            <div>
-                { this.state.show.deptsData.map((res)=>{
-                 return <div>
-                 <h5 style={{color:'blue'}}>{res.name}</h5>
+          <div id='dept'  style={{backgroundColor:'beige',border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
+          <center><button class='btn btn-primary'>By Departments</button></center>
+             <div>
+                 { this.state.show.deptsData.map((res)=>{
+                  return <div>
+                  <h5 style={{color:'blue'}}>{res.name}</h5>
+                        <div class="table-responsive">
+                          <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                               <tr>
+                                 <th>Head</th>
+                                 <th>Subject</th>
+                                 <th>Venue</th>
+                                 <th>Date</th>
+                               </tr>
+                            </thead>
+                            <tbody>
+                               {
+                                 res.events.map(r=>{
+                                 return    <tr>
+                                       <td>{r.head}</td>
+                                       <td>{r.subject}</td>
+                                       <td>{r.venue}</td>
+                                       <td>{r.date}</td>
+                                     </tr>
+                                 })
+                               }
+                            </tbody>
+                         </table>
+                         </div>
+                        </div>
+                })
+              }
+              </div>
+            </div>
+
+            <br></br>
+
+            <div id='guest'  style={{backgroundColor:'beige',border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
+               <center><button class='btn btn-success'>By Guests</button></center>
+               <div>
+                     {
+                       this.state.show.guestsData.map((res)=>{
+                         return <div>
+                               <h5 style={{color:'green'}}>{res.name}</h5>
+                               <div class="table-responsive">
+                                 <table class="table table-bordered table-hover table-striped">
+                                   <thead>
+                                      <tr>
+                                        <th>Subject</th>
+                                        <th>Venue</th>
+                                        <th>Date</th>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                      {
+                                        res.events.map(r=>{
+                                           return <tr>
+                                              <td>{r.subject}</td>
+                                              <td>{r.venue}</td>
+                                              <td>{r.date}</td>
+                                            </tr>
+                                        })
+                                      }
+                                   </tbody>
+                                </table>
+                                </div>
+                               </div>
+                       })
+                     }
+                     </div>
+             </div>
+               <br></br>
+           <div id='other'  style={{backgroundColor:'beige',border:'2px solid red',borderRadius:'10px',padding:'5px'}}>
+           <center><button class='btn btn-danger'>Other Activities</button></center>
+
                        <div class="table-responsive">
-                         <table class="table table-bordered table-hover">
+                         <table class="table table-bordered table-hover table-striped">
                            <thead>
                               <tr>
-                                <th>Head</th>
                                 <th>Subject</th>
                                 <th>Venue</th>
                                 <th>Date</th>
                               </tr>
                            </thead>
                            <tbody>
-                              {
-                                res.events.map(r=>{
-                                return    <tr>
-                                      <td>{r.head}</td>
-                                      <td>{r.subject}</td>
-                                      <td>{r.venue}</td>
-                                      <td>{r.date}</td>
-                                    </tr>
-                                })
-                              }
-                           </tbody>
+                       {
+                         this.state.show.otherData.map((res)=>{
+                           return  <tr>
+                                    <td>{res.subject}</td>
+                                    <td>{res.venue}</td>
+                                    <td>{res.date}</td>
+                                 </tr>
+                           })
+                       }
+                         </tbody>
                         </table>
-                        </div>
                        </div>
-               })
-             }
-             </div>
-           </div>
+          </div>
 
-           <br></br>
 
-           <div id='guest'  style={{backgroundColor:'beige',border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
-              <center><button class='btn btn-success'>By Guests</button></center>
-              <div>
-                    {
-                      this.state.show.guestsData.map((res)=>{
-                        return <div>
-                              <h5 style={{color:'green'}}>{res.name}</h5>
-                              <div class="table-responsive">
-                                <table class="table table-bordered table-hover">
-                                  <thead>
-                                     <tr>
-                                       <th>Subject</th>
-                                       <th>Venue</th>
-                                       <th>Date</th>
-                                     </tr>
-                                  </thead>
-                                  <tbody>
-                                     {
-                                       res.events.map(r=>{
-                                          return <tr>
-                                             <td>{r.subject}</td>
-                                             <td>{r.venue}</td>
-                                             <td>{r.date}</td>
-                                           </tr>
-                                       })
-                                     }
-                                  </tbody>
-                               </table>
-                               </div>
-                              </div>
-                      })
-                    }
-                    </div>
-            </div>
-              <br></br>
-          <div id='other'  style={{backgroundColor:'beige',border:'2px solid red',borderRadius:'10px',padding:'5px'}}>
-          <center><button class='btn btn-danger'>Other Activities</button></center>
 
-                      <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
-                          <thead>
-                             <tr>
-                               <th>Subject</th>
-                               <th>Venue</th>
-                               <th>Date</th>
-                             </tr>
-                          </thead>
-                          <tbody>
-                      {
-                        this.state.show.otherData.map((res)=>{
-                          return  <tr>
-                                   <td>{res.subject}</td>
-                                   <td>{res.venue}</td>
-                                   <td>{res.date}</td>
-                                </tr>
-                          })
-                      }
-                        </tbody>
-                       </table>
-                      </div>
-         </div>
+
+          </div>
+
+        </div>
+
+        </div>
+        </section>
+
+
+
+
 
 	</div>
 }

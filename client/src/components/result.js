@@ -49,40 +49,45 @@ export default class Result extends React.Component
 
      linkOneClick(ind){
        this.setState({show:{type:this.state.arr[ind].type,link:this.state.arr[ind].link}});
-       this.closeNav();
+       //this.closeNav();
      }
 
 render(){
 	return <div id="mainBody">
 			 <Navbar />
-           <div id="main">
-             <span style={{fontSize:'30px',cursor:'pointer',float:'left'}} onClick={this.openNav.bind(this)}>&#9776; Result</span>
+
+       <section id="departments" class="departments">
+         <div class="container">
+
+           <div class="section-title">
+             <h2>Results</h2>
+             <p>Check out the results</p>
            </div>
 
-           <div id="mySidenav" class="sidenav" >
-            <a href="javascript:void(0)" class="closebtn" onClick={this.closeNav}>&times;</a>
-            <ul>
-             {
-                this.state.arr.map((res,ind)=>{
-                 return  <li><a href='#' onClick={this.linkOneClick.bind(this,ind)} >{res.type}</a></li>
-               })
-             }
-
-             </ul>
-         </div>
-
-         <br></br>
-           <div>
-             <section class='jumbotron'>
-                   <div class="container">
-                      <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                          <p class="lead mb-0" style={{fontSize:'30px',fontWeight:"bold"}}>Click on the link below to check your result</p><br></br><br></br>
-                          <center><a href={this.state.show.link} target="_blank" class='btn btn-primary'> Results of {this.state.show.type}</a></center>
-                      </div>
-                    </div>
-              </section>
+       <div class='row'>
+            <div class='col-lg-2'>
+              <ul class='nav nav-tabs flex-column'>
+               {
+                  this.state.arr.map((res,ind)=>{
+                   return  <li class='nav-item'><Link href='#' class='nav-link' onClick={this.linkOneClick.bind(this,ind)} >{res.type}</Link></li>
+                 })
+               }
+               </ul>
             </div>
 
+            <div class='col-lg-10'>
+               <section class='jumbotron'>
+                     <div class="container">
+                        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                            <p class="lead mb-0" style={{fontSize:'30px',fontWeight:"bold"}}>Click on the link below to check your result</p><br></br><br></br>
+                            <center><a href={this.state.show.link} target="_blank" class='btn btn-primary'> Results of {this.state.show.type}</a></center>
+                        </div>
+                      </div>
+                </section>
+              </div>
+          </div>
+        </div>
+      </section>
 	</div>
 }
 

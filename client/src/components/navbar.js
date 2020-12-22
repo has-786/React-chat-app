@@ -15,17 +15,7 @@ export default function Navbar(props)
   <input type="checkbox" id="drop" />
       <ul class="menu">
           <li><Link to="/">Home</Link></li>
-          <li>
-              <label for="drop-1" class="toggle">About Us +</label>
-              <Link to="#">About us</Link>
-              <input type="checkbox" id="drop-1"/>
-              <ul>
-                  <li><Link to="#">History</Link></li>
-                  <li><Link to="#">Past Deans</Link></li>
-                  <li><Link to="#">Organogram</Link></li>
-                  <li><Link to="#">Committees</Link></li>
-              </ul>
-          </li>
+          <li><Link to="/about">About</Link></li>
           <li><Link to="#">Hospital</Link></li>
           <li><Link to="#">Departments</Link></li>
           <li>
