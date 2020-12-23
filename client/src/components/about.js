@@ -251,8 +251,9 @@ import Navbar from './navbar';
 
           <div class="tab-pane" id="tab-4">
             <div class="row">
-              <div class="col-lg-8 details order-2 order-lg-1">
+              <div class="col-lg-12 details order-2 order-lg-1">
                 <h3>Committees</h3>
+                <iframe src="./COMMITTEES.pdf" height="1000" width="100%"></iframe>
 
             </div>
           </div>

@@ -21,8 +21,8 @@ export default function Navbar(props)
       <ul class="menu">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
-          <li><Link to="#">Hospital</Link></li>
-          <li><Link to="#">Departments</Link></li>
+          <li><Link to="/hospital">Hospital</Link></li>
+          <li><Link to="/department">Departments</Link></li>
           <li>
           <label for="drop-2" class="toggle">Academics +</label>
           <Link to="#">Academics</Link>
@@ -34,15 +34,7 @@ export default function Navbar(props)
               <li><Link to="/academicActivities">Academic Activities</Link></li>
           </ul>
           </li>
-          <li>
-          <label for="drop-3" class="toggle">Research & Resources +</label>
-          <Link to="#">Research & Resources</Link>
-          <input type="checkbox" id="drop-3"/>
-          <ul>
-              <li><Link to="#">Recognition</Link></li>
-              <li><Link to="#">Awards & Achievements</Link></li>
-          </ul>
-          </li>
+          <li><Link to="/research">Research & Resources</Link></li>
           <li>
           <label for="drop-4" class="toggle">Achievements +</label>
           <Link to="#">Achievements</Link>
@@ -60,14 +52,13 @@ export default function Navbar(props)
           <Link href="#">Staffs</Link>
           <input type="checkbox" id="drop-5"/>
           <ul>
-              <li><Link to="#">Dean</Link></li>
-              <li><Link to="#">Superintendent</Link></li>
-              <li><Link to="#">Teaching Staff</Link></li>
-              <li><Link to="#">Non-Teaching Staff</Link></li>
+              <li><Link to="/cdean">Dean</Link></li>
+              <li><Link to="/superintendent">Superintendent</Link></li>
+              <li><Link to="/teaching_staff">Teaching Staff</Link></li>
+              <li><Link to="/nonTeaching_staff">Non-Teaching Staff</Link></li>
           </ul>
           </li>
           <li><Link to="/gallery">Gallery</Link></li>
-          <li><Link to="#">Contact</Link></li>
           <li><Link to="#">Archives</Link></li>
       </ul>
   </nav>

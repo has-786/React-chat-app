@@ -1,3 +1,70 @@
+
+.faculty-about span {
+    text-align: justify;
+    width: 50%;
+}
+
+.faculty-details p {
+    text-align: justify;
+    margin: auto;
+    width: 70%;
+}
+
+@media screen and (max-width: 1224px) {
+    .faculty-about span {
+        text-align: justify;
+        width: 100%;
+    }
+    
+    .faculty-details p {
+        text-align: justify;
+        margin: auto;
+        width: 100%;
+    }
+}
+
+.team-section{
+    overflow: hidden;
+    text-align: center;
+    background:#93a9c0;
+    padding: 30px;
+    color: black;
+}
+
+.team-section h1{
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    color: white;
+    font-size: 40px;
+}
+
+.border{
+    display: block;
+    margin: auto;
+    width: 160px;
+    height: 3px;
+    background: #3498db;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.ps a{
+    display: inline-block;
+    margin: 0 30px;
+    width: 160px;
+    height: 160px;
+    background: url('../components/superin.PNG') no-repeat center;
+    margin-bottom: 40px;
+}
+
+.section{
+    width: 600px;
+    margin: auto;
+    font-size: 20px;
+    color: white;
+    text-align: justify;
+}
+
 section {
     padding: 60px 0;
     overflow: hidden;
@@ -116,6 +183,8 @@ section {
       background: #1977cc;
     }
   }
+
+
   table {
     font-family: arial, sans-serif;
     border-collapse: collapse;

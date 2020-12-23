@@ -1,8 +1,7 @@
-const express=require('express');
+/*const express=require('express');
 const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
 const path=require('path');
-
 
 const db=require('./database/db.js');
 db.con(mongoose);
@@ -99,11 +98,29 @@ app.get('/api/gallery',(req,res)=>{
 					res.send({img:img1});
 			})
 
+});*/
+var bodyParser = require('body-parser');
+var mongoose=require('mongoose');
+var express=require('express');
+path=require('path');
+
+app=express();
+
+//app.use(express.static(path.join(__dirname, 'client','build')));
+
+app.get('*',(req,res)=>{
+	res.sendFile(path.join(__dirname,'client','build','index.html'));
 });
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
+/*
+require('./server/security/passport.js')(passport);
+require('./server/routes/mainRoutes.js')(app,passport,bcrypt,nodemailer,randomstring);
+*/
+var port=  process.env.PORT || 5000;
 
-const port=5000;
 app.listen(port,()=>{console.log('Server On');});
 
 

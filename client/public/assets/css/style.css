@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
 #imgBack{
   background-image: url("../img/dr1.jpg");
   background-color: #cccccc;
-  height: 400px;
+  height: 300px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

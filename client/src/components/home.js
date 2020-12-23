@@ -78,7 +78,7 @@ export default function Home(props)
                  <div class="col-xl-4 d-flex align-items-stretch">
                    <div class="icon-box mt-4 mt-xl-0">
                      <i class="fas fa-book-reader"></i>
-                     <h4><Link style={{color:'black'}} to='/researchActivities'>Research Activities</Link></h4>
+                     <h4><Link style={{color:'black'}} to='/research'>Research Activities</Link></h4>
                      <p>Check out the Research Activities done by us</p>
                    </div>
                  </div>
@@ -114,8 +114,8 @@ export default function Home(props)
               <div class='col-lg-6'>
                 <center>
                   <div>
-                    <p style={{ width:"60%",backgroundColor:'grey',color:'white'}}>UPCOMING NEWS & EVENTS</p>
-                    <marquee width="60%" direction="up" height="150px" style={{backgroundColor:'lightgrey',marginTop:'-10px'}}>
+                    <p style={{ width:"90%",backgroundColor:'grey',color:'white'}}>UPCOMING NEWS & EVENTS</p>
+                    <marquee width="90%" direction="up" height="150px" style={{backgroundColor:'lightgrey',marginTop:'-10px'}}>
                       <p>This is a sample scrolling text that has scrolls in the upper direction</p>
                       <p>This is a sample scrolling text that has scrolls in the upper direction</p>
                       <p>This is a sample scrolling text that has scrolls in the upper direction</p>

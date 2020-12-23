@@ -5,17 +5,17 @@ import Navbar from './navbar';
 
 export default function Gallery(props){
 
-let [imgs,setImgs]=useState([{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'},
-{name:'An Image of Hospital',link:'assets1/img/a.png'}]);
+let [imgs,setImgs]=useState([{name:'An Image of Hospital when the event of academics was held',link:'assets/img/a.png'},
+{name:'An Image of Hospital when the event of research was held and the chief guest is in the pic with the dean.An Image of Hospital when the event of research was held and the chief guest is in the pic with the dean',link:'assets/img/a.png'},
+{name:'An Image of Hospital',link:'assets/img/a.png'},
+{name:'An Image of Hospital',link:'assets/img/a.png'},
+{name:'An Image of Hospital',link:'assets/img/a.png'},
+{name:'An Image of Hospital',link:'assets/img/a.png'},
+{name:'An Image of Hospital',link:'assets/img/a.png'},
+{name:'An Image of Hospital',link:'assets/img/a.png'},
+{name:'An Image of Hospital',link:'assets/img/a.png'},
+{name:'An Image of Hospital',link:'assets/img/a.png'},
+{name:'An Image of Hospital',link:'assets/img/a.png'}]);
 
 /*fetch(url+'/api/gallery',{ method:'GET'})
      .then(response=>{ return response.json()})
@@ -30,19 +30,20 @@ let [imgs,setImgs]=useState([{name:'An Image of Hospital',link:'assets1/img/a.pn
 return  <div id="mainBody">
   <Navbar/>
 
-         <section id="departments" class="departments">
+         <section id="departments" class="departments" >
            <div class="container">
-             <div class="section-title">
+             <div class="section-title" >
                <h2>Gallery</h2>
                <p>Check out our beautiful gallery</p>
              </div>
-<div class='row'>
+            <div class='row' style={{backgroundColor:'#f1f7fd'}}>
           {imgs.map(img=>{
-            return <div class='col-lg-4' style={{padding:'20px',marginBottom:'20px'}}>
-                      <div style={{border:'2px solid purple',borderRadius:'10px',backgroundColor:'beige'}}>
-                        <div><img src={img.link} class='img img-rounded' height="400px" width="100%" /></div>
-                        <br></br>
-                        <div><b>{img.name}</b></div>
+            return <div class='col-lg-6' style={{padding:'20px',marginBottom:'20px'}}>
+                      <div class='class="icon-box mt-4 mt-xl-0"' style={{border:'2px solid purple',borderRadius:'10px',backgroundColor:'beige'}}>
+                       <div><img src={img.link} class='img img-rounded' height="400px" width="100%" /></div>
+                       <br></br>
+                      <div><p style={{padding:'10px',fontWeight:'bold'}}>{img.name}</p></div>
+
                       </div>
                    </div>
               })
