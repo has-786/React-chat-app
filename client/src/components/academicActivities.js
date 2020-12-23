@@ -242,11 +242,11 @@ render(){
            </div>
         <div class='row'>
           <div class='col-lg-2'>
-          <ul class='nav nav-tabs flex-column'>
+          <ul class='nav nav-tabs flex-column' >
             <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.allClick.bind(this)}>All</Link></li>
             <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.deptClick.bind(this)}>By Departments</Link></li>
             <li class='nav-item'>
-              <Link href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-links">
+              <a href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-links">
               <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo1" class="collapse" >
                {
                   this.state.deptsData.map((res,ind)=>{
@@ -254,11 +254,11 @@ render(){
                  })
                }
                </ul>
-               </Link>
+               </a>
              </li>
 
              <li class='nav-item'><Link  href='#' class='nav-link' onClick={this.guestClick.bind(this)}>By Guests</Link></li>
-              <li class='nav-item'><Link href="#demo2"  data-toggle="collapse" class="dropdown-toggle nav-links">
+              <li class='nav-item'><a href="#demo2"  data-toggle="collapse" class="dropdown-toggle nav-links">
                  <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo2" class="collapse" >
                  {
                  this.state.guestsData.map((res,ind)=>{
@@ -266,7 +266,7 @@ render(){
                  })
                 }
                  </ul>
-               </Link>
+               </a>
                </li>
                <li class='nav-item'><Link href="#" class='nav-link' onClick={this.otherClick.bind(this)}>Other Activities</Link></li>
             </ul>
@@ -275,7 +275,7 @@ render(){
 
           <div class='col-lg-10'>
 
-          <div id='dept'  style={{backgroundColor:'beige',border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
+          <div id='dept'  style={{border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
           <center><button class='btn btn-primary'>By Departments</button></center>
              <div>
                  { this.state.show.deptsData.map((res)=>{
@@ -313,7 +313,7 @@ render(){
 
             <br></br>
 
-            <div id='guest'  style={{backgroundColor:'beige',border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
+            <div id='guest'  style={{border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
                <center><button class='btn btn-success'>By Guests</button></center>
                <div>
                      {
@@ -348,7 +348,7 @@ render(){
                      </div>
              </div>
                <br></br>
-           <div id='other'  style={{backgroundColor:'beige',border:'2px solid red',borderRadius:'10px',padding:'5px'}}>
+           <div id='other'  style={{border:'2px solid red',borderRadius:'10px',padding:'5px'}}>
            <center><button class='btn btn-danger'>Other Activities</button></center>
 
                        <div class="table-responsive">

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 export default function Navbar(props)
 {
-  return  <div>
+  return  <div id='mainI'>
             <div id="imgBack">
               <center><img src="./assets/img/gallery/slogo.png"/></center>
               <div id="imgDiv">

@@ -51,7 +51,7 @@ p {
 nav {
 	margin:0;
 	padding: 0;
-	background-color: #254441;
+	background-color: #000034;
 }
 
 #logo {
@@ -86,7 +86,7 @@ nav ul {
 nav ul li {
 	display:inline-block;
 	float: left;
-	background-color: #254441;
+	background-color: #000034;
 	}
 
 /* Styling the as */
@@ -167,13 +167,13 @@ li > a:only-child:after { content: ''; }
 	.toggle + a,
 	.menu {
 		display: none;
-	}
+		}
 
 	/* Stylinf the toggle lable */
 	.toggle {
 		display: block;
     padding:14px 20px;
-		background-color: #254441;
+		background-color:#000034;
 		color:#FFF;
 		font-size:17px;
 		text-decoration:none;
@@ -264,6 +264,6 @@ li > a:only-child:after { content: ''; }
 a{text-decoration:none;}
 a:hover{text-decoration:None;}
 th{
-	background-color:black;
+	background-color:#254441;
 	color:white;
 }

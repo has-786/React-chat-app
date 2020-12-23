@@ -29,6 +29,13 @@ let [imgs,setImgs]=useState([{name:'An Image of Hospital',link:'assets1/img/a.pn
 
 return  <div id="mainBody">
   <Navbar/>
+
+         <section id="departments" class="departments">
+           <div class="container">
+             <div class="section-title">
+               <h2>Gallery</h2>
+               <p>Check out our beautiful gallery</p>
+             </div>
 <div class='row'>
           {imgs.map(img=>{
             return <div class='col-lg-4' style={{padding:'20px',marginBottom:'20px'}}>
@@ -41,6 +48,7 @@ return  <div id="mainBody">
               })
           }
         </div>
-
+      </div>
+    </section>
 </div>
 }

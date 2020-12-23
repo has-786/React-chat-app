@@ -154,7 +154,7 @@ render(){
            <li class='nav-item'><Link class="nav-link"  href="#" onClick={this.allClick.bind(this)}>All</Link></li>
            <li class="nav-item"><Link class="nav-link" href="#" onClick={this.ugClick.bind(this)}>UG</Link></li>
            <li class="nav-item">
-             <Link href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-link">
+             <a href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-link">
                <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo1" class="collapse" >
                 {
                   this.state.ug.type.map((res,ind)=>{
@@ -162,7 +162,7 @@ render(){
                   })
                 }
                 </ul>
-             </Link>
+             </a>
             </li>
             <li>
               <ul>
@@ -190,7 +190,7 @@ render(){
          </div>
 
          <div class='col-lg-10'>
-           <div id='ug'  style={{backgroundColor:'beige',border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
+           <div id='ug'  style={{border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
            <center><button class='btn btn-primary'>UG</button></center>
              <br></br>
              <div id='ugtype'>
@@ -244,7 +244,7 @@ render(){
 
 
             <br></br><br></br><br></br><br></br>
-            <div id='pg' style={{backgroundColor:'beige',border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
+            <div id='pg' style={{border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
             <center><button class='btn btn-success'>PG</button></center>
               <br></br>
               <div id='pgtype'>
