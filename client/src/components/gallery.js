@@ -5,8 +5,8 @@ import Navbar from './navbar';
 
 export default function Gallery(props){
 
-let [imgs,setImgs]=useState([{name:'An Image of Hospital when the event of academics was held',link:'assets/img/a.png'},
-{name:'An Image of Hospital when the event of research was held and the chief guest is in the pic with the dean.An Image of Hospital when the event of research was held and the chief guest is in the pic with the dean',link:'assets/img/a.png'},
+let [imgs,setImgs]=useState([{name:'An Image of Hospital when the event of academics was held',link:'assets/img/gallery/gallery-7.jpg'},
+{name:'An Image of Hospital when the event of research was held and the chief guest is in the pic with the dean.An Image of Hospital when the event of research was held and the chief guest is in the pic with the dean',link:'assets/img/gallery/dr.jpg'},
 {name:'An Image of Hospital',link:'assets/img/a.png'},
 {name:'An Image of Hospital',link:'assets/img/a.png'},
 {name:'An Image of Hospital',link:'assets/img/a.png'},

@@ -15,7 +15,7 @@
         text-align: justify;
         width: 100%;
     }
-    
+
     .faculty-details p {
         text-align: justify;
         margin: auto;
@@ -53,7 +53,7 @@
     margin: 0 30px;
     width: 160px;
     height: 160px;
-    background: url('../components/superin.PNG') no-repeat center;
+    background: url('../superin.PNG') no-repeat center;
     margin-bottom: 40px;
 }
 
@@ -69,16 +69,16 @@ section {
     padding: 60px 0;
     overflow: hidden;
   }
-  
+
   .section-bg {
     background-color: #f1f7fd;
   }
-  
+
   .section-title {
     text-align: center;
     padding-bottom: 30px;
   }
-  
+
   .section-title h2 {
     font-size: 32px;
     font-weight: bold;
@@ -87,7 +87,7 @@ section {
     position: relative;
     color: #2c4964;
   }
-  
+
   .section-title h2::before {
     content: '';
     position: absolute;
@@ -98,7 +98,7 @@ section {
     bottom: 1px;
     left: calc(50% - 60px);
   }
-  
+
   .section-title h2::after {
     content: '';
     position: absolute;
@@ -109,7 +109,7 @@ section {
     bottom: 0;
     left: calc(50% - 20px);
   }
-  
+
   .section-title p {
     margin-bottom: 0;
   }
@@ -117,11 +117,11 @@ section {
 .departments {
     overflow: hidden;
   }
-  
+
   .departments .nav-tabs {
     border: 0;
   }
-  
+
   .departments .nav-link {
     /*width: 350px;*/
     border: 0;
@@ -137,24 +137,24 @@ section {
     font-weight: 600;
     font-size: 15px;
   }
-  
+
   .departments .nav-link:hover {
     color: #1977cc;
   }
-  
+
   .departments .nav-link.active {
     color: #1977cc;
     border-color: #1977cc;
   }
-  
+
   .departments .tab-pane.active {
     -webkit-animation: fadeIn 0.5s ease-out;
     animation: fadeIn 0.5s ease-out;
     background-color: #fff;
     color: #2c4964;
-    
+
   }
-  
+
   .departments .details h3 {
     font-size: 26px;
     font-weight: 600;
@@ -162,17 +162,17 @@ section {
     color: #2c4964;
     background-color: #fff;
   }
-  
+
   .departments .details p {
     color: #7e6565;
     background-color: #fff;
   }
-  
+
   .departments .details p:last-child {
     margin-bottom: 0;
     background-color: #fff;
   }
-  
+
   @media (max-width: 992px) {
     .departments .nav-link {
       border: 0;
@@ -190,7 +190,7 @@ section {
     border-collapse: collapse;
     width: 100%;
   }
-  
+
 th {
     border: 1px solid #dddddd;
     text-align: left;
@@ -202,7 +202,7 @@ th {
     text-align: left;
     padding: 8px;
   }
-  
+
   tr:nth-child(even) {
     background-color: #dddddd;
   }
