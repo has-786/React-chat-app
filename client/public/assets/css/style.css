@@ -1774,3 +1774,12 @@ section {
   color: #fff;
   text-decoration: none;
 }
+
+
+#marqueeTag{
+      background-color:#cccccc;
+      opacity:0.7
+      color:black;
+      padding: 2px;
+      font-weight: bold;
+  }

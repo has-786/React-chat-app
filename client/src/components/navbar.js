@@ -5,12 +5,17 @@ export default function Navbar(props)
 {
   return  <div id='mainI'>
             <div id="imgBack">
-              <center><img src="./assets/img/gallery/slogo.png"/></center>
-              <div id="imgDiv">
-                <h2>BYRAMJEE JEEJEEBHOY GOVERNMENT MEDICAL COLLEGE AND SASSOON GENERAL HOSPITALS, PUNE</h2>
-              </div>
+                <center><img src="./assets/img/gallery/slogo.png"/></center>
+                <div id="imgDiv">
+                  <h2>BYRAMJEE JEEJEEBHOY GOVERNMENT MEDICAL COLLEGE AND SASSOON GENERAL HOSPITALS, PUNE</h2>
+                </div>
+
+            </div>
+            <div id="marqueeTag">
+              <marquee>“It is health that is the real wealth, and not pieces of gold and silver.” – Mahatma Gandhi</marquee>
             </div>
    <nav>
+
   <label for="drop" class="toggle" style={{marginTop:'0px'}}>Menu</label>
   <input type="checkbox" id="drop" />
       <ul class="menu">
