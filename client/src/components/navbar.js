@@ -59,7 +59,7 @@ export default function Navbar(props)
           </ul>
           </li>
           <li><Link to="/gallery">Gallery</Link></li>
-          <li><Link to="#">Archives</Link></li>
+          <li><Link to="/archives">Archives</Link></li>
       </ul>
   </nav>
 </div>

@@ -14,6 +14,7 @@ import superintendent from './components/superintendent';
 import teaching_staff from './components/teaching_staff';
 import nonTeaching_staff from './components/nonTeaching_staff';
 import Department from './components/Department';
+import Archives from './components/archives';
 
 import {BrowserRouter,Switch,Route,Link} from 'react-router-dom';
 
@@ -34,6 +35,7 @@ ReactDom.render(
     <Route  path='/teaching_staff' component={teaching_staff} />
     <Route  path='/nonTeaching_staff' component={nonTeaching_staff} />
     <Route  path='/department' component={Department} />
+    <Route  path='/archives' component={Archives} />
 
 
   </Switch>

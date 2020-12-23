@@ -9,7 +9,7 @@ export default class Department extends React.Component {
     this.setState({link:value});
        };
   render(){
-  return (<><Navbar/>
+  return (<div id="mainBody"><Navbar/>
         <section id="departments" class="departments">
           <div class="container">
 
@@ -209,7 +209,7 @@ export default class Department extends React.Component {
         </div>
         </div>
         </div>
-        </section></>)
+        </section></div>)
 
   }
 

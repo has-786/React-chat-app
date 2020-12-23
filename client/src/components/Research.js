@@ -2,7 +2,7 @@ import react from 'react';
 import Navbar from './navbar';
 import '../css/Research.css';
 function Research() {
-  return(<div>
+  return(<div id="mainBody">
     <Navbar />
 
   <div>
