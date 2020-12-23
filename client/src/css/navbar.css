@@ -51,7 +51,7 @@ p {
 nav {
 	margin:0;
 	padding: 0;
-	background-color: #000034;
+	background-color: #2c4964;
 }
 
 #logo {
@@ -86,7 +86,7 @@ nav ul {
 nav ul li {
 	display:inline-block;
 	float: left;
-	background-color: #000034;
+	background-color: #2c4964;
 	}
 
 /* Styling the as */
@@ -173,7 +173,7 @@ li > a:only-child:after { content: ''; }
 	.toggle {
 		display: block;
     padding:14px 20px;
-		background-color:#000034;
+		background-color:#2c4964;
 		color:#FFF;
 		font-size:17px;
 		text-decoration:none;

@@ -2,6 +2,7 @@ import Navbar from './navbar';
 import React from 'react';
 import url from './url';
 import '../css/home.css';
+import '../css/teaching_staff.css';
 import {Link} from 'react-router-dom';
 
 
@@ -13,18 +14,18 @@ export default class AcademicActivities extends React.Component
 
                   deptsData:[
                               {
-                                name:'CSE',
+                                name:'Microbiology',
                                 events:[
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
+                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
+                                    {head:'Mr. Nitin',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
+                                    {head:'Mr. Gole',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
+                                    {head:'Mr. Avishek',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
+                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
+                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
+                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
+                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
+                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
+                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'}
                                   ]
@@ -246,7 +247,7 @@ render(){
             <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.allClick.bind(this)}>All</Link></li>
             <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.deptClick.bind(this)}>By Departments</Link></li>
             <li class='nav-item'>
-              <a href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-links">
+              <a href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-link">
               <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo1" class="collapse" >
                {
                   this.state.deptsData.map((res,ind)=>{
@@ -258,7 +259,7 @@ render(){
              </li>
 
              <li class='nav-item'><Link  href='#' class='nav-link' onClick={this.guestClick.bind(this)}>By Guests</Link></li>
-              <li class='nav-item'><a href="#demo2"  data-toggle="collapse" class="dropdown-toggle nav-links">
+              <li class='nav-item'><a href="#demo2"  data-toggle="collapse" class="dropdown-toggle nav-link">
                  <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo2" class="collapse" >
                  {
                  this.state.guestsData.map((res,ind)=>{

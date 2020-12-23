@@ -2,6 +2,8 @@ import Navbar from './navbar';
 import React from 'react';
 import url from './url';
 import '../css/home.css';
+import '../css/teaching_staff.css';
+
 import {Link} from 'react-router-dom';
 
 export default class Admission extends React.Component
@@ -9,8 +11,29 @@ export default class Admission extends React.Component
     constructor(props){
       super(props);
       this.state={ user:"",
-                ug:{type:[{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},
-                          {name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'}]
+                ug:{
+                  type:[{name:'MBBS',
+                  desc:'There are 200 admissions to MBBS course every year in the college. The admissions are on the basis of merit of All India NEET with constitutional reservations, done by the centralised process by Govt. of Maharashtra. The breakup of seats is 15% by DGHS GOI, of the remaining seats, 30% for State Level and 70% for Development board area (Rest of Maharashtra).There are about 1000 medical students studying in B. J. Govt. Medical College.'
+
+                          },
+                              {name:'Internship',
+                              desc:'There are 200 admissions to MBBS course every year in the college. The admissions are on the basis of merit of All India NEET with constitutional reservations, done by the centralised process by Govt. of Maharashtra. The breakup of seats is 15% by DGHS GOI, of the remaining seats, 30% for State Level and 70% for Development board area (Rest of Maharashtra).There are about 1000 medical students studying in B. J. Govt. Medical College.'
+
+                            },
+                                    {name:'MBBS',
+                                    desc:'There are 200 admissions to MBBS course every year in the college. The admissions are on the basis of merit of All India NEET with constitutional reservations, done by the centralised process by Govt. of Maharashtra. The breakup of seats is 15% by DGHS GOI, of the remaining seats, 30% for State Level and 70% for Development board area (Rest of Maharashtra).There are about 1000 medical students studying in B. J. Govt. Medical College.'
+                                  },
+                          {name:'MBBS',
+                          desc:'There are 200 admissions to MBBS course every year in the college. The admissions are on the basis of merit of All India NEET with constitutional reservations, done by the centralised process by Govt. of Maharashtra. The breakup of seats is 15% by DGHS GOI, of the remaining seats, 30% for State Level and 70% for Development board area (Rest of Maharashtra).There are about 1000 medical students studying in B. J. Govt. Medical College.'
+                        },
+                                {name:'MBBS',
+                                desc:'There are 200 admissions to MBBS course every year in the college. The admissions are on the basis of merit of All India NEET with constitutional reservations, done by the centralised process by Govt. of Maharashtra. The breakup of seats is 15% by DGHS GOI, of the remaining seats, 30% for State Level and 70% for Development board area (Rest of Maharashtra).There are about 1000 medical students studying in B. J. Govt. Medical College.'
+
+                            },
+                                      {name:'MBBS',
+                                      desc:'There are 200 admissions to MBBS course every year in the college. The admissions are on the basis of merit of All India NEET with constitutional reservations, done by the centralised process by Govt. of Maharashtra. The breakup of seats is 15% by DGHS GOI, of the remaining seats, 30% for State Level and 70% for Development board area (Rest of Maharashtra).There are about 1000 medical students studying in B. J. Govt. Medical College.'
+
+                                          }]
                   ,other:[{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},
                             {name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'}]
                   },
@@ -163,9 +186,9 @@ render(){
                 }
                 </ul>
              </a>
-            </li>
-            <li>
-              <ul>
+            </li >
+            <li class="nav-item">
+              <ul class='nav nav-tabs flex-column'>
               <li class="nav-item"><Link href="#" class="nav-link" onClick={this.ugotherClick.bind(this)}>Other Facilities</Link></li>
               </ul>
             </li>
@@ -181,8 +204,8 @@ render(){
                        </ul>
                      </a>
                      </li>
-                     <li>
-                    <ul>
+                     <li  class="nav-item">
+                    <ul class='nav nav-tabs flex-column'>
                      <li  class="nav-item"><Link href="#" class="nav-link" onClick={this.pgotherClick.bind(this)}>Other Facilities</Link></li>
                     </ul>
                     </li>
