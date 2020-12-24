@@ -9,6 +9,7 @@ import Admission from './components/admission';
 import Gallery from './components/gallery';
 import About from './components/about';
 import Research from './components/Research';
+import Hospital from './components/hospital';
 import cDean from './components/cDean';
 import superintendent from './components/superintendent';
 import teaching_staff from './components/teaching_staff';
@@ -23,7 +24,7 @@ ReactDom.render(
   <Switch>
     <Route exact path='/' component={Home} />
     <Route exact path='/about' component={About} />
-
+    <Route  path='/hospital' component={Hospital} />
     <Route  path='/academicActivities' component={AcademicActivities} />
     <Route  path='/result' component={Result} />
     <Route  path='/university' component={University} />

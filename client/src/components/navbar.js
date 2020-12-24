@@ -4,6 +4,24 @@ import {Link} from 'react-router-dom';
 export default function Navbar(props)
 {
   return  <div id='mainI'>
+
+  <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
+<div class="container d-flex">
+<div class="contact-info mr-auto">
+<i class="icofont-envelope"></i> <a href="#">deanbjmcpune@gmail.com</a>
+<i class="icofont-phone"></i> +91 20 26128000
+<i class="icofont-google-map"></i> Jai Prakash Narayan Road, Near Pune Railway Station, Pune - 411001
+</div>
+<div class="social-links">
+<a href="#" class="twitter"><i class="icofont-twitter"></i></a>
+<a href="#" class="facebook"><i class="icofont-facebook"></i></a>
+<a href="#" class="instagram"><i class="icofont-instagram"></i></a>
+<a href="#" class="skype"><i class="icofont-skype"></i></a>
+<a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
+</div>
+</div>
+</div>
+
             <div id="imgBack">
                 <center><img src="./assets/img/gallery/slogo.png"/></center>
                 <div id="imgDiv">
@@ -40,11 +58,8 @@ export default function Navbar(props)
           <Link to="#">Achievements</Link>
           <input type="checkbox" id="drop-4"/>
           <ul>
-              <li><Link to="#">Journals</Link></li>
-              <li><Link to="#">Useful Links</Link></li>
-              <li><Link to="#">Educational Videos</Link></li>
-              <li><Link to="#">Research Society</Link></li>
-              <li><Link to="#">Research Publication</Link></li>
+              <li><Link to="#">Recognition</Link></li>
+              <li><Link to="#">Awards & Achievements</Link></li>
           </ul>
           </li>
           <li>
