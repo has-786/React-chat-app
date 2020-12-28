@@ -94,33 +94,44 @@ export default function Home(props)
           <div class="container">
             <div class="row">
               <div class='col-lg-6' style={{marginBottom:'40px'}}>
-                  <button  class='btn btn-success dropdown-toggle' data-toggle="collapse" data-target="#demo1"  style={{width:'100%'}}>Useful Links</button>
-                  <div id="demo1" class="collapse" >
-                  <div id='links'>
-                      <p ><a class='usefulLinks'  href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-                      <p><a class='usefulLinks'   href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new">Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a></p><br></br>
-                      <p><a  class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p><br></br>
-                      <p><a class='usefulLinks'   href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
-                      <p><a class='usefulLinks'   href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-                      <p><a class='usefulLinks'  href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
+              <p style={{ width:"100%",backgroundColor:'#2c4964',color:'white'}}>USEFUL LINKS</p>
+
+{/*}                  <button  class='btn btn-success dropdown-toggle' data-toggle="collapse" data-target="#demo1"  style={{width:'100%'}}>Useful Links</button>
+                  <div id="demo1" class="collapse" >*/}
+                  <div id='links' style={{backgroundColor:'#eee'}}>
+                      <p ><a class='usefulLinks' href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
                       <p><a class='usefulLinks'  href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new">Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a></p><br></br>
-                      <p><a class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p>
-                      <p><a class='usefulLinks'  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
-                      <p><a class='usefulLinks'  href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-                  </div>
+                      <p><a class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p><br></br>
+                      <span id='more'>
+                        <p><a class='usefulLinks'  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
+                        <p><a class='usefulLinks'  href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
+                        <p><a class='usefulLinks'  href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
+                        <p><a class='usefulLinks'  href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new">Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a></p><br></br>
+                        <p><a class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p>
+                        <p><a class='usefulLinks'  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
+                        <p><a class='usefulLinks'  href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
+                      </span>
+                      <center><button class='btn btn-sm btn-secondary' onClick={()=>myFunction()} id="myBtn" style={{marginRight:'5px'}}>Read More</button></center>
+
+                {/*  </div>*/}
                   </div>
               </div>
 
               <div class='col-lg-6'>
                 <center>
                   <div>
-                    <p style={{ width:"90%",backgroundColor:'grey',color:'white'}}>UPCOMING NEWS & EVENTS</p>
-                    <marquee width="90%" direction="up" height="150px" style={{backgroundColor:'lightgrey',marginTop:'-10px'}}>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p>
-                    </marquee>
+                    <p style={{ width:"90%",backgroundColor:'#2c4964',color:'white'}}>UPCOMING NEWS & EVENTS</p>
+                    <div style={{backgroundColor:'#eee',overflowY:'auto',height:'300px'}}>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                    </div>
                   </div>
                 </center>
               </div>
@@ -203,4 +214,17 @@ export default function Home(props)
     </div>
     </div>
   </div>);
+}
+
+function myFunction() {
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (btnText.innerHTML === "Read less") {
+    btnText.innerHTML = "Read more";
+    moreText.style.display = "none";
+  } else {
+    btnText.innerHTML = "Read less";
+    moreText.style.display = "inline";
+  }
 }
