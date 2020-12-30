@@ -3,13 +3,14 @@ import Navbar from './navbar'
 import '../css/Department_css.css'
 import {Level1_expansion,Level2_expansion} from './Department_javascript'
 import PdfView from "./pdfView";
+import Footer from './footer';
 export default class Department extends React.Component {
   state={link:""}
   handleClick=value=>()=>{
     this.setState({link:value});
        };
   render(){
-  return (<div id="mainBody"><Navbar/>
+  return (<div ><Navbar/>
         <section id="departments" class="departments">
           <div class="container">
 
@@ -209,7 +210,10 @@ export default class Department extends React.Component {
         </div>
         </div>
         </div>
-        </section></div>)
+        </section>
+
+        <Footer/>
+        </div>)
 
   }
 

@@ -1,10 +1,28 @@
-import React from 'react';
+
 import Navbar from './navbar'
 import '../css/teaching_staff.css'
+import Footer from './footer';
 
-const nonTeaching_staff = () => {
-    return(<div  id='mainBody'>
-      <>
+import React, { Component } from 'react'
+
+export class nonTeaching_staff extends React.Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       user:"",
+       show:{
+         office_superintendent:{type:[
+           {sr_no:'1',emp_no:'1',emp_name:'Narendra Kashinath Wagh',post_name:'Office Superintendent'},
+           {sr_no:'2',emp_no:'2',emp_name:'Mrunalini Sunil Baviskar',post_name:'Office Superintendent'}
+         ]}
+       }
+    }
+  }
+  
+  render() {
+    return (
+      <div>
         <Navbar/>
         <section id="departments" class="departments">
           <div class="container">
@@ -81,105 +99,36 @@ const nonTeaching_staff = () => {
               </div>
             
 
-          {/* <div class="col-lg-9 mt-4 mt-lg-0">
-            <div class="tab-content">
-
-
-              <div class="tab-pane active show" id="tab-1">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Office Superintendent</h3>
-                    <table>
-                                  <tbody>
-                                      <tr>
-                                        <th>Sr. No.</th>
-                                        <th>Employee No</th>
-                                        <th>Employee Name</th>
-                                        <th>Post Name</th>
-                                        
-                                      </tr>
-                                      <tr>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>Narendra Kashinath Wagh</td>
-                                        <td>Office Superintendent</td>
-                                
-                                      </tr>
-                                      <tr>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td>Mrunalini Sunil Baviskar</td>
-                                        <td>Office Superintendent</td>
-                                
-                                      </tr>
-                                      </tbody>
-                                    </table>
-                  </div>
-                </div>
-              </div>
-            
-
-              <div class="tab-pane" id="tab-2">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Physiology</h3>
-                  </div> 
-                </div>
-              </div>
-                  
-                
-              
-            <div class="tab-pane" id="tab-3">
-              <div class="row">
-                <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>Bio-Chemistry</h3>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="tab-pane" id="tab-4">
-              <div class="row">
-                <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>Pathology</h3>
-                </div>
-              </div>
-            </div>
-            
-            <div class="tab-pane" id="tab-5">
-              <div class="row">
-                <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>Orthopaedic</h3> 
-                </div>
-              </div>
-            </div>
-           */}
+          
            <div class="tab-pane" id="tab-2">
               <div class="row">
                 <div class="col-lg-12 details order-2 order-lg-1">
                   <h3>Office Superintendent</h3>
-                  <table id="deans">
-                                      <tr>
+                  <table>
+                  <thead>
+                              <tr>
                                         <th>Sr. No.</th>
                                         <th>Employee No</th>
                                         <th>Employee Name</th>
                                         <th>Post Name</th>
                                         
                                       </tr>
-                                      <tr>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>Narendra Kashinath Wagh</td>
-                                        <td>Office Superintendent</td>
-                                
+                              </thead>
+                    <tbody>
+                    {
+                                    this.state.show.office_superintendent.type.map(r=>{
+                                      return <tr>
+                                        <td>{r.sr_no}</td>
+                                        <td>{r.emp_no}</td>
+                                        <td>{r.emp_name}</td>
+                                        <td>{r.post_name}</td>
+                                       
                                       </tr>
-                                      <tr>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td>Mrunalini Sunil Baviskar</td>
-                                        <td>Office Superintendent</td>
-                                
-                                      </tr>
+                                    })
+                                  }
+                    </tbody>
+                                      
+                                      
                                     
                   </table>
               </div>
@@ -194,10 +143,11 @@ const nonTeaching_staff = () => {
         
         
         
-        
-      </>
+        <Footer/>
       </div>
     )
+  }
 }
- 
-export default nonTeaching_staff;
+
+export default nonTeaching_staff
+

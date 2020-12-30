@@ -1,8 +1,8 @@
 import React from 'react';
 import Navbar from './navbar';
-
+import Footer from './footer';
 const superintendent = () => {
-    return(<div id='mainBody'>
+    return(
       <>
         <Navbar/>
         <div className="team-section">
@@ -55,9 +55,9 @@ const superintendent = () => {
             Email: sbpunpale@gmail.com
           </p>
       </div>
-      
+      <Footer/>
       </>
-      </div>
+      
     )
 }
  

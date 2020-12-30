@@ -2,7 +2,7 @@ import Navbar from './navbar';
 import React from 'react';
 import url from './url';
 import '../css/home.css';
-
+import Footer from './footer';
 export default class Archives extends React.Component
 {
     constructor(props){
@@ -17,7 +17,7 @@ export default class Archives extends React.Component
 
 
 render(){
-	return <div id="mainBody">
+	return <div >
 			 <Navbar />
        <section id="departments" class="departments">
          <div class="container">
@@ -28,6 +28,7 @@ render(){
            </div>
           </div>
         </section>
+        <Footer/>
 	</div>
 }
 

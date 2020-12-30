@@ -3,7 +3,7 @@ import React from 'react';
 import url from './url';
 import '../css/home.css';
 import '../css/teaching_staff.css';
-
+import Footer from './footer';
 import {Link} from 'react-router-dom';
 
 export default class Admission extends React.Component
@@ -159,7 +159,7 @@ componentDidMount(){
 
 render(){
 	return <div>
-   <div id="mainBody">
+   <div>
 
 			 <Navbar />
 
@@ -330,7 +330,7 @@ render(){
 
 
 
-
+      <Footer/>
 
     </div>
 

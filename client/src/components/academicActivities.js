@@ -4,7 +4,7 @@ import url from './url';
 import '../css/home.css';
 import '../css/teaching_staff.css';
 import {Link} from 'react-router-dom';
-
+import Footer from './footer';
 
 export default class AcademicActivities extends React.Component
 {
@@ -232,7 +232,7 @@ export default class AcademicActivities extends React.Component
     //    this.closeNav();
       }
 render(){
-	return <div id="mainBody">
+	return <div>
 			 <Navbar />
        <section id="departments" class="departments">
          <div class="container">
@@ -387,7 +387,7 @@ render(){
         </section>
 
 
-
+    <Footer/>
 
 
 	</div>

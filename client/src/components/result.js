@@ -3,7 +3,7 @@ import React from 'react';
 import url from './url';
 import {Link} from 'react-router-dom';
 import '../css/home.css';
-
+import Footer from './footer';
 
 export default class Result extends React.Component
 {
@@ -53,7 +53,7 @@ export default class Result extends React.Component
      }
 
 render(){
-	return <div id="mainBody">
+	return <div>
 			 <Navbar />
 
        <section id="departments" class="departments">
@@ -88,6 +88,7 @@ render(){
           </div>
         </div>
       </section>
+      <Footer/>
 	</div>
 }
 

@@ -1,8 +1,8 @@
 import react from 'react';
 import Navbar from './navbar';
-
+import Footer from './footer';
  function About() {
-  return(<div  id='mainBody'>
+  return(<div  >
     <Navbar />
 
 <div>
@@ -264,7 +264,7 @@ import Navbar from './navbar';
     </div>
     </div>
   </section>
-
+<Footer/>
     </div>
 
     </div>);

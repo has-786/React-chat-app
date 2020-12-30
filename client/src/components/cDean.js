@@ -1,8 +1,8 @@
 import React from 'react';
 import Navbar from './navbar';
-
+import Footer from './footer';
 const cDean = () => {
-    return(<div  id='mainBody'>
+    return(
       <>
         <Navbar/>
         <div className="team-section">
@@ -54,9 +54,9 @@ const cDean = () => {
             Email: sbpunpale@gmail.com
           </p>
       </div>
-
+<Footer/>
       </>
-      </div>
+      
     )
 }
 

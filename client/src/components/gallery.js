@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import url from './url';
 import Navbar from './navbar';
 
-
+import Footer from './footer';
 export default function Gallery(props){
 
 let [imgs,setImgs]=useState([{name:'An Image of Hospital when the event of academics was held',link:'assets/img/gallery/gallery-7.jpg'},
@@ -27,7 +27,7 @@ let [imgs,setImgs]=useState([{name:'An Image of Hospital when the event of acade
      .catch(err=>{return err;});*/
 
 
-return  <div id="mainBody">
+return  <div>
   <Navbar/>
 
          <section id="departments" class="departments" >
@@ -51,5 +51,6 @@ return  <div id="mainBody">
         </div>
       </div>
     </section>
+    <Footer/>
 </div>
 }

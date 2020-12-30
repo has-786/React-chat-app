@@ -2,7 +2,7 @@ import Navbar from './navbar';
 import React from 'react';
 import url from './url';
 import '../css/home.css';
-
+import Footer from './footer';
 export default class University extends React.Component
 {
     constructor(props){
@@ -59,7 +59,7 @@ Maharashtra University of Health Sciences, Nashik came into existence by Maharas
 
 
 render(){
-	return <div id="mainBody">
+	return <div>
 			 <Navbar />
        <section id="departments" class="departments">
          <div class="container">
@@ -85,7 +85,7 @@ render(){
     </div>
    </div>
   </section>
-
+        <Footer/>
 	</div>
 }
 

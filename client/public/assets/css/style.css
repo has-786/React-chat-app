@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #imgBack{
-  background-image: url("../img/dr1.jpg");
+  background-image: url("../img/bjmc-image.jpg");
   background-color: #cccccc;
   height: 300px;
   background-position: center;
@@ -683,6 +683,7 @@ section {
   background: #1977cc;
   border-radius: 4px;
   color: #fff;
+  height: 290px;
 }
 
 .why-us .content h3 {
@@ -715,11 +716,12 @@ section {
 
 .why-us .icon-boxes .icon-box {
   text-align: center;
-  border-radius: 10px;
+  border-radius: 4px;
   background: #fff;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   padding: 40px 30px;
   width: 100%;
+  height: 290px;
 }
 
 .why-us .icon-boxes .icon-box i {
@@ -1202,10 +1204,13 @@ section {
   overflow: hidden;
   width: 180px;
   border-radius: 50%;
+
 }
 
 .doctors .member .pic img {
   transition: ease-in-out 0.3s;
+
+
 }
 
 .doctors .member:hover img {
@@ -1222,7 +1227,10 @@ section {
   font-size: 20px;
   color: #2c4964;
 }
+h5{
+  text-align: center;
 
+}
 .doctors .member span {
   display: block;
   font-size: 15px;
@@ -1778,8 +1786,18 @@ section {
 
 #marqueeTag{
       background-color:#cccccc;
-      opacity:0.7
-      color:black;
+      opacity:0.7;
+      color: 'black';
       padding: 2px;
       font-weight: bold;
+  }
+
+  .footerClass{
+    background-color: #2c4964;
+    font-size: 14px;
+    padding: 10px;
+    color: white;
+  }
+  .copyright{
+    float: left;
   }

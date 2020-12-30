@@ -1,9 +1,10 @@
 import React from 'react';
 import './Hospital2.pdf'
 import Navbar from './navbar';
+import Footer from './footer';
 const Hospital = () => {
     return(
-      <div id='mainBody'>
+      <div>
          <Navbar/>
       <section id="departments" class="departments">
         <div class="container">
@@ -16,6 +17,7 @@ const Hospital = () => {
             </div>
           </div>
          </section>
+         <Footer/>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-/*const express=require('express');
+const express=require('express');
 const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
 const path=require('path');
@@ -98,7 +98,8 @@ app.get('/api/gallery',(req,res)=>{
 					res.send({img:img1});
 			})
 
-});*/
+});
+/*
 var bodyParser = require('body-parser');
 var mongoose=require('mongoose');
 var express=require('express');

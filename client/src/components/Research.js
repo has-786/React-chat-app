@@ -1,8 +1,9 @@
 import react from 'react';
 import Navbar from './navbar';
 import '../css/Research.css';
+import Footer from './footer';
 function Research() {
-  return(<div id="mainBody">
+  return(<div >
     <Navbar />
 
   <div>
@@ -301,7 +302,7 @@ function Research() {
     </div>
     </div>
   </section>
-
+      <Footer/>
     </div>
 </div>);
  }
