@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom';
 
 export default function Navbar(props)
 {
-  return  <div id='mainI'>
+  return <div id='mainI'>
+
 
   <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
     <div class="container d-flex">
@@ -31,6 +32,7 @@ export default function Navbar(props)
       </div>
     </div>
   </div>
+
 
   <div id="imgBack"></div>
 
@@ -82,6 +84,43 @@ export default function Navbar(props)
       <li><Link to="/archives">Archives</Link></li>
     </ul>
   </nav>
+  <div class="chat_on" style={{position:'fixed',bottom:0,right:20,zIndex:1}}>
+         <div id='chat' style={{display:'none'}}>
+            <iframe
+            allow="microphone;"
+            width="350"
+            height="350"
+            src="https://console.dialogflow.com/api-client/demo/embedded/950e1d1f-af06-4760-abd1-fbec695161b5">
+            </iframe>
+         </div>
+         <span class="chat_on_icon"><i id='chat_icon' style={{float:'right',color:'green',fontSize:'40px'}} class="fa fa-comments" aria-hidden="true" onClick={(evt)=>chatbot()}></i></span>
+  </div>
 </div>
+}
+
+
+function chatbot(){
+
+  if(document.getElementById('chat').style.display==='none'){
+    document.getElementById('chat').style.display='block';
+    document.getElementById('chat_icon').className='fa fa-close';
+
+    document.getElementById('chat_icon').style.float='left';
+    document.getElementById('chat_icon').style.color='black';
+    document.getElementById('chat_icon').style.fontSize='25px';
+
+
+  }
+  else {
+    document.getElementById('chat').style.display='none';
+    document.getElementById('chat_icon').className='fa fa-comments';
+
+    document.getElementById('chat_icon').style.float='right';
+    document.getElementById('chat_icon').style.color='green';
+    document.getElementById('chat_icon').style.fontSize='40px';
+
+
+  }
+
 
 }

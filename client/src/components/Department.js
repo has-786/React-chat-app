@@ -4,9 +4,14 @@ import '../css/Department_css.css'
 import {Level1_expansion,Level2_expansion} from './Department_javascript'
 import PdfView from "./pdfView";
 import Footer from './footer';
+import sidenavbar from './sidenavbar';
+
+import '../css/sidenavbar.css';
 export default class Department extends React.Component {
   state={link:""}
+
   handleClick=value=>()=>{
+    sidenavbar();
     this.setState({link:value});
        };
   render(){
@@ -20,86 +25,90 @@ export default class Department extends React.Component {
 
             <div class="row">
               <div class="col-lg-3">
+              <i style={{fontSize:'30px'}} class='fa fa-bars burger'
+               onClick={sidenavbar}></i>
+
                 <a href='#'>
-                <ul class="nav nav-tabs flex-column ">
+
+                  <ul class="nav nav-tabs flex-column mysidenavbar">
                   {/*Department 1 */}
                   <li class="nav-item level1" onClick={e=>Level1_expansion('preClinicalSubitem')}>
-                    <a class="nav-link " data-toggle="tab" > &gt; &nbsp;Pre-Clinical Departments</a>
+                    <a href='#' class="nav-link " data-toggle="tab" > &gt; &nbsp;Pre-Clinical Departments</a>
                   </li>
 
                   <li class="nav-item level2 preClinicalSubitem" >
-                    <a class="nav-link " data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/ANATOMY.pdf')}>&nbsp;&nbsp;Anatomy</a>
+                    <a  href='#' class="nav-link " data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/ANATOMY.pdf')}>&nbsp;&nbsp;Anatomy</a>
                   </li>
                   <li class="nav-item level2 preClinicalSubitem" >
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PHYSIOLOGY.pdf')}>&nbsp;&nbsp;Physiology</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PHYSIOLOGY.pdf')}>&nbsp;&nbsp;Physiology</a>
                   </li>
                   <li class="nav-item level2 preClinicalSubitem">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/BIOCHEMISTRY.pdf')}>&nbsp;&nbsp;Biochemistry</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/BIOCHEMISTRY.pdf')}>&nbsp;&nbsp;Biochemistry</a>
                   </li>
 
                   {/* Department 2*/}
                   <li class="nav-item level1" onClick={e=>Level1_expansion('paraClinicalSubitem')}>
-                    <a class="nav-link" data-toggle="tab" >&gt; &nbsp;Para-Clinical Department</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" >&gt; &nbsp;Para-Clinical Department</a>
                   </li>
                   <li class="nav-item level2 paraClinicalSubitem">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/MICROBIOLOGY.pdf')}>&nbsp;&nbsp;Microbiology</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/MICROBIOLOGY.pdf')}>&nbsp;&nbsp;Microbiology</a>
                   </li>
                   <li class="nav-item level2 paraClinicalSubitem">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/FORENSIC%20MEDICINE.pdf')}>&nbsp;&nbsp;Forensic Medicine</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/FORENSIC%20MEDICINE.pdf')}>&nbsp;&nbsp;Forensic Medicine</a>
                   </li>
                   <li class="nav-item level2 paraClinicalSubitem">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/Website_Pharmacology_BJGMC%20Pune%202016_update_04-08-2016.pdf')}>&nbsp;&nbsp;Pharmacology</a>
+                    <a   href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/Website_Pharmacology_BJGMC%20Pune%202016_update_04-08-2016.pdf')}>&nbsp;&nbsp;Pharmacology</a>
                   </li>
                   <li class="nav-item level2 paraClinicalSubitem">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/DEPT%20OF%20COMMUNITY%20MEDICINE.pdf')}>&nbsp;&nbsp;Community Medicine</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/DEPT%20OF%20COMMUNITY%20MEDICINE.pdf')}>&nbsp;&nbsp;Community Medicine</a>
                   </li>
                   <li class="nav-item level2 paraClinicalSubitem">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PATHOLOGY.pdf')}>&nbsp;&nbsp;Pathology</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PATHOLOGY.pdf')}>&nbsp;&nbsp;Pathology</a>
                   </li>
 
                   {/*Department 3 */}
                   <li class="nav-item level1" onClick={e=>Level1_expansion('clinicalSubitem')}>
-                    <a class="nav-link" data-toggle="tab" >&gt; &nbsp;Clinical Departments</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" >&gt; &nbsp;Clinical Departments</a>
                   </li>
 
                    {/*Department 3 Subitem1*/}
                   <li class="nav-item level2 clinicalSubitem" onClick={e=>Level2_expansion('medicalSpecialities')}>
-                    <a class="nav-link" data-toggle="tab" >&nbsp;&nbsp;&gt;&nbsp;Medical Specialties</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" >&nbsp;&nbsp;&gt;&nbsp;Medical Specialties</a>
                   </li>
                   <li class="nav-item level3 medicalSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/medicine.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;General Medicine</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/medicine.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;General Medicine</a>
                   </li>
                   <li class="nav-item level3 medicalSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PEADIARICS.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Pediatrics</a>
+                    <a   href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PEADIARICS.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Pediatrics</a>
                   </li>
                   <li class="nav-item level3 medicalSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/CHEST%20TB.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Tuberculosis and Chest Diseases</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/CHEST%20TB.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Tuberculosis and Chest Diseases</a>
                   </li>
                   <li class="nav-item level3 medicalSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/SKIN.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Skin & V. D.</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/SKIN.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Skin & V. D.</a>
                   </li>
                   <li class="nav-item level3 medicalSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PSYCHIATRY.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Psychiatry</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PSYCHIATRY.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Psychiatry</a>
                   </li>
                   <li class="nav-item level3 medicalSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/RADIODIAGNOSIS.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Radiology</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/RADIODIAGNOSIS.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Radiology</a>
                   </li>
                   <li class="nav-item level3 medicalSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/ANAESTHESIA.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Anesthesiology</a>
+                    <a   href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/ANAESTHESIA.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Anesthesiology</a>
                   </li>
 
                   {/*Department 3 Subitem2*/}
                   <li class="nav-item level2 clinicalSubitem" onClick={e=>Level2_expansion('medicalSuperSpecialities')}>
-                    <a class="nav-link" data-toggle="tab" >&nbsp;&nbsp;&gt; &nbsp;Medical Super Specialties</a>
+                    <a href='#' class="nav-link" data-toggle="tab" >&nbsp;&nbsp;&gt; &nbsp;Medical Super Specialties</a>
                   </li>
                   <li class="nav-item level3 medicalSuperSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PATHOLOGY.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Cardiology</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PATHOLOGY.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Cardiology</a>
                   </li>
                   <li class="nav-item level3 medicalSuperSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PATHOLOGY.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Neurology</a>
+                    <a  href='#'class="nav-link" data-toggle="tab" href="#tab-2" onClick={this.handleClick('http://www.bjmcpune.org/PATHOLOGY.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Neurology</a>
                   </li>
                   <li class="nav-item level3 medicalSuperSpecialities">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2"onClick={this.handleClick('http://www.bjmcpune.org/PATHOLOGY.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Nephrology</a>
+                    <a  href='#' class="nav-link" data-toggle="tab" href="#tab-2"onClick={this.handleClick('http://www.bjmcpune.org/PATHOLOGY.pdf')}>&nbsp;&nbsp;&nbsp;&nbsp;Nephrology</a>
                   </li>
 
 

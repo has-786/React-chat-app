@@ -4,11 +4,13 @@ import url from './url';
 import {Link} from 'react-router-dom';
 import '../css/home.css';
 import Footer from './footer';
-
+import sidenavbar from './sidenavbar';
+import '../css/sidenavbar.css';
 export default class Result extends React.Component
 {
     constructor(props){
       super(props);
+
       this.state={ user:"",
                   arr:[{type:'UG',link:'https://ug'},{type:'PG',link:'https://pg'}
                 ,{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'}
@@ -16,8 +18,7 @@ export default class Result extends React.Component
             ,{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'}],
                   show:{type:"",link:""}
                 }
-                this.openNav=this.openNav.bind(this);
-                this.closeNav=this.closeNav.bind(this);
+
     }
 
 
@@ -35,21 +36,11 @@ export default class Result extends React.Component
     }
 
 
-      openNav() {
-       document.getElementById("mySidenav").style.width = "250px";
-       document.getElementById("main").style.marginLeft = "250px";
-     }
-
-      closeNav() {
-       document.getElementById("mySidenav").style.width = "0";
-       document.getElementById("main").style.marginLeft= "0";
-     }
-
 
 
      linkOneClick(ind){
        this.setState({show:{type:this.state.arr[ind].type,link:this.state.arr[ind].link}});
-       //this.closeNav();
+       sidenavbar();
      }
 
 render(){
@@ -66,8 +57,10 @@ render(){
 
        <div class='row'>
             <div class='col-lg-2'>
-              <ul class='nav nav-tabs flex-column'>
-               {
+            <i style={{fontSize:'30px'}} class='fa fa-bars burger'
+             onClick={sidenavbar}></i>
+
+              <ul class="nav nav-tabs flex-column mysidenavbar">               {
                   this.state.arr.map((res,ind)=>{
                    return  <li class='nav-item'><Link href='#' class='nav-link' onClick={this.linkOneClick.bind(this,ind)} >{res.type}</Link></li>
                  })

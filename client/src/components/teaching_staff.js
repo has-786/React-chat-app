@@ -2,13 +2,14 @@
 import Navbar from './navbar'
 import '../css/teaching_staff.css'
 import Footer from './footer';
-
+import sidenavbar from './sidenavbar';
+import '../css/sidenavbar.css';
 import React, { Component } from 'react';
 
 export default class teaching_staff extends React.Component {
   constructor(props) {
     super(props)
-  
+
     this.state = {
        user:"",
        show:{
@@ -30,12 +31,12 @@ export default class teaching_staff extends React.Component {
             {sr_No : "5", officer_name:"Dr. Sonali Khankare", designation:"Assistant Professor",location:"Department of Anatomy , B. J. Govt. Medical College Pune", contact:"9850126982"},
             {sr_No : "6", officer_name:"Dr. Sneha M. Jadhav", designation:"Assistant Professor",location:"Department of Anatomy , B. J. Govt. Medical College Pune", contact:"9850126982"},
             {sr_No : "7", officer_name:"Dr. Smita  Nomulwar", designation:"Assistant Professor",location:"Department of Anatomy , B. J. Govt. Medical College Pune", contact:"9850126982"}
-          
+
           ]}
        }
     }
   }
-  
+
   render() {
     return (
       <>
@@ -50,69 +51,72 @@ export default class teaching_staff extends React.Component {
 
         <div class="row">
           <div class="col-lg-3">
-            <ul class="nav nav-tabs flex-column">
-              <li class="nav-item">
-                <a class="nav-link active show" data-toggle="tab" href="#tab-1">Department  of Anatomy</a>
+          <i style={{fontSize:'30px'}} class='fa fa-bars burger'
+           onClick={sidenavbar}></i>
+
+            <ul class="nav nav-tabs flex-column mysidenavbar">
+            <li class="nav-item">
+                <a class="nav-link active show" data-toggle="tab" href="#tab-1" onClick={sidenavbar}>Department  of Anatomy</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-2">Department  of Physiology</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={sidenavbar}>Department  of Physiology</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-3">Department  of Bio-Chemistry</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-3" onClick={sidenavbar}>Department  of Bio-Chemistry</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-4">Department of Pathology</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-4" onClick={sidenavbar}>Department of Pathology</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-5">Department of Orthopaedic</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-5" onClick={sidenavbar}>Department of Orthopaedic</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-6">Department of Microbiology</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-6" onClick={sidenavbar}>Department of Microbiology</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-7">Department of Pharmacology</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-7"onClick={sidenavbar}>Department of Pharmacology</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-8">Department of  Preventive & Social Medicine (PSM)</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-8" onClick={sidenavbar}>Department of  Preventive & Social Medicine (PSM)</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-9">Department of Forensic Medicine (FMT)</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-9"onClick={sidenavbar}>Department of Forensic Medicine (FMT)</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-10">Department of Medicine</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-10"onClick={sidenavbar}>Department of Medicine</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-11">Department of Paediatric</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-11" onClick={sidenavbar}>Department of Paediatric</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-12">Department of Tuberculosis (TB)</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-12"onClick={sidenavbar}>Department of Tuberculosis (TB)</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-13">Department of Psychiatry</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-13"onClick={sidenavbar}>Department of Psychiatry</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-14">Department of Skin & V.B.</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-14"onClick={sidenavbar}>Department of Skin & V.B.</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-15">Department of Surgery</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-15"onClick={sidenavbar}>Department of Surgery</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-16">Department of Ophthalmology</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-16"onClick={sidenavbar}>Department of Ophthalmology</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-17">Department of E.N.T.</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-17" onClick={sidenavbar}>Department of E.N.T.</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-18">Department of Gynaecology</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-18"onClick={sidenavbar}>Department of Gynaecology</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-19">Department of Anaesthesiology</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-19"onClick={sidenavbar}> Department of Anaesthesiology</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-20">Department of Radio-Diagnosis</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-20" onClick={sidenavbar}>Department of Radio-Diagnosis</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-21">Department of Dental</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-21" onClick={sidenavbar}>Department of Dental</a>
               </li>
             </ul>
           </div>
@@ -130,7 +134,7 @@ export default class teaching_staff extends React.Component {
                         <div class="panel-heading">
                             <h4>
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" style={{backgroundColor:'#2c4964', color:'white', display:'block',fontSize:'20px', fontWeight:'normal'}}>Professor </a>
-                            
+
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse in">
@@ -157,7 +161,7 @@ export default class teaching_staff extends React.Component {
                                       </tr>
                                     })
                                   }
-                                  
+
                                   </tbody>
                                 </table>
                             </div>
@@ -193,7 +197,7 @@ export default class teaching_staff extends React.Component {
                                       </tr>
                                     })
                                   }
-                                  
+
                                   </tbody>
                                 </table>
                             </div>
@@ -229,17 +233,17 @@ export default class teaching_staff extends React.Component {
                                       </tr>
                                     })
                                   }
-                                  
+
                                   </tbody>
                                 </table>
                             </div>
                         </div>
                         </div>
-                        
-                    </div> 
+
                     </div>
                     </div>
-              
+                    </div>
+
             </div>
           </div>
           <div class="tab-pane" id="tab-2">
@@ -268,10 +272,10 @@ export default class teaching_staff extends React.Component {
                             <div class="panel-body">Table 2</div>
                         </div>
                         </div>
-                        
-                    </div> 
+
+                    </div>
                     </div></div>
-              
+
             </div>
           </div>
           <div class="tab-pane" id="tab-3">
@@ -300,10 +304,10 @@ export default class teaching_staff extends React.Component {
                             <div class="panel-body">Table 2</div>
                         </div>
                         </div>
-                        
-                    </div> 
+
+                    </div>
                     </div></div>
-              
+
             </div>
           </div>
           <div class="tab-pane" id="tab-4">
@@ -332,10 +336,10 @@ export default class teaching_staff extends React.Component {
                             <div class="panel-body">Table 2</div>
                         </div>
                         </div>
-                        
-                    </div> 
+
+                    </div>
                     </div></div>
-              
+
             </div>
           </div>
           <div class="tab-pane" id="tab-5">
@@ -364,10 +368,10 @@ export default class teaching_staff extends React.Component {
                             <div class="panel-body">Table 2</div>
                         </div>
                         </div>
-                        
-                    </div> 
+
+                    </div>
                     </div></div>
-              
+
             </div>
           </div>
         </div>
@@ -381,4 +385,3 @@ export default class teaching_staff extends React.Component {
     )
   }
 }
-

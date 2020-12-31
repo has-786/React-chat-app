@@ -158,6 +158,13 @@ li > a:only-child:after { content: ''; }
 		float: none;
 	}
 
+	.burger{
+		display:block;
+	}
+
+	.mysidenavbar{
+		display:none;
+	}
 	nav {
 		margin: 0;
 	}
@@ -261,12 +268,16 @@ li > a:only-child:after { content: ''; }
 
 }
 
+
 a{text-decoration:none;}
 a:hover{text-decoration:None;}
 th{
 	background-color:#254441;
 	color:white;
 }
+
+
+
 
 
 .text{

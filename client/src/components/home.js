@@ -8,8 +8,7 @@ export default function Home(props)
 {
    return (  <div id="mainBody">
          <Navbar/>
-
-    <div>
+<div>
 	<section id="doctors" class="doctors">
         <div class="container">
 
@@ -135,6 +134,7 @@ export default function Home(props)
                     </div>
                   </div>
                 </center>
+
               </div>
 
             </div>
@@ -212,4 +212,27 @@ function myFunction() {
     btnText.innerHTML = "Read less";
     moreText.style.display = "inline";
   }
+}
+
+function chatbot(){
+
+  if(document.getElementById('chat').style.display==='none'){
+    document.getElementById('chat').style.display='block';
+    document.getElementById('chat_icon').className='fa fa-cross';
+
+    document.getElementById('chat_icon').setAttribute('float','left');
+    document.getElementById('chat_icon').setAttribute('color','black');
+
+
+  }
+  else {
+    document.getElementById('chat').style.display='none';
+    document.getElementById('chat_icon').className='fa fa-comments';
+
+    document.getElementById('chat_icon').setAttribute('float','right');
+    document.getElementById('chat_icon').setAttribute('color','green');
+
+  }
+
+
 }

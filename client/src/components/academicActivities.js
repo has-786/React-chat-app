@@ -5,11 +5,15 @@ import '../css/home.css';
 import '../css/teaching_staff.css';
 import {Link} from 'react-router-dom';
 import Footer from './footer';
+import sidenavbar from './sidenavbar';
+import '../css/sidenavbar.css';
+
 
 export default class AcademicActivities extends React.Component
 {
     constructor(props){
       super(props);
+
       this.state={ user:"",
 
                   deptsData:[
@@ -176,16 +180,16 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='block';
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='none';
+       sidenavbar();
 
-    //   this.closeNav();
-     }
+      }
 
      deptOneClick(ind){
        this.setState({show:{deptsData:[this.state.deptsData[ind]],guestsData:[{name:null,events:[]}],otherData:[]}});
        document.getElementById('dept').style.display='block';
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='none';
-    //   this.closeNav();
+       sidenavbar();
      }
 
      guestClick(){
@@ -193,7 +197,7 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='block';
        document.getElementById('other').style.display='none';
-    //   this.closeNav();
+       sidenavbar();
      }
 
      guestOneClick(ind){
@@ -202,6 +206,7 @@ export default class AcademicActivities extends React.Component
        document.getElementById('guest').style.display='block';
        document.getElementById('other').style.display='none';
     //   this.closeNav();
+         sidenavbar();
      }
 
      otherClick(){
@@ -209,7 +214,7 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='block';
-      // this.closeNav();
+       sidenavbar();
      }
 
 
@@ -232,11 +237,15 @@ render(){
            </div>
         <div class='row'>
           <div class='col-lg-2'>
-          <ul class='nav nav-tabs flex-column' >
+          <i style={{fontSize:'30px'}} class='fa fa-bars burger'
+           onClick={sidenavbar}></i>
+
+            <ul class="nav nav-tabs flex-column mysidenavbar">
             <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.allClick.bind(this)}>All</Link></li>
             <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.deptClick.bind(this)}>By Departments</Link></li>
             <li class='nav-item'>
               <a href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-link">
+              Select
               <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo1" class="collapse" >
                {
                   this.state.deptsData.map((res,ind)=>{
@@ -249,6 +258,8 @@ render(){
 
              <li class='nav-item'><Link  href='#' class='nav-link' onClick={this.guestClick.bind(this)}>By Guests</Link></li>
               <li class='nav-item'><a href="#demo2"  data-toggle="collapse" class="dropdown-toggle nav-link">
+              Select
+
                  <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo2" class="collapse" >
                  {
                  this.state.guestsData.map((res,ind)=>{

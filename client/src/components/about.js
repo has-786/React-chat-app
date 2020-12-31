@@ -2,9 +2,12 @@ import React from 'react';
 import Navbar from './navbar';
 import Footer from './footer';
 import '../css/Research.css';
+import sidenavbar from './sidenavbar';
+import '../css/sidenavbar.css';
 export default class About extends React.Component {
   constructor(props){
       super(props);
+
       this.state={ user:"",
                     show:{
                     history:{type:[
@@ -58,18 +61,21 @@ return(<div  id='mainBody'>
       </div>
       <div class="row">
         <div class="col-lg-3">
-          <ul class="nav nav-tabs flex-column">
-            <li class="nav-item">
-              <a class="nav-link active show" data-toggle="tab" href="#tab-1">History</a>
+        <i style={{fontSize:'30px'}} class='fa fa-bars burger'
+         onClick={sidenavbar}></i>
+
+          <ul class="nav nav-tabs flex-column mysidenavbar">
+            <li class="nav-item" >
+              <a class="nav-link active show" data-toggle="tab" href="#tab-1" onClick={sidenavbar}>History</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab-2">Past Dean</a>
+              <a class="nav-link" data-toggle="tab" href="#tab-2"  onClick={sidenavbar}>Past Dean</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab-3">organogram</a>
+              <a class="nav-link" data-toggle="tab" href="#tab-3"  onClick={sidenavbar}>organogram</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab-4"> committees</a>
+              <a class="nav-link" data-toggle="tab" href="#tab-4"  onClick={sidenavbar}> committees</a>
             </li>
 
 

@@ -1,9 +1,86 @@
-import react from 'react';
+import React from 'react'
 import Navbar from './navbar';
 import '../css/Research.css';
-import Footer from './footer';
-function Research() {
-  return(<div >
+import '../css/sidenavbar.css';
+import sidenavbar from './sidenavbar';
+export default class Research extends React.Component {
+  constructor(props){
+      super(props);
+      this.state={ user:"",
+
+
+                  show:{
+                    journals:{type:[
+                    {name:'walters kluwer',desc:"https://www.walterskluwer.com"},
+                    {name:'Informatic',desc:'https://www.informindia.com'},
+                    {name:'Globe Pub',desc:'https://www.globepub.com'},
+                    {name:'Cambridge Pressb',desc:'https://www.cambridgeindia.org'},
+                    {name:'MD Consult',desc:'https://www.MDConsult.com'},
+                    {name:'National Medical Library',desc:'https://www.nmlermed.in'},
+                    {name:"W.H.O.",desc:"https://www.who.int"},
+                    {name:"Springer Journals",desc:"https://www.springerlink.com"},
+                    {name:"Elsevier",desc:"https://	www.elsevier.com"},
+                    {name:"Free Medical Jpurnal",desc:"https://	www.freemedicaljournal.com"},
+                    {name:"Elsevier Medical Pub",desc:"https://www.elsevierth.com"},
+                    {name:"Globallist of Websites",desc:"https://	www.csen.comlmedicine/"},
+                    {name:"Oxford Journals" ,desc:"https://www.elsevierth.com"},
+                    {name:"Wiley Interscience Jr." ,desc:"https://www3.interscience.wiley.com"},
+                    {name:"America Ass Medi" ,desc:"https://jama.ama.assn.org"},
+                    {name:"Academic Medicine" ,desc:"https://www.journals.com/academicmedicine"},
+                    {name:"Science Direct" ,desc:"https://www.sciencedirect.com"},
+                    {name:"Medical Information Resource" ,desc:"https://www.patient.co.uk/showdpc/22"},
+                    {name:"Medicine Website Resourcse" ,desc:"https://www.similima.com"},
+                    {name:"Lippincott Williams & wilkins"  ,desc:"https://www.lww.com"},
+                    {name:"Medicine",desc:"https://www.medicinejournal.com"}] },
+
+                    resource:{type:[{name:"Anaesthesia",desc:"https://www.slideshare.net/rsmehta/7-1-anesthesia"},
+                    {name:"Blunt Abd Trauma",desc:"https://www.slideshare.net/anneodaro/blunt-abdominal-trauma-93870723"},
+                    {name:"Burns Overview",desc:"https://www.slideshare.net/riteshgjmptw/burns-ritesh"},
+                    {name:"Cancer Kidney An Overview MUHS Conference",desc:"https://www.google.com"},
+                    {name:"Case of Obstructive jaundice",desc:"https://www.slideshare.net/docfazalhussain/obstructive-jaundice-22191573"},
+                    {name:"Fluid and Electrolyte",desc:"https://www.slideshare.net/jippyjack5/fluids-and-electrolytes-balance"},
+                    {name:"Head Injury",desc:"https://www.slideshare.net/salmanhabeebek/head-injuryppt-75238809"},
+                    {name:"Head Injury No Image",desc:"https://www.slideshare.net/manalihsolanki/head-injury-ppt"},
+                    {name:"HIV and Surgeon",desc:"https://www.slideshare.net/drnareshms/hiv-and-surgeons"},
+                    {name:"Know Your Instruments",desc:"https://www.slideshare.net/verdahsabih/medical-instruments-45875175"},
+                    {name:"Management of Wound",desc:"https://www.slideshare.net/sumeryadav/wound-management-29701222"},
+                    {name:"Management of Wound No images",desc:"https://www.slideshare.net/sadrumohamed/wounds-47466389"},
+                    {name:"MUHS",desc:"https://www.muhs.ac.in/"},
+                    {name:"MUHS 2003",desc:"https://www.muhs.ac.in/"},
+                    {name:"OJS",desc:"https://www.google.com"},
+                    {name:"ORAL CANCER",desc:"https://www.slideshare.net/mohamedrahilalhadithy/oral-cancer-61240139"},
+                    {name:"ORAL CANCER No images",desc:"https://www.slideshare.net/mohamedrahilalhadithy/oral-cancer-61240139"},
+                    {name:"Shape Your Future",desc:"https://www.slideshare.net/Resources234/shaping-your-future-22186342"},
+                    {name:"Surgery Update 2008",desc:"https://www.google.com"}]},
+
+                    Eduvideo:{type:[
+
+                        {links:"https://www.youtube.com/embed/VfT--J-MZlM?rel=0"},
+                        {links:"https://www.youtube.com/embed/hIYgrHWJiic?rel=0"}
+
+                      ]},
+
+                      usefullinks:{type:[
+
+                        {usefullink:"http://in.groups.yahoo.com/group/jamkarstudents/"},
+                        {usefullink:"http://jamkarstudents.blogspot.com/2004_09_01_archive.html"}
+
+                      ]},
+                      publication:{type:[
+
+                        {publications:"publications3.pdf"}
+
+
+                      ]}
+
+
+
+
+                  }}
+                }
+
+render(){
+return(<div>
     <Navbar />
 
   <div>
@@ -14,21 +91,24 @@ function Research() {
       </div>
       <div class="row">
         <div class="col-lg-3">
-          <ul class="nav nav-tabs flex-column">
+        <i style={{fontSize:'30px'}} class='fa fa-bars burger'
+         onClick={sidenavbar}></i>
+
+          <ul class="nav nav-tabs flex-column mysidenavbar">
             <li class="nav-item">
-              <a class="nav-link active show" data-toggle="tab" href="#tab-1">Journals</a>
+              <a class="nav-link active show" data-toggle="tab" href="#tab-1" onClick={sidenavbar}>Journals</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab-2">Useful Link</a>
+              <a class="nav-link" data-toggle="tab" href="#tab-2" onClick={sidenavbar}>Useful Link</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab-3">Educational Videos</a>
+              <a class="nav-link" data-toggle="tab" href="#tab-3" onClick={sidenavbar}>Educational Videos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab-4">Resource</a>
+              <a class="nav-link" data-toggle="tab" href="#tab-4" onClick={sidenavbar}>Resource</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab-5">Publication</a>
+              <a class="nav-link" data-toggle="tab" href="#tab-5" onClick={sidenavbar}>Publication</a>
             </li>
 
           </ul>
@@ -37,121 +117,55 @@ function Research() {
           <div class="tab-content">
             <div class="tab-pane active show" id="tab-1">
               <div class="row">
-                <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>Journals</h3>
-                  <table class="table table-striped" id="deans">
-                   <thead>
-                    <tr>
-                    <th>e-Journal Websites</th>
-                    </tr>
-                   </thead>
-                   <tbody>
+                <div class="col-lg-12 details order-2 order-lg-1">
+                <div id='journals'>
+                 <div class="table-responsive">
+                  <table class="table table-bordered table-hover table-striped">
+                  <thead>
                    <tr>
-                       <td>Walters Kluwer</td>
-                       <td><a href={"https://www.walterskluwer.com"}  target='_blank' style={{color:"black"}}>www.walterskluwer.com</a></td>
-                  </tr>
-                  <tr>
-                       <td>Informatic</td>
-                       <td><a href={"https://www.informindia.com"}  target='_blank'style={{color:"black"}}>www.informindia.com</a></td>
-                  </tr>
-                  <tr>
-                     <td>Globe Pub</td>
-                     <td><a href={"https://www.globepub.com"}  target='_blank' style={{color:"black"}}>www.globepub.com</a></td>
+                    <th colspan="2" style={{textAlign:"center"}}>E-Journals</th>
                    </tr>
-                  <tr>
-                     <td> Cambridge Pressb</td>
-                     <td><a href={"https://www.cambridgeindia.org"}  target='_blank' style={{color:"black"}}>www.cambridgeindia.org</a></td>
-                 </tr>
-                 <tr>
-                    <td> MD Counsult</td>
-                    <td><a href={"https://www.MDConsult.com"}  target='_blank' style={{color:"black"}}>www.MDConsult.com</a></td>
-                </tr>
-                <tr>
-                    <td> National Medical Library</td>
-                    <td><a href={"https://www.nmlermed.in"}  target='_blank' style={{color:"black"}}>	www.nmlermed.in</a></td>
-               </tr>
-               <tr>
-                   <td> W.H.O.</td>
-                   <td><a href={"https://www.who.int"}  target='_blank' style={{color:"black"}}>www.who.int</a></td>
-              </tr>
-              <tr>
-                   <td> Springer Journal</td>
-                   <td><a href={"https://www.springerlink.com"}  target='_blank' style={{color:"black"}}>www.springerlink.com</a></td>
-              </tr>
-              <tr>
-                   <td> Elsevier</td>
-                   <td><a href={"https://	www.elsevier.com"}  target='_blank' style={{color:"black"}}>	www.elsevier.com</a></td>
-              </tr>
-              <tr>
-                  <td> Free Medical Journal</td>
-                  <td><a href={"https://	www.freemedicaljournal.com"}  target='_blank' style={{color:"black"}}>	www.freemedicaljournal.com</a></td>
-              </tr>
-              <tr>
-                  <td> Elsevier Medical Pub</td>
-                  <td><a href={"https://www.elsevierth.com"}  target='_blank' style={{color:"black"}}>www.elsevierth.com</a></td>
-              </tr>
-              <tr>
-                   <td> Globellist of websites</td>
-                   <td><a href={"https://	www.csen.comlmedicine/"}  target='_blank' style={{color:"black"}}>	www.csen.comlmedicine/</a></td>
-               </tr>
-              <tr>
-                  <td> Pub Med Home Med</td>
-                  <td><a href={"https://	www.ncbi.nlm.nih.gov/pyb"}  target='_blank' style={{color:"black"}}>	www.ncbi.nlm.nih.gov/pyb</a></td>
-             </tr>
-             <tr>
-                <td> Oxford Journal</td>
-                <td><a href={"https://www.elsevierth.com"}  target='_blank' style={{color:"black"}}>	www.oxfordjournals.org</a></td>
-            </tr>
-             <tr>
-                <td> Wiley Interscience Jr.</td>
-                <td><a href={"https://www3.interscience.wiley.com"}  target='_blank' style={{color:"black"}}>www3.interscience.wiley.com</a></td>
-            </tr>
-            <tr>
-                 <td>America Ass Medi</td>
-                 <td><a href={"https://jama.ama.assn.org"}  target='_blank' style={{color:"black"}}>jama.ama.assn.org</a></td>
-            </tr>
-            <tr>
-                  <td> Academic Medicine</td>
-                  <td><a href={"https://www.journals.com/academicmedicine"}  target='_blank' style={{color:"black"}}>www.journals.com/academicmedicine</a></td>
-           </tr>
-           <tr>
-                 <td>Science Direct</td>
-                 <td><a href={"https://www.sciencedirect.com"}  target='_blank' style={{color:"black"}}>www.sciencedirect.com</a></td>
-          </tr>
-          <tr>
-                 <td> Medical information Resources</td>
-                 <td><a href={"https://www.patient.co.uk/showdpc/22"}  target='_blank' style={{color:"black"}}>www.patient.co.uk/showdpc/22</a></td>
-          </tr>
-         <tr>
-                <td> Medicine website Resources</td>
-                <td><a href={"https://www.similima.com"} style={{color:"black"}}>www.similima.com</a></td>
-        </tr>
-        <tr>
-            <td> Lippincott Williams & wilkins</td>
-            <td><a href={"https://www.lww.com"}  target='_blank' style={{color:"black"}}>www.lww.com</a></td>
-       </tr>
-      <tr>
-          <td> Medicine</td>
-          <td><a href={"https://www.medicinejournal.com"}  target='_blank' style={{color:"black"}}>www.medicinejournal.com</a></td>
-      </tr></tbody>
-  </table>
-</div>
-</div>
-</div>
+                 </thead>
+                 <tbody>
+                    {
+                        this.state.show.journals.type.map(r=>{
+                        return <tr>
+                        <td>{r.name}</td>
+                        <td>{<a href={r.desc} style={{color:"black"}}>{r.desc}</a>}</td>
+                        </tr>})
+                    }
+                  </tbody>
+               </table>
+             </div>
+           </div>
+          </div>
+        </div>
+      </div>
 
 
 <div class="tab-pane" id="tab-2">
   <div class="row">
     <div class="col-lg-12 details order-2 order-lg-1">
-      <h3>USEFUL LINKS</h3>
-        <table class="table table-bordered" id="deans">
-          <tr>
-            <td><a href={"http://in.groups.yahoo.com/group/jamkarstudents/"}  target='_blank' style={{color:"blue"}}>http://in.groups.yahoo.com/group/jamkarstudents/</a></td>
-          </tr>
-          <tr>
-            <td><a href={"http://jamkarstudents.blogspot.com/2004_09_01_archive.html"}  target='_blank' style={{color:"blue"}}>http://jamkarstudents.blogspot.com/2004_09_01_archive.html</a></td>
-          </tr>
-        </table>
+    <div class="table-responsive">
+           <table class="table table-bordered table-hover table-striped">
+            <thead>
+              <tr>
+              <th colspan="2" style={{textAlign:"center"}}>Useful Links</th>
+              </tr>
+           </thead>
+          <tbody>
+            {
+              this.state.show.usefullinks.type.map(r=>{
+                 return <tr>
+
+                    <td>{<a href={r.usefullink} style={{color:"black"}}>{r.usefullink}</a>}</td>
+                  </tr>
+              })
+            }
+         </tbody>
+      </table>
+      </div>
+
      </div>
   </div>
 </div>
@@ -159,152 +173,64 @@ function Research() {
 <div class="tab-pane" id="tab-3">
   <div class="row">
     <div class="col-lg-12 details order-2 order-lg-1">
-      <h3>Educational Videos</h3>
-        <div class="custom-posts__holder row">
-          <div className="custom-posts__item post col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-	          <div className="post-inner">
-		          <div className="post-thumbnail">
-                <a href="https://www.youtube.com/embed/VfT--J-MZlM?rel=0"  target='_blank' className="post-thumbnail__link">
-                        <img className="post-thumbnail__img" src="assets/img/lapro.jpg"
-                        alt="Laproscopic Appendectomy" style={{width:"300px" ,height:"300px" , padding:"0px",border:"5px solid black"}}/></a></div>
-		          <div className="post-content-wrap">
-		 	          <div className="entry-header">
-				          <h6 className="entry-title">
-                    <a href="https://www.youtube.com/embed/VfT--J-MZlM?rel=0" title="Laproscopic Appendectomy"  target='_blank'>Laproscopic Appendectomy</a>
-                  </h6>
-                </div>
-			          <div className="entry-content">
-				          <p>Laproscopic Appendectomy is done in which 3 small incisions are made on the abdomen through which
-                     Laproscopic instruments are inserted and an enlarged image is viewed on television monitor.</p>
-                </div>
-			          <div className="entry-footer">
-			            <div className="entry-meta"></div>
-			           </div>
-		          </div>
-	          </div>
-          </div>
+    <div class="col-lg-6">
+     {this.state.show.Eduvideo.type.map(r=>{
+       return <iframe src={r.links}  title="lapro" style={{width:"400px" ,height:"300px" ,border:"2px solid black"}} >
+              </iframe>})}
+   </div>
 
-          <div className="custom-posts__item post col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-	          <div className="post-inner">
-		          <div className="post-thumbnail">
-                <a href="https://www.youtube.com/embed/hIYgrHWJiic?rel=0" className="post-thumbnail__link"  target='_blank'>
-                <img className="post-thumbnail__img" src="assets/img/ureterocoel.jpg"
-                alt="ureterocoel" style={{width:"300px" ,height:"300px", padding:"0px" ,border:"5px solid black"}}/></a></div>
-		            <div className="post-content-wrap">
-		 	            <div className="entry-header">
-				            <h6 className="entry-title">
-                      <a href="https://www.youtube.com/embed/hIYgrHWJiic?rel=0" title="ureterocoel" target='_blank'>ureterocoel</a>
-                    </h6>
-                  </div>
-			            <div className="entry-content">
-				            <p>A ureterocele is a congenital abnormality found in the ureter</p>
-                  </div>
-			            <div className="entry-footer">
-			              	<div className="entry-meta"></div>
-			            </div>
-		            </div>
-	           </div>
-            </div>
-          </div>
         </div>
       </div>
   </div>
 
   <div class="tab-pane" id="tab-4">
             <div class="row">
-              <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>Resource</h3>
-                <table class="table table-striped" id="deans">
-    <thead>
-      <tr>
-        <th>Resources</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a href={"https://www.slideshare.net/rsmehta/7-1-anesthesia"}  target='_blank' style={{color:"black"}}>Anaesthesia</a></td>
-      </tr>
-      <tr>
-       <td><a href={"https://www.slideshare.net/anneodaro/blunt-abdominal-trauma-93870723"}   target='_blank' style={{color:"black"}}>Blunt Abd Trauma</a></td>
-      </tr>
-      <tr>
-        <td><a href={"https://www.slideshare.net/riteshgjmptw/burns-ritesh"}  target='_blank' style={{color:"black"}}>Burns Overview</a></td>
-      </tr>
-      <tr>
-        <td><a href={"https://www.google.com"}  target='_blank'  style={{color:"black"}}>Cancer Kidney An Overview MUHS Conference</a></td>
-      </tr>
-      <tr>
-        <td><a href={"https://www.slideshare.net/docfazalhussain/obstructive-jaundice-22191573"}  target='_blank' style={{color:"black"}}>Case Of Obstructive Jaundice</a></td>
-      </tr>
-      <tr>
-       <td><a href={"https://www.slideshare.net/jippyjack5/fluids-and-electrolytes-balance"}  target='_blank' style={{color:"black"}}>Fluid and Electrolyte</a></td>
-      </tr>
-      <tr>
-       <td><a href={"https://www.slideshare.net/salmanhabeebek/head-injuryppt-75238809"}  target='_blank' style={{color:"black"}}>Head Injury</a></td>
-      </tr>
-      <tr>
-       <td><a href={"https://www.slideshare.net/manalihsolanki/head-injury-ppt"}  target='_blank' style={{color:"black"}}>Head Injury No Images</a></td>
-      </tr>
-      <tr>
-      <td><a href={"https://www.slideshare.net/drnareshms/hiv-and-surgeons"}  target='_blank' style={{color:"black"}}>HIV and Surgeon</a></td>
-      </tr>
-      <tr>
-      <td><a href={"https://www.slideshare.net/verdahsabih/medical-instruments-45875175"}  target='_blank' style={{color:"black"}}>Know Your Instruments</a></td>
-      </tr>
-      <tr>
-      <td><a href={"https://www.slideshare.net/sumeryadav/wound-management-29701222"}  target='_blank' style={{color:"black"}}>Management of Wound</a></td>
-      </tr>
-      <tr>
-      <td><a href={"https://www.slideshare.net/sadrumohamed/wounds-47466389"}  target='_blank' style={{color:"black"}}>Management of Wound No Images</a></td>
-      </tr>
-      <tr>
-      <td><a href={"https://www.muhs.ac.in/"}  target='_blank' style={{color:"black"}}>MUHS</a></td>
-      </tr>
-      <tr>
-        <td><a href={"https://www.muhs.ac.in/"}  target='_blank' style={{color:"black"}}>MUHS 2003</a></td>
-      </tr>
-      <tr>
-       <td><a href={"https://www.google.com"}  target='_blank' style={{color:"black"}}>OJS</a></td>
-      </tr>
-      <tr>
-       <td><a href={"https://www.slideshare.net/mohamedrahilalhadithy/oral-cancer-61240139"}  target='_blank' style={{color:"black"}}>ORAL CANCER</a></td>
-      </tr>
-      <tr>
-        <td><a href={"https://www.slideshare.net/mohamedrahilalhadithy/oral-cancer-61240139"}  target='_blank' style={{color:"black"}}>ORAL CANCER No Images</a></td>
-      </tr>
-      <tr>
-        <td><a href={"https://www.slideshare.net/Resources234/shaping-your-future-22186342"}  target='_blank' style={{color:"black"}}>Shape Your Future</a></td>
-      </tr>
-      <tr>
-        <td><a href={"https://www.google.com"}  target='_blank'style={{color:"black"}}>Surgery Update 2008</a></td>
-      </tr>
-     </tbody>
-  </table>
+              <div class="col-lg-12 details order-2 order-lg-1">
+              <div id='resource'>
+               <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                 <th colspan="2" style={{textAlign:"center"}}>Resources</th>
+                </tr>
+               </thead>
+               <tbody>
+                  {
+                 this.state.show.resource.type.map(r=>{
+                 return <tr>
+                  <td>{<a href={r.desc} style={{color:"black"}}>{r.name}</a>}</td>
+                  </tr>
+              })
+            }
+         </tbody>
+      </table>
+      </div>
+   </div>
+
+
+
+
 </div>
 </div>
 </div>
 <div class="tab-pane" id="tab-5">
-              <div class="row">
-                <div class="col-lg-12 details order-2 order-lg-1">
-                <h3>Publications</h3>
+  <div class="row">
+    <div class="col-lg-12 details order-2 order-lg-1">
+    <div>  {
+              this.state.show.publication.type.map(r=>{
+                 return <iframe src={r.publications} id="datamain" title="pdf" style={{width:"100%" ,height:"600px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
+              })}</div>
 
-                <div>
-                <iframe src="publications3.pdf" id="datamain" title="pdf" style={{width:"100%" ,height:"600px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
-              </div>
-              </div>
-            </div>
-          </div>
-
-
-
-      </div>
 
     </div>
-    </div>
-    </div>
-  </section>
-      <Footer/>
-    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
 </div>);
  }
-
- export default Research;
+}

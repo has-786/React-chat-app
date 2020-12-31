@@ -3,7 +3,7 @@ import Navbar from './navbar';
 import Footer from './footer';
 const cDean = () => {
     return(
-      <>
+      <div>
         <Navbar/>
         <div className="team-section">
         <div class="section-title">
@@ -55,8 +55,8 @@ const cDean = () => {
           </p>
       </div>
 <Footer/>
-      </>
-      
+      </div>
+
     )
 }
 

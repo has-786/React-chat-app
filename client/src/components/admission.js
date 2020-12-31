@@ -3,6 +3,8 @@ import React from 'react';
 import url from './url';
 import '../css/home.css';
 import '../css/teaching_staff.css';
+import sidenavbar from './sidenavbar';
+import '../css/sidenavbar.css';
 import Footer from './footer';
 import {Link} from 'react-router-dom';
 
@@ -56,7 +58,6 @@ export default class Admission extends React.Component
                     }
                   }
                 }
-              
     }
 
      ugClick(){
@@ -67,7 +68,8 @@ export default class Admission extends React.Component
        document.getElementById('pg').style.display='none';
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='none';
-    //   this.closeNav();
+       sidenavbar();
+
      }
 
      ugOneClick(ind){
@@ -76,7 +78,7 @@ export default class Admission extends React.Component
        document.getElementById('ugtype').style.display='block';
        document.getElementById('ugother').style.display='none';
        document.getElementById('pg').style.display='none';
-    //   this.closeNav();
+       sidenavbar();
      }
 
      pgClick(){
@@ -87,7 +89,7 @@ export default class Admission extends React.Component
        document.getElementById('pg').style.display='block';
        document.getElementById('pgtype').style.display='block';
        document.getElementById('pgother').style.display='block';
-  //     this.closeNav();
+       sidenavbar();
      }
 
      pgOneClick(ind){
@@ -96,7 +98,7 @@ export default class Admission extends React.Component
        document.getElementById('pgtype').style.display='block';
        document.getElementById('pgother').style.display='none';
        document.getElementById('ug').style.display='none';
-    //   this.closeNav();
+       sidenavbar();
      }
 
      ugotherClick(){
@@ -105,7 +107,7 @@ export default class Admission extends React.Component
        document.getElementById('ugtype').style.display='none';
        document.getElementById('ugother').style.display='block';
        document.getElementById('pg').style.display='none';
-    //   this.closeNav();
+       sidenavbar();
      }
 
      pgotherClick(){
@@ -114,7 +116,7 @@ export default class Admission extends React.Component
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='block';
        document.getElementById('ug').style.display='none';
-  //     this.closeNav();
+       sidenavbar();
      }
 
 
@@ -126,7 +128,8 @@ export default class Admission extends React.Component
         document.getElementById('pg').style.display='block';
         document.getElementById('pgtype').style.display='block';
         document.getElementById('pgother').style.display='block';
-    //    this.closeNav();
+        sidenavbar();
+
       }
 
 
@@ -160,12 +163,17 @@ render(){
              <p>Get all the details related to admissions here</p>
            </div>
        <div class='row'>
-         <div class='col-lg-2'>
-         <ul class='nav nav-tabs flex-column'>
+         <div class='col-lg-2' >
+         <i style={{fontSize:'30px'}} class='fa fa-bars burger'
+          onClick={sidenavbar}></i>
+
+         <ul class='nav nav-tabs flex-column mysidenavbar'>
            <li class='nav-item'><Link class="nav-link"  href="#" onClick={this.allClick.bind(this)}>All</Link></li>
            <li class="nav-item"><Link class="nav-link" href="#" onClick={this.ugClick.bind(this)}>UG</Link></li>
            <li class="nav-item">
              <a href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-link">
+             Select
+
                <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo1" class="collapse" >
                 {
                   this.state.ug.type.map((res,ind)=>{
@@ -177,12 +185,14 @@ render(){
             </li >
             <li class="nav-item">
               <ul class='nav nav-tabs flex-column'>
-              <li class="nav-item"><Link href="#" class="nav-link" onClick={this.ugotherClick.bind(this)}>Other Facilities</Link></li>
+                <li class="nav-item"><Link href="#" class="nav-link" onClick={this.ugotherClick.bind(this)}>Other Facilities</Link></li>
               </ul>
             </li>
                <li class="nav-item"><Link href='#' class="nav-link" onClick={this.pgClick.bind(this)}>PG</Link></li>
                      <li class="nav-item">
                      <a href="#demo2" data-toggle="collapse" class="dropdown-toggle nav-link">
+                     Select
+
                        <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo2" class="collapse" >
                           {
                           this.state.pg.type.map((res,ind)=>{
@@ -324,5 +334,6 @@ render(){
 
 	</div>
 }
+
 
 }
