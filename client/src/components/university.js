@@ -44,7 +44,7 @@ Maharashtra University of Health Sciences, Nashik came into existence by Maharas
     }
 
     componentDidMount(){
-    /*  fetch(url+'/api/university',{ method:'GET'})
+      /*fetch(url+'/api/university',{ method:'GET'})
            .then(response=>{ return response.json()})
            .then((body)=>{
                   this.setState({details:body});

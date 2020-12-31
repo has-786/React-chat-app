@@ -267,3 +267,19 @@ th{
 	background-color:#254441;
 	color:white;
 }
+
+
+.text{
+	font-size: 30px;
+	font-family: 'Times New Roman', Times, serif;
+	text-align: center;
+}
+.header-new{
+
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center; /* Only if you want it vertically center-aligned as well */
+		padding: 40px;
+
+}

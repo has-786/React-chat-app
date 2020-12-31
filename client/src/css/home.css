@@ -85,8 +85,9 @@ margin-top:-20%
 .usefulLinks{text-decoration: normal; color:brown;}
 #links{
 
-    border:2px solid green;
-    border-radius:30px;
+    border:2px solid #2c4964;
+    border-radius:8px;
+    background-color:#eee;
     padding:30px;
 }
 

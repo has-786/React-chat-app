@@ -56,21 +56,9 @@ export default class Admission extends React.Component
                     }
                   }
                 }
-                this.openNav=this.openNav.bind(this);
-                this.closeNav=this.closeNav.bind(this);
+              
     }
 
-
-
-      openNav() {
-       document.getElementById("mySidenav").style.width = "250px";
-       document.getElementById("main").style.marginLeft = "250px";
-     }
-
-      closeNav() {
-       document.getElementById("mySidenav").style.width = "0";
-       document.getElementById("main").style.marginLeft= "0";
-     }
      ugClick(){
        this.setState({show:{pg: {type:[],other:[]},ug: {type:this.state.ug.type,other:this.state.ug.other}}});
        document.getElementById('ug').style.display='block';
@@ -143,7 +131,7 @@ export default class Admission extends React.Component
 
 
 componentDidMount(){
-/*  fetch(url+'/api/admission',{ method:'GET'})
+  /*fetch(url+'/api/admission',{ method:'GET'})
        .then(response=>{ return response.json()})
        .then((body)=>{
               this.setState({ug:body.ug});
@@ -152,8 +140,8 @@ componentDidMount(){
                 //alert(body.msg);
               //  dispatch({type:'add_video',payload:body.video});
         })
-       .catch(err=>alert(JSON.stringify(err)));
-*/
+       .catch(err=>alert(JSON.stringify(err)));*/
+
 
 }
 

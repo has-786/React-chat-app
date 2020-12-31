@@ -147,11 +147,11 @@ export default class AcademicActivities extends React.Component
                         otherData:[{subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'}]
                       }
                 }
-                this.openNav=this.openNav.bind(this);
-                this.closeNav=this.closeNav.bind(this);
+
     }
 
       componentDidMount(){
+        this.setState({show:{deptsData:this.state.deptsData,guestsData:this.state.guestsData,otherData:this.state.otherData}})
 
       /*  fetch(url+'/api/academicActivities',{ method:'GET'})
              .then(response=>{ return response.json()})
@@ -170,17 +170,6 @@ export default class AcademicActivities extends React.Component
 
 
       }
-
-
-      openNav() {
-       document.getElementById("mySidenav").style.width = "250px";
-       document.getElementById("main").style.marginLeft = "250px";
-     }
-
-      closeNav() {
-       document.getElementById("mySidenav").style.width = "0";
-       document.getElementById("main").style.marginLeft= "0";
-     }
 
      deptClick(){
        this.setState({show:{deptsData:this.state.deptsData,guestsData:[{name:null,events:[]}],otherData:[]}});

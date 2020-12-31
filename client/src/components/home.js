@@ -1,12 +1,12 @@
 import Navbar from './navbar';
-import Footer from './footer';
 import '../css/home.css';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import url from './url';
+import Footer from './footer';
 export default function Home(props)
 {
-   return (  <div>
+   return (  <div id="mainBody">
          <Navbar/>
 
     <div>
@@ -91,47 +91,48 @@ export default function Home(props)
        </div>
      </section>
 
-     <section id="services" class="services">
+      <section id="services" class="services">
           <div class="container">
             <div class="row">
-            <div class='col-lg-6 '>
+              <div class='col-lg-6' style={{marginBottom:'40px'}}>
+              <p style={{ width:"100%",backgroundColor:'#2c4964',color:'white'}}>USEFUL LINKS</p>
 
-                <div>
-                  <p style={{ width:"90%",backgroundColor:'grey',color:'white'}}>USEFUL LINKS</p>
-                  <div class="content"  style={{backgroundColor:'lightgrey',width:"90%" ,marginTop:'-10px', height:'295px'}}>
+{/*}                  <button  class='btn btn-success dropdown-toggle' data-toggle="collapse" data-target="#demo1"  style={{width:'100%'}}>Useful Links</button>
+                  <div id="demo1" class="collapse" >*/}
+                  <div id='links'>
+                      <p ><a class='usefulLinks' href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
+                      <p><a class='usefulLinks'  href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new">Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a></p><br></br>
+                      <p><a class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p><br></br>
+                      <span id='more'>
+                        <p><a class='usefulLinks'  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
+                        <p><a class='usefulLinks'  href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
+                        <p><a class='usefulLinks'  href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
+                        <p><a class='usefulLinks'  href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new">Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a></p><br></br>
+                        <p><a class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p>
+                        <p><a class='usefulLinks'  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
+                        <p><a class='usefulLinks'  href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
+                      </span>
+                      <center><button class='btn btn-sm btn-secondary' onClick={()=>myFunction()} id="myBtn" style={{marginRight:'5px'}}>Read More</button></center>
 
-                    <p><a class='usefulLinks'  href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology <br></br>course A.Y. 2020-21</a></p>
-                    <p><a class='usefulLinks'   href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new">Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a></p>
-                    <p><a class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p>
-                    <p><a class='usefulLinks'   href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, <br></br>पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
-
-                   <div class="text-center">
-                   <button class="btn btn-success dropdown-toggle " data-toggle="collapse" data-target="#demo1" style={{marginBottom:"25px"}} >Show  More <i class="bx bx-chevron-right"></i></button>
-                   <div id="demo1" class="collapse"   style={{backgroundColor:'lightgrey', width:"90%"}}>
-                   <div id='links'>
-                   <p><a class='usefulLinks'   href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-                    <p><a class='usefulLinks'  href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-                    <p><a class='usefulLinks'  href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new">Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a></p><br></br>
-                    <p><a class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p>
-                    <p><a class='usefulLinks'  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
-                    <p><a class='usefulLinks'  href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-               </div>
+                {/*  </div>*/}
+                  </div>
               </div>
-          </div>
-         </div>
-         </div>
-        </div>
 
               <div class='col-lg-6'>
                 <center>
                   <div>
-                    <p style={{ width:"90%",backgroundColor:'grey',color:'white'}}>UPCOMING NEWS & EVENTS</p>
-                    <marquee width="90%" direction="up" height="300px" style={{backgroundColor:'lightgrey',marginTop:'-10px', height:'295px'}}>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p>
-                    </marquee>
+                    <p style={{ width:"100%",backgroundColor:'#2c4964',color:'white'}}>UPCOMING NEWS & EVENTS</p>
+                    <div id='links' style={{overflowY:'auto',height:'310px'}}>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+                    </div>
                   </div>
                 </center>
               </div>
@@ -148,44 +149,44 @@ export default function Home(props)
           <div class="row">
 
             <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div>
-                <div class="pic"><img src="http://bjmcpune.org/dean2.jpg" class="img-staff"/></div><br/>
-                  <h5>Dr Ajay S. Chandanwale,<br/> Dean</h5>
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/dean2.jpg" class="img-fluid"/></div><br/>
+                  <h5>Dr Ajay S. Chandanwale Dean</h5>
                 </div>
               </div>
 
             <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div>
-                <div class="pic"><img src="http://bjmcpune.org/index.4.jpg" class="img-staff" alt="" /></div><br/>
-                  <h5>Dr Rajesh Karyakarte,<br/> Dy. Dean (UG)</h5>
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/index.4.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr Rajesh Karyakarte Dy. Dean (UG)</h5>
                 </div>
               </div>
 
               <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div>
-                <div class="pic"><img src="http://bjmcpune.org/index.5.jpg" class="img-staff" alt="" /></div><br/>
-                  <h5>Dr. S. V. Joshi,<br/> Dy. Dean (PG)</h5>
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/index.5.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr. S. V. Joshi Dy. Dean (PG)</h5>
                 </div>
               </div>
 
               <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div>
-                <div class="pic"><img src="http://bjmcpune.org/tambe.jpg" class="img-staff" alt="" /></div><br/>
-                  <h5>Dr. M. P. Tambe,<br/> Dy. Dean (Administration)</h5>
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/tambe.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr. M. P. Tambe Dy. Dean (Administration)</h5>
                 </div>
               </div>
 
             <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div>
-                <div class="pic"><img src="http://bjmcpune.org/Medical-Superintendent.jpg" class="img-staff" alt="" /></div><br/>
-                  <h5>Dr. Ajay A. Taware,<br/> Medical Superintendent</h5>
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/Medical-Superintendent.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr. Ajay A. Taware Medical Superintendent</h5>
                 </div>
               </div>
 
               <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div>
-                <div class="pic"><img src="http://bjmcpune.org/vj.jpg" class="img-staff" alt="" /></div><br/>
-                  <h5>Dr. Vijay Jadhav,<br/>Dy. Medical Superintendent</h5>
+                <div class="icon-box">
+                <div class="pic"><img src="http://bjmcpune.org/vj.jpg" class="img-fluid" alt="" /></div><br/>
+                  <h5>Dr. Vijay Jadhav Dy. Medical Superintendent</h5>
                 </div>
               </div>
 
@@ -194,11 +195,21 @@ export default function Home(props)
       </section>
 		<br></br><br></br>
 
-
-
-
-
     <Footer/>
+
     </div>
   </div>);
+}
+
+function myFunction() {
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (btnText.innerHTML === "Read less") {
+    btnText.innerHTML = "Read more";
+    moreText.style.display = "none";
+  } else {
+    btnText.innerHTML = "Read less";
+    moreText.style.display = "inline";
+  }
 }

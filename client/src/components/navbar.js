@@ -22,7 +22,7 @@ export default function Navbar(props)
     </div>
   </div>
 
-  <div class="window" style={{marginTop:'40px'}}>
+  <div class="window">
     <div class="header-new">
       <img src="./assets/img/gallery/slogo.png" />
       <div class="textcontent">
