@@ -39,7 +39,7 @@ export default class teaching_staff extends React.Component {
 
   render() {
     return (
-      <>
+      <div  id='mainBody'>
       <div>
         <Navbar/>
       </div>
@@ -381,7 +381,7 @@ export default class teaching_staff extends React.Component {
   </div>
     </section>
     <Footer/>
-    </>
+    </div>
     )
   }
 }

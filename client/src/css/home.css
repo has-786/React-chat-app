@@ -1,7 +1,6 @@
 a{
   text-decoration:None;
-  text-decoration-color:brown;
-  color: #FF0000;
+  color:black;
 }
 
 @media only screen and (max-width:768px) {
@@ -81,8 +80,9 @@ margin-top:-20%
 }
 
 
+.usefulLinks a{float:left;text-decoration:none;  font: Roboto(regular) 14px #007ff; }
+.newsupdates p{float:left; font: Roboto(regular) 14px #666666; }
 
-.usefulLinks{text-decoration: normal; color:brown;}
 #links{
 
     border:2px solid #2c4964;
@@ -90,15 +90,6 @@ margin-top:-20%
     background-color:#eee;
     padding:30px;
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -153,3 +144,19 @@ ul{list-style:none;}
 .sidenav a:hover{color:lightgrey;}
 
 #more {display: none;}
+#more1 {display: none;}
+
+.seemore{
+  font: Roboto(medium) 16px;
+  padding:0 20px 0 20px;
+  height:40px;
+  border:1px solid #ccc;
+}
+
+.seemore:hover{
+  border:1px solid #f79700;
+}
+
+.checkup{
+  color:white;
+}

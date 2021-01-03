@@ -6,6 +6,8 @@ import '../css/home.css';
 import Footer from './footer';
 import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
+import '../css/Department_css.css';
+
 export default class Result extends React.Component
 {
     constructor(props){
@@ -44,31 +46,28 @@ export default class Result extends React.Component
      }
 
 render(){
-	return <div>
+	return <div   id='mainBody'>
 			 <Navbar />
 
-       <section id="departments" class="departments">
-         <div class="container">
+              <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
 
-           <div class="section-title">
-             <h2>Results</h2>
-             <p>Check out the results</p>
-           </div>
+               <section class="New_Department row">
+                       <nav class="side_navigation col-lg-3 mysidenavbar">
 
-       <div class='row'>
-            <div class='col-lg-2'>
-            <i style={{fontSize:'30px'}} class='fa fa-bars burger'
-             onClick={sidenavbar}></i>
+                        <ul class='list-group sidenav_list' >
+                        {
+                            this.state.arr.map((res,ind)=>{
+                             return  <li><Link href='#' class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.linkOneClick.bind(this,ind)} >{res.type}</Link></li>
+                           })
+                         }
+                         </ul>
+                    </nav>
+            <div class='col-lg-9'>
+                <div class="section-title">
+                  <h2>Results</h2>
+                  <p>Check out the results</p>
+                </div>
 
-              <ul class="nav nav-tabs flex-column mysidenavbar">               {
-                  this.state.arr.map((res,ind)=>{
-                   return  <li class='nav-item'><Link href='#' class='nav-link' onClick={this.linkOneClick.bind(this,ind)} >{res.type}</Link></li>
-                 })
-               }
-               </ul>
-            </div>
-
-            <div class='col-lg-10'>
                <section class='jumbotron'>
                      <div class="container">
                         <div class="features-icons-item mx-auto mb-0 mb-lg-3">
@@ -77,9 +76,7 @@ render(){
                         </div>
                       </div>
                 </section>
-              </div>
-          </div>
-        </div>
+            </div>
       </section>
       <Footer/>
 	</div>

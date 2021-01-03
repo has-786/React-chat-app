@@ -12,6 +12,8 @@ otherActivity=db.otherActivity;
 university=db.university;
 result=db.result;
 img=db.img;
+usefullink=db.usefullink;
+newsupdate=db.newsupdate;
 
 
 app=express();
@@ -40,6 +42,7 @@ app.get('/api/result',(req,res)=>{
 			})
 
 });
+
 
 
 app.get('/api/admission',(req,res)=>{
@@ -99,6 +102,23 @@ app.get('/api/gallery',(req,res)=>{
 			})
 
 });
+
+app.get('/api/getDataForHome',(req,res)=>{
+
+
+
+
+			usefullink.find({},(err,usefulLink1)=>{
+				if(err)console.log(err);
+				console.log(usefulLink1);
+					newsupdate.find({},(err,newsUpdate1)=>{
+						if(err)console.log(err);
+						console.log(newsUpdate1);
+							res.send({usefulLink:usefulLink1,newsUpdate:newsUpdate1});
+						})
+			})
+});
+
 /*
 var bodyParser = require('body-parser');
 var mongoose=require('mongoose');
@@ -120,6 +140,14 @@ app.use(bodyParser.json());
 require('./server/security/passport.js')(passport);
 require('./server/routes/mainRoutes.js')(app,passport,bcrypt,nodemailer,randomstring);
 */
+
+
+
+
+
+
+
+
 var port=  process.env.PORT || 5000;
 
 app.listen(port,()=>{console.log('Server On');});

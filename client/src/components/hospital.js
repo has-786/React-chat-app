@@ -3,8 +3,10 @@ import './Hospital2.pdf'
 import Navbar from './navbar';
 import Footer from './footer';
 const Hospital = () => {
+    window.scrollTo(0,0);
+
     return(
-      <div>
+      <div   id='mainBody'>
          <Navbar/>
       <section id="departments" class="departments">
         <div class="container">

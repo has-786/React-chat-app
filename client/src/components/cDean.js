@@ -3,7 +3,7 @@ import Navbar from './navbar';
 import Footer from './footer';
 const cDean = () => {
     return(
-      <div>
+      <div   id='mainBody'>
         <Navbar/>
         <div className="team-section">
         <div class="section-title">

@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 import Footer from './footer';
 import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
+import '../css/Department_css.css';
 
 
 export default class AcademicActivities extends React.Component
@@ -156,7 +157,7 @@ export default class AcademicActivities extends React.Component
 
       componentDidMount(){
         this.setState({show:{deptsData:this.state.deptsData,guestsData:this.state.guestsData,otherData:this.state.otherData}})
-
+        window.scrollTo(0,0);
       /*  fetch(url+'/api/academicActivities',{ method:'GET'})
              .then(response=>{ return response.json()})
              .then((body)=>{
@@ -226,64 +227,66 @@ export default class AcademicActivities extends React.Component
     //    this.closeNav();
       }
 render(){
-	return <div>
+	return <div   id='mainBody'>
 			 <Navbar />
-       <section id="departments" class="departments">
-         <div class="container">
+       <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
 
-           <div class="section-title">
-             <h2>Academic Activities</h2>
-             <p>Academic activities in the Sassoon Hospital and College</p>
-           </div>
-        <div class='row'>
-          <div class='col-lg-2'>
-          <i style={{fontSize:'30px'}} class='fa fa-bars burger'
-           onClick={sidenavbar}></i>
 
-            <ul class="nav nav-tabs flex-column mysidenavbar">
-            <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.allClick.bind(this)}>All</Link></li>
-            <li class='nav-item'><Link  href="#" class='nav-link' onClick={this.deptClick.bind(this)}>By Departments</Link></li>
-            <li class='nav-item'>
-              <a href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-link">
+               <section class="New_Department row">
+                       <nav class="side_navigation col-lg-3 mysidenavbar">
+
+                        <ul class='list-group sidenav_list' >
+
+            <li ><Link  href="#" class='list-group-item list-group-item-action active' data-toggle='list' onClick={this.allClick.bind(this)}>All</Link></li>
+            <li><Link  href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.deptClick.bind(this)}>By Departments</Link></li>
+            <li >
+              <a href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
               Select
-              <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo1" class="collapse" >
+              <div id="demo1" class="collapse">
+              <ul class='list-group-item list-group-item-action' >
                {
                   this.state.deptsData.map((res,ind)=>{
-                   return  <li class='nav-item'><Link href='#' class='nav-link' onClick={this.deptOneClick.bind(this,ind)} >{res.name}</Link></li>
+                   return  <li ><Link href='#'  onClick={this.deptOneClick.bind(this,ind)} >{res.name}</Link></li>
                  })
                }
                </ul>
+               </div>
                </a>
              </li>
 
-             <li class='nav-item'><Link  href='#' class='nav-link' onClick={this.guestClick.bind(this)}>By Guests</Link></li>
-              <li class='nav-item'><a href="#demo2"  data-toggle="collapse" class="dropdown-toggle nav-link">
+             <li><Link  href='#' class='list-group-item list-group-item-action' data-toggle='list' onClick={this.guestClick.bind(this)}>By Guests</Link></li>
+              <li>
+              <a href="#demo2" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
               Select
-
-                 <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo2" class="collapse" >
+                <div id="demo2" class="collapse">
+                 <ul class='list-group-item list-group-item-action'  >
                  {
                  this.state.guestsData.map((res,ind)=>{
-                     return <li class='nav-item'><Link href='#' class='nav-link' onClick={this.guestOneClick.bind(this,ind)} >{res.name}</Link></li>
+                     return <li><Link href='#' onClick={this.guestOneClick.bind(this,ind)} >{res.name}</Link></li>
                  })
                 }
                  </ul>
+                 </div>
                </a>
                </li>
-               <li class='nav-item'><Link href="#" class='nav-link' onClick={this.otherClick.bind(this)}>Other Activities</Link></li>
+               <li><Link href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.otherClick.bind(this)}>Other Activities</Link></li>
             </ul>
+          </nav>
+
+
+          <div class='col-lg-9'>
+          <div class="section-title">
+            <h2>Academic Activities</h2>
+            <p>Academic activities in the Sassoon Hospital and College</p>
           </div>
-
-
-          <div class='col-lg-10'>
-
           <div id='dept'  style={{border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
           <center><button class='btn btn-primary'>By Departments</button></center>
              <div>
                  { this.state.show.deptsData.map((res)=>{
                   return <div>
-                  <h5 style={{color:'blue'}}>{res.name}</h5>
+                  <h5 style={{float:'left',color:'blue'}}>{res.name}</h5>
                         <div class="table-responsive">
-                          <table class="table table-bordered table-hover table-striped">
+                          <table class="table table-bordered">
                             <thead>
                                <tr>
                                  <th>Head</th>
@@ -320,9 +323,9 @@ render(){
                      {
                        this.state.show.guestsData.map((res)=>{
                          return <div>
-                               <h5 style={{color:'green'}}>{res.name}</h5>
+                               <h5 style={{float:'left',color:'green'}}>{res.name}</h5>
                                <div class="table-responsive">
-                                 <table class="table table-bordered table-hover table-striped">
+                                 <table class="table table-bordered">
                                    <thead>
                                       <tr>
                                         <th>Subject</th>
@@ -351,9 +354,8 @@ render(){
                <br></br>
            <div id='other'  style={{border:'2px solid red',borderRadius:'10px',padding:'5px'}}>
            <center><button class='btn btn-danger'>Other Activities</button></center>
-
                        <div class="table-responsive">
-                         <table class="table table-bordered table-hover table-striped">
+                         <table class="table table-bordered">
                            <thead>
                               <tr>
                                 <th>Subject</th>
@@ -381,9 +383,7 @@ render(){
 
           </div>
 
-        </div>
 
-        </div>
         </section>
 
 

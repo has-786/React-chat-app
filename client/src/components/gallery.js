@@ -27,7 +27,7 @@ let [imgs,setImgs]=useState([{name:'An Image of Hospital when the event of acade
      .catch(err=>{return err;});*/
 
 
-return  <div>
+return  <div   id='mainBody'>
   <Navbar/>
 
          <section id="departments" class="departments" >

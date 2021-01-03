@@ -17,7 +17,7 @@ export default class Archives extends React.Component
 
 
 render(){
-	return <div >
+	return <div   id='mainBody'>
 			 <Navbar />
        <section id="departments" class="departments">
          <div class="container">

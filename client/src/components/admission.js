@@ -1,10 +1,9 @@
 import Navbar from './navbar';
 import React from 'react';
 import url from './url';
-import '../css/home.css';
-import '../css/teaching_staff.css';
 import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
+import '../css/Department_css.css';
 import Footer from './footer';
 import {Link} from 'react-router-dom';
 
@@ -130,10 +129,13 @@ export default class Admission extends React.Component
         document.getElementById('pgother').style.display='block';
         sidenavbar();
 
+
       }
 
-
 componentDidMount(){
+  window.scrollTo(0,0);
+
+
   /*fetch(url+'/api/admission',{ method:'GET'})
        .then(response=>{ return response.json()})
        .then((body)=>{
@@ -149,75 +151,69 @@ componentDidMount(){
 }
 
 render(){
-	return <div>
+	return <div   id='mainBody'>
    <div>
 
 			 <Navbar />
 
+       <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
 
-       <section id="departments" class="departments">
-         <div class="container">
+        <section class="New_Department row">
+                <nav class="side_navigation col-lg-3 mysidenavbar">
 
-           <div class="section-title">
-             <h2>Admission</h2>
-             <p>Get all the details related to admissions here</p>
-           </div>
-       <div class='row'>
-         <div class='col-lg-2' >
-         <i style={{fontSize:'30px'}} class='fa fa-bars burger'
-          onClick={sidenavbar}></i>
-
-         <ul class='nav nav-tabs flex-column mysidenavbar'>
-           <li class='nav-item'><Link class="nav-link"  href="#" onClick={this.allClick.bind(this)}>All</Link></li>
-           <li class="nav-item"><Link class="nav-link" href="#" onClick={this.ugClick.bind(this)}>UG</Link></li>
-           <li class="nav-item">
-             <a href="#demo1" data-toggle="collapse" class="dropdown-toggle nav-link">
-             Select
-
-               <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo1" class="collapse" >
-                {
-                  this.state.ug.type.map((res,ind)=>{
-                    return  <li class="nav-item"><Link class="nav-link" href='#' onClick={this.ugOneClick.bind(this,ind)} >{res.name}</Link></li>
-                  })
-                }
-                </ul>
-             </a>
-            </li >
-            <li class="nav-item">
-              <ul class='nav nav-tabs flex-column'>
-                <li class="nav-item"><Link href="#" class="nav-link" onClick={this.ugotherClick.bind(this)}>Other Facilities</Link></li>
-              </ul>
-            </li>
-               <li class="nav-item"><Link href='#' class="nav-link" onClick={this.pgClick.bind(this)}>PG</Link></li>
-                     <li class="nav-item">
-                     <a href="#demo2" data-toggle="collapse" class="dropdown-toggle nav-link">
-                     Select
-
-                       <ul class="dropdown-menu nav nav-tabs flex-column"  id="demo2" class="collapse" >
-                          {
-                          this.state.pg.type.map((res,ind)=>{
-                              return <li><Link href='#' class="nav-link" onClick={this.pgOneClick.bind(this,ind)} >{res.name}</Link></li>
+                 <ul class='list-group sidenav_list' >
+                   <li><Link class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>All</Link></li>
+                   <li><Link class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.ugClick.bind(this)}>UG</Link></li>
+                   <li>
+                     <a href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                        Select
+                      <div id="demo1"  class="collapse">
+                       <ul class='list-group-item list-group-item-action'>
+                        {
+                          this.state.ug.type.map((res,ind)=>{
+                            return  <li><Link  href='#' onClick={this.ugOneClick.bind(this,ind)} >{res.name}</Link></li>
                           })
-                           }
-                       </ul>
-                     </a>
-                     </li>
-                     <li  class="nav-item">
-                    <ul class='nav nav-tabs flex-column'>
-                     <li  class="nav-item"><Link href="#" class="nav-link" onClick={this.pgotherClick.bind(this)}>Other Facilities</Link></li>
-                    </ul>
+                        }
+                        </ul>
+                        </div>
+                      </a>
                     </li>
-              </ul>
-         </div>
+                    <li><Link class='list-group-item list-group-item-action' data-toggle="list" href="#"  onClick={this.ugotherClick.bind(this)}>Other Facilities</Link></li>
+                       <li><Link href='#' class="list-group-item list-group-item-action" data-toggle="list" onClick={this.pgClick.bind(this)}>PG</Link></li>
 
-         <div class='col-lg-10'>
+                             <li><Link href="#" class='list-group-item list-group-item-action' data-toggle="list"   onClick={this.pgotherClick.bind(this)}>Other Facilities</Link></li>
+                             <li>
+                                   <a href="#demo" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                                   Select
+                                   <div id="demo"  class="collapse">
+                                     <ul class='list-group-item list-group-item-action'>
+                                        {
+                                        this.state.pg.type.map((res,ind)=>{
+                                            return <li ><Link href='#' onClick={this.pgOneClick.bind(this,ind)} >{res.name}</Link></li>
+                                        })
+                                         }
+                                     </ul>
+                                    </div>
+                                   </a>
+                                   </li>
+
+                      </ul>
+                  </nav>
+         <div class='col-lg-9' >
+         <div class="section-title">
+           <h2>Admission</h2>
+           <p>Get all the details related to admissions here</p>
+         </div>
+         <center>
+
            <div id='ug'  style={{border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
            <center><button class='btn btn-primary'>UG</button></center>
              <br></br>
+
              <div id='ugtype'>
-              <h5 style={{color:"blue"}}> Available admissions</h5>
-              <div class="table-responsive">
-                <table class="table table-bordered table-hover table-striped">
+              <h5 style={{float:'left',color:"blue"}}> Available admissions</h5>
+              <div class="table-responsive" >
+                <table class="table table-bordered">
                   <thead>
                      <tr>
                        <th>Course Name</th>
@@ -239,9 +235,9 @@ render(){
             </div>
             <br></br>
             <div id='ugother'>
-            <h5 style={{color:"blue"}}>Other Facilities</h5>
+            <h5 style={{float:'left',color:"blue"}}>Other Facilities</h5>
             <div class="table-responsive">
-              <table class="table table-bordered table-hover">
+              <table class="table table-bordered">
                 <thead>
                    <tr>
                      <th>Name</th>
@@ -263,7 +259,6 @@ render(){
             </div>
           </div>
 
-
             <br></br><br></br><br></br><br></br>
             <div id='pg' style={{border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
             <center><button class='btn btn-success'>PG</button></center>
@@ -271,7 +266,7 @@ render(){
               <div id='pgtype'>
                 <h5 style={{color:"green"}}>Available admissions</h5>
                 <div class="table-responsive">
-                  <table class="table table-bordered table-hover table-striped">
+                  <table class="table table-bordered">
                     <thead>
                        <tr>
                          <th>Course Name</th>
@@ -293,9 +288,9 @@ render(){
               </div>
               <br></br><br></br>
               <div id='pgother'>
-               <h5 style={{color:"green"}}>Other Facilities</h5>
+               <h5 style={{float:'left',color:"green"}}>Other Facilities</h5>
                <div class="table-responsive">
-                 <table class="table table-bordered table-hover table-striped">
+                 <table class="table table-bordered">
                    <thead>
                       <tr>
                         <th>Name</th>
@@ -316,13 +311,10 @@ render(){
                 </div>
                </div>
             </div>
+            </center>
 
+            </div>
 
-
-         </div>
-
-       </div>
-       </div>
        </section>
 
 
@@ -330,8 +322,7 @@ render(){
 
       <Footer/>
 
-    </div>
-
+      </div>
 	</div>
 }
 

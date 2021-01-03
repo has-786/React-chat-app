@@ -29,6 +29,7 @@ h1 {
 	margin-top: 100px;
 	text-align:center;
 	font-size:60px;
+
 	line-height: 70px;
 	font-family: 'Bree Serif', 'serif';
 	}
@@ -51,7 +52,8 @@ p {
 nav {
 	margin:0;
 	padding: 0;
-	background-color: #2c4964;
+	background-color: #eeeeee;
+	color:black;
 }
 
 #logo {
@@ -86,31 +88,54 @@ nav ul {
 nav ul li {
 	display:inline-block;
 	float: left;
-	background-color: #2c4964;
+	color:black;
+	padding-left:10px;
+	background-color: #eeeeee;
 	}
 
 /* Styling the as */
 nav a {
 	display:block;
-	padding:14px 20px;
-	color:#FFF;
+	padding:14px 17px;
 	font-size:17px;
+	color:black;
+	font-family: sans-serif;
 	text-decoration:none;
 }
 
 
-nav ul li ul li:hover { background: #000000; }
+nav ul li a[name=single]:hover{
+ color:white;
+ background-color: #003a9b;
+}
+
+
+
+nav ul li ul li a:hover{
+
+ color:white;
+ background-color: #003a9b;
+}
 
 /* Background color change on Hover */
-nav a:hover {
-	background-color: #000000;
+nav ul li ul li{
+	border-top: 3px solid transparent;
 }
+nav ul li ul li:first-child{
+	border-top: 3px solid #003a9b;
+}
+
+
+
+
+
 
 /* Hide Dropdowns by Default
  * and giving it a position of absolute */
 nav ul ul {
 	display: none;
 	position: absolute;
+
 	/* has to be the same number as the "line-height" of "nav a" */
 	top: 50px;
 }
@@ -122,7 +147,7 @@ nav ul li:hover > ul {
 
 /* Fisrt Tier Dropdown */
 nav ul ul li {
-	width:170px;
+	width:150px;
 	float:none;
 	display:list-item;
 	position: relative;
@@ -141,7 +166,6 @@ nav ul ul ul li {
 
 
 /* Change ' +' in order to change the Dropdown symbol */
-li > a:after { content:  ' +'; }
 li > a:only-child:after { content: ''; }
 
 
@@ -158,13 +182,6 @@ li > a:only-child:after { content: ''; }
 		float: none;
 	}
 
-	.burger{
-		display:block;
-	}
-
-	.mysidenavbar{
-		display:none;
-	}
 	nav {
 		margin: 0;
 	}
@@ -180,15 +197,16 @@ li > a:only-child:after { content: ''; }
 	.toggle {
 		display: block;
     padding:14px 20px;
-		background-color:#2c4964;
-		color:#FFF;
+		background-color:#eeeeee;
+		color:black;
 		font-size:17px;
 		text-decoration:none;
 		border:none;
 	}
 
 	.toggle:hover {
-		background-color: #000000;
+		background-color: #003a9b;
+		color:white;
 	}
 
 	/* Display Dropdown when clicked on Parent Lable */
@@ -214,21 +232,24 @@ li > a:only-child:after { content: ''; }
 
 	nav a:hover,
  	nav ul ul ul a {
-		background-color: #000000;
+		background-color: #003a9b;
+		color:white;
 	}
 
 	nav ul li ul li .toggle,
 	nav ul ul a,
   nav ul ul ul a{
 		padding:14px 20px;
-		color:#FFF;
-		font-size:17px;
+		background-color: #eeeeee;
+		color:black;
+				font-size:17px;
 	}
 
 
 	nav ul li ul li .toggle,
 	nav ul ul a {
-		background-color: #212121;
+		background-color: #eeeeee;
+		color:black;
 	}
 
 	/* Hide Dropdowns by Default */
@@ -272,13 +293,14 @@ li > a:only-child:after { content: ''; }
 a{text-decoration:none;}
 a:hover{text-decoration:None;}
 th{
-	background-color:#254441;
 	color:white;
+	background-color:#003a9b;
 }
-
-
-
-
+td{background-color:#eeeeee;}
+.table {
+    border-collapse: separate;
+    border-spacing:0 5px;
+}
 
 .text{
 	font-size: 30px;
@@ -294,3 +316,14 @@ th{
 		padding: 40px;
 
 }
+
+.footerClass{
+    background-color: #ffffff;
+    font-size: 14px;
+    padding: 10px;
+    color: black;
+    margin-bottom: 2px;
+  }
+  .copyright{
+    float: left;
+  }

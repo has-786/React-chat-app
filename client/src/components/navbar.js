@@ -5,52 +5,17 @@ export default function Navbar(props)
 {
   return <div id='mainI'>
 
-
-  <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
-    <div class="container d-flex">
-      <div class="contact-info mr-auto">
-        <i class="icofont-envelope"></i> <a href="#">deanbjmcpune@gmail.com</a>
-        <i class="icofont-phone"></i> +91 20 26128000
-        <i class="icofont-google-map"></i> Jai Prakash Narayan Road, Near Pune Railway Station, Pune - 411001
-      </div>
-      <div class="social-links">
-        <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
-        <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-        <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
-        <a href="#" class="skype"><i class="icofont-skype"></i></a>
-        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
-      </div>
-    </div>
-  </div>
-
-  <div class="window">
-    <div class="header-new">
-      <img src="./assets/img/gallery/slogo.png" />
-      <div class="textcontent">
-        <div class="text"> BYRAMJEE JEEJEEBHOY GOVERNMENT MEDICAL COLLEGE </div>
-        <div class="text">AND SASSOON GENERAL HOSPITALS, PUNE </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div id="imgBack"></div>
-
-  <div id="marqueeTag">
-    <marquee>“It is health that is the real wealth, and not pieces of gold and silver.” – Mahatma Gandhi</marquee>
-  </div>
-
   <nav>
     <label for="drop" class="toggle" style={{marginTop:'0px'}}>Menu</label>
     <input type="checkbox" id="drop" />
     <ul class="menu">
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/about">About</Link></li>
-      <li><Link to="/hospital">Hospital</Link></li>
-      <li><Link to="/department">Departments</Link></li>
+      <li><Link name='single' to="/">Home</Link></li>
+      <li><Link  name='single' to="/about">About</Link></li>
+      <li><Link  name='single' to="/hospital">Hospital</Link></li>
+      <li><Link  name='single' to="/department">Departments</Link></li>
       <li>
-      <label for="drop-2" class="toggle">Academics +</label>
-      <Link to="/academicActivities">Academics</Link>
+      <label for="drop-2" class="toggle">Academics&nbsp; <i style={{color:'green'}} class='fas fa-angle-down'></i></label>
+      <Link to="#">Academics&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-2"/>
       <ul>
         <li><Link to="/university">University</Link></li>
@@ -59,10 +24,10 @@ export default function Navbar(props)
         <li><Link to="/academicActivities">Academic Activities</Link></li>
       </ul>
       </li>
-      <li><Link to="/research">Research & Resources</Link></li>
+      <li><Link  name='single' to="/research">Research & Resources</Link></li>
       <li>
-      <label for="drop-4" class="toggle">Achievements +</label>
-      <Link to="#">Achievements</Link>
+      <label for="drop-4" class="toggle">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-right'></i></label>
+      <Link to="#">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-4"/>
       <ul>
         <li><Link to="#">Recognition</Link></li>
@@ -70,8 +35,8 @@ export default function Navbar(props)
       </ul>
       </li>
       <li>
-      <label for="drop-5" class="toggle">Staffs +</label>
-      <Link to="/teaching_staff">Staffs</Link>
+      <label for="drop-5" class="toggle">Staffs&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></label>
+      <Link to="/teaching_staff">Staffs&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-5"/>
       <ul>
         <li><Link to="/cdean">Dean</Link></li>
@@ -80,11 +45,13 @@ export default function Navbar(props)
         <li><Link to="/nonTeaching_staff">Non-Teaching Staff</Link></li>
       </ul>
       </li>
-      <li><Link to="/gallery">Gallery</Link></li>
-      <li><Link to="/archives">Archives</Link></li>
+      <li><Link  name='single' to="/gallery">Gallery</Link></li>
+      <li><Link  name='single' to="/archives">Archives</Link></li>
+      <li><Link  name='single' to="/analytics">Analytics</Link></li>
+
     </ul>
   </nav>
-  <div class="chat_on" style={{position:'fixed',bottom:0,right:20,zIndex:1}}>
+  <div class="chat_on" style={{position:'fixed',bottom:0,right:5,zIndex:1}}>
          <div id='chat' style={{display:'none'}}>
             <iframe
             allow="microphone;"
@@ -93,7 +60,7 @@ export default function Navbar(props)
             src="https://console.dialogflow.com/api-client/demo/embedded/950e1d1f-af06-4760-abd1-fbec695161b5">
             </iframe>
          </div>
-         <span class="chat_on_icon"><i id='chat_icon' style={{float:'right',color:'green',fontSize:'40px'}} class="fa fa-comments" aria-hidden="true" onClick={(evt)=>chatbot()}></i></span>
+         <span class="chat_on_icon"><i id='chat_icon' style={{float:'right',color:'#003a9b',fontSize:'50px'}} class="fa fa-comments" aria-hidden="true" onClick={(evt)=>chatbot()}></i></span>
   </div>
 </div>
 }
@@ -116,8 +83,8 @@ function chatbot(){
     document.getElementById('chat_icon').className='fa fa-comments';
 
     document.getElementById('chat_icon').style.float='right';
-    document.getElementById('chat_icon').style.color='green';
-    document.getElementById('chat_icon').style.fontSize='40px';
+    document.getElementById('chat_icon').style.color='#003a9b';
+    document.getElementById('chat_icon').style.fontSize='50px';
 
 
   }

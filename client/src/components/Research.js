@@ -80,7 +80,9 @@ export default class Research extends React.Component {
                 }
 
 render(){
-return(<div>
+  window.scrollTo(0,0);
+
+return(<div   id='mainBody'>
     <Navbar />
 
   <div>

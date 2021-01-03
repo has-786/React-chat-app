@@ -23,7 +23,7 @@ export class nonTeaching_staff extends React.Component {
 
   render() {
     return (
-      <div>
+      <div   id='mainBody'>
         <Navbar/>
         <section id="departments" class="departments">
           <div class="container">

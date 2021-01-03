@@ -1,199 +1,146 @@
 import Navbar from './navbar';
 import '../css/home.css';
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import url from './url';
 import Footer from './footer';
+import New_Department from './Homepage_Department';
+import UsefulLink from './UsefulLink';
+import MainImg from './mainImg';
+
 export default function Home(props)
 {
+  const [usefulLink,setUsefulLink]=useState([]);
+  const [newsUpdate,setNewsUpdate]=useState([]);
+
+  useEffect(()=>{
+    fetch(url+'/api/getDataForHome',{ method:'GET'})
+         .then(response=>{ return response.json()})
+         .then((body)=>{
+                setUsefulLink(body.usefulLink);
+                setNewsUpdate(body.newsUpdate);
+          })
+         .catch(err=>alert(JSON.stringify(err)));
+  },[])
+
    return (  <div id="mainBody">
+            <MainImg/>
          <Navbar/>
 <div>
-	<section id="doctors" class="doctors">
-        <div class="container">
-
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="member d-flex align-items-start">
-                <div class='pic'><img src="assets/img/doctors/gandhi.jpg"  class="img-fluid" style={{zIndex:-1}} alt="" /></div>
-                <div class="member-info">
-                  <h4>MAHATMA GANDHI</h4>
-                  <span>( October 2, 1869 – January 30, 1948)</span>
-                  <p>Mahatma Gandhiji Was Operated for Appendicectomy on 12th January 1924</p>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6 mt-4 mt-lg-0">
-              <div class="member d-flex align-items-start">
-                <div class="pic"><img src="assets/img/doctors/david.jpg" class="img-fluid" style={{zIndex:-1}} alt="" /></div>
-                <div class="member-info">
-                  <h4>David Sassoon</h4>
-                  <span> (October 1792 – November 7, 1864)</span>
-                  <p>David Sassoon from Mumbai made a generous donation to make the construction of the hospital possible in 1867.</p><br />
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-
-  <section id="why-us" class="why-us">
-       <div class="container">
-
-         <div class="row">
-           <div class="col-lg-4 d-flex align-items-stretch">
-             <div class="content">
-               <h3>Know about us?</h3>
-               <p>
-                  Sassoon General Hospitals is a large state-run hospital in Pune, India with 1296 beds. It is affiliated to the B. J. Medical College and a Nurses training School.
-               </p>
-               <div class="text-center">
-                 <Link to='/history' class="more-btn">Learn More <i class="bx bx-chevron-right"></i></Link>
-               </div>
-             </div>
-           </div>
-           <div class="col-lg-8 d-flex align-items-stretch">
-             <div class="icon-boxes d-flex flex-column justify-content-center">
-               <div class="row">
-                 <div class="col-xl-4 d-flex align-items-stretch">
-                   <div class="icon-box mt-4 mt-xl-0">
-                     <i class="fa fa-hospital"></i>
-                     <h4><Link  style={{color:'black'}} to='/hospital'>Hospital</Link></h4>
-                     <p class="lead mb-0" style={{fontWeight:"bold"}}>See the details of Hospital</p>
-                   </div>
-                 </div>
-                 <div class="col-xl-4 d-flex align-items-stretch">
-                   <div class="icon-box mt-4 mt-xl-0">
-                     <i class="fas fa-graduation-cap"></i>
-                     <h4><Link style={{color:'black'}} to='/admission'>Admission</Link></h4>
-                     <p>Get an admission here</p>
-                   </div>
-                 </div>
-                 <div class="col-xl-4 d-flex align-items-stretch">
-                   <div class="icon-box mt-4 mt-xl-0">
-                     <i class="fas fa-book-reader"></i>
-                     <h4><Link style={{color:'black'}} to='/research'>Research Activities</Link></h4>
-                     <p>Check out the Research Activities done by us</p>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-
-       </div>
-     </section>
-
-      <section id="services" class="services">
-          <div class="container">
+<section>
             <div class="row">
-              <div class='col-lg-6' style={{marginBottom:'40px'}}>
-              <p style={{ width:"100%",backgroundColor:'#2c4964',color:'white'}}>USEFUL LINKS</p>
-
+              <div class='col-lg-6 ' style={{paddingLeft:'20px',marginBottom:'20px'}} >
+              <span style={{fontSize:'25px'}}>Useful links</span>
+              <br></br><br></br>
 {/*}                  <button  class='btn btn-success dropdown-toggle' data-toggle="collapse" data-target="#demo1"  style={{width:'100%'}}>Useful Links</button>
                   <div id="demo1" class="collapse" >*/}
-                  <div id='links'>
-                      <p ><a class='usefulLinks' href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-                      <p><a class='usefulLinks'  href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new">Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a></p><br></br>
-                      <p><a class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p><br></br>
-                      <span id='more'>
-                        <p><a class='usefulLinks'  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
-                        <p><a class='usefulLinks'  href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-                        <p><a class='usefulLinks'  href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new">Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-                        <p><a class='usefulLinks'  href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new">Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a></p><br></br>
-                        <p><a class='usefulLinks'  href="New Doc 2020-09-28.pdf" target="new">PG DMLT Admission 2020 - 21</a></p>
-                        <p><a class='usefulLinks'  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new">बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a></p><br></br>
-                        <p><a class='usefulLinks'  href="2nd list B.Sc in PMT.pdf" target="new">2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a></p><br></br>
-                      </span>
-                      <center><button class='btn btn-sm btn-secondary' onClick={()=>myFunction()} id="myBtn" style={{marginRight:'5px'}}>Read More</button></center>
+                <div class='usefulLinks'>
+                {/*
+                        <a href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a><br></br><br></br>
+                        <a   href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a><br></br><br></br>
+                        <a   href="New Doc 2020-09-28.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>PG DMLT Admission 2020 - 21</a><br></br><br></br>
+                        <span id='more'>
+                          <a  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a><br></br><br></br>
+                          <a   href="2nd list B.Sc in PMT.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a><br></br><br></br>
+                          <a   href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a><br></br><br></br>
+                          <a  href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a><br></br><br></br>
+                          <a href="New Doc 2020-09-28.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>PG DMLT Admission 2020 - 21</a><br></br><br></br>
+                          <a  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a><br></br><br></br>
+                          <a  href="2nd list B.Sc in PMT.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a><br></br><br></br>
+                        </span>*/}
+                        {usefulLink.slice(0,3).map(l=>{
+                        return <span>
+                                <a  href={l.link} ><i class='fas fa-angle-right' style={{color:'green'}}></i>&nbsp;{l.body}</a>
+                                <br></br><br></br>
+                               </span>
+                        })}
+                        <span id='more'>
+                        {usefulLink.slice(3,usefulLink.length).map(l=>{
+                        return   <span><a href={l.link} > <i class='fas fa-angle-right' style={{color:'green'}}></i>&nbsp;{l.body}</a>
+                                        <br></br><br></br>
+                                  </span>
+                        })}
+                        </span>
+                        <br></br>
 
+                      <button  class='seemore' onClick={()=>myFunction()} class='seemore'  id="myBtn" >See More</button>
                 {/*  </div>*/}
                   </div>
               </div>
 
-              <div class='col-lg-6'>
-                <center>
-                  <div>
-                    <p style={{ width:"100%",backgroundColor:'#2c4964',color:'white'}}>UPCOMING NEWS & EVENTS</p>
-                    <div id='links' style={{overflowY:'auto',height:'310px'}}>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
-                      <p>This is a sample scrolling text that has scrolls in the upper direction</p><br></br>
+              <div class='col-lg-6 newsupdates' style={{paddingLeft:'20px'}}>
+              <span style={{fontSize:'25px'}}>Upcoming news and events</span>
+              <br></br><br></br>
+
+                    <div style={{float:'left'}}>
+                    {newsUpdate.slice(0,3).map(l=>{
+                    return  <span>
+                    <p style={{font:'Roboto(regular) 14px',color:'#666666' }}><i class='fas fa-angle-right' style={{color:'green'}}></i>&nbsp;{l.body}</p><br></br><br></br>
+                            </span>
+                    })}
+                  <span id='more1'>
+                    {newsUpdate.slice(3,newsUpdate.length).map(l=>{
+                    return  <span>
+                    <p style={{font:'Roboto(regular) 14px',color:'#666666' }}><i class='fas fa-angle-right' style={{color:'green'}}></i>&nbsp;{l.body}</p>
+                      <br></br><br></br>
+                      </span>
+                    })}
+                    </span>
+                      <button class='seemore' onClick={()=>myFunction1()} id="myBtn1" >See More</button>
                     </div>
-                  </div>
-                </center>
-
               </div>
-
             </div>
-          </div>
-      </section>
+          </section>
+          <UsefulLink/>
+
+          <section id="why-us" class="why-us">
+          <div style={{padding:'10px'}}>
+
+                     <div class="icon-boxes d-flex flex-column justify-content-center">
+                       <div class="row">
+                         <div  class="col-lg-3 d-flex align-items-stretch">
+                           <div class="icon-box mt-4 mt-xl-0">
+                             <i class="fa fa-hospital"></i>
+                             <h4>Hospital</h4>
+                             <Link  style={{textDecoration:'underline',color:'blue'}} to='/hospital'><p style={{color:'blue'}}>Show the facilities</p></Link>
+                             <Link  style={{textDecoration:'underline',color:'blue'}} to='/hospital'><p style={{color:'blue'}}>How to book bed?</p></Link>
+
+                           </div>
+                         </div>
+
+                         <div class="col-lg-3 d-flex align-items-stretch">
+                           <div class="icon-box mt-4 mt-xl-0">
+                             <i class="fas fa-graduation-cap"></i>
+                             <h4>Admission</h4>
+                             <Link  style={{textDecoration:'underline',color:'blue'}} to='/admission'><p style={{color:'blue'}}>UG and PG admissions</p></Link>
+                             <Link  style={{textDecoration:'underline',color:'blue'}} to='/academicActivities'><p style={{color:'blue'}}>Academic activities in college</p></Link>
+                           </div>
+                         </div>
+                         <div class="col-lg-3 d-flex align-items-stretch">
+                           <div class="icon-box mt-4 mt-xl-0">
+                             <i class="fas fa-award"></i>
+                             <h4>Results</h4>
+                             <a style={{textDecoration:'underline',color:'blue'}} href="http://bjmcpune.org/UGresults.zip" target="new">Check out UG Results</a><br></br><br></br>
+                             <a style={{textDecoration:'underline',color:'blue'}} href="http://bjmcpune.org/PGresults.zip" target="new">Check out PG Results</a><br></br><br></br>
+                             <a style={{textDecoration:'underline',color:'blue'}} href="http://www.bjmcpune.org/BSC%20IN%20PMT%20Result%20Winter%202018.pdf" target="new"> BSC IN PMT Result Winter 2018</a><br></br><br></br>
+                             <a style={{textDecoration:'underline',color:'blue'}} href="http://www.bjmcpune.org/Result%20MBBS%20Winter%202018.pdf" target="new"> Result MBBS Winter 2018</a><br></br><br></br>
+                          </div>
+                         </div>
+                         <div class="col-lg-3 d-flex align-items-stretch">
+                           <div class="icon-box mt-4 mt-xl-0">
+                             <i class="fas fa-book-reader"></i>
+                             <h4>Research Activities</h4>
+
+                             <Link to='/Research'><button style={{backgroundColor:'white',border:'1px solid grey',borderRadius:'5px',padding:'5px'}}>View</button></Link>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                </div>
+             </section>
 	<br></br><br></br>
-
-
-
-      <section id="services" class="services">
-        <div class="container">
-          <div class="row">
-
-            <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div class="icon-box">
-                <div class="pic"><img src="http://bjmcpune.org/dean2.jpg" class="img-fluid"/></div><br/>
-                  <h5>Dr Ajay S. Chandanwale Dean</h5>
-                </div>
-              </div>
-
-            <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div class="icon-box">
-                <div class="pic"><img src="http://bjmcpune.org/index.4.jpg" class="img-fluid" alt="" /></div><br/>
-                  <h5>Dr Rajesh Karyakarte Dy. Dean (UG)</h5>
-                </div>
-              </div>
-
-              <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div class="icon-box">
-                <div class="pic"><img src="http://bjmcpune.org/index.5.jpg" class="img-fluid" alt="" /></div><br/>
-                  <h5>Dr. S. V. Joshi Dy. Dean (PG)</h5>
-                </div>
-              </div>
-
-              <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div class="icon-box">
-                <div class="pic"><img src="http://bjmcpune.org/tambe.jpg" class="img-fluid" alt="" /></div><br/>
-                  <h5>Dr. M. P. Tambe Dy. Dean (Administration)</h5>
-                </div>
-              </div>
-
-            <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div class="icon-box">
-                <div class="pic"><img src="http://bjmcpune.org/Medical-Superintendent.jpg" class="img-fluid" alt="" /></div><br/>
-                  <h5>Dr. Ajay A. Taware Medical Superintendent</h5>
-                </div>
-              </div>
-
-              <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                <div class="icon-box">
-                <div class="pic"><img src="http://bjmcpune.org/vj.jpg" class="img-fluid" alt="" /></div><br/>
-                  <h5>Dr. Vijay Jadhav Dy. Medical Superintendent</h5>
-                </div>
-              </div>
-
-          </div>
-        </div>
-      </section>
-		<br></br><br></br>
+      <New_Department />
+  <br></br><br></br>
 
     <Footer/>
 
@@ -205,34 +152,25 @@ function myFunction() {
   var moreText = document.getElementById("more");
   var btnText = document.getElementById("myBtn");
 
-  if (btnText.innerHTML === "Read less") {
-    btnText.innerHTML = "Read more";
+  if (btnText.innerHTML === "See less") {
+    btnText.innerHTML = "See more";
     moreText.style.display = "none";
   } else {
-    btnText.innerHTML = "Read less";
+    btnText.innerHTML = "See less";
     moreText.style.display = "inline";
   }
 }
 
-function chatbot(){
 
-  if(document.getElementById('chat').style.display==='none'){
-    document.getElementById('chat').style.display='block';
-    document.getElementById('chat_icon').className='fa fa-cross';
+function myFunction1() {
+  var moreText = document.getElementById("more1");
+  var btnText = document.getElementById("myBtn1");
 
-    document.getElementById('chat_icon').setAttribute('float','left');
-    document.getElementById('chat_icon').setAttribute('color','black');
-
-
+  if (btnText.innerHTML === "See less") {
+    btnText.innerHTML = "See more";
+    moreText.style.display = "none";
+  } else {
+    btnText.innerHTML = "See less";
+    moreText.style.display = "inline";
   }
-  else {
-    document.getElementById('chat').style.display='none';
-    document.getElementById('chat_icon').className='fa fa-comments';
-
-    document.getElementById('chat_icon').setAttribute('float','right');
-    document.getElementById('chat_icon').setAttribute('color','green');
-
-  }
-
-
 }

@@ -9,7 +9,7 @@ export default function Footer(props)
 
 <div class="mr-md-auto text-center text-md-left">
   <div class="copyright">
-    &copy; Copyright <strong><span> B. J. Medical College & Sassoon Hospital</span></strong>
+    &copy; 2020 <span> B. J. Medical College & Sassoon Hospital. All rights reseved. </span>
   </div>
 </div>
 <div class="social-links text-center text-md-right pt-3 pt-md-0">
@@ -22,5 +22,3 @@ export default function Footer(props)
 
   </div>);
 }
-
-
