@@ -192,17 +192,18 @@ section {
   }
 
 th {
-    border: 1px solid #dddddd;
+    border: 1px 0px 1px 0px solid #fff;
     text-align: left;
     padding: 8px;
-    background-color: #2c4964;
+    background-color: #dddddd;
+    
   }
   td{
-    border: 1px solid #dddddd;
+    border: 1px solid #fff;
     text-align: left;
     padding: 8px;
-  }
 
-  tr:nth-child(even) {
     background-color: #dddddd;
   }
+
+  
