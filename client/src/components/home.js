@@ -4,9 +4,12 @@ import React,{useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import url from './url';
 import Footer from './footer';
+<<<<<<< HEAD
 import New_Department from './Homepage_Department';
 import UsefulLink from './UsefulLink';
 import MainImg from './mainImg';
+=======
+>>>>>>> 21e240480bc20a179c77e4eb59ad9f48450d6ad4
 
 export default function Home(props)
 {

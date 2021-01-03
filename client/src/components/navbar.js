@@ -3,16 +3,50 @@ import {Link} from 'react-router-dom';
 
 export default function Navbar(props)
 {
-  return <div id='mainI'>
+  return <div>
 
+<<<<<<< HEAD
+=======
+
+<div class="window">
+    <div class="header-new">
+      <div class="text-container">
+        <img src="./assets/img/gallery/slogo.png" style={{width:"55px",height:"60px"}}/>
+        <div class="text"> BYRAMJEE JEEJEEBHOY GOVERNMENT MEDICAL COLLEGE AND SASSOON GENERAL HOSPITALS, PUNE </div>
+      </div>
+      <div class="contact-container">
+        <div class="contact-info">
+          <i class="icofont-envelope"></i> <a href="#">deanbjmcpune@gmail.com</a>
+        </div>
+        <div class="contact-info">
+          <i class="icofont-phone"></i> +91 20 26128000
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="imgBack"></div>
+
+  <div id="marqueeTag">
+    <marquee>“It is health that is the real wealth, and not pieces of gold and silver.” – Mahatma Gandhi</marquee>
+  </div>
+
+>>>>>>> 21e240480bc20a179c77e4eb59ad9f48450d6ad4
   <nav>
     <label for="drop" class="toggle" style={{marginTop:'0px'}}>Menu</label>
     <input type="checkbox" id="drop" />
     <ul class="menu">
+<<<<<<< HEAD
       <li><Link name='single' to="/">Home</Link></li>
       <li><Link  name='single' to="/about">About</Link></li>
       <li><Link  name='single' to="/hospital">Hospital</Link></li>
       <li><Link  name='single' to="/department">Departments</Link></li>
+=======
+      <li><Link to="/">Home</Link></li>
+      <li><Link to="/about">About</Link></li>
+      <li><Link to="/hospital">Hospital</Link></li>
+      <li><Link to="/Department">Departments</Link></li>
+>>>>>>> 21e240480bc20a179c77e4eb59ad9f48450d6ad4
       <li>
       <label for="drop-2" class="toggle">Academics&nbsp; <i style={{color:'green'}} class='fas fa-angle-down'></i></label>
       <Link to="#">Academics&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
@@ -40,7 +74,6 @@ export default function Navbar(props)
       <input type="checkbox" id="drop-5"/>
       <ul>
         <li><Link to="/cdean">Dean</Link></li>
-        <li><Link to="/superintendent">Superintendent</Link></li>
         <li><Link to="/teaching_staff">Teaching Staff</Link></li>
         <li><Link to="/nonTeaching_staff">Non-Teaching Staff</Link></li>
       </ul>

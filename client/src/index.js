@@ -11,13 +11,14 @@ import About from './components/about';
 import Research from './components/Research';
 import Hospital from './components/hospital';
 import cDean from './components/cDean';
-import superintendent from './components/superintendent';
+
 import teaching_staff from './components/teaching_staff';
 import nonTeaching_staff from './components/nonTeaching_staff';
 import Department from './components/Department';
 import Archives from './components/archives';
 import Charts from './components/chart';
 import {BrowserRouter,Switch,Route,Link} from 'react-router-dom';
+
 
 ReactDom.render(
 <BrowserRouter>
@@ -32,10 +33,9 @@ ReactDom.render(
     <Route  path='/gallery' component={Gallery} />
     <Route  path='/research' component={Research} />
     <Route  path='/cdean' component={cDean} />
-    <Route  path='/superintendent' component={superintendent} />
     <Route  path='/teaching_staff' component={teaching_staff} />
     <Route  path='/nonTeaching_staff' component={nonTeaching_staff} />
-    <Route  path='/department' component={Department} />
+    <Route  path='/Department' component={Department} />
     <Route  path='/archives' component={Archives} />
     <Route  path='/analytics' component={Charts} />
 
