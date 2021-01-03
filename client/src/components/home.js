@@ -4,6 +4,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import url from './url';
 import Footer from './footer';
+
 export default function Home(props)
 {
    return (  <div id="mainBody">

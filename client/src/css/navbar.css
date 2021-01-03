@@ -11,10 +11,10 @@ h1 {
 }
 
 h3 {
-	font-size: 30px;
+	font-size: 25px;
 	line-height: 34px;
-	text-align: center;
-	color: #FFF;
+	font-weight: normal;
+	
 }
 
 h3 a {
@@ -36,6 +36,10 @@ h1 {
 #container {
 	margin: 0 auto;
 	max-width: 890px;
+}
+
+.contact-container {
+	display: flex;
 }
 
 p {
@@ -87,6 +91,11 @@ nav ul li {
 	display:inline-block;
 	float: left;
 	background-color: #2c4964;
+	}
+nav ul li.demo {
+	display:inline-block;
+	float: left;
+	background-color: #35642c;
 	}
 
 /* Styling the as */
@@ -272,25 +281,40 @@ li > a:only-child:after { content: ''; }
 a{text-decoration:none;}
 a:hover{text-decoration:None;}
 th{
-	background-color:#254441;
-	color:white;
+	background-color: #dddddd;
+	color:black;
+	font-weight: 500;
 }
 
+.contact-info {
+	border: 1px solid black;
+	margin-left: 10px;
+	border-radius: 5px;
+	padding: 4px;
+}
 
-
-
+.header-new{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	
+	align-items: center;
+	padding: 10px;
+}
 
 .text{
-	font-size: 30px;
+	font-size: 20px;
 	font-family: 'Times New Roman', Times, serif;
-	text-align: center;
+	
 }
-.header-new{
 
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center; /* Only if you want it vertically center-aligned as well */
-		padding: 40px;
-
+.text-container {
+	max-width: 650px;
+	display: flex;
 }
+@media (max-width: 700px) {
+	.header-new, .contact-container, .contact-info {  
+	  flex-direction: column;
+	}
+	
+  }
