@@ -5,11 +5,12 @@ export default function Navbar(props)
 {
   return <div>
 
+>>>>>>> master
   <nav>
     <label for="drop" class="toggle" style={{marginTop:'0px'}}>Menu</label>
     <input type="checkbox" id="drop" />
     <ul class="menu">
-      <li><Link name='single' to="/">Home</Link></li>
+          <li><Link name='single' to="/">Home</Link></li>
       <li><Link  name='single' to="/about">About</Link></li>
       <li><Link  name='single' to="/hospital">Hospital</Link></li>
       <li><Link  name='single' to="/department">Departments</Link></li>
