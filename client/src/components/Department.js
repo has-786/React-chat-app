@@ -9,14 +9,13 @@ import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
 
 export default class Department extends React.Component {
-  constructor(){super(); this.sidenavbar=sidenavbar;}
+  constructor(){super(); this.sidenavbar=sidenavbar;       window.scrollTo(0,0);}
   state={link:""}
   handleClick=value=>()=>{
     sidenavbar();
     this.setState({link:value});
        };
     render(){
-      window.scrollTo(0,0);
         return (<div id='mainBody'>
           <Header />
           <Navbar/>
