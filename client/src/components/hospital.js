@@ -2,11 +2,15 @@ import React from 'react';
 import './Hospital2.pdf'
 import Navbar from './navbar';
 import Footer from './footer';
+import Header from './header';
+
 const Hospital = () => {
     window.scrollTo(0,0);
 
     return(
       <div   id='mainBody'>
+      <Header />
+
          <Navbar/>
       <section id="departments" class="departments">
         <div class="container">

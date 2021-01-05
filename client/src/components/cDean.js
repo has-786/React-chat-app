@@ -1,9 +1,15 @@
 import React from 'react';
 import Navbar from './navbar';
 import Footer from './footer';
+import Header from './header';
+
 const cDean = () => {
+  window.scrollTo(0,0);
+
     return(
       <div   id='mainBody'>
+      <Header />
+
         <Navbar/>
         <div className="team-section">
         <div class="section-title">

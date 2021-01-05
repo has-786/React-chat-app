@@ -5,68 +5,39 @@ import '../css/home.css';
 import '../css/teaching_staff.css';
 import {Link} from 'react-router-dom';
 import Footer from './footer';
-import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
+import sidenavbar from './sidenavbar';
 import '../css/Department_css.css';
+import Header from './header';
 
 
 export default class AcademicActivities extends React.Component
 {
     constructor(props){
       super(props);
-
       this.state={ user:"",
 
                   deptsData:[
                               {
-                                name:'Microbiology',
+                                name:'Medicine Department',
                                 events:[
-                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Nitin',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Gole',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Avishek',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'Ten Interdepartmental academic seminars',venue:'BJMC',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                    {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'}
+                                    {head:'Dr. S. A. Sangle\nDr. Vinay k. Thorat\nDr. Sheetal Mahajani\nDr. Sachin  Palnitkar\nDr. Sunil Pawar\nDr. R. T. Borse',subject:'World Hepatitis Day',venue:'Medicine Lecture Hall',date:'27/07/2018'}
+
                                   ]
                                },
                                {
-                                 name:'ECE',
+                                 name:'Department of Microbiology',
                                  events:[
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                     {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'}
+                                     {head:'IDSP',subject:'National workshop of microbiologists was organized',venue:'bjmc',date:'March 2018'},
+                                     {head:'',subject:'Ten Interdepartmental academic seminars organised by department',venue:'bjmc',date:'From January 2016 till August 2017'},
+                                     {head:'',subject:'State level IDSP workshop was organised',venue:'bjmc',date:'20/03/2018'}
                                    ]
                                 },
                                 {
-                                  name:'IT',
+                                  name:'Department of Anatomy',
                                   events:[
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                      {head:'Mr. Subhash',subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'}
+                                      {head:'',subject:'CME was conducted in collaboration with Department of ENT on Cadaver dissection with reference to surgery on Neck, Paranasal Sinuses and Rhinoplasty',venue:'bjpmc',date:'25/03/2020'},
+                                      {head:'',subject:'2 UG student  seminars',venue:'bjmc',date:'Aug 2016, Dec 2016'}
                                     ]
                                  }
 
@@ -74,54 +45,27 @@ export default class AcademicActivities extends React.Component
 
                            guestsData:[
                                        {
-                                         name:'Guest A',
+                                         name:'Dr. Ramesh A. Bhosale',
                                          events:[
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'}
+                                             {subject:'Lecture on ’eMTCT in India and Maharashtra’ at – Tr@inforPedHIV India, Residential Course Programme',venue:' Pune, India',date:'30/01/2016'},
+                                             {subject:'Group leader for ‘Case Discussions in groups - Early Infant Diagnosis and pMTCT’ at – Tr@inforPedHIV India, Residential Course Programme, Pune, India',venue:' Pune, India',date:'25/01/2016'},
+                                             {subject:'Lecture to general practitioners on Contraception and Abortion',venue:'FPAI Pune',date:'11/03/2016'}
                                            ]
                                         },
                                         {
-                                          name:'Guest B',
+                                          name:'Dr. Uma Wankhede',
                                           events:[
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'}
+                                            {subject:'Oration At Satara On PPH',venue:'bjmc',date:'February 2016'},
+                                            {subject:'Gestosis Conference At Nashik Talk On Dengue In Pregnancy',venue:'bjmc',date:'March 2016'},
+                                            {subject:'Ima Lecture On Anc Care',venue:'bjmc',date:'September 2016'}
                                             ]
                                          },
                                          {
-                                           name:'Guest C',
+                                           name:'Dr. Shilpa Naik',
                                            events:[
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                                             {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'}
+                                             {subject:'Pursuing cases on Balloon Tamponade in Obstetric Hemorrhage',venue:'bjmc',date:'20/12/2017'},
+                                             {subject:'Zika virus screening orientation',venue:'bjmc',date:'20/08/2017'},
+                                             {subject:'Live laproscopy workshop on AUB and endometriosis',venue:'bjmc',date:'20/07/2017'}
                                              ]
                                           }
 
@@ -129,20 +73,9 @@ export default class AcademicActivities extends React.Component
 
 
 
-                    otherData:[{subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'},
-                            {subject:'dgdsggegege',venue:'Heritage',date:'20/12/2020'}
+                    otherData:[{subject:'Shirur camp',venue:'bjmc',date:'7/12/2017'},
+                            {subject:'Pachora Jalgaon camp ',venue:'bjmc',date:'12/11/2017'},
+                            {subject:'Yerwada prison health camp',venue:'Heritage',date:'15/11/2017'}
 
                             ],
 
@@ -158,7 +91,7 @@ export default class AcademicActivities extends React.Component
       componentDidMount(){
         this.setState({show:{deptsData:this.state.deptsData,guestsData:this.state.guestsData,otherData:this.state.otherData}})
         window.scrollTo(0,0);
-      /*  fetch(url+'/api/academicActivities',{ method:'GET'})
+       fetch(url+'/api/academicActivities',{ method:'GET'})
              .then(response=>{ return response.json()})
              .then((body)=>{
                     this.setState({deptsData:body.deptsData});
@@ -170,7 +103,7 @@ export default class AcademicActivities extends React.Component
                     //  dispatch({type:'add_video',payload:body.video});
               })
              .catch(err=>alert(JSON.stringify(err)));
-*/
+
 
 
 
@@ -225,11 +158,16 @@ export default class AcademicActivities extends React.Component
         document.getElementById('guest').style.display='block';
         document.getElementById('other').style.display='block';
     //    this.closeNav();
+          sidenavbar()
       }
 render(){
 	return <div   id='mainBody'>
+  <Header />
+
 			 <Navbar />
+
        <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+       <i style={{fontSize:'10px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
 
 
                <section class="New_Department row">
@@ -240,10 +178,10 @@ render(){
             <li ><Link  href="#" class='list-group-item list-group-item-action active' data-toggle='list' onClick={this.allClick.bind(this)}>All</Link></li>
             <li><Link  href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.deptClick.bind(this)}>By Departments</Link></li>
             <li >
-              <a href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+              <a style={{paddingLeft:'30px'}} href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
               Select
               <div id="demo1" class="collapse">
-              <ul class='list-group-item list-group-item-action' >
+              <ul class='list-group-item list-group-item-action'>
                {
                   this.state.deptsData.map((res,ind)=>{
                    return  <li ><Link href='#'  onClick={this.deptOneClick.bind(this,ind)} >{res.name}</Link></li>
@@ -256,7 +194,7 @@ render(){
 
              <li><Link  href='#' class='list-group-item list-group-item-action' data-toggle='list' onClick={this.guestClick.bind(this)}>By Guests</Link></li>
               <li>
-              <a href="#demo2" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+              <a  style={{paddingLeft:'30px'}} href="#demo2" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
               Select
                 <div id="demo2" class="collapse">
                  <ul class='list-group-item list-group-item-action'  >
@@ -274,17 +212,15 @@ render(){
           </nav>
 
 
-          <div class='col-lg-9'>
-          <div class="section-title">
-            <h2>Academic Activities</h2>
-            <p>Academic activities in the Sassoon Hospital and College</p>
-          </div>
-          <div id='dept'  style={{border:'2px solid blue',borderRadius:'10px',padding:'5px'}}>
-          <center><button class='btn btn-primary'>By Departments</button></center>
+          <article class='col-lg-9' >
+          <header id="article_heading">Academic Activities</header>
+
+          <div id='dept'  style={{border:'2px solid #003a9b',borderRadius:'10px',padding:'5px',marginBottom:'15px'}}>
+          <center><h3 style={{color:'black'}}>By Departments</h3></center>
              <div>
                  { this.state.show.deptsData.map((res)=>{
                   return <div>
-                  <h5 style={{float:'left',color:'blue'}}>{res.name}</h5>
+                  <h5 style={{float:'left',color:'#003a9b'}}>{res.name}</h5>
                         <div class="table-responsive">
                           <table class="table table-bordered">
                             <thead>
@@ -315,10 +251,9 @@ render(){
               </div>
             </div>
 
-            <br></br>
 
-            <div id='guest'  style={{border:'2px solid green',borderRadius:'10px',padding:'5px'}}>
-               <center><button class='btn btn-success'>By Guests</button></center>
+            <div id='guest'  style={{border:'2px solid green',borderRadius:'10px',padding:'5px',marginBottom:'15px'}}>
+            <center><h3 style={{color:'black'}}>By Guests</h3></center>
                <div>
                      {
                        this.state.show.guestsData.map((res)=>{
@@ -351,9 +286,8 @@ render(){
                      }
                      </div>
              </div>
-               <br></br>
            <div id='other'  style={{border:'2px solid red',borderRadius:'10px',padding:'5px'}}>
-           <center><button class='btn btn-danger'>Other Activities</button></center>
+           <center><h3 style={{color:'black'}}>Other Activities</h3></center>
                        <div class="table-responsive">
                          <table class="table table-bordered">
                            <thead>
@@ -379,9 +313,7 @@ render(){
           </div>
 
 
-
-
-          </div>
+          </article>
 
 
         </section>

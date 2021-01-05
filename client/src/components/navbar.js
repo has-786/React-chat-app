@@ -36,7 +36,7 @@ export default function Navbar(props)
       </li>
       <li>
       <label for="drop-5" class="toggle">Staffs&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></label>
-      <Link to="/teaching_staff">Staffs&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
+      <Link to="#">Staffs&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-5"/>
       <ul>
         <li><Link to="/cdean">Dean</Link></li>

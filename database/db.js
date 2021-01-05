@@ -3,13 +3,14 @@ function con(mongoose){
 	//mongodb://localhost/test
 	// mongodb+srv://has_786:<password>@cluster0.torm7.mongodb.net/test
 //mongodb+srv://react:react@cluster0.vvcms.mongodb.net/test?retryWrites=true&w=majority
-mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://react:react@cluster0.vvcms.mongodb.net/test', {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Database is connected');
 });
 }
+
 const integer={type:Number, validate : {validator : Number.isInteger}};
 
 var admissionSchema=new mongoose.Schema({name:String,desc:String,type:integer,level:String});
@@ -38,12 +39,8 @@ var result=mongoose.model('result',resultSchema);
 var imgSchema=new mongoose.Schema({name:String,link:String});
 var img=mongoose.model('img',imgSchema);
 
-
-
 var usefullinksSchema=new mongoose.Schema({link:String,body:String});
 var usefullink=mongoose.model('usefullink',usefullinksSchema);
-
-
 
 var newsupdateSchema=new mongoose.Schema({body:String});
 var newsupdate=mongoose.model('newsupdate',newsupdateSchema);

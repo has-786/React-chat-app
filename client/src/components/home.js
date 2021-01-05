@@ -1,5 +1,7 @@
 import Navbar from './navbar';
 import '../css/home.css';
+import '../css/Homepage_Department.css';
+
 import React,{useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import url from './url';
@@ -7,13 +9,18 @@ import Footer from './footer';
 import New_Department from './Homepage_Department';
 import UsefulLink from './UsefulLink';
 import MainImg from './mainImg';
+import Header from './header';
 
 export default function Home(props)
 {
   const [usefulLink,setUsefulLink]=useState([]);
   const [newsUpdate,setNewsUpdate]=useState([]);
 
+
   useEffect(()=>{
+
+    for(var i=1;i<=5;i++)timer(i);
+    console.log(i);
     fetch(url+'/api/getDataForHome',{ method:'GET'})
          .then(response=>{ return response.json()})
          .then((body)=>{
@@ -24,6 +31,7 @@ export default function Home(props)
   },[])
 
    return (  <div id="mainBody">
+      <Header />
             <MainImg/>
          <Navbar/>
 <div>
@@ -112,18 +120,18 @@ export default function Home(props)
                            <div class="icon-box mt-4 mt-xl-0">
                              <i class="fas fa-graduation-cap"></i>
                              <h4>Admission</h4>
-                             <Link  style={{textDecoration:'underline',color:'blue'}} to='/admission'><p style={{color:'blue'}}>UG and PG admissions</p></Link>
-                             <Link  style={{textDecoration:'underline',color:'blue'}} to='/academicActivities'><p style={{color:'blue'}}>Academic activities in college</p></Link>
+                             <a  style={{textDecoration:'underline',color:'blue'}} href={url+'/uploads/UG admission.zip'}> <p style={{color:'blue'}}>Name of the Students for UG</p></a>
+                             <a  style={{textDecoration:'underline',color:'blue'}} href={url+'/uploads/PG admission.zip'}><p style={{color:'blue'}}>Name of the Students for PG</p></a>
                            </div>
                          </div>
                          <div class="col-lg-3 d-flex align-items-stretch">
                            <div class="icon-box mt-4 mt-xl-0">
                              <i class="fas fa-award"></i>
                              <h4>Results</h4>
-                             <a style={{textDecoration:'underline',color:'blue'}} href="http://bjmcpune.org/UGresults.zip" target="new">Check out UG Results</a><br></br><br></br>
-                             <a style={{textDecoration:'underline',color:'blue'}} href="http://bjmcpune.org/PGresults.zip" target="new">Check out PG Results</a><br></br><br></br>
-                             <a style={{textDecoration:'underline',color:'blue'}} href="http://www.bjmcpune.org/BSC%20IN%20PMT%20Result%20Winter%202018.pdf" target="new"> BSC IN PMT Result Winter 2018</a><br></br><br></br>
-                             <a style={{textDecoration:'underline',color:'blue'}} href="http://www.bjmcpune.org/Result%20MBBS%20Winter%202018.pdf" target="new"> Result MBBS Winter 2018</a><br></br><br></br>
+                             <a style={{textDecoration:'underline',color:'blue'}} href={url+"/uploads/UGresults.zip"} target="new">Check out UG Results</a><br></br><br></br>
+                             <a style={{textDecoration:'underline',color:'blue'}} href={url+"/uploads/PGresults.zip"} target="new">Check out PG Results</a><br></br><br></br>
+                             <a style={{textDecoration:'underline',color:'blue'}} href={url+"/uploads/BSC%20IN%20PMT%20Result%20Winter%202018.pdf"} target="new"> BSC IN PMT Result Winter 2018</a><br></br><br></br>
+                             <a style={{textDecoration:'underline',color:'blue'}} href={url+"/uploads/Result%20MBBS%20Winter%202018.pdf"} target="new"> Result MBBS Winter 2018</a><br></br><br></br>
                           </div>
                          </div>
                          <div class="col-lg-3 d-flex align-items-stretch">
@@ -173,4 +181,11 @@ function myFunction1() {
     btnText.innerHTML = "See less";
     moreText.style.display = "inline";
   }
+}
+function timer(i)
+{
+  setTimeout(()=>{
+    console.log(i);
+  },i*1000);
+
 }

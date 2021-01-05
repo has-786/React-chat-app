@@ -1,3 +1,4 @@
+
 export function Level1_expansion(classname)
 {
     var input_class=document.getElementsByClassName(classname);
@@ -14,12 +15,12 @@ export function Level1_expansion(classname)
         for(var i=0;i<level2.length;i++)
             {
                 level2[i].style.display="none";
-                
+
             }
             for(var i=0;i<level3.length;i++)
             {
                 level3[i].style.display="none";
-                
+
             }
 
         for(var i=0;i<input_class.length;i++)
@@ -27,7 +28,7 @@ export function Level1_expansion(classname)
             input_class[i].style.display="block";
         }
     }
-   
+
 }
 export function Level2_expansion(classname)
 {
@@ -51,6 +52,5 @@ export function Level2_expansion(classname)
             input_class[i].style.display="block";
         }
     }
-   
+
 }
- 

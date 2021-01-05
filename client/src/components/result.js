@@ -6,6 +6,7 @@ import '../css/home.css';
 import Footer from './footer';
 import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
+import Header from './header';
 import '../css/Department_css.css';
 
 export default class Result extends React.Component
@@ -14,10 +15,9 @@ export default class Result extends React.Component
       super(props);
 
       this.state={ user:"",
-                  arr:[{type:'UG',link:'https://ug'},{type:'PG',link:'https://pg'}
-                ,{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'}
-              ,{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'}
-            ,{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'},{type:'MBBS',link:'https://mbbs'}],
+                  arr:[{type:'UG',link:'/uploads/UGresults.zip'},{type:'PG',link:'/uploads/UGresults.zip'},
+                {type:'BSC IN PMT Result Winter 2018',link:"/uploads/BSC%20IN%20PMT%20Result%20Winter%202018.pdf"},
+                {type:'Result MBBS Winter 2018',link:"/uploads/Result%20MBBS%20Winter%202018.pdf"}],
                   show:{type:"",link:""}
                 }
 
@@ -25,7 +25,10 @@ export default class Result extends React.Component
 
 
     componentDidMount(){
-    /*  fetch(url+'/api/result',{ method:'GET'})
+      window.scrollTo(0,0);
+
+      this.sidenavbar=sidenavbar;
+     fetch(url+'/api/result',{ method:'GET'})
            .then(response=>{ return response.json()})
            .then((body)=>{
                   this.setState({arr:body});
@@ -33,7 +36,7 @@ export default class Result extends React.Component
                   //  dispatch({type:'add_video',payload:body.video});
             })
            .catch(err=>alert(JSON.stringify(err)));
-*/
+
       this.setState({show:{type:this.state.arr[0].type,link:this.state.arr[0].link}});
     }
 
@@ -47,12 +50,15 @@ export default class Result extends React.Component
 
 render(){
 	return <div   id='mainBody'>
+  <Header />
+
 			 <Navbar />
 
-              <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
 
+       <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+       <i style={{fontSize:'10px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
                <section class="New_Department row">
-                       <nav class="side_navigation col-lg-3 mysidenavbar">
+                 <nav class="side_navigation col-lg-3 mysidenavbar">
 
                         <ul class='list-group sidenav_list' >
                         {
@@ -62,21 +68,18 @@ render(){
                          }
                          </ul>
                     </nav>
-            <div class='col-lg-9'>
-                <div class="section-title">
-                  <h2>Results</h2>
-                  <p>Check out the results</p>
-                </div>
+               <article class='col-lg-9' >
+                <header id="article_heading">Results</header>
 
                <section class='jumbotron'>
                      <div class="container">
                         <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                             <p class="lead mb-0" style={{fontSize:'30px',fontWeight:"bold"}}>Click on the link below to check your result</p><br></br><br></br>
-                            <center><a href={this.state.show.link} target="_blank" class='btn btn-primary'> Results of {this.state.show.type}</a></center>
+                            <center><a href={url+this.state.show.link} target="_blank" class='btn btn-primary'> Results of {this.state.show.type}</a></center>
                         </div>
                       </div>
-                </section>
-            </div>
+              </section>
+            </article>
       </section>
       <Footer/>
 	</div>

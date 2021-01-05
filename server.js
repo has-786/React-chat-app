@@ -5,6 +5,7 @@ const path=require('path');
 
 const db=require('./database/db.js');
 db.con(mongoose);
+
 admission=db.admission;
 deptsActivity=db.deptsActivity;
 guestsActivity=db.guestsActivity;
@@ -140,9 +141,6 @@ app.use(bodyParser.json());
 require('./server/security/passport.js')(passport);
 require('./server/routes/mainRoutes.js')(app,passport,bcrypt,nodemailer,randomstring);
 */
-
-
-
 
 
 

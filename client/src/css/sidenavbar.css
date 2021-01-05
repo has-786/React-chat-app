@@ -17,3 +17,6 @@
 			display:inline;
 		}
 }
+
+td{white-space: pre-wrap;}
+p{white-space: pre-wrap;}

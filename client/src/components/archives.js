@@ -3,6 +3,8 @@ import React from 'react';
 import url from './url';
 import '../css/home.css';
 import Footer from './footer';
+import Header from './header';
+
 export default class Archives extends React.Component
 {
     constructor(props){
@@ -11,6 +13,7 @@ export default class Archives extends React.Component
     }
 
     componentDidMount(){
+      window.scrollTo(0,0);
 
     }
 
@@ -18,6 +21,8 @@ export default class Archives extends React.Component
 
 render(){
 	return <div   id='mainBody'>
+  <Header />
+
 			 <Navbar />
        <section id="departments" class="departments">
          <div class="container">
