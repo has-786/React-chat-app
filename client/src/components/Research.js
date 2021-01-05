@@ -2,17 +2,14 @@ import React from 'react'
 import Navbar from './navbar';
 import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
-
 import Header from './header';
 
+import "../css/New_Department.css"
 
-import "../css/Homepage_Department.css"
-
-export default class Research extends React.Component {
+export default class New_Department extends React.Component {
 
     constructor(props){
         super(props);
-        this.sidenavbar=sidenavbar;
         this.state={ user:"",
 
 
@@ -75,7 +72,7 @@ export default class Research extends React.Component {
                         ]},
                         publication:{type:[
 
-                          {publications:"publications3.pdf"}
+                          {publications:"/assets/publications3.pdf"}
 
 
                         ]}
@@ -86,27 +83,22 @@ export default class Research extends React.Component {
                     }}
                   }
 
-    componentDidMount(){
+    render(){
       window.scrollTo(0,0);
 
-                  }
-
-
-    render(){
         return (<div id='mainBody'>
-          <Header />
 
+        <Header />
           <Navbar/>
           <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
           <i style={{fontSize:'20px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
-
 
         <section class="New_Department row">
 
             <nav class="side_navigation col-lg-3 mysidenavbar">
                 <ul class="list-group sidenav_list">
-                    <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1" onClick={sidenavbar}>Journals</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  onClick={sidenavbar}>Useful Links</a></li>
+                    <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1"  onClick={sidenavbar}>Journals</a></li>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  onClick={sidenavbar}> Useful Links</a></li>
                     <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>Educational Videos </a></li>
                     <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  onClick={sidenavbar}>Resources</a></li>
                     <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5"  onClick={sidenavbar}>Publications </a></li>
@@ -116,14 +108,14 @@ export default class Research extends React.Component {
             <header id="article_heading"> Research and Resources</header>
             <br></br>
             <div class="tab-content">
-            <div div class="tab-pane fade show active " id="Info1" >
+            <div  class="tab-pane fade show active " id="Info1" >
             <div class="col-lg-12 details order-2 order-lg-1">
                 <div id='journals'>
                  <div class="table-responsive" id="research">
                   <table class="table table-bordered table-hover table-striped">
                   <thead>
                    <tr>
-                    <th colspan="2" style={{textAlign:"center",backgroundColor:'#eeeeee',color:"#003a9b"}}>E-Journals</th>
+                    <th colspan="2" style={{textAlign:"center" , color:"#003a9b"}}>E-Journals</th>
                    </tr>
                  </thead>
                  <tbody>
@@ -152,7 +144,7 @@ export default class Research extends React.Component {
            <table class="table table-bordered table-hover table-striped" id="research">
             <thead>
               <tr>
-              <th colspan="2" style={{backgroundColor:'#eeeeee',color:"#003a9b",textAlign:"center"}}>Useful Links</th>
+              <th colspan="2" style={{textAlign:"center",color:"#003a9b"}}>Useful Links</th>
               </tr>
            </thead>
           <tbody>
@@ -188,7 +180,7 @@ export default class Research extends React.Component {
 
 
 
-            <div div class="tab-pane fade" id="Info4" >
+            <div  class="tab-pane fade" id="Info4" >
             <div class="col-lg-12 details order-2 order-lg-1">
               <div id='resource'>
 
@@ -196,7 +188,7 @@ export default class Research extends React.Component {
                 <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
-                 <th colspan="2" style={{backgroundColor:'#eeeeee',color:"#003a9b",textAlign:"center" }}>Resources</th>
+                 <th colspan="2" style={{textAlign:"center" ,color:"#003a9b"}}>Resources</th>
                 </tr>
                </thead>
                <tbody>
@@ -216,6 +208,8 @@ export default class Research extends React.Component {
 
 
 
+            <div  class="tab-pane fade" id="Info5" >
+            <div class="col-lg-12 details order-2 order-lg-1">
 
             <div div class="tab-pane fade" id="Info5" >
             <div class="col-lg-12 details order-2 order-lg-1">
@@ -223,10 +217,13 @@ export default class Research extends React.Component {
              <div>  {
               this.state.show.publication.type.map(r=>{
                  return <iframe src={r.publications} id="datamain" title="pdf" style={{width:"100%" ,height:"600px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
-              })}</div>
+              })}
+              </div>
 
           </div>
         </div>
+      </div>
+     </div>
      </div>
     </article>
 </section>

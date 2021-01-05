@@ -60,25 +60,22 @@ export class nonTeaching_staff extends React.Component {
   }
   render(){
     window.scrollTo(0,0);
-
-    return (<div   id='mainBody'>
+    return (<div id='mainBody'>
       <Header />
-
       <Navbar/>
-
       <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
-      <i style={{fontSize:'10px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
-      <section class="New_Department row">
+      <i style={{fontSize:'20px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
+            <section class="New_Department row">
         <nav class="side_navigation col-lg-3 mysidenavbar">
 
             <ul class="list-group sidenav_list">
-                <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1"  onClick={sidenavbar}>Office Superintendent</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"   onClick={sidenavbar}>Senior Assistant</a></li>
+                <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1" onClick={sidenavbar}>Office Superintendent</a></li>
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  onClick={sidenavbar}>Senior Assistant</a></li>
                 <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>Senior Clerk</a></li>
                 <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>Storekeeper</a></li>
                 <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>Junior Clerk</a></li>
                 <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>Laboratory Technician</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>E.C.G. Technician</a></li>
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3   onClick={sidenavbar}">E.C.G. Technician</a></li>
                 <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>Dental Technician</a></li>
                 <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>Laboratory Assistant</a></li>
 

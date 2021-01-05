@@ -1,9 +1,10 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Navbar from './navbar';
 import Header from './header';
 
 import Footer from './footer';
-const superintendent = () => {
+
+export default function superintendent() {
   window.scrollTo(0,0);
 
     return(
@@ -66,5 +67,3 @@ const superintendent = () => {
 
     )
 }
-
-export default superintendent;

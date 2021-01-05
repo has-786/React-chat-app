@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 export default function Navbar(props)
 {
-  return <div id='mainI'>
+  return <div>
 
   <nav>
     <label for="drop" class="toggle" style={{marginTop:'0px'}}>Menu</label>
@@ -26,7 +26,7 @@ export default function Navbar(props)
       </li>
       <li><Link  name='single' to="/research">Research & Resources</Link></li>
       <li>
-      <label for="drop-4" class="toggle">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-right'></i></label>
+      <label for="drop-4" class="toggle">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></label>
       <Link to="#">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-4"/>
       <ul>

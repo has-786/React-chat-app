@@ -1,15 +1,14 @@
 import React from 'react';
-import Navbar from './navbar';
-import "../css/Homepage_Department.css";
+import Navbar from './navbar'
+import "../css/New_Department.css"
 import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
 import Header from './header';
-
 export default class About extends React.Component {
 
     constructor(props){
         super(props);
-        this.sidenavbar=sidenavbar;
+
         this.state={ user:"",
                       show:{
                       history:{type:[
@@ -57,24 +56,24 @@ export default class About extends React.Component {
 
     render(){
       window.scrollTo(0,0);
-        return (<div id='mainBody'>
+
+        return (<div id='mainBody' >
           <Header />
+          <Navbar/>
 
-        '<Navbar/>
-
-          <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
-          <i style={{fontSize:'10px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
+                 <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+                 <i style={{fontSize:'20px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
 
         <section class="New_Department row">
 
             <nav class="side_navigation col-lg-3 mysidenavbar">
                 <ul class="list-group sidenav_list">
-                    <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1" onClick={sidenavbar}>Hospital</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  onClick={sidenavbar}>History</a></li>
+                    <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1"   onClick={sidenavbar}>Hospital</a></li>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2" onClick={sidenavbar}>History</a></li>
                     <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>Organogram</a></li>
                     <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  onClick={sidenavbar}>Past Deans</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5" onClick={sidenavbar}>Superintendent</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6" onClick={sidenavbar}>Committees</a></li>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5"  onClick={sidenavbar}>Superintendent</a></li>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6"  onClick={sidenavbar}>Committees</a></li>
                 </ul>
             </nav>
             <article class="col-lg-9">

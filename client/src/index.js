@@ -17,7 +17,12 @@ import nonTeaching_staff from './components/nonTeaching_staff';
 import Department from './components/Department';
 import Archives from './components/archives';
 import Charts from './components/chart';
+import Appointment from './components/appointment';
+
+
+
 import {BrowserRouter,Switch,Route,Link} from 'react-router-dom';
+
 
 ReactDom.render(
 <BrowserRouter>
@@ -35,9 +40,10 @@ ReactDom.render(
     <Route  path='/superintendent' component={superintendent} />
     <Route  path='/teaching_staff' component={teaching_staff} />
     <Route  path='/nonTeaching_staff' component={nonTeaching_staff} />
-    <Route  path='/department' component={Department} />
+    <Route  path='/Department' component={Department} />
     <Route  path='/archives' component={Archives} />
     <Route  path='/analytics' component={Charts} />
+    <Route  path='/appointment' component={Appointment} />
 
 
   </Switch>

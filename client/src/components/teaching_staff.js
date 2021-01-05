@@ -1,16 +1,16 @@
 import React from 'react';
 import Navbar from './navbar'
-import "../css/Homepage_Department.css"
+import "../css/New_Department.css"
 import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
 import {Link} from 'react-router-dom';
-import '../css/teaching_staff.css';
 import Header from './header';
+import '../css/teaching_staff.css';
 
-export default class Teaching_Staff extends React.Component {
+export default class New_Department extends React.Component {
     constructor(props){
         super(props);
-        this.sidenavbar=sidenavbar;
+
         this.state={ user:"",
 
               AnatomyDept:[
@@ -159,19 +159,18 @@ export default class Teaching_Staff extends React.Component {
           this.setState({show:{PhysiologyDept:this.state.PhysiologyDept,AnatomyDept:this.state.AnatomyDept}});
           document.getElementById('anatomy').style.display='block';
           document.getElementById('physiology').style.display='block';
-          sidenavbar();
 
       //    this.closeNav();
         }
     render(){
-        return (<div   id='mainBody'>
+        return (<div id='mainBody'>
+
           <Header />
-
           <Navbar/>
-
           <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
-          <i style={{fontSize:'20px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
-            <section class="New_Department row">
+          <i style={{fontSize:'10px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
+
+                      <section class="New_Department row">
 
                 <nav class="side_navigation col-lg-3 mysidenavbar">
 
@@ -179,7 +178,7 @@ export default class Teaching_Staff extends React.Component {
                         <li><Link  class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>All</Link></li>
                         <li><Link  class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.anatomyClick.bind(this)}>Department of Anatomy</Link></li>
                         <li>
-                            <a style={{paddingLeft:'30px'}} href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                            <a href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
                                 Select Category
                                 <div id="demo1"  class="collapse">
                                     <ul class="list-group-item list-group-item-action" >
@@ -195,13 +194,13 @@ export default class Teaching_Staff extends React.Component {
 
                         <li><Link  class='list-group-item list-group-item-action' data-toggle="list" href="#" onClick={this.physiologyClick.bind(this)}>Department of Physiology</Link></li>
                          <li>
-                            <a style={{paddingLeft:'30px'}} href="#demo" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                            <a href="#demo" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
                                 Select Category
                                 <div id="demo"  class="collapse">
                                     <ul class="list-group-item list-group-item-action" >
                                     {
                                         this.state.PhysiologyDept.map((res,ind)=>{
-                                        return <li><Link href='#'  onClick={this.physiologyOneClick.bind(this,ind)} >{res.name}</Link></li>})
+                                        return <li><Link href='#' class='nav-link' onClick={this.physiologyOneClick.bind(this,ind)} >{res.name}</Link></li>})
                                     }
                                     </ul>
                                 </div>
@@ -213,11 +212,12 @@ export default class Teaching_Staff extends React.Component {
                 </nav>
                 <div class="col-lg-9">
                     <header id="article_heading">Teaching Staff</header>
-                    <br />
-                  <h3>B. J. Government Medical College, Pune</h3>
                     <br/>
+                  <h3>B. J. Government Medical College, Pune</h3>
+                  <br/>
                     <center>
 
+                        <br></br>
                         <div class="tab-content">
                             <div id="anatomy"  >
                             <header id="article_heading">Department of Anatomy</header>
