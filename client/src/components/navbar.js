@@ -5,7 +5,6 @@ export default function Navbar(props)
 {
   return <div>
 
->>>>>>> master
   <nav>
     <label for="drop" class="toggle" style={{marginTop:'0px'}}>Menu</label>
     <input type="checkbox" id="drop" />
