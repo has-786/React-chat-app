@@ -63,7 +63,11 @@ render(){
                         <ul class='list-group sidenav_list' >
                         {
                             this.state.arr.map((res,ind)=>{
-                             return  <li><Link href='#' class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.linkOneClick.bind(this,ind)} >{res.type}</Link></li>
+                             return  <li>
+                                      <Link href='#' class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.linkOneClick.bind(this,ind)} >
+                                        <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.type}
+                                      </Link>
+                                     </li>
                            })
                          }
                          </ul>
