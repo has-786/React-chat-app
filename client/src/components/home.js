@@ -19,8 +19,6 @@ export default function Home(props)
 
   useEffect(()=>{
 
-    for(var i=1;i<=5;i++)timer(i);
-    console.log(i);
     fetch(url+'/api/getDataForHome',{ method:'GET'})
          .then(response=>{ return response.json()})
          .then((body)=>{

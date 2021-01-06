@@ -14,6 +14,9 @@ export default class Admission extends React.Component
 {
     constructor(props){
       super(props);
+    //  this.searchbar=this.debounce();
+    //  this.shooting=this.throttle();
+
       this.state={ user:"",
                 ug:{
                   type:[{name:'MBBS Course',
@@ -90,6 +93,7 @@ export default class Admission extends React.Component
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='none';
        sidenavbar();
+       this.shooting();
 
      }
 
@@ -150,9 +154,40 @@ export default class Admission extends React.Component
         document.getElementById('pgtype').style.display='block';
         document.getElementById('pgother').style.display='block';
         sidenavbar();
+        this.searchbar();
+
+        }
 
 
-      }
+
+
+    /*     debounce()
+         {
+              let timer=0,count=0;
+              return function(){
+                  ++count;
+                  clearTimeout(timer);
+                  timer=setTimeout(()=>{
+                            console.log('debounce',count);
+                        },1000);
+                }
+          }
+
+          throttle(){
+            let flag=true,count=0;
+            return function(){
+              ++count;
+              if(flag)
+              {
+                flag=false;
+                console.log('throttle',count);
+                setTimeout(()=>{  flag=true;},1000);
+              }
+            }
+          }
+*/
+
+
 
 componentDidMount(){
   window.scrollTo(0,0);
