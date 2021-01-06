@@ -93,7 +93,6 @@ export default class Admission extends React.Component
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='none';
        sidenavbar();
-       this.shooting();
 
      }
 
@@ -154,7 +153,6 @@ export default class Admission extends React.Component
         document.getElementById('pgtype').style.display='block';
         document.getElementById('pgother').style.display='block';
         sidenavbar();
-        this.searchbar();
 
         }
 
@@ -220,42 +218,61 @@ render(){
                 <nav class="side_navigation col-lg-3 mysidenavbar">
 
                  <ul class='list-group sidenav_list' >
-                   <li><Link class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>All</Link></li>
-                   <li><Link class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.ugClick.bind(this)}>UG</Link></li>
-                   <li >
-                     <a  style={{paddingLeft:'30px'}} href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
-                        Select
-                      <div id="demo1"  class="collapse">
-                       <ul class='list-group-item list-group-item-action'>
+                   <li>
+                     <Link class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>
+                      <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;All
+                     </Link>
+                   </li>
+                   <li>
+                    <Link class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.ugClick.bind(this)}>
+                      <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;UG
+                    </Link>
+                   </li>
+                   <li>
+                   <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1"  class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                            Select
+                      </a>
+                   </li>
                         {
                           this.state.ug.type.map((res,ind)=>{
-                            return  <li><Link  href='#' onClick={this.ugOneClick.bind(this,ind)} >{res.name}</Link></li>
+                            return  <li id='demo1' class='collapse'>
+                                      <Link href='#' style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list"  onClick={this.ugOneClick.bind(this,ind)} >
+                                        <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
+                                      </Link>
+                                    </li>
                           })
                         }
-                        </ul>
-                        </div>
-                      </a>
+                    <li >
+                      <Link style={{paddingLeft:'30px'}} class='list-group-item list-group-item-action' data-toggle="list" href="#"  onClick={this.ugotherClick.bind(this)}>
+                        <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Important Details
+                      </Link>
                     </li>
-                    <li ><Link style={{paddingLeft:'30px'}} class='list-group-item list-group-item-action' data-toggle="list" href="#"  onClick={this.ugotherClick.bind(this)}>Important Details</Link></li>
 
-                    <li><Link href='#' class="list-group-item list-group-item-action" data-toggle="list" onClick={this.pgClick.bind(this)}>PG</Link></li>
-
-                             <li >
-                                   <a style={{paddingLeft:'30px'}} href="#demo" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                    <li>
+                      <Link href='#' class="list-group-item list-group-item-action" data-toggle="list" onClick={this.pgClick.bind(this)}>
+                        <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;PG
+                      </Link>
+                     </li>
+                    <li>
+                    <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo2"  class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
                                    Select
-                                   <div id="demo"  class="collapse">
-                                     <ul class='list-group-item list-group-item-action'>
-                                        {
-                                        this.state.pg.type.map((res,ind)=>{
-                                            return <li ><Link href='#' onClick={this.pgOneClick.bind(this,ind)} >{res.name}</Link></li>
-                                        })
-                                         }
-                                     </ul>
-                                    </div>
-                                   </a>
-                                   </li>
-                                   <li ><Link  style={{paddingLeft:'30px'}} href="#" class='list-group-item list-group-item-action' data-toggle="list"   onClick={this.pgotherClick.bind(this)}>Exam Statistics</Link></li>
-                      </ul>
+                        </a>
+                    </li>
+                        {
+                              this.state.pg.type.map((res,ind)=>{
+                                      return <li id="demo2" class="collapse">
+                                              <Link href='#'style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list" onClick={this.pgOneClick.bind(this,ind)} >
+                                                <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
+                                              </Link>
+                                             </li>
+                                    })
+                        }
+                      <li >
+                        <Link  style={{paddingLeft:'30px'}} href="#" class='list-group-item list-group-item-action' data-toggle="list"   onClick={this.pgotherClick.bind(this)}>
+                          <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Exam Statistics
+                        </Link>
+                      </li>
+                    </ul>
                   </nav>
          <article class='col-lg-9' >
          <header id="article_heading">Admission</header>

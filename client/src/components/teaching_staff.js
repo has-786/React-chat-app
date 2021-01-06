@@ -178,7 +178,7 @@ export default class New_Department extends React.Component {
                         <li><Link  class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>All</Link></li>
                         <li><Link  class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.anatomyClick.bind(this)}>Department of Anatomy</Link></li>
                         <li>
-                            <a href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                            <a  style={{paddingLeft:'30px'}} href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
                                 Select Category
                                 <div id="demo1"  class="collapse">
                                     <ul class="list-group-item list-group-item-action" >
@@ -194,7 +194,7 @@ export default class New_Department extends React.Component {
 
                         <li><Link  class='list-group-item list-group-item-action' data-toggle="list" href="#" onClick={this.physiologyClick.bind(this)}>Department of Physiology</Link></li>
                          <li>
-                            <a href="#demo" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                            <a style={{paddingLeft:'30px'}} href="#demo" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
                                 Select Category
                                 <div id="demo"  class="collapse">
                                     <ul class="list-group-item list-group-item-action" >

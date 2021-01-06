@@ -175,39 +175,53 @@ render(){
 
                         <ul class='list-group sidenav_list' >
 
-            <li ><Link  href="#" class='list-group-item list-group-item-action active' data-toggle='list' onClick={this.allClick.bind(this)}>All</Link></li>
-            <li><Link  href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.deptClick.bind(this)}>By Departments</Link></li>
-            <li >
-              <a style={{paddingLeft:'30px'}} href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
-              Select
-              <div id="demo1" class="collapse">
-              <ul class='list-group-item list-group-item-action'>
+            <li ><Link  href="#" class='list-group-item list-group-item-action active' data-toggle='list' onClick={this.allClick.bind(this)}>
+                    <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;All
+                  </Link>
+            </li>
+            <li>
+              <Link  href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.deptClick.bind(this)}>
+                  <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;By Departments
+              </Link>
+            </li>
+            <li>
+              <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1" class='dropdown-toggle' data-toggle="collapse">
+                 Select
+              </a>
+            </li>
                {
                   this.state.deptsData.map((res,ind)=>{
-                   return  <li ><Link href='#'  onClick={this.deptOneClick.bind(this,ind)} >{res.name}</Link></li>
+                   return  <li id='demo1' class='collapse'>
+                            <Link href='#'  style={{paddingLeft:'30px'}} class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.deptOneClick.bind(this,ind)} >
+                              <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
+                            </Link>
+                           </li>
                  })
                }
-               </ul>
-               </div>
-               </a>
-             </li>
-
-             <li><Link  href='#' class='list-group-item list-group-item-action' data-toggle='list' onClick={this.guestClick.bind(this)}>By Guests</Link></li>
+             <li>
+                <Link  href='#' class='list-group-item list-group-item-action' data-toggle='list' onClick={this.guestClick.bind(this)}>
+                  <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;By Guests
+                </Link>
+              </li>
               <li>
-              <a  style={{paddingLeft:'30px'}} href="#demo2" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
-              Select
-                <div id="demo2" class="collapse">
-                 <ul class='list-group-item list-group-item-action'  >
+                <a  style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo2" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                  Select
+                </a>
+              </li>
                  {
                  this.state.guestsData.map((res,ind)=>{
-                     return <li><Link href='#' onClick={this.guestOneClick.bind(this,ind)} >{res.name}</Link></li>
+                     return <li id='demo2' class='collapse'>
+                            <Link  style={{paddingLeft:'30px'}} href='#' class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.guestOneClick.bind(this,ind)} >
+                              <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
+                            </Link>
+                            </li>
                  })
                 }
-                 </ul>
-                 </div>
-               </a>
+               <li>
+                <Link href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.otherClick.bind(this)}>
+                <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Other Activities
+                </Link>
                </li>
-               <li><Link href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.otherClick.bind(this)}>Other Activities</Link></li>
             </ul>
           </nav>
 

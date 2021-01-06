@@ -141,7 +141,7 @@ app.use(bodyParser.json());
 require('./server/security/passport.js')(passport);
 require('./server/routes/mainRoutes.js')(app,passport,bcrypt,nodemailer,randomstring);
 */
-
+/*
 function sum(...a)
 {
 	let s=0;
@@ -162,7 +162,7 @@ function mybind(...args1){
 Function.prototype.mybind=mybind;
 const mysum=sum.mybind(this,2,10);
 console.log('sum is:',mysum(3,4));
-
+*/
 var port=  process.env.PORT || 5000;
 
 app.listen(port,()=>{console.log('Server On');});

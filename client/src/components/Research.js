@@ -9,8 +9,8 @@ export default class Research extends React.Component {
   constructor(props){
       super(props);
       this.state={ user:"",
-              
-  
+
+
                   show:{
                     journals:{type:[
                     {name:'walters kluwer',desc:"https://www.walterskluwer.com"},
@@ -34,7 +34,7 @@ export default class Research extends React.Component {
                     {name:"Medicine Website Resourcse" ,desc:"https://www.similima.com"},
                     {name:"Lippincott Williams & wilkins"  ,desc:"https://www.lww.com"},
                     {name:"Medicine",desc:"https://www.medicinejournal.com"}] },
-  
+
                     resource:{type:[{name:"Anaesthesia",desc:"https://www.slideshare.net/rsmehta/7-1-anesthesia"},
                     {name:"Blunt Abd Trauma",desc:"https://www.slideshare.net/anneodaro/blunt-abdominal-trauma-93870723"},
                     {name:"Burns Overview",desc:"https://www.slideshare.net/riteshgjmptw/burns-ritesh"},
@@ -54,49 +54,49 @@ export default class Research extends React.Component {
                     {name:"ORAL CANCER No images",desc:"https://www.slideshare.net/mohamedrahilalhadithy/oral-cancer-61240139"},
                     {name:"Shape Your Future",desc:"https://www.slideshare.net/Resources234/shaping-your-future-22186342"},
                     {name:"Surgery Update 2008",desc:"https://www.google.com"}]},
-                    
+
                     Eduvideo:{type:[
-                      
+
                         {links:"https://www.youtube.com/embed/VfT--J-MZlM?rel=0"},
                         {links:"https://www.youtube.com/embed/hIYgrHWJiic?rel=0"}
-                  
+
                       ]},
-  
+
                       usefullinks:{type:[
-                      
+
                         {usefullink:"http://in.groups.yahoo.com/group/jamkarstudents/"},
                         {usefullink:"http://jamkarstudents.blogspot.com/2004_09_01_archive.html"}
-                  
+
                       ]},
                       publication:{type:[
-                      
+
                         {publications:"publications3.pdf"}
-                       
-                  
+
+
                       ]}
-                  
-                  
-                  
-                  
+
+
+
+
                   }}
-                }          
+                }
 
   render(){
-      
+
       return(<div id='mainBody'>
    <div>
       <Header />
 			 <Navbar />
       <section class="New_Department row">
-          
+
           <nav class="side_navigation col-lg-3">
           {/* <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i> */}
               <ul class="list-group sidenav_list ">
-                  <li><a class="list-group-item list-group-item-action active " data-toggle="list " href="#Info1"  >Journals</a></li>
+                  <li><a class="list-group-item list-group-item-action active " data-toggle="list" href="#Info1"  >Journals</a></li>
                   <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2" >Useful Links</a></li>
-                  <li><a class="list-group-item list-group-item-action " data-toggle="list " href="#Info3">Educational Videos </a></li>
-                  <li><a class="list-group-item list-group-item-action " data-toggle="list " href="#Info4" >Resources</a></li>
-                  <li><a class="list-group-item list-group-item-action " data-toggle="list " href="#Info5">Publications </a></li>
+                  <li><a class="list-group-item list-group-item-action " data-toggle="list" href="#Info3">Educational Videos </a></li>
+                  <li><a class="list-group-item list-group-item-action " data-toggle="list" href="#Info4" >Resources</a></li>
+                  <li><a class="list-group-item list-group-item-action " data-toggle="list" href="#Info5">Publications </a></li>
               </ul>
           </nav>
           <article class="col-lg-9">
@@ -134,7 +134,7 @@ export default class Research extends React.Component {
 
           <div div class="tab-pane fade" id="Info2" >
           <div class="col-lg-12 details order-2 order-lg-1">
-  
+
           <div class="table-responsive">
          <table class="table table-bordered table-hover " id="research">
           <thead>
@@ -146,7 +146,7 @@ export default class Research extends React.Component {
           {
             this.state.show.usefullinks.type.map(r=>{
                return <tr>
-                  
+
                   <td>{<a href={r.usefullink} style={{color:"black"}}>{r.usefullink}</a>}</td>
                 </tr>
             })
@@ -154,7 +154,7 @@ export default class Research extends React.Component {
        </tbody>
     </table>
     </div>
-   
+
    </div></div>
 
 
@@ -163,13 +163,13 @@ export default class Research extends React.Component {
 
 
           <div class="col-lg-12 details order-2 order-lg-1">
-  
+
            <div class="col-lg-4">
             {this.state.show.Eduvideo.type.map(r=>{
             return <iframe src={r.links}  title="lapro" style={{width:"400px" ,height:"300px" ,border:"2px solid black"}} >
             </iframe>})}
             </div>
-    
+
            </div>
           </div>
 
@@ -178,7 +178,7 @@ export default class Research extends React.Component {
           <div div class="tab-pane fade" id="Info4" >
           <div class="col-lg-12 details order-2 order-lg-1">
             <div id='resource'>
-            
+
              <div class="table-responsive" id="research">
               <table class="table table-bordered table-hover ">
               <thead>
@@ -206,7 +206,7 @@ export default class Research extends React.Component {
 
           <div div class="tab-pane fade" id="Info5" >
           <div class="col-lg-12 details order-2 order-lg-1">
-  
+
            <div>  {
             this.state.show.publication.type.map(r=>{
                return <iframe src={r.publications} id="datamain" title="pdf" style={{width:"100%" ,height:"600px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
@@ -221,13 +221,3 @@ export default class Research extends React.Component {
 </div>);
   }
 }
-
-
-
-
-
-
-
-
-
-
