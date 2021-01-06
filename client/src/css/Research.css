@@ -1,4 +1,4 @@
-#deans {
+/* #deans {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -19,4 +19,170 @@
     text-align: left;
     background-color:lightblue;
     color: black;
-    }
+    } */
+
+    /* #research {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        
+        }
+        
+        #research td, #research th {
+        border-bottom: 1px solid white;
+        padding: 8px;
+        }
+        
+        #research tr:nth-child(even){background-color: #f2f2f2;}
+        
+        #research tr:hover {background-color: #ddd;}
+        
+        #research th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color:#eeeeee;
+        color: black;
+        }
+    
+        
+
+          .sidemenu .nav-link {
+            /*width: 350px;
+            border: 0;
+            padding: 12px 15px 12px 15px;
+            transition: 0.3s;
+            background-color:white; 
+            color:black; 
+            border-radius: 0;
+            border-right: 2px solid #ebf1f6;
+            border-left: 2px solid #ebf1f6;
+            border-top: 1px solid #ebf1f6;
+            border-bottom: 1px solid #ebf1f6;
+            font-weight: 600;
+            font-size: 15px;
+          }
+        
+          .sidemenu .nav-link:hover {
+            color: #003a9b;
+          }
+        
+          .sidemenu .nav-link.active {
+            color:white;
+            background-color: #003a9b;
+            
+          }
+        
+          .sidemenu .tab-pane.active {
+            -webkit-animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.5s ease-out;
+           
+        
+          }
+        
+          .border{
+            display: block;
+            margin: auto;
+            width: 160px;
+            height: 3px;
+            color: white;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+
+          #research table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            border-right: 2px solid #ebf1f6;
+            border-left: 2px solid #ebf1f6;
+            border-top: 1px solid #ebf1f6; 
+            border-bottom: 1px white;
+          }
+          .sidemenu .nav-link:hover {
+            background-color:#003a9b;
+            color:white;
+          }
+    
+        .section-title {
+            text-align: left;
+            padding-bottom: 30px;
+          }
+          
+          .section-title h4 {
+            font-size: 32px;
+            text-align: left;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            position: relative;
+            color:black;
+          } */
+
+          @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+/*body font size and family*/
+
+.table-responsive {
+   
+    border-collapse: collapse;
+    width: 100%;
+    border-style: hidden;
+    background-color: #eeeeee;
+  }
+*
+{
+    font-size: 14px;
+    color:#2a2a2a;
+    font-family: 'Roboto',sans-serif;
+    font-size :14px;
+    font-weight: 400;
+}
+section.New_Department
+{
+    margin:2px;
+    position:relative;
+    top:-50px;
+    
+}
+nav.side_navigation{
+    margin-top:14px;
+    background-color: #fff;
+}
+/*for roboto light weight=300*/
+#article_heading
+{ 
+    font-size: 30px;
+    font-weight: 300;
+}
+#article_body
+{
+    margin-left:10px;
+}
+nav ul.sidenav_list
+{
+    width:100%;
+    background-color: white;
+   
+    
+}
+nav ul.sidenav_list li a{
+    
+    font-size: 16px;
+    
+}
+nav ul.sidenav_list li a.active
+{
+    background-color: #003a9b;
+    color:white;
+}
+#research tr:hover {background-color: #ddd;}
+        
+        #research th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color:#eeeeee;
+        color: black;
+        }
+
+        
