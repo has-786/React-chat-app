@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import Header from './header';
 import '../css/teaching_staff.css';
 
-export default class New_Department extends React.Component {
+export default class teaching_staff extends React.Component {
     constructor(props){
         super(props);
 
@@ -175,42 +175,57 @@ export default class New_Department extends React.Component {
                 <nav class="side_navigation col-lg-3 mysidenavbar">
 
                     <ul class="list-group sidenav_list">
-                        <li><Link  class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>All</Link></li>
-                        <li><Link  class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.anatomyClick.bind(this)}>Department of Anatomy</Link></li>
                         <li>
-                            <a  style={{paddingLeft:'30px'}} href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                            
+                            <Link  class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>
+                            <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;All
+                            </Link>
+                        </li>
+                        <li>
+                            <Link  class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.anatomyClick.bind(this)}>
+                            <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Department of Anatomy
+                            </Link>
+                        </li>
+                        <li>
+                            <a  style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1"  class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
                                 Select Category
-                                <div id="demo1"  class="collapse">
-                                    <ul class="list-group-item list-group-item-action" >
-                                    {
+                            </a>
+                        </li>
+                                {
                                         this.state.AnatomyDept.map((res,ind)=>{
-                                        return  <li><Link href='#' onClick={this.anatomyOneClick.bind(this,ind)} >{res.name}</Link></li>
+                                        return  <li id='demo1' class='collapse'>
+                                            <Link href='#' style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list" onClick={this.anatomyOneClick.bind(this,ind)} >
+                                                <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
+                                            </Link>
+                                            </li>
                                         })
                                     }
-                                    </ul>
-                                </div>
-                            </a>
+                                    
+                       <li>
+                           <Link class='list-group-item list-group-item-action' data-toggle="list" href="#" onClick={this.physiologyClick.bind(this)}>
+                           <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Department of Physiology
+                           </Link>
                         </li>
 
-                        <li><Link  class='list-group-item list-group-item-action' data-toggle="list" href="#" onClick={this.physiologyClick.bind(this)}>Department of Physiology</Link></li>
                          <li>
-                            <a style={{paddingLeft:'30px'}} href="#demo" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+                            <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
                                 Select Category
-                                <div id="demo"  class="collapse">
-                                    <ul class="list-group-item list-group-item-action" >
-                                    {
-                                        this.state.PhysiologyDept.map((res,ind)=>{
-                                        return <li><Link href='#' class='nav-link' onClick={this.physiologyOneClick.bind(this,ind)} >{res.name}</Link></li>})
-                                    }
-                                    </ul>
-                                </div>
                             </a>
-
                         </li>
+                            {
+                                        this.state.PhysiologyDept.map((res,ind)=>{
+                                        return <li id="demo" class="collapse">
+                                            <Link href='#' style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list"  onClick={this.physiologyOneClick.bind(this,ind)} >
+                                            <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
+                                            </Link>
+                                            </li>
+                                            })
+                                }
+                                    
 
                     </ul>
                 </nav>
-                <div class="col-lg-9">
+                <article class="col-lg-9">
                     <header id="article_heading">Teaching Staff</header>
                     <br/>
                   <h3>B. J. Government Medical College, Pune</h3>
@@ -218,7 +233,7 @@ export default class New_Department extends React.Component {
                     <center>
 
                         <br></br>
-                        <div class="tab-content">
+                       
                             <div id="anatomy"  >
                             <header id="article_heading">Department of Anatomy</header>
                                  <br></br>
@@ -259,7 +274,7 @@ export default class New_Department extends React.Component {
                                 }
                                 </div>
                             </div>
-                        </div>
+                        
 
                         <div id='physiology' >
                         <header id="article_heading">Department of Physiology</header>
@@ -304,7 +319,7 @@ export default class New_Department extends React.Component {
 
 
                     </center>
-                </div>
+                </article>
         </section>
 
 
