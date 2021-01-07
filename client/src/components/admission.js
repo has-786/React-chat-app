@@ -230,13 +230,13 @@ render(){
                    </li>
                    <li>
                    <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1"  class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
-                            Select
+                          <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;  Select
                       </a>
                    </li>
                         {
                           this.state.ug.type.map((res,ind)=>{
                             return  <li id='demo1' class='collapse'>
-                                      <Link href='#' style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list"  onClick={this.ugOneClick.bind(this,ind)} >
+                                      <Link href='#' style={{paddingLeft:'50px'}} class="list-group-item list-group-item-action" data-toggle="list"  onClick={this.ugOneClick.bind(this,ind)} >
                                         <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
                                       </Link>
                                     </li>
@@ -255,13 +255,13 @@ render(){
                      </li>
                     <li>
                     <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo2"  class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
-                                   Select
+                            <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;       Select
                         </a>
                     </li>
                         {
                               this.state.pg.type.map((res,ind)=>{
                                       return <li id="demo2" class="collapse">
-                                              <Link href='#'style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list" onClick={this.pgOneClick.bind(this,ind)} >
+                                              <Link href='#'style={{paddingLeft:'50px'}} class="list-group-item list-group-item-action" data-toggle="list" onClick={this.pgOneClick.bind(this,ind)} >
                                                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
                                               </Link>
                                              </li>
