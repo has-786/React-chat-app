@@ -1,23 +1,30 @@
 
-@media only screen and (max-width:768px){
-
-	 .burger{
-				display:block;
-				padding:10px;
-			}
-		.mysidenavbar{
-			display:none;
-		}
+@media (max-width: 769px)
+{
+  nav ul li
+  {
+    margin-top:0px;
+  }
+  .burger
+  {
+    display: block;
+  }
+  .sidenav_list
+  {
+    display: none;
+  }
 }
+
 @media only screen and (min-width:769px){
-
-			.burger{
-				display:none;
-			}
-		.mysidenavbar{
-			display:inline;
-		}
+.burger
+{
+  display: none;
+}
+.sidenav_list
+{
+  display: flex;
 }
 
+}
 td{white-space: pre-wrap;}
 p{white-space: pre-wrap;}

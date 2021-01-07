@@ -30,8 +30,8 @@ export default function Navbar(props)
       <Link to="#">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-4"/>
       <ul>
-        <li><Link to="#">Recognition</Link></li>
-        <li><Link to="#">Awards & Achievements</Link></li>
+        <li><Link to="/recognition">Recognition</Link></li>
+        <li><Link to="/award">Awards</Link></li>
       </ul>
       </li>
       <li>

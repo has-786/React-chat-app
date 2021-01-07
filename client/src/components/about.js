@@ -1,21 +1,19 @@
 import React from 'react';
-import Navbar from './navbar'
-import "../css/New_Department.css"
+import Navbar from './navbar';
+import "../css/Homepage_Department.css";
 import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
 import Header from './header';
+import url from './url';
 export default class About extends React.Component {
 
     constructor(props){
         super(props);
-
+        this.sidenavbar=sidenavbar;
         this.state={ user:"",
-                      show:{
-                      history:{type:[
+                      history:{type:[] },
 
-                      ] },
-
-                      dean:{type:[
+                      deans:{type:[
                         {srno:'1',name:'Dr. A.S. Labhsetwar',period:'08-05-2000 to 10-02-2003',subject:'Ophthalmology'},
                         {srno:'2',name:'Dr. S.G. Deshpande',period:'11-02-2003 to 31-05-2003',subject:'Skin VD'},
                         {srno:'3',name:'Dr. V.L. Yemul',period:'04-06-2003 to 30-09-2006',subject:'Microbiology'},
@@ -44,36 +42,51 @@ export default class About extends React.Component {
                         {designation:'Office Superintendent (SGH)',name:'Mr. P. M. Adhari',address:'19/321,Ram Society Yerwada, Pune-411006',contact:'Tel:020-26128000'}
                       ] },
 
-                      committees:{type:[
-                          {committees:"COMMITTEES.pdf"}
-                      ]},
-                      hospital:{type:[
-                        {hospital:"Hospital2.pdf"}
-                    ]}
-                    }}
-                  }
+                      committees:"./COMMITTEES.pdf",
+                      hospital:"./Hospital2.pdf"
+                    }
 
+              }
+
+
+          componentDidMount(){
+                                window.scrollTo(0,0);
+                                fetch(url+'/api/about',{ method:'GET'})
+                                       .then(response=>{ return response.json()})
+                                       .then((body)=>{
+                                              this.setState({deans:{type:body.deans}});
+                                              this.setState({organogram:{type:body.organogram}});
+                                              this.setState({committees:url+body.committees});
+                                              this.setState({hospital:url+body.hospital});
+                                        })
+                                       .catch(err=>{});
+
+                            }
 
     render(){
-      window.scrollTo(0,0);
-
-        return (<div id='mainBody' >
+        return (<div id='mainBody'>
           <Header />
-          <Navbar/>
 
-                 <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
-                 <i style={{fontSize:'20px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
+        <Navbar/>
+
 
         <section class="New_Department row">
+        <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
 
             <nav class="side_navigation col-lg-3 mysidenavbar">
                 <ul class="list-group sidenav_list">
-                    <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1"   onClick={sidenavbar}>Hospital</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2" onClick={sidenavbar}>History</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>Organogram</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  onClick={sidenavbar}>Past Deans</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5"  onClick={sidenavbar}>Superintendent</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6"  onClick={sidenavbar}>Committees</a></li>
+                    <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1" onClick={sidenavbar}>
+                    <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Hospital</a></li>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  onClick={sidenavbar}>
+                    <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;History</a></li>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>
+                    <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Organogram</a></li>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  onClick={sidenavbar}>
+                    <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Past Deans</a></li>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5" onClick={sidenavbar}>
+                    <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Superintendent</a></li>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6" onClick={sidenavbar}>
+                    <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Committees</a></li>
                 </ul>
             </nav>
             <article class="col-lg-9">
@@ -82,10 +95,9 @@ export default class About extends React.Component {
             <div class="tab-content">
                 <div div class="tab-pane fade show active " id="Info1" >
                 <p>Get all the details of Hospital here</p>
-                <div>  {
-              this.state.show.hospital.type.map(r=>{
-                 return <iframe src={r.hospital} id="datamain" title="pdf" style={{width:"100%" ,height:"1000px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
-              })}</div>
+                <div>
+                  <iframe src={this.state.hospital} id="datamain" title="pdf" style={{width:"100%" ,height:"1000px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
+                </div>
               </div>
                 <div div class="tab-pane fade" id="Info2" style={{textAlign:"justify"}} >
                 <h3>History</h3>
@@ -114,7 +126,6 @@ export default class About extends React.Component {
                   <p>Various other projects are completed by BJMC viz. Vanderbilt University USA-NARI-BJMC collaborative project on Cancer Cervix Screening in HIV under Dr. Ramesh A. Bhosale Professor and Head of Department of Obstetrics and Gynecology, WHO Cardiovascular Disease surveillance project, International Clinical Epidemiology Network project for MDR TB surveillance, IDSP Training & pilot center, NACO Training Center for : MOs, Technicians & Counselors, etc.
                     In year 2005, through National AIDS Control Organization (NACO) HIV treatment center (ART) was started giving treatment free of charge. Presently more than 24000 HIV infected patients are registered in the ART center and about 12000 are on free ART. This center is the second best in India and lead by Nodal Officer Prof. Dr. D. B. Kadam. BJMC is recognised Government TB treatment center having 4000 tuberculosis patients/suspects per year.</p>
 
-
                 </div>
                 <div div class="tab-pane fade" id="Info3" >
                 <div class="table-responsive">
@@ -129,9 +140,9 @@ export default class About extends React.Component {
                  </thead>
                  <tbody>
                     {
-                        this.state.show.dean.type.map(r=>{
+                        this.state.deans.type.map(r=>{
                         return <tr>
-                           <td>{r.srno}</td>
+                          <td>{r.srno}</td>
                         <td>{r.name}</td>
                         <td>{r.period}</td>
                         <td>{r.subject}</td>
@@ -155,7 +166,7 @@ export default class About extends React.Component {
                  </thead>
                  <tbody>
                     {
-                        this.state.show.organogram.type.map(r=>{
+                        this.state.organogram.type.map(r=>{
                         return <tr>
                            <td>{r.designation}</td>
                         <td>{r.name}</td>
@@ -206,6 +217,39 @@ export default class About extends React.Component {
           </p>
         </div>
 
+
+        <span className="border"></span>
+        <div className="ps">
+          <a href="#"></a>
+        </div>
+
+        <div className="faculty-about">
+          <span>
+            Dr. Satyanarayan Badrinarayan Punpale,
+            MD (FMT), DCP, LLB
+            Medical Superintendent
+            Sassoon General Hospitals, Pune.
+            <br/>
+            Professor and Head, Department of Forensic Medicine and Toxicology,
+            Byramjee Jeejeebhoy Government Medical College & Sassoon General Hospitals, Pune
+          </span>
+        </div>
+
+        <span className="border"></span>
+        <div className="faculty-details">
+          <p>
+            Dr. Satyanarayan Badrinarayan Punpale did his MBBS & MD in FMT (1978) of
+            Marathwada University from Government Medical College, Aurangabad.
+            Immediately thereafter he joined the public service as Lecturer and later
+            promoted as Professor at Govt. Medical College, Nanded in 2001. He is
+            currently working as Professor and Head of FMT department at this institute
+            since September 2009. He has also done Diploma in Clinical Pathology in 1985
+            from SRTR Medical College, Ambejogai and has also obtained his LLB in 1995
+            from Marathwada University. As an academician he has vast teaching experience
+            and has more than 20 research publication to his credit.
+          </p>
+        </div>
+
         <p>
             Address:<br/>
             Flat No. 201, B -9 Building,<br/>
@@ -221,10 +265,9 @@ export default class About extends React.Component {
       </div>
                 </div>
                 <div div class="tab-pane fade" id="Info6" >
-                <div>  {
-              this.state.show.committees.type.map(r=>{
-                 return <iframe src={r.committees} id="datamain" title="pdf" style={{width:"100%" ,height:"1000px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
-              })}</div>
+                <div>
+                  <iframe src={this.state.committees} id="datamain" title="pdf" style={{width:"100%" ,height:"1000px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
+                </div>
                 </div>
             </div>
                 </article>
@@ -235,4 +278,5 @@ export default class About extends React.Component {
 
         </div>)
     }
+
 }

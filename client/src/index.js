@@ -17,7 +17,10 @@ import nonTeaching_staff from './components/nonTeaching_staff';
 import Department from './components/Department';
 import Archives from './components/archives';
 import Charts from './components/chart';
+import deptCharts from './components/deptCharts';
+import Award from './components/Award';
 import Appointment from './components/appointment';
+import Recognition from './components/Recognition';
 
 
 
@@ -44,7 +47,9 @@ ReactDom.render(
     <Route  path='/archives' component={Archives} />
     <Route  path='/analytics' component={Charts} />
     <Route  path='/appointment' component={Appointment} />
-
+    <Route path='/deptCharts' component={deptCharts} />
+    <Route path='/award' component={Award} />
+    <Route path='/recognition' component={Recognition} />
 
   </Switch>
 </BrowserRouter>,

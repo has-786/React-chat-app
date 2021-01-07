@@ -25,7 +25,7 @@ export default function Home(props)
                 setUsefulLink(body.usefulLink);
                 setNewsUpdate(body.newsUpdate);
           })
-         .catch(err=>alert(JSON.stringify(err)));
+         .catch(err=>{});
   },[])
 
    return (  <div id="mainBody">

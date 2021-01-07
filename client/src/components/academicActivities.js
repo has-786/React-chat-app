@@ -102,7 +102,7 @@ export default class AcademicActivities extends React.Component
                       //alert(body.msg);
                     //  dispatch({type:'add_video',payload:body.video});
               })
-             .catch(err=>alert(JSON.stringify(err)));
+             .catch(err=>{});
 
 
 
@@ -166,11 +166,11 @@ render(){
 
 			 <Navbar />
 
-       <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
-       <i style={{fontSize:'10px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
 
 
                <section class="New_Department row">
+               <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+
                        <nav class="side_navigation col-lg-3 mysidenavbar">
 
                         <ul class='list-group sidenav_list' >

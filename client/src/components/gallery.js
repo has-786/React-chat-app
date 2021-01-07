@@ -16,15 +16,18 @@ let [imgs,setImgs]=useState([
 {name:'An Image of Hospital',link:'/uploads/gallery-7.jpg'},
 {name:'An Image of Hospital',link:'/uploads/gallery-8.jpg'}
 ]);
-useEffect(()=>{window.scrollTo(0,0);},[]);
-fetch(url+'/api/gallery',{ method:'GET'})
-     .then(response=>{ return response.json()})
-     .then((body)=>{
-          setImgs(body.img);
-            //  alert(body.img);
-            //  dispatch({type:'add_video',payload:body.video});
-      })
-     .catch(err=>{return err;});
+useEffect(()=>{window.scrollTo(0,0);
+  fetch(url+'/api/gallery',{ method:'GET'})
+       .then(response=>{ return response.json()})
+       .then((body)=>{
+            setImgs(body.img);
+              //  alert(body.img);
+              //  dispatch({type:'add_video',payload:body.video});
+        })
+       .catch(err=>{});
+
+},[]);
+
 
 
 return  <div   id='mainBody'>

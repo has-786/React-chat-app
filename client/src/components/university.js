@@ -63,7 +63,7 @@ Maharashtra University of Health Sciences, Nashik came into existence by Maharas
                     //alert(body.msg);
                   //  dispatch({type:'add_video',payload:body.video});
             })
-           .catch(err=>alert(JSON.stringify(err)));
+           .catch(err=>{});
 
 
     }
