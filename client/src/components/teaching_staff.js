@@ -6,7 +6,11 @@ import '../css/sidenavbar.css';
 import {Link} from 'react-router-dom';
 import Header from './header';
 import '../css/teaching_staff.css';
+<<<<<<< HEAD
 import url from './url';
+=======
+
+>>>>>>> d290fcf134ea608f578b2bf11d03b22656214634
 export default class teaching_staff extends React.Component {
     constructor(props){
         super(props);
@@ -167,18 +171,31 @@ export default class teaching_staff extends React.Component {
 
                     <ul class="list-group sidenav_list">
                         <li>
+<<<<<<< HEAD
 
                             <Link  href="#" class='list-group-item list-group-item-action active' data-toggle='list' onClick={this.allClick.bind(this)}>
+=======
+                            
+                            <Link  class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>
+>>>>>>> d290fcf134ea608f578b2bf11d03b22656214634
                             <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;All
                             </Link>
                         </li>
                         <li>
+<<<<<<< HEAD
                             <Link  href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.anatomyClick.bind(this)}>
+=======
+                            <Link  class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.anatomyClick.bind(this)}>
+>>>>>>> d290fcf134ea608f578b2bf11d03b22656214634
                             <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Department of Anatomy
                             </Link>
                         </li>
                         <li>
+<<<<<<< HEAD
                             <a  style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1" class='dropdown-toggle' data-toggle="collapse">
+=======
+                            <a  style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1"  class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
+>>>>>>> d290fcf134ea608f578b2bf11d03b22656214634
                                 Select Category
                             </a>
                         </li>
@@ -190,6 +207,7 @@ export default class teaching_staff extends React.Component {
                                             </Link>
                                             </li>
                                         })
+<<<<<<< HEAD
                                 }
 
                        <li>
@@ -198,6 +216,13 @@ export default class teaching_staff extends React.Component {
                            <i style={{color:'green'}}
                             class='fas fa-angle-right'>
                            </i>&nbsp;Department of Physiology
+=======
+                                    }
+                                    
+                       <li>
+                           <Link class='list-group-item list-group-item-action' data-toggle="list" href="#" onClick={this.physiologyClick.bind(this)}>
+                           <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Department of Physiology
+>>>>>>> d290fcf134ea608f578b2bf11d03b22656214634
                            </Link>
                         </li>
 
@@ -215,7 +240,11 @@ export default class teaching_staff extends React.Component {
                                             </li>
                                             })
                                 }
+<<<<<<< HEAD
 
+=======
+                                    
+>>>>>>> d290fcf134ea608f578b2bf11d03b22656214634
 
                     </ul>
                 </nav>
@@ -227,7 +256,11 @@ export default class teaching_staff extends React.Component {
                     <center>
 
                         <br></br>
+<<<<<<< HEAD
 
+=======
+                       
+>>>>>>> d290fcf134ea608f578b2bf11d03b22656214634
                             <div id="anatomy"  >
                             <header id="article_heading">Department of Anatomy</header>
                                  <br></br>
@@ -268,7 +301,11 @@ export default class teaching_staff extends React.Component {
                                 }
                                 </div>
                             </div>
+<<<<<<< HEAD
 
+=======
+                        
+>>>>>>> d290fcf134ea608f578b2bf11d03b22656214634
 
                         <div id='physiology' >
                         <header id="article_heading">Department of Physiology</header>
