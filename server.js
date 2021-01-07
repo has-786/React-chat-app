@@ -33,7 +33,8 @@ app.get('/api/pdflinks',(req,res)=>{
 	pdflinks.find({},(err,pdflinks1)=>{
 
 		if(err)console.log(err);
-		console.log(pdflinks1);
+		pdflinks1.map(p=>{ obj={name:p.name,link:p.link};  console.log(JSON.stringify(obj)+",");});
+		//console.log(pdflinks1);
 			res.send(pdflinks1);
 	})
 });
@@ -88,17 +89,7 @@ app.get('/api/research',(req,res)=>{
 
 app.get('/api/hospital',(req,res)=>{
 
-
-
-
-	awards.find({},(err,awa)=>{
-			if(awa){console.log(awa);}
-	})
-
-	awards.updateMany({},{status:'Anatomy'},(err,awa)=>{
-		if(err)console.log("error: ",err);
-			if(awa){console.log("Updated ",awa);}
-	})
+			pdflinks
 
 			pdflinks.findOne({status:'hospital'},(err,hospital)=>{
 

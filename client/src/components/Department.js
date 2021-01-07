@@ -11,7 +11,38 @@ export default class Department extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            display:"",info:[{name:"",link:""}]
+            display:"",info:[
+
+  {"name":"anatomy","link":"http://www.bjmcpune.org/ANATOMY.pdf"},
+  {"name":"physiology","link":"http://www.bjmcpune.org/PHYSIOLOGY.pdf"},
+  {"name":"biochemistry","link":"http://www.bjmcpune.org/BIOCHEMISTRY.pdf"},
+  {"name":"microbiology","link":"http://www.bjmcpune.org/MICROBIOLOGY.pdf"},
+  {"name":"forensicMedicine","link":"http://www.bjmcpune.org/FORENSIC%20MEDICINE.pdf"},
+  {"name":"pharmacology","link":"http://www.bjmcpune.org/Website_Pharmacology_BJGMC%20Pune%202016_update_04-08-2016.pdf"},
+  {"name":"communityMedicine","link":"http://www.bjmcpune.org/DEPT%20OF%20COMMUNITY%20MEDICINE.pdf"},
+  {"name":"pathology","link":"http://www.bjmcpune.org/PATHOLOGY.pdf"},
+  {"name":"generalMedicine","link":"http://www.bjmcpune.org/medicine.pdf"},
+  {"name":"pediatrics","link":"http://www.bjmcpune.org/PEADIARICS.pdf"},
+  {"name":"tuberculosis","link":"http://www.bjmcpune.org/CHEST%20TB.pdf"},
+  {"name":"skin","link":"http://www.bjmcpune.org/SKIN.pdf"},
+  {"name":"psychiatry","link":"http://www.bjmcpune.org/PSYCHIATRY.pdf"},
+  {"name":"radiology","link":"http://www.bjmcpune.org/RADIODIAGNOSIS.pdf"},
+  {"name":"anesthesiology","link":"http://www.bjmcpune.org/ANAESTHESIA.pdf"},
+  {"name":"generalSurgery","link":"http://www.bjmcpune.org/SURGERY.pdf"},
+  {"name":"orthopedics","link":"http://www.bjmcpune.org/ORTHOPEDICS.pdf"},
+  {"name":"ophthalmology","link":"http://www.bjmcpune.org/Ophthalmology.pdf"},
+  {"name":"otorhinolaryngology","link":"http://www.bjmcpune.org/ENT.pdf"},
+  {"name":"obstetrics","link":"http://www.bjmcpune.org/OBSTRETICS%20AND%20GYENACOLOGY.pdf"},
+  {"name":"cardiovascular","link":"http://www.bjmcpune.org/Department%20of%20CVTS.pdf"},
+  {"name":"neuroSurgery","link":"http://www.bjmcpune.org/NEUROSURGERY.pdf"},
+  {"name":"pediatricSurgery","link":"http://www.bjmcpune.org/PEDIATRIC%20SURGERY.pdf"},
+  {"name":"plasticSurgery","link":"http://www.bjmcpune.org/PLASTIC%20SURGERY.pdf"},
+  {"name":"urosurgery","link":"http://www.bjmcpune.org/Urology.pdf"},
+  {"name":"dentistry","link":"http://www.bjmcpune.org/DENTAL.pdf"},
+  {"name":"bloodBank","link":"http://www.bjmcpune.org/BLOOD%20BANK.pdf"},
+  {"name":"eyeBank","link":"http://www.bjmcpune.org/EYE%20BANK.pdf"},
+  {"name":"bioWaste","link":"http://www.bjmcpune.org/biomedical.pdf"}
+            ]
     }
 }
 
@@ -31,7 +62,7 @@ componentDidMount(){
      })
     .catch(err=>{});
 }
-d
+
     render(){
         return (<div id='mainBody'>
           <Header />
