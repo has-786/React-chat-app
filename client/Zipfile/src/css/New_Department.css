@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+/*body font size and family*/
+*
+{
+   
+    color:#2a2a2a;
+    font-family: 'Roboto',sans-serif;
+    font-size :14px;
+    font-weight: 400;
+}
+section.New_Department
+{
+    margin:20px;
+    position:relative;
+    top:-50px;
+    
+}
+nav.side_navigation{
+    margin-top:14px;
+    background-color: #fff;
+}
+/*for roboto light weight=300*/
+#article_heading
+{ 
+    font-size: 30px;
+    font-weight: 300;
+}
+#article_body
+{
+    margin-left:10px;
+}
+nav ul.sidenav_list
+{
+    width:100%;
+    background-color: white;
+    
+    
+}
+nav ul.sidenav_list li a{
+    
+    font-size: 16px;
+}
+
+nav ul.sidenav_list li a.active
+{
+    background-color: #003a9b;
+    color:white;
+}
+#ErrorInfo
+{
+  color:#ff0000
+}
+.level2
+  {
+    display: none;
+    padding-left: 25px;
+  }
+.level3
+  {
+    display: none;
+    padding-left: 50px;
+  }
+ 
+
+@media (max-width: 769px)
+{
+  nav ul li
+  {
+    margin-top:0px;
+  }
+  .menu_collapse
+  {
+    display: block;
+  }
+  .sidenav_list
+  {
+    display: none;
+  }
+}
+
+@media only screen and (min-width:769px){
+.menu_collapse
+{
+  display: none;
+}
+.sidenav_list
+{
+  display: flex;
+}
+
+}
