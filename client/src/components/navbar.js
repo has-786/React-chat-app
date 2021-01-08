@@ -24,7 +24,7 @@ export default function Navbar(props)
         <li><Link to="/academicActivities">Academic Activities</Link></li>
       </ul>
       </li>
-      <li><Link  name='single' to="/research">Research & Resources</Link></li>
+      <li><Link  name='single' to="/research">Research</Link></li>
       <li>
       <label for="drop-4" class="toggle">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></label>
       <Link to="#">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
