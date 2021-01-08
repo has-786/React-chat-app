@@ -105,7 +105,7 @@ export default class teaching_staff extends React.Component {
                         //alert(body.msg);
                       //  dispatch({type:'add_video',payload:body.video});
                 })
-               .catch(err=>alert(JSON.stringify(err)));
+               .catch(err=>{});
 
 
 
@@ -159,36 +159,34 @@ export default class teaching_staff extends React.Component {
 
           <Header />
           <Navbar/>
+          <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+          <i style={{fontSize:'10px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
 
                       <section class="New_Department row">
-                      <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
 
                 <nav class="side_navigation col-lg-3 mysidenavbar">
 
                     <ul class="list-group sidenav_list">
                         <li>
 
-
-                            <Link  class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>
+                            <Link  href="#" class='list-group-item list-group-item-action active' data-toggle='list' onClick={this.allClick.bind(this)}>
                             <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;All
                             </Link>
                         </li>
                         <li>
-
-                            <Link  class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.anatomyClick.bind(this)}>
+                            <Link  href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.anatomyClick.bind(this)}>
                             <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Department of Anatomy
                             </Link>
                         </li>
                         <li>
-
-                            <a  style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1"  class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
-                                <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Select Category
+                            <a  style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1" class='dropdown-toggle' data-toggle="collapse">
+                                Select Category
                             </a>
                         </li>
                                 {
                                         this.state.AnatomyDept.map((res,ind)=>{
                                         return  <li id='demo1' class='collapse'>
-                                            <Link href='#' style={{paddingLeft:'50px'}} class="list-group-item list-group-item-action" data-toggle="list" onClick={this.anatomyOneClick.bind(this,ind)} >
+                                            <Link href='#' style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list" onClick={this.anatomyOneClick.bind(this,ind)} >
                                                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
                                             </Link>
                                             </li>
@@ -200,32 +198,41 @@ export default class teaching_staff extends React.Component {
                             onClick={this.physiologyClick.bind(this)}>
                            <i style={{color:'green'}}
                             class='fas fa-angle-right'>
-                            </i>
+                           </i>&nbsp;Department of Physiology
                            </Link>
                         </li>
 
                          <li>
                             <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
-                                <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Select Category
+                                Select Category
                             </a>
                         </li>
                             {
                                         this.state.PhysiologyDept.map((res,ind)=>{
                                         return <li id="demo" class="collapse">
-                                            <Link href='#' style={{paddingLeft:'50px'}} class="list-group-item list-group-item-action" data-toggle="list"  onClick={this.physiologyOneClick.bind(this,ind)} >
+                                            <Link href='#' style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list"  onClick={this.physiologyOneClick.bind(this,ind)} >
                                             <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
                                             </Link>
                                             </li>
                                             })
                                 }
 
+
                     </ul>
                 </nav>
                 <article class="col-lg-9">
+
                     <header id="article_heading">Teaching Staff</header>
                     <br/>
                   <h3>B. J. Government Medical College, Pune</h3>
                   <br/>
+                  <button class="btn btn-primary"  onClick={(evt)=>this.props.history.push('/deptCharts')} style={{float:"right",backgroundColor:'#003a9b'}}>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bar-chart-line" viewBox="0 0 16 16">
+                           <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z"></path>
+                         </svg>
+                      </button>
+                      <br/>
+
                     <center>
 
                         <br></br>

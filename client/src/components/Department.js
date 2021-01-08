@@ -156,6 +156,7 @@ componentDidMount(){
           <article class="col-lg-8 col-md-8">
             <header id="article_heading"> Departments</header>
             <br></br>
+            
             <div class="tab-content">
             <div class="tab-pane fade col-lg-9 " id="Info1" >
                 <PdfView link={this.state.display}/>
