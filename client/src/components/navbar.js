@@ -11,11 +11,10 @@ export default function Navbar(props)
     <ul class="menu">
           <li><Link name='single' to="/">Home</Link></li>
       <li><Link  name='single' to="/about">About</Link></li>
-      <li><Link  name='single' to="/hospital">Hospital</Link></li>
-      <li><Link  name='single' to="/department">Departments</Link></li>
+      <li><Link  name='single' to="/research">Resources & Research</Link></li>
       <li>
-      <label for="drop-2" class="toggle">Academics&nbsp; <i style={{color:'green'}} class='fas fa-angle-down'></i></label>
-      <Link to="#">Academics&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
+      <label for="drop-2" class="toggle">Academic&nbsp; <i style={{color:'green'}} class='fas fa-angle-down'></i></label>
+      <Link to="#">Academic Activities&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-2"/>
       <ul>
         <li><Link to="/university">University</Link></li>
@@ -24,7 +23,7 @@ export default function Navbar(props)
         <li><Link to="/academicActivities">Academic Activities</Link></li>
       </ul>
       </li>
-      <li><Link  name='single' to="/research">Research</Link></li>
+      
       <li>
       <label for="drop-4" class="toggle">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></label>
       <Link to="#">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
@@ -34,13 +33,12 @@ export default function Navbar(props)
         <li><Link to="/award">Awards</Link></li>
       </ul>
       </li>
+      <li><Link  name='single' to="/department">Departments</Link></li>
       <li>
       <label for="drop-5" class="toggle">Staffs&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></label>
-      <Link to="#">Staffs&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
+      <Link to="#">Staff&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-5"/>
       <ul>
-        <li><Link to="/cdean">Dean</Link></li>
-        <li><Link to="/superintendent">Superintendent</Link></li>
         <li><Link to="/teaching_staff">Teaching Staff</Link></li>
         <li><Link to="/nonTeaching_staff">Non-Teaching Staff</Link></li>
       </ul>
