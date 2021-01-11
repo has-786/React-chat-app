@@ -9,9 +9,6 @@ import Admission from './components/admission';
 import Gallery from './components/gallery';
 import About from './components/about';
 import Research from './components/Research';
-import Hospital from './components/hospital';
-import cDean from './components/cDean';
-import superintendent from './components/superintendent';
 import teaching_staff from './components/teaching_staff';
 import nonTeaching_staff from './components/nonTeaching_staff';
 import Department from './components/Department';
@@ -35,15 +32,12 @@ ReactDom.render(
   <Switch>
     <Route exact path='/' component={Home} />
     <Route exact path='/about' component={About} />
-    <Route  path='/hospital' component={Hospital} />
     <Route  path='/academicActivities' component={AcademicActivities} />
     <Route  path='/result' component={Result} />
     <Route  path='/university' component={University} />
     <Route  path='/admission' component={Admission} />
     <Route  path='/gallery' component={Gallery} />
     <Route  path='/research' component={Research} />
-    <Route  path='/cdean' component={cDean} />
-    <Route  path='/superintendent' component={superintendent} />
     <Route  path='/teaching_staff' component={teaching_staff} />
     <Route  path='/nonTeaching_staff' component={nonTeaching_staff} />
     <Route  path='/Department' component={Department} />
