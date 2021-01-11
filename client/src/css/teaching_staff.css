@@ -26,7 +26,7 @@
 .team-section{
     overflow: hidden;
     text-align: center;
-    background:#93a9c0;
+    background:#fff;
     padding: 30px;
     color: black;
 }
@@ -76,7 +76,7 @@ section {
 
   .section-title {
     text-align: center;
-    padding-bottom: 30px;
+    padding-bottom: 0px;
   }
 
   .section-title h2 {
