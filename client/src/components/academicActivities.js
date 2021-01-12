@@ -114,8 +114,6 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='block';
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='none';
-       sidenavbar();
-
       }
 
      deptOneClick(ind){
@@ -123,7 +121,6 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='block';
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='none';
-       sidenavbar();
      }
 
      guestClick(){
@@ -131,7 +128,6 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='block';
        document.getElementById('other').style.display='none';
-       sidenavbar();
      }
 
      guestOneClick(ind){
@@ -148,7 +144,6 @@ export default class AcademicActivities extends React.Component
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='block';
-       sidenavbar();
      }
 
 
@@ -157,8 +152,6 @@ export default class AcademicActivities extends React.Component
         document.getElementById('dept').style.display='block';
         document.getElementById('guest').style.display='block';
         document.getElementById('other').style.display='block';
-    //    this.closeNav();
-          sidenavbar()
       }
 render(){
 	return <div   id='mainBody'>
@@ -168,8 +161,8 @@ render(){
 
 
 
-               <section class="New_Department row">
-               <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+               <section class="New_Department row" onClick={sidenavbar}>
+               <i style={{fontSize:'30px'}} class='fa fa-bars burger' ></i>
 
                        <nav class="side_navigation col-lg-3 mysidenavbar">
 
@@ -181,7 +174,7 @@ render(){
             </li>
             <li>
               <Link  href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.deptClick.bind(this)}>
-                  <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;By Departments
+                  <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;<span>By Departments</span>
               </Link>
             </li>
             <li>

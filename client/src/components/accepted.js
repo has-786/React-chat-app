@@ -1,27 +1,24 @@
-import React,{useContext,useReducer,useEffect} from 'react';
-import {context} from './store';
-import {Link} from 'react-router-dom';
+import React,{useState,useReducer,useEffect,useContext} from 'react';
+import {context,Store} from './store';
 
-export default function Accepted(){
+function Accepted(props)
+{
+    const {state,dispatch}=useContext(context);
+    const employees=state.filter(e=>e.accepted==true);
 
-  const [employees,dispatch]=useContext(context);
+    return   <div>
+    <button onClick={()=>props.history.push('/employees')} class='btn btn-primary'>Home</button>
+    <button onClick={()=>props.history.push('/accepted')} class='btn btn-success'>Accepted Employees</button>
+    <button onClick={()=>props.history.push('/rejected')} class='btn btn-danger'>Rejected Employees</button>
 
-    return <div>
-            {
-              employees.filter(e=>e.accepted==true).map(e=>{
-                return <div>
-                            <div class="card">
-                              <div class="card-body">
-                              <h4 class="card-title">{e.id}</h4>
-                              <p class="card-text">{e.name}</p>
-                              </div>
-                            </div>
-                       </div>
+                    <h3>Accepted</h3>
 
-              })
-            }
-
-
-           </div>
-
+                    { employees.map(e=>{  return   <div>
+                              <div>{e.id}&nbsp;&nbsp; {e.name} </div>
+                                </div>
+                      })
+                    }
+                      </div>
 }
+
+export default Accepted;

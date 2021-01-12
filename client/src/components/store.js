@@ -1,36 +1,35 @@
-import React,{useReducer} from 'react';
-import Homepage from './homepage';
-import Employee from './employee';
-import Accepted from './accepted';
-import Rejected from './rejected';
-import {BrowserRouter,Route,Switch} from 'react-router-dom';
-
+import React,{useState,useReducer,useEffect} from 'react';
 const context=React.createContext();
 
-const Store=(props)=>{
+function Store(props)
+{
 
+    const reducer=(state,action)=>{
+      let obj;
 
+         switch (action.type) {
+            case 'accept_employee':
+              obj=state.find(s=>s.id==action.payload);
+              obj.accepted=true; obj.rejected=false;
+              return state.filter(s=>s.id!=action.payload).concat(obj);
 
-const [state,dispatch]=useReducer((state,action)=>{
+            case 'reject_employee':
+              obj=state.find(s=>s.id==action.payload);
+              obj.accepted=false; obj.rejected=true;
+              return state.filter(s=>s.id!=action.payload).concat(obj);
 
-  switch(action.type){
-      case 'load_all_employees':
-          return action.payload;
+           default:
+            return state;
 
-      case 'accepted_employee':
-          return state.filter(s=>s.accepted==true)
+         }
 
-      case 'rejected_employee':
-          return state.filter(s=>s.rejected==true)
+    };
+    const arr=[{id:1,name:'Hasnain'},{id:2,name:'Saqlain'},{id:3,name:'Sayan'},{id:4,name:'Shajer'},{id:5,name:'Siraj'}]
+    const [state,dispatch]=useReducer(reducer,arr);
 
-      default:
-          return state;
+    return  <context.Provider value={{state,dispatch}}>
+              {props.children}
+        </context.Provider>
 
-    }
-
-},[{id:1,name:'Hasnain'},{id:2,name:'Saqlain'}]);
-return <context.Provider value={{state,dispatch}}>
-        {props.children}
-      </context.Provider>
 }
-export {context,Store};
+export {Store,context};

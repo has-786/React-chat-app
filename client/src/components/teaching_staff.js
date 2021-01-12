@@ -159,16 +159,13 @@ export default class teaching_staff extends React.Component {
 
           <Header />
           <Navbar/>
-          <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
-          <i style={{fontSize:'10px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
-
-                      <section class="New_Department row">
+                      <section class="New_Department row" onClick={sidenavbar}>
+                      <i style={{fontSize:'30px'}} class='fa fa-bars burger' ></i>
 
                 <nav class="side_navigation col-lg-3 mysidenavbar">
 
                     <ul class="list-group sidenav_list">
                         <li>
-
                             <Link  href="#" class='list-group-item list-group-item-action active' data-toggle='list' onClick={this.allClick.bind(this)}>
                             <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;All
                             </Link>

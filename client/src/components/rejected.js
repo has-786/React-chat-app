@@ -1,30 +1,21 @@
-import React,{useContext,useReducer,useEffect} from 'react';
-import {context} from './store';
-import {Link} from 'react-router-dom';
+import React,{useState,useReducer,useEffect,useContext} from 'react';
+import {context,Store} from './store';
+function Rejected(props)
+{
+    const {state,dispatch}=useContext(context);
+    const employees=state.filter(e=>e.rejected==true);
+    return  <div>
+    <button onClick={()=>props.history.push('/employees')} class='btn btn-primary'>Home</button>
+    <button onClick={()=>props.history.push('/accepted')} class='btn btn-success'>Accepted Employees</button>
+    <button onClick={()=>props.history.push('/rejected')} class='btn btn-danger'>Rejected Employees</button>
 
-export default function Rejected(){
-
-  const [employees,dispatch]=useContext(context);
-
-    return <div>
-            {
-              employees.filter(e=>e.rejected==true).map(e=>{
-                return <div>
-                            <div class="card">
-                              <div class="card-body">
-                              <h4 class="card-title">{e.id}</h4>
-                              <p class="card-text">{e.name}</p>
-                              </div>
-                            </div>
-                       </div>
-
-              })
-            }
-
-
-           </div>
-
-
-
-
+                  <h3>Rejected</h3>
+                  {employees.map(e=>{  return   <div>
+                      <div>{e.id}&nbsp; {e.name} </div>
+                    </div>
+                  })
+                }
+            </div>
 }
+
+export default Rejected;

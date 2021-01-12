@@ -11,10 +11,10 @@ export default function Navbar(props)
     <ul class="menu">
           <li><Link name='single' to="/">Home</Link></li>
       <li><Link  name='single' to="/about">About</Link></li>
-      <li><Link  name='single' to="/research">Resources & Research</Link></li>
+      <li><Link  name='single' to="/research">Research</Link></li>
       <li>
       <label for="drop-2" class="toggle">Academic&nbsp; <i style={{color:'green'}} class='fas fa-angle-down'></i></label>
-      <Link to="#">Academic Activities&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
+      <Link to="#">Academics&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-2"/>
       <ul>
         <li><Link to="/university">University</Link></li>
@@ -23,7 +23,7 @@ export default function Navbar(props)
         <li><Link to="/academicActivities">Academic Activities</Link></li>
       </ul>
       </li>
-      
+
       <li>
       <label for="drop-4" class="toggle">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></label>
       <Link to="#">Achievements &nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>

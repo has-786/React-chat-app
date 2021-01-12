@@ -18,16 +18,19 @@ import deptCharts from './components/deptCharts';
 import Award from './components/Award';
 import Appointment from './components/appointment';
 import Recognition from './components/Recognition';
-import {context,Homepage} from './components/homepage';
-import Employee from './components/employee';
+import Employees from './components/employees';
+import Employeeid from './components/employeeid';
 import Accepted from './components/accepted';
 import Rejected from './components/rejected';
+import {Store} from './components/store';
 
 
 import {BrowserRouter,Switch,Route,Link} from 'react-router-dom';
 
 
+
 ReactDom.render(
+  <Store>
 <BrowserRouter>
   <Switch>
     <Route exact path='/' component={Home} />
@@ -47,11 +50,14 @@ ReactDom.render(
     <Route path='/deptCharts' component={deptCharts} />
     <Route path='/award' component={Award} />
     <Route path='/recognition' component={Recognition} />
-    <Route  path='/employees' component={Homepage}/>
-    <Route path='/employee/:id' component={Employee}/>
-    <Route  path='/accepted' component={Accepted}/>
-    <Route  path='/rejected' component={Rejected}/>
+    <Route exact path='/employees' component={Employees} />
+    <Route path='/recognition' component={Recognition} />
+
+    <Route exact path='/employees/:id' component={Employeeid} />
+    <Route path='/accepted' component={Accepted} />
+    <Route path='/rejected' component={Rejected} />
   </Switch>
 </BrowserRouter>
+</Store>
 ,
 document.getElementById('root'));

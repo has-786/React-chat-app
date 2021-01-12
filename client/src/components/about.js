@@ -72,27 +72,27 @@ export default class About extends React.Component {
           <Navbar/>
 
 
-        <section class="New_Department row">
-        <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+        <section class="New_Department row"  onClick={sidenavbar}>
+        <i style={{fontSize:'30px'}} class='fa fa-bars burger' ></i>
           <nav class="side_navigation col-lg-3 mysidenavbar">
             <ul class="list-group sidenav_list">
-              <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1" onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1">
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Hospital</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  >
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;History</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3">
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Organogram</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  >
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Dean</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5"  onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5"  >
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Past Deans</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6" onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6" >
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Superintendent</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info7" onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info7" >
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Committees</a></li>
             </ul>
           </nav>
-          
+
           <article class="col-lg-9">
             <header id="article_heading">About Us</header>
             <br></br>
@@ -103,7 +103,7 @@ export default class About extends React.Component {
                   <iframe src={this.state.hospital} id="datamain" title="pdf" style={{width:"100%" ,height:"1000px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
                 </div>
               </div>
-            
+
               <div div class="tab-pane fade" id="Info2" >
                 <h3>History</h3>
                 <div id="text_h">
@@ -122,7 +122,7 @@ export default class About extends React.Component {
                             <img src="http://www.bjmcpune.org/bjmc.jpg"/>
                         </div>
                     </div>
-                  
+
                   <p>On this hallowed ground, came up the B. J. Medical college (BJMC) and the Sassoon Hospital (New Sassoon Building) facing each other with a unique architectural style of both buildings having two white pillars bearing elephant heads at the top. The main building of BJMC was inaugurated by Dr. Radha Krishnan in 1952.</p>
                   <p>The first Principal of the B. J. Medical College, which started with 50 students, was Dr. B. B. Dikshit, a renowned academician and the quiet mastery of Dr. Bhende, discipline of Dr. Balwani have left an indelible imprint on the young impressionable minds of innumerable students, in their formative years, who in turn have imbibed these sterling qualities to give back the best to society. For many years annually 200 students are admitted for MBBS graduation and 143 for postgraduation. At any given time now 1700 students are on the campus with more than 2000 staff including 268 faculties. Presently, courses of MBBS, MD, MS, PhD, Diplomas, MCh (CVTS), MSc, GNM, BSc Nursing, DMLT, PGDMCH, and PGDGM are offered here.
                       Along the journey of learning the art and science, commerce of medicine, strong values were inculcated, attitudes shaped friendships forged minds were moulded and personalities groomed to give rise to renowned 'personalities' who carved a niche for themselves, in the world.</p>
@@ -137,7 +137,7 @@ export default class About extends React.Component {
                             <img src="http://www.bjmcpune.org/arial.jpg"/>
                         </div>
                     </div>
-                 
+
                   <p>The next generations of â€˜BJitesâ€™ are closely following in the footsteps of their parents. Above all, Dr. Dikshitâ€™s path breaking research contribution to the role of acetylcholine in sleep and Dr. Bhende's discovery of the Bombay blood group have etched their names for posterity, Sassoon Hospital had its name in the Jablonski's Dictionary of syndromes, for the syndrome discovered and named after it, by Dr. Ganla and Dr. M. J. Narsimhan.</p>
                   <p>After the centenary celebrations of Sassoon Hospital in 1968, the staff society was born, thanks to the efforts of research minded academicians Dr. Deodhar, Dr. Mutalik and others to provide a platform for sharing and exchange of research work at Staff conferences. The staff society was merged with the newly formed Research Society to boost interdepartmental research and provide a forum for young researches to present their work and publish it in the Research Society Journal 'Medical Journal of Western India. Both are running in full stream and have provided a stepping board for young staff members and students to pursue a career in research. The next two decades saw the expansion of departments and extension of Spheres of activity Several speciality clinics were started. The third decade saw the bifurcation of departments Allied disciplines became full-fledged departments.</p>
                   <p>The last two decades mark the spreading of wings. Collaborative research through funding agencies like the ICMR and DST took off in a big way. Tribal Research Programme was initiated by the Government of Maharashtra. The Maharashtra Institute of Mental Health - an apex training and research institute was set up in 1991. Outreach services in mental health, preventive medicine, human reproduction research, tribal research, through national agencies like ICMR, and international agencies like WHO and UNICEF got underway, with the initiation of large scale research projects the Institutional Ethics Committee was born. Taking services beyond the boundaries of the institution the Pharmacology Department started publishing quarterly Drug Bulletins 'Drugs News and Views' from 1993 and has been conducting CMES for general practitioner. The Microbiology Department started surveillance services for communicable diseases.
@@ -163,7 +163,7 @@ export default class About extends React.Component {
                     Kitchen of Sassoon Hospital was renovated into the state-of-the-art one with automatic machines and civil make over through generous donation over 1.5 crores by â€˜Shrimant Dagadusheth Halwai Ganapati Trust, Puneâ€™. In addition this trust has undertaken to provide free quality food to all patients under their supervision every year. This facility was inaugurated at hands of Deputy Chief Minister of Maharashtra State Shri. Ajit Pawar.</p>
                   <p>Construction of new water tank for SGH having 12 lakh Litres capacity was completed with total expenditure of Rs. 2.35 crores. Complete Medical coverage was provided by SGH team in collaboration with other hospitals for Athletes participated in 30th Asian Athletics Games at Balewadi Stadium, Pune from 1st â€“ 7th July 2013.</p>
                   <p>Human Milk Bank was introduced in SGH costing Rs. 15 lakhs through Donation from Bank of Baroda and inaugurated on 19th November 2013 at the hands of Hon. MP Smt. Supriya Sule. Deanâ€™s office is completely renovated into a state-of-the-art block. Hospital Wards and College administrative wing are under renovation process. Renovation of Wards on third floor is ongoing through donation of Shrimant Dagadusheth Halwai Ganapati Trust. Internet access has been provided in whole college and hospital through National Informatic Center.
-                    â€˜Vision 2025â€™ proposal including proposed Cancer Hospital, Dental College, Physiotherapy College, Superspecialities etc. has been prepared and submitted to the government.</p>                      
+                    â€˜Vision 2025â€™ proposal including proposed Cancer Hospital, Dental College, Physiotherapy College, Superspecialities etc. has been prepared and submitted to the government.</p>
                 </div>
               </div>
 
@@ -201,8 +201,8 @@ export default class About extends React.Component {
                     <h2>Dean</h2>
                   </div>
                   <span className="border"></span>
-                  
-                  
+
+
                 </div>
               </div>
 
@@ -234,7 +234,7 @@ export default class About extends React.Component {
                 </div>
               </div>
 
-              
+
               <div div class="tab-pane fade" id="Info6" >
                 <div className="team-section">
                   <div class="section-title">
@@ -269,7 +269,7 @@ export default class About extends React.Component {
                       and has more than 20 research publication to his credit.
                     </p>
                   </div>
-                  
+
                   <p>
                       Address:<br/>
                       Flat No. 201, B -9 Building,<br/>

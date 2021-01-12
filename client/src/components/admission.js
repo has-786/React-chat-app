@@ -92,7 +92,6 @@ export default class Admission extends React.Component
        document.getElementById('pg').style.display='none';
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='none';
-       sidenavbar();
 
      }
 
@@ -102,7 +101,6 @@ export default class Admission extends React.Component
        document.getElementById('ugtype').style.display='block';
        document.getElementById('ugother').style.display='none';
        document.getElementById('pg').style.display='none';
-       sidenavbar();
      }
 
      pgClick(){
@@ -113,7 +111,6 @@ export default class Admission extends React.Component
        document.getElementById('pg').style.display='block';
        document.getElementById('pgtype').style.display='block';
        document.getElementById('pgother').style.display='block';
-       sidenavbar();
      }
 
      pgOneClick(ind){
@@ -122,7 +119,6 @@ export default class Admission extends React.Component
        document.getElementById('pgtype').style.display='block';
        document.getElementById('pgother').style.display='none';
        document.getElementById('ug').style.display='none';
-       sidenavbar();
      }
 
      ugotherClick(){
@@ -131,7 +127,6 @@ export default class Admission extends React.Component
        document.getElementById('ugtype').style.display='none';
        document.getElementById('ugother').style.display='block';
        document.getElementById('pg').style.display='none';
-       sidenavbar();
      }
 
      pgotherClick(){
@@ -140,7 +135,6 @@ export default class Admission extends React.Component
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='block';
        document.getElementById('ug').style.display='none';
-       sidenavbar();
      }
 
 
@@ -152,7 +146,6 @@ export default class Admission extends React.Component
         document.getElementById('pg').style.display='block';
         document.getElementById('pgtype').style.display='block';
         document.getElementById('pgother').style.display='block';
-        sidenavbar();
 
         }
 
@@ -212,8 +205,8 @@ render(){
 
 
 
-        <section class="New_Department row">
-        <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+        <section class="New_Department row" onClick={sidenavbar}>
+        <i style={{fontSize:'30px'}} class='fa fa-bars burger' ></i>
 
                 <nav class="side_navigation col-lg-3 mysidenavbar">
 

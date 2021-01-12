@@ -104,20 +104,20 @@ export default class Research extends React.Component {
         <Header />
           <Navbar/>
 
-        <section class="New_Department row">
-        <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+        <section class="New_Department row"  onClick={sidenavbar}>
+        <i style={{fontSize:'30px'}} class='fa fa-bars burger'></i>
 
-            <nav class="side_navigation col-lg-3 mysidenavbar">
-                <ul class="list-group sidenav_list">
-                    <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1"  onClick={sidenavbar}>
+            <nav class="side_navigation col-lg-3 mysidenavbar" >
+                <ul class="list-group sidenav_list" >
+                    <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1"  >
                     <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Journals</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  onClick={sidenavbar}>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2" >
                     <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Useful Links</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  >
                     <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Educational Videos </a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  onClick={sidenavbar}>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4" >
                     <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Resources</a></li>
-                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5"  onClick={sidenavbar}>
+                    <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5" >
                     <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Publications </a></li>
                 </ul>
             </nav>

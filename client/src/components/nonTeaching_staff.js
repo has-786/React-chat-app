@@ -64,32 +64,29 @@ export class nonTeaching_staff extends React.Component {
       <Header />
       <Navbar/>
 
-            <section class="New_Department row">
-            <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+            <section class="New_Department row" onClick={sidenavbar}>
+            <i style={{fontSize:'30px'}} class='fa fa-bars burger' ></i>
 
         <nav class="side_navigation col-lg-3 mysidenavbar">
-
-
             <ul class="list-group sidenav_list">
-                <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1" onClick={sidenavbar}>
+                <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1" >
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Office Superintendent</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  onClick={sidenavbar}>
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2" >
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Senior Assistant</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3">
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Senior Clerk</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3">
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Storekeeper</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3">
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Junior Clerk</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3">
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Laboratory Technician</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3   onClick={sidenavbar}">
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3" >
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;E.C.G. Technician</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3">
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Dental Technician</a></li>
-                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>
+                <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3">
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Laboratory Assistant</a></li>
-
             </ul>
         </nav>
         <article class="col-lg-9">

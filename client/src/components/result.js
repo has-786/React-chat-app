@@ -45,7 +45,7 @@ export default class Result extends React.Component
 
      linkOneClick(ind){
        this.setState({show:{type:this.state.arr[ind].type,link:this.state.arr[ind].link}});
-       sidenavbar();
+       
      }
 
 render(){
@@ -55,8 +55,8 @@ render(){
 			 <Navbar />
 
 
-               <section class="New_Department row">
-               <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+               <section class="New_Department row" onClick={sidenavbar}>
+               <i style={{fontSize:'30px'}} class='fa fa-bars burger' ></i>
 
                  <nav class="side_navigation col-lg-3 mysidenavbar">
 
