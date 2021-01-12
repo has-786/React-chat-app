@@ -82,13 +82,12 @@ export default class About extends React.Component {
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;History</a></li>
               <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3">
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Organogram</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  >
-              <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Dean</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5"  >
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  onClick={sidenavbar}>
+
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Past Deans</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6" >
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5" onClick={sidenavbar}>
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Superintendent</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info7" >
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6" onClick={sidenavbar}>
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Committees</a></li>
             </ul>
           </nav>
@@ -168,6 +167,7 @@ export default class About extends React.Component {
               </div>
 
               <div div class="tab-pane fade" id="Info3" >
+              <h3>Organogram</h3>
               <div class="table-responsive">
                   <table class="table table-bordered table-hover table-striped">
                     <thead>
@@ -195,18 +195,9 @@ export default class About extends React.Component {
               </div>
 
 
+
+
               <div div class="tab-pane fade" id="Info4" >
-                <div className="team-section">
-                  <div class="section-title">
-                    <h2>Dean</h2>
-                  </div>
-                  <span className="border"></span>
-
-
-                </div>
-              </div>
-
-              <div div class="tab-pane fade" id="Info5" >
               <h3>Past Deans</h3>
               <div class="table-responsive">
                   <table class="table table-bordered table-hover table-striped">
@@ -235,7 +226,7 @@ export default class About extends React.Component {
               </div>
 
 
-              <div div class="tab-pane fade" id="Info6" >
+              <div div class="tab-pane fade" id="Info5" >
                 <div className="team-section">
                   <div class="section-title">
                     <h2>Superintendent</h2>
@@ -285,7 +276,7 @@ export default class About extends React.Component {
                 </div>
               </div>
 
-              <div div class="tab-pane fade" id="Info7" >
+              <div div class="tab-pane fade" id="Info6" >
               <h3>Committees</h3>
               <p>Get all the Committee details here</p>
                 <div>
