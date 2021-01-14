@@ -191,8 +191,7 @@ export default class teaching_staff extends React.Component {
                                 }
 
                        <li>
-                           <Link href='#' class='list-group-item list-group-item-action' data-toggle='list'
-                            onClick={this.physiologyClick.bind(this)}>
+                           <Link href='#' class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.physiologyClick.bind(this)}>
                            <i style={{color:'green'}}
                             class='fas fa-angle-right'>
                            </i>&nbsp;Department of Physiology

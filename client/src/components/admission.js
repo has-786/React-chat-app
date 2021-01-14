@@ -1,5 +1,6 @@
 import Navbar from './navbar';
 import React from 'react';
+import '../css/navbar.css';
 import url from './url';
 import '../css/Department_css.css';
 import '../css/Homepage_Department.css';
@@ -111,6 +112,7 @@ export default class Admission extends React.Component
        document.getElementById('pg').style.display='block';
        document.getElementById('pgtype').style.display='block';
        document.getElementById('pgother').style.display='block';
+       return this.state.show;
      }
 
      pgOneClick(ind){
@@ -222,14 +224,14 @@ render(){
                     </Link>
                    </li>
                    <li>
-                   <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1"  class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
-                          <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;  Select
+                   <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse"  class="dropdown-toggle" >
+                        Select
                       </a>
                    </li>
                         {
                           this.state.ug.type.map((res,ind)=>{
                             return  <li id='demo1' class='collapse'>
-                                      <Link href='#' style={{paddingLeft:'50px'}} class="list-group-item list-group-item-action" data-toggle="list"  onClick={this.ugOneClick.bind(this,ind)} >
+                                      <Link href='#' style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list"  onClick={this.ugOneClick.bind(this,ind)} >
                                         <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
                                       </Link>
                                     </li>
@@ -248,13 +250,13 @@ render(){
                      </li>
                     <li>
                     <a style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo2"  class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
-                            <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;       Select
-                        </a>
+                      Select
+                                              </a>
                     </li>
                         {
                               this.state.pg.type.map((res,ind)=>{
                                       return <li id="demo2" class="collapse">
-                                              <Link href='#'style={{paddingLeft:'50px'}} class="list-group-item list-group-item-action" data-toggle="list" onClick={this.pgOneClick.bind(this,ind)} >
+                                              <Link href='#'style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action" data-toggle="list" onClick={this.pgOneClick.bind(this,ind)} >
                                                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
                                               </Link>
                                              </li>
@@ -276,10 +278,10 @@ render(){
 
              <div id='ugtype'>
               <h5 style={{float:'left',color:"#003a9b"}}> Available admissions</h5>
-              <div class="table-responsive" >
+              <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead>
-                     <tr>
+                     <tr style={{marginBottom:'10px'}}>
                        <th>Course Name</th>
                        <th>Details</th>
                      </tr>
@@ -287,8 +289,8 @@ render(){
                   <tbody>
                      {
                        this.state.show.ug.type.map(r=>{
-                          return <tr>
-                             <td>{r.name}</td>
+                          return <tr >
+                             <td >{r.name}</td>
                              <td>{r.desc}</td>
                            </tr>
                        })

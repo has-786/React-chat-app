@@ -10,7 +10,6 @@ export default class About extends React.Component {
 
     constructor(props){
         super(props);
-        this.sidenavbar=sidenavbar;
         this.state={ user:"",
                       history:{type:[] },
 
@@ -46,7 +45,6 @@ export default class About extends React.Component {
                       committees:"./COMMITTEES.pdf",
                       hospital:"./Hospital2.pdf"
                     }
-
     }
 
 
@@ -62,7 +60,6 @@ export default class About extends React.Component {
                     this.setState({hospital:url+body.hospital});
               })
               .catch(err=>{});
-
     }
 
     render(){
@@ -78,16 +75,16 @@ export default class About extends React.Component {
             <ul class="list-group sidenav_list">
               <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1">
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Hospital</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  >
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2">
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;History</a></li>
               <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3">
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Organogram</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4">
 
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Past Deans</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5" onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5">
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Superintendent</a></li>
-              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6" onClick={sidenavbar}>
+              <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6">
               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Committees</a></li>
             </ul>
           </nav>
@@ -280,7 +277,7 @@ export default class About extends React.Component {
               <h3>Committees</h3>
               <p>Get all the Committee details here</p>
                 <div>
-                  <iframe src={this.state.committees} id="datamain" title="pdf" style={{width:"100%" ,height:"1000px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" ,scrolling:"No"}}></iframe>
+                  <iframe src={this.state.committees} id="datamain" title="pdf" style={{width:"100%" ,height:"1000px" ,frameborder: "0", allowtransparency:"true" ,marginwidth:"0", marginheight:"0", hspace:"0", vspace:"0" }}></iframe >
                 </div>
               </div>
 

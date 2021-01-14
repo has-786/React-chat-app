@@ -12,7 +12,6 @@ import url from './url';
 export default class Recognition extends React.Component {
   state={link:""}
   handleClick=value=>()=>{
-    sidenavbar();
     this.setState({link:value});
 
        };
@@ -23,8 +22,8 @@ export default class Recognition extends React.Component {
           <Header />
           <Navbar/>
 
-        <section class="New_Department row"  >
-        <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
+        <section class="New_Department row" >
+        <i style={{fontSize:'30px'}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
 
             <nav class="side_navigation col-lg-3 col-md-3 mysidenavbar">
 
@@ -33,11 +32,11 @@ export default class Recognition extends React.Component {
                     {/*Department 1 Level1 */}
                     <li><a class="list-group-item list-group-item-action level1" data-toggle="list" onClick={e=>Level1_expansion('preClinicalSubitem')} ><img src={image}  ></img>UG Recognition</a></li>
                     {/*Level 2 */}
-                    <li><a style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action level2 preClinicalSubitem" data-toggle="list" href="#Info1" onClick={this.handleClick(url+'/uploads/Recognition_mbbs.pdf')}><i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Recognition for MBBS Course</a></li>
-                    <li><a style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action level2 preClinicalSubitem" data-toggle="list" href="#Info1" onClick={this.handleClick(url+'/uploads/Recognition_bpmt.pdf')}><i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Recognition for BPMT Course</a></li>
+                    <li><a style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action level2 preClinicalSubitem" data-toggle="list" href="#Info1" onClick={(evt)=>{sidenavbar(evt);this.handleClick(url+'/uploads/Recognition_mbbs.pdf'); }}><i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Recognition for MBBS Course</a></li>
+                    <li><a style={{paddingLeft:'30px'}} class="list-group-item list-group-item-action level2 preClinicalSubitem" data-toggle="list" href="#Info1" onClick={(evt)=>{sidenavbar(evt);this.handleClick(url+'/uploads/Recognition_bpmt.pdf'); }}><i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Recognition for BPMT Course</a></li>
 
                     {/*Department 2 Level1 */}
-                    <li><a class="list-group-item list-group-item-action level1" data-toggle="list"  onClick={this.handleClick(url+'/uploads/PG recognition.pdf')}><img src={image}></img>PG Recognition</a></li>
+                    <li><a class="list-group-item list-group-item-action level1" data-toggle="list"  onClick={(evt)=>{sidenavbar(evt);this.handleClick(url+'/uploads/PG recognition.pdf'); }}><img src={image}></img>PG Recognition</a></li>
                     {/*Level 2 */}
 
                 </ul>

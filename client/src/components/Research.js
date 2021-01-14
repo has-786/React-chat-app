@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from './navbar';
+import '../css/navbar.css';
 import sidenavbar from './sidenavbar';
 import '../css/sidenavbar.css';
 import Header from './header';
@@ -56,7 +57,7 @@ export default class Research extends React.Component {
 
                       eduvideo:[
 
-                          {link:"https://www.youtube.com/embed/VfT--J-MZlM?rel=0"},
+                          {link:"https://www.youtube.com/embed/b0s3-XSKhB0"},
                           {link:"https://www.youtube.com/embed/hIYgrHWJiic?rel=0"}
 
                         ],
@@ -122,32 +123,33 @@ export default class Research extends React.Component {
                 </ul>
             </nav>
             <article class="col-lg-9">
-            <header id="article_heading"> Research and Resources</header>
+            <header id="article_heading"> Research </header>
             <br></br>
             <div class="tab-content">
             <div  class="tab-pane fade show active " id="Info1" >
-            <div class="col-lg-12 details order-2 order-lg-1">
-                <div id='journals'>
-                 <div class="table-responsive" id="research">
-                  <table class="table table-bordered table-hover table-striped">
+            <div class="col-lg-12 details">
+            <div id='journals'>
+
+                 <div class='table-responsive'  id="research">
+                  <table class='table table-bordered table-hover' style={{width:'100%'}} >
                   <thead>
                    <tr>
-                    <th colspan="2" style={{textAlign:"center" , color:"#003a9b"}}>E-Journals</th>
+                    <th  colspan="2"  style={{textAlign:"center" , color:"#003a9b"}}>E-Journals</th>
                    </tr>
                  </thead>
                  <tbody>
                     {
                          this.state.journals.map(r=>{
-                        return <tr>
-                        <td>{r.name}</td>
-                        <td>{<a href={r.desc} style={{color:"black"}}>{r.desc}</a>}</td>
+                        return <tr style={{width:'100%'}}>
+                          <td >{r.name}</td>
+                         <td style={{width:'100%'}}>{<a href={r.desc} target='_blank' style={{color:"black"}}>{r.desc}</a>}</td>
                         </tr>})
                      }
                   </tbody>
                </table>
              </div>
+            </div>
            </div>
-          </div>
         </div>
 
 
@@ -157,14 +159,14 @@ export default class Research extends React.Component {
             <div div class="tab-pane fade" id="Info2" >
             <div class="col-lg-12 details order-2 order-lg-1">
 
-            <div class="table-responsive">
+            <div  class="table-responsive">
            <table class="table table-bordered table-hover table-striped" id="research">
             <thead>
               <tr>
               <th colspan="2" style={{textAlign:"center",color:"#003a9b"}}>Useful Links</th>
               </tr>
            </thead>
-          <tbody>
+          <tbody >
             {
               this.state.usefullinks.map(r=>{
                  return <tr>

@@ -105,7 +105,7 @@ nav ul li.demo {
 /* Styling the as */
 nav a {
 	display:block;
-	padding:14px 22px;
+	padding:14px 28px;
 	font-size:17px;
 	color:black;
 	font-family: sans-serif;
@@ -200,17 +200,19 @@ li > a:only-child:after { content: ''; }
 	.toggle + a,
 	.menu {
 		display: none;
+
 		}
 
 	/* Stylinf the toggle lable */
 	.toggle {
 		display: block;
-    padding:14px 20px;
+    padding:14px 20px 14px 30px;
 		background-color:#eeeeee;
 		color:black;
 		font-size:17px;
 		text-decoration:none;
 		border:none;
+
 	}
 
 	.toggle:hover {
@@ -233,6 +235,7 @@ li > a:only-child:after { content: ''; }
 	nav ul ul .toggle,
 	nav ul ul a {
 		padding: 0 40px;
+
 	}
 
 	nav ul ul ul a {
@@ -288,7 +291,7 @@ li > a:only-child:after { content: ''; }
 	}
 
 }
-
+#menu{padding-left: 40px;}
 @media all and (max-width : 330px) {
 
 	nav ul li {
@@ -298,19 +301,21 @@ li > a:only-child:after { content: ''; }
 
 }
 
+a{text-decoration: none;}
+a:hover{text-decoration: none;}
 
-a{text-decoration:none;}
-a:hover{text-decoration:None;}
 th{
 	background-color: #dddddd;
 	color:black;
 	font-weight: 500;
 }
-td{background-color:#eeeeee;}
-.table {
-    border-collapse: separate;
-    border-spacing:0 5px;
-}
+td{background-color:#eeeeee; }
+
+
+	.table{
+	    border-collapse: separate;
+	    border-spacing:0 5px;
+	}
 .header-new{
 	width: 100%;
 	display: flex;

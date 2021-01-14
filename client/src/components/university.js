@@ -1,7 +1,7 @@
 import Navbar from './navbar';
 import React from 'react';
 import url from './url';
-import '../css/home.css';
+import '../css/navbar.css';
 import Footer from './footer';
 import Header from './header';
 

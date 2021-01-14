@@ -6,14 +6,14 @@ export default function Navbar(props)
   return <div>
 
   <nav>
-    <label for="drop" class="toggle" style={{marginTop:'0px'}}>Menu</label>
+    <label for="drop" class="toggle" id='menu' style={{marginTop:'0px'}}>Menu</label>
     <input type="checkbox" id="drop" />
     <ul class="menu">
-          <li><Link name='single' to="/">Home</Link></li>
+      <li><Link name='single' to="/">Home</Link></li>
       <li><Link  name='single' to="/about">About</Link></li>
       <li><Link  name='single' to="/research">Research</Link></li>
       <li>
-      <label for="drop-2" class="toggle">Academic&nbsp; <i style={{color:'green'}} class='fas fa-angle-down'></i></label>
+      <label for="drop-2" class="toggle">Academic &nbsp; <i style={{color:'green'}} class='fas fa-angle-down'></i></label>
       <Link to="#">Academics&nbsp;<i style={{color:'green'}} class='fas fa-angle-down'></i></Link>
       <input type="checkbox" id="drop-2"/>
       <ul>
@@ -49,7 +49,7 @@ export default function Navbar(props)
 
     </ul>
   </nav>
-  <div class="chat_on" style={{position:'fixed',bottom:0,right:5,zIndex:1}}>
+  <div class="chat_on" style={{position:'fixed',bottom:0,right:5,zIndex:2}}>
          <div id='chat' style={{display:'none'}}>
             <iframe
             allow="microphone;"

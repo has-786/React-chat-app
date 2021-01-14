@@ -11,8 +11,8 @@ export default class MainImg extends React.Component {
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="/assets/img/s1.jpg"/>
-      <div class="text1">
-        <Link to='/appointment'><p class='checkup'>Need A Doctor for Check-up?</p></Link>
+      <div class="text1" >
+        <Link to='/appointment' ><p class='checkup'>Need A Doctor for Check-up?</p></Link>
         <Link to='/appointment'><button>Get an appoinment</button></Link>
       </div>
     </div>
