@@ -30,7 +30,7 @@ export default class Award extends React.Component {
 
 
 
-{srno:"5", name:"	Dr. Vaishali Mohan Paranjape",desc:["Guest Lectures on “Speech Function of Human Brain” at Sur Sanjivan Music Therapy Trust on April 2017",
+{srno:"5", name:"Dr. Vaishali Mohan Paranjape",desc:["Guest Lectures on “Speech Function of Human Brain” at Sur Sanjivan Music Therapy Trust on April 2017",
 
 
 "Promotion of Organ Donation at Government Polytechnic College, Pune Oct 2016",
@@ -67,15 +67,15 @@ export default class Award extends React.Component {
               arr:[
               {srno:"1",name:"Dr. Pooja and Dr. Sharvari (PG Residents)	" ,desc:"Second Prize at Pathology state level Quiz at Medical College Wardha."},
 
-            {srno:"2",name:"	Dr. Pooja (PG Resident)	Niphadkar "  ,desc:"best paper in pathology at Research Society Conference , feb.2018."},
+            {srno:"2",name:"Dr. Pooja (PG Resident)	Niphadkar "  ,desc:"best paper in pathology at Research Society Conference , feb.2018."},
 
-            {srno:"3",name:"	Dr. Sharvari (PG Residents)",desc:"Second prize at state level Hematology Quiz at IGGMC, Nagpur"},
+            {srno:"3",name:"Dr. Sharvari (PG Residents)",desc:"Second prize at state level Hematology Quiz at IGGMC, Nagpur"},
 
-            {srno:"4",name:"	Dr. Sharda Rane (Asso.Prof.)",desc:"Guest Lecture in Dermatopathology, Surgipath CME 2018 at MGM,Mumbai"},
+            {srno:"4",name:"Dr. Sharda Rane (Asso.Prof.)",desc:"Guest Lecture in Dermatopathology, Surgipath CME 2018 at MGM,Mumbai"},
 
-            {srno:"5",name:"	Dr. Sharvari (PG Resident)",desc:"second prize in Pune pathology meeting for PG Quiz March 2018."},
+            {srno:"5",name:"Dr. Sharvari (PG Resident)",desc:"second prize in Pune pathology meeting for PG Quiz March 2018."},
 
-            {srno:"6",name:" 	. Dr. Vijay Joshi",
+            {srno:"6",name:"Dr. Vijay Joshi",
              desc:["Guest lecture: Feb 2017 :- Histiocytic Disorders in Children.Mar 2017 :- Placental Path",
                       "Mapcon conference 2017	Second prize in slide seminar. ",
                       "Mapcon conference 2017	Second prize for paper presentation for post graduate student.14/06/2017 to 17/06/2017 NABL Training."]}
@@ -117,24 +117,24 @@ export default class Award extends React.Component {
              name:'Microbiology',
               arr:[
 
-             {srno:" 1",name:"",desc:"Microbiology laboratory was awarded NABL accreditation"},
+             {srno:" 1",name:"-",desc:"Microbiology laboratory was awarded NABL accreditation"},
 
-            {srno:"2",name:"",desc:"Tuberculosis laboratory received RNTCP accreditation"},
+            {srno:"2",name:"-",desc:"Tuberculosis laboratory received RNTCP accreditation"},
 
-            {srno:"3",name:" 	Dr.SwatiMudshigkar",desc:"Awarded Young Investigator of India award at International Conference of Infectious diseases.(March 2016)"},
-            {srno:"4",name:" 	Dr.SnehalDhaigude	",desc:"Microcon 2016, PGI Chandigarh. Travel grant awarded to present ‘Changing spectrum of Salmonella at tertiary care hospital in Pune’"},
+            {srno:"3",name:"Dr.Swati Mudshigkar",desc:"Awarded Young Investigator of India award at International Conference of Infectious diseases.(March 2016)"},
+            {srno:"4",name:"Dr.Snehal Dhaigude	",desc:"Microcon 2016, PGI Chandigarh. Travel grant awarded to present ‘Changing spectrum of Salmonella at tertiary care hospital in Pune’"},
 
-           {srno:"5",name:"	DrVaishaliGokhale",desc:["Awarded 3rd prize in poster presentation at research society conference 2017 at BJGMC,Pune",
+           {srno:"5",name:"Dr.Vaishali Gokhale",desc:["Awarded 3rd prize in poster presentation at research society conference 2017 at BJGMC,Pune",
            "presented paper in 24th Maharashtra Chapter conference of IAMM 2017 at Aurangabad 14th 15th Oct.2017. Won first  prize for Poster presentation."]},
 
-         {srno:"6",name:"	ShaunakLohite",desc:"Undergraduate student received second prize in oral paper presentation in research Society conf.at BJGMC,2017."},
+         {srno:"6",name:"Dr.Shaunak Lohite",desc:"Undergraduate student received second prize in oral paper presentation in research Society conf.at BJGMC,2017."},
          {srno:"7",name:"	Dr.Mausami Kadam" ,desc:"Awarded first prize in PG quiz at Mahamicrocon 2016"},
 
-        {srno:"8",name:"	Dr.Sanya",desc:"awarded 1st prize in poster presentation at Solapur,Mahamicrocon 2016"},
-        {srno:"9",name:"	Dr.Smita Deshpande", desc:"Fogarty Scholarship awarded by Johns Hopkins University, USA to obtain training in US"},
-        {srno:"10",name:"	Dr.SunilBhamare	",desc:"Fogarty Scholarship awarded by Johns Hopkins University, USA to obtain training in US"},
-        {srno:"11",name:"	Dr.Suvarna Joshi,Associate Professor",desc:"presented paper in 24th Maharashtra Chapter conference of IAMM 2017 at Aurangabad 14th 15th Oct.2017. Won  third prize for Oral presentation."},
-        {srno:"12",name:"	Dr.Saniya Daruwala, Senior Resident,",desc:"presented poster in 24th Maharashtra Chapter conference of IAMM 2017 at Aurangabad 14th 15th Oct.2017. Won third prize for Poster presentation"}
+        {srno:"8",name:"Dr.Sanya",desc:"awarded 1st prize in poster presentation at Solapur,Mahamicrocon 2016"},
+        {srno:"9",name:"Dr.Smita Deshpande", desc:"Fogarty Scholarship awarded by Johns Hopkins University, USA to obtain training in US"},
+        {srno:"10",name:"Dr.Sunil Bhamare	",desc:"Fogarty Scholarship awarded by Johns Hopkins University, USA to obtain training in US"},
+        {srno:"11",name:"Dr.Suvarna Joshi,Associate Professor",desc:"presented paper in 24th Maharashtra Chapter conference of IAMM 2017 at Aurangabad 14th 15th Oct.2017. Won  third prize for Oral presentation."},
+        {srno:"12",name:"Dr.Saniya Daruwala, Senior Resident,",desc:"presented poster in 24th Maharashtra Chapter conference of IAMM 2017 at Aurangabad 14th 15th Oct.2017. Won third prize for Poster presentation"}
 
 
 
@@ -291,18 +291,18 @@ desc:["Appointed as Panelist at Aesthetica international conference portblair ."
 
             { name:'ENT',
               arr:[
-             {srno:"1",name:"",desc:"Second position in AOI Vidarbha UG ENT Quiz by students in 2008."},
+             {srno:"1",name:"-",desc:"Second position in AOI Vidarbha UG ENT Quiz by students in 2008."},
 
-             {srno:"2",name:"",desc:"First position DrPrashobh Stalin in PG Oncology Test conducted at 5th Oncology Conference at Ruby Hall Cancer Hospital Pune."},
+             {srno:"2",name:"-",desc:"First position DrPrashobh Stalin in PG Oncology Test conducted at 5th Oncology Conference at Ruby Hall Cancer Hospital Pune."},
 
-             {srno:"3",name:"",desc:"Dr.Sandra Nisha Desa award- 2nd prize to Dr. PournimaWagh for paper on Pituitary macroadenoma: endoscopic four hand technique.s"},
-             {srno:"4",name:"",desc:"First prize to Dr. PournimaWagh for post graduate paper presentation at the AOI, Pune Annual CME. Topic: Hyperbilirubinemia- is it the culprit for hearing loss among neonates"},
-             {srno:"5",name:"",desc:"Second Prize in paper presentation at Annual CME of Pune AOI 2016 by Dr. SarangaBurgute JR II in my department (Under Dr Rahul Telang Associate Professor)."},
-             {srno:"6",name:"",desc:"Fellowship in Airway surgery, LASERs and Head and Neck Surgery, CHU Mont Goodine, Yvoir Belgium 2012 Dr. Samir Joshi."},
-             {srno:"7",name:"",desc:"Fellowship in Head and Neck Cancer Memorial Sloan Kettering Cancer Center New York 2014. Dr. Samir Joshi."},
-             {srno:"8",name:"",desc:"Fogarty Fellowship for Epidemiology and Research JHU Baltimore 2017. Dr. Samir Joshi."},
+             {srno:"3",name:"-",desc:"Dr.Sandra Nisha Desa award- 2nd prize to Dr. PournimaWagh for paper on Pituitary macroadenoma: endoscopic four hand technique.s"},
+             {srno:"4",name:"-",desc:"First prize to Dr. PournimaWagh for post graduate paper presentation at the AOI, Pune Annual CME. Topic: Hyperbilirubinemia- is it the culprit for hearing loss among neonates"},
+             {srno:"5",name:"-",desc:"Second Prize in paper presentation at Annual CME of Pune AOI 2016 by Dr. SarangaBurgute JR II in my department (Under Dr Rahul Telang Associate Professor)."},
+             {srno:"6",name:"-",desc:"Fellowship in Airway surgery, LASERs and Head and Neck Surgery, CHU Mont Goodine, Yvoir Belgium 2012 Dr. Samir Joshi."},
+             {srno:"7",name:"-",desc:"Fellowship in Head and Neck Cancer Memorial Sloan Kettering Cancer Center New York 2014. Dr. Samir Joshi."},
+             {srno:"8",name:"-",desc:"Fogarty Fellowship for Epidemiology and Research JHU Baltimore 2017. Dr. Samir Joshi."},
 
-             {srno:"9",name:"",desc:"Four visits to JHU Baltimore since 2013 for Head and Neck cancer and Facial Plastic departments for academic and surgical purpose. Dr. Samir Joshi."}
+             {srno:"9",name:"-",desc:"Four visits to JHU Baltimore since 2013 for Head and Neck cancer and Facial Plastic departments for academic and surgical purpose. Dr. Samir Joshi."}
 
 
             ]

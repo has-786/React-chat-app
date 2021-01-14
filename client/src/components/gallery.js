@@ -56,6 +56,6 @@ return  <div   id='mainBody'>
         </div>
       </div>
     </section>
-    <Footer/>
+    
 </div>
 }

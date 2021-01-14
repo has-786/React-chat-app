@@ -10,9 +10,11 @@ export default class About extends React.Component {
 
     constructor(props){
         super(props);
+
+        /*states*/
         this.state={ user:"",
                       history:{type:[] },
-
+                      
                       deans:{type:[
                         {srno:'1',name:'Dr. A.S. Labhsetwar',period:'08-05-2000 to 10-02-2003',subject:'Ophthalmology'},
                         {srno:'2',name:'Dr. S.G. Deshpande',period:'11-02-2003 to 31-05-2003',subject:'Skin VD'},
@@ -47,7 +49,7 @@ export default class About extends React.Component {
                     }
     }
 
-
+    /*database part*/
     componentDidMount()
     {
       window.scrollTo(0,0);
@@ -63,12 +65,12 @@ export default class About extends React.Component {
     }
 
     render(){
-        return (<div id='mainBody'>
+        return (
+        <div id='mainBody'>
           <Header />
-
           <Navbar/>
 
-
+          {/*Side navbar*/ }
         <section class="New_Department row"  onClick={sidenavbar}>
         <i style={{fontSize:'30px'}} class='fa fa-bars burger' ></i>
           <nav class="side_navigation col-lg-3 mysidenavbar">
@@ -92,6 +94,8 @@ export default class About extends React.Component {
           <article class="col-lg-9">
             <header id="article_heading">About Us</header>
             <br></br>
+
+            {/*Hospital*/ }
             <div class="tab-content">
               <div div class="tab-pane fade show active " id="Info1" >
                 <p>Get all the details of Hospital here</p>
@@ -100,6 +104,7 @@ export default class About extends React.Component {
                 </div>
               </div>
 
+              {/*History*/ }
               <div div class="tab-pane fade" id="Info2" >
                 <h3>History</h3>
                 <div id="text_h">
@@ -163,6 +168,7 @@ export default class About extends React.Component {
                 </div>
               </div>
 
+              {/*Organogram*/ }
               <div div class="tab-pane fade" id="Info3" >
               <h3>Organogram</h3>
               <div class="table-responsive">
@@ -191,9 +197,7 @@ export default class About extends React.Component {
                 </div>
               </div>
 
-
-
-
+              {/*deans*/ }
               <div div class="tab-pane fade" id="Info4" >
               <h3>Past Deans</h3>
               <div class="table-responsive">
@@ -222,7 +226,7 @@ export default class About extends React.Component {
                 </div>
               </div>
 
-
+              {/*Superintendent*/ }
               <div div class="tab-pane fade" id="Info5" >
                 <div className="team-section">
                   <div class="section-title">
@@ -273,6 +277,7 @@ export default class About extends React.Component {
                 </div>
               </div>
 
+              {/*Committees*/ }
               <div div class="tab-pane fade" id="Info6" >
               <h3>Committees</h3>
               <p>Get all the Committee details here</p>
@@ -285,8 +290,6 @@ export default class About extends React.Component {
           </article>
 
         </section>
-
-
 
       </div>)
     }

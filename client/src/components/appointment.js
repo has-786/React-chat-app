@@ -16,10 +16,8 @@ export default function Appointment(props)
                 <section id="appointment" class="appointment section-bg">
       <div class="container">
 
-        <div class="section-title">
-          <h2>Book Now</h2>
-         
-        </div>
+       
+          <h2>Book Now</h2><br/>
 
         <form action="javascript:alert('Your appointment request has been sent successfully. Thank you!')" method="post" role="form" class="php-email-form">
           <div class="form-row">
@@ -77,7 +75,6 @@ export default function Appointment(props)
     </section>
                     
                     
-                <Footer/>
             </div>
 
   );

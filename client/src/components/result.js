@@ -44,9 +44,8 @@ export default class Result extends React.Component
 
 
      linkOneClick(ind){
-       if(this.state.arr[ind]){
        this.setState({show:{type:this.state.arr[ind].type,link:this.state.arr[ind].link}});
-       }
+       
      }
 
 render(){
@@ -65,9 +64,9 @@ render(){
                         {
                             this.state.arr.map((res,ind)=>{
                              return  <li>
-                                      <a href='#' class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.linkOneClick.bind(this,ind)} >
+                                      <Link href='#' class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.linkOneClick.bind(this,ind)} >
                                         <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.type}
-                                      </a>
+                                      </Link>
                                      </li>
                            })
                          }
@@ -86,7 +85,7 @@ render(){
               </section>
             </article>
       </section>
-      <Footer/>
+      
 	</div>
 }
 

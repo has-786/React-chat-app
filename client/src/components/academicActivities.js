@@ -110,13 +110,10 @@ export default class AcademicActivities extends React.Component
       }
 
      deptClick(){
-
        this.setState({show:{deptsData:this.state.deptsData,guestsData:[{name:null,events:[]}],otherData:[]}});
-       if( document.getElementById('dept')){
-           document.getElementById('dept').style.display='block';
-           document.getElementById('guest').style.display='none';
-           document.getElementById('other').style.display='none';
-        }
+       document.getElementById('dept').style.display='block';
+       document.getElementById('guest').style.display='none';
+       document.getElementById('other').style.display='none';
        sidenavbar();
       }
 
@@ -129,43 +126,33 @@ export default class AcademicActivities extends React.Component
 
      guestClick(){
        this.setState({show:{guestsData:this.state.guestsData,deptsData:[{name:null,events:[]}],otherData:[]}});
-       if( document.getElementById('dept')){
-
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='block';
        document.getElementById('other').style.display='none';
-       }
      }
 
      guestOneClick(ind){
        this.setState({show:{guestsData:[this.state.guestsData[ind]],deptsData:[{name:null,events:[]}],otherData:[]}});
-       if( document.getElementById('guest')){
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='block';
        document.getElementById('other').style.display='none';
-       }
     //   this.closeNav();
          sidenavbar();
      }
 
      otherClick(){
        this.setState({show:{guestsData:[{name:null,events:[]}],deptsData:[{name:null,events:[]}],otherData:this.state.otherData}});
-       if( document.getElementById('dept')){
-
        document.getElementById('dept').style.display='none';
        document.getElementById('guest').style.display='none';
        document.getElementById('other').style.display='block';
-       }
      }
 
 
       allClick(){
         this.setState({show:{guestsData:this.state.guestsData,deptsData:this.state.deptsData,otherData:this.state.otherData}});
-        if( document.getElementById('dept')){
         document.getElementById('dept').style.display='block';
         document.getElementById('guest').style.display='block';
         document.getElementById('other').style.display='block';
-        }
       }
 render(){
 	return <div   id='mainBody'>
@@ -182,14 +169,14 @@ render(){
 
                         <ul class='list-group sidenav_list' >
 
-            <li ><a  href="#" class='list-group-item list-group-item-action active' data-toggle='list' onClick={this.allClick.bind(this)}>
+            <li ><Link  href="#" class='list-group-item list-group-item-action active' data-toggle='list' onClick={this.allClick.bind(this)}>
                     <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;All
-                  </a>
+                  </Link>
             </li>
             <li>
-              <a  href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.deptClick.bind(this)}>
+              <Link  href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.deptClick.bind(this)}>
                   <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;By Departments
-              </a>
+              </Link>
             </li>
             <li>
               <a  style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo1" class='dropdown-toggle' data-toggle="collapse">
@@ -199,16 +186,16 @@ render(){
                {
                   this.state.deptsData.map((res,ind)=>{
                    return  <li id='demo1' class='collapse'>
-                            <a href='#'  style={{paddingLeft:'30px'}} class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.deptOneClick.bind(this,ind)} >
+                            <Link href='#'  style={{paddingLeft:'30px'}} class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.deptOneClick.bind(this,ind)} >
                               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
-                            </a>
+                            </Link>
                            </li>
                  })
                }
              <li>
-                <a  href='#' class='list-group-item list-group-item-action' data-toggle='list' onClick={this.guestClick.bind(this)}>
+                <Link  href='#' class='list-group-item list-group-item-action' data-toggle='list' onClick={this.guestClick.bind(this)}>
                   <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;By Guests
-                </a>
+                </Link>
               </li>
               <li>
                 <a  style={{marginLeft:'1px',paddingLeft:'30px',backgroundColor:'white'}} href="#demo2" class='list-group-item list-group-item-action' data-toggle='list' data-toggle="collapse" class="dropdown-toggle">
@@ -218,16 +205,16 @@ render(){
                  {
                  this.state.guestsData.map((res,ind)=>{
                      return <li id='demo2' class='collapse'>
-                            <a  style={{paddingLeft:'30px'}} href='#' class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.guestOneClick.bind(this,ind)} >
+                            <Link  style={{paddingLeft:'30px'}} href='#' class='list-group-item list-group-item-action' data-toggle='list'  onClick={this.guestOneClick.bind(this,ind)} >
                               <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;{res.name}
-                            </a>
+                            </Link>
                             </li>
                  })
                 }
                <li>
-                <a href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.otherClick.bind(this)}>
+                <Link href="#" class='list-group-item list-group-item-action' data-toggle='list' onClick={this.otherClick.bind(this)}>
                 <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Other Activities
-                </a>
+                </Link>
                </li>
             </ul>
           </nav>
@@ -338,9 +325,6 @@ render(){
 
 
         </section>
-
-
-    <Footer/>
 
 
 	</div>

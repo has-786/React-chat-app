@@ -191,7 +191,7 @@ export class nonTeaching_staff extends React.Component {
         </article>
 
       </section>
-      <Footer/>
+      
     </div>
 
 

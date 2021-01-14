@@ -33,7 +33,7 @@ render(){
            </div>
           </div>
         </section>
-        <Footer/>
+        
 	</div>
 }
 
