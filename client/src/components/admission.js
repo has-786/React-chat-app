@@ -63,85 +63,126 @@ export default class Admission extends React.Component
                   },
 
                   show:{
-                    ug:{type:[{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},
-                    {name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'}]
-                    ,other:[{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},
-                              {name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'}]
-                    },
-                    pg:{type:[{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},
-                    {name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'},{name:'MBBS',desc:'afesfefee'}]
-                    ,other:[
-                      {name:'Anatomy',appeared:1,passed:0,pass_per:0},
+                    ug:{
+                      type:[{name:'MBBS Course',
+                      desc:'There are 200 admissions to MBBS course every year in the college. The admissions are on the basis of merit of All India NEET with constitutional reservations, done by the centralised process by Govt. of Maharashtra. The breakup of seats is 15% by DGHS GOI, of the remaining seats, 30% for State Level and 70% for Development board area (Rest of Maharashtra). There are about 1000 medical students studying in B. J. Govt. Medical College.'
+                            },
+                                  {name:'Internship',
+                                  desc:'Organised by department of PSM'
+                                },
+                              {
+                                name:'Nursing course',
+                                desc:'Every year 50 candidates are admitted to the B.Sc. Nursing course, which is of 3 and half years duration.'
+                                }]
+                      ,other:[{name:'Sanctioned intake capacity of various courses UG by the MCI',desc:'M.B.B.S. = 200 (MCI & MUHS).\nB.P.M.T. = 092 (M.U.H.S.).'},
+                                {name:'University Affiliation and its Vice-Chancellor and registrar.',desc:'Maharashtra University of Health Science, Nahsik.\nV.C -Prof. Dr. Deelip Mhaisekar\nRegistrar - Dr. Kalidas D. Chavan'},
+                                {name:'Status of recognition of all the courses.',desc:'MBBS - Recognized by MCI & MUHS.\nBPMT -  Recognized by MUHS.'},
+                                {name:'Deputy Dean\n(in charge of Undergraduates)',desc:'Name  : Dr. Arun N. Kowale\nQualification : M. B. B. S. , M.D.(Physiology)\nTel: 020 26102296\n 020 26123872\nCell: 9960762233\nFax (Office) : 020-26126868\n020-26130991\nE-mail Id : ugbjgmcpune@gmail.com'},
+                                {name:'Hostel Facilities',desc:''},
+                                {name:'Total accommodation',desc:'(A) Boys hostel 208 rooms\n(B) Girls hostel 220 rooms'},
+                                {name:'(A) At Girls hostel',desc:'1 Senior UG per room\n2 Junior UG per room'},
+                                {name:'(B) At Boys hostel',desc:'2 Senior UG per room\n3 Junior UG per room'},
+                                {name:'No. of Students (Capacity)',desc:'(A) Girls hostel: 302, (B) Boys hostel: 524'}
+
+                              ]
+
+
+
+
+                      },
+                    pg:{type:[{name:'MD/MS Courses',desc:"This college has postgraduate facilities in all major branches. Every year around 144 students are admitted for PG courses (MD/MS/Diploma). The distribution of seats is 25% by All India entrance exam, 25% in service Medical officer's quota and remaining by State Level Enterance Exam."},
+                    {name:'DM/M.Ch. Super Speciality',desc:'it is availbale in cardiophoric surgery. Annual admissions is 1, through all India competitive exam.'},
+                    {name:'DMLT COURSE',desc:'The College conducts DMLT course for training technicians. There are 10+6 seats and the duration of course is one and half years.'},
+                    {name:'INDIRA GANDHI NATIONAL OPEN UNIVERSITY (IGNOU) COURSES',desc:''},
+                    {name:'PGDMCH- PG Diploma in Maternal & Child Health',desc:''},
+                    {name:'PGDGM- PG Diploma in Geriatric Medicine',desc:''}]
+                      ,other:[{name:'Anatomy',appeared:1,passed:0,pass_per:0},
                           {name:'Biochemistry',appeared:4,passed:4,pass_per:100},
                           {name:'Physiology',appeared:4,passed:3,pass_per:75},
                           {name:'Microbiology',appeared:4,passed:4,pass_per:100},
                           {name:'Dip. Anatomy',appeared:1,passed:0,pass_per:0},
                               {name:'Dip. Biochemistry',appeared:4,passed:4,pass_per:100},
                               {name:'Dip. Physiology',appeared:4,passed:3,pass_per:75},
-                              {name:'Dip. Microbiology',appeared:4,passed:4,pass_per:100}
-                        ]
-                    }
+                              {name:'Dip. Microbiology',appeared:4,passed:4,pass_per:100}]
+                      }
                   }
                 }
+
     }
 
      ugClick(){
        this.setState({show:{pg: {type:[],other:[]},ug: {type:this.state.ug.type,other:this.state.ug.other}}});
-       document.getElementById('ug').style.display='block';
+       if(document.getElementById('ug'))
+       {
+        document.getElementById('ug').style.display='block';
        document.getElementById('ugtype').style.display='block';
        document.getElementById('ugother').style.display='block';
        document.getElementById('pg').style.display='none';
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='none';
+     }
 
      }
 
      ugOneClick(ind){
        this.setState({show:{pg: {type:[],other:[]},ug: {type:[this.state.ug.type[ind]],other:[]}}});
+
+        if(document.getElementById('ug')){
        document.getElementById('ug').style.display='block';
        document.getElementById('ugtype').style.display='block';
        document.getElementById('ugother').style.display='none';
        document.getElementById('pg').style.display='none';
+       }
      }
 
      pgClick(){
        this.setState({show:{pg: {type:this.state.pg.type,other:this.state.pg.other},ug: {type:[],other:[]}}});
+
+       if(document.getElementById('ug')){
        document.getElementById('ug').style.display='none';
        document.getElementById('ugtype').style.display='none';
        document.getElementById('ugother').style.display='none';
        document.getElementById('pg').style.display='block';
        document.getElementById('pgtype').style.display='block';
        document.getElementById('pgother').style.display='block';
-       return this.state.show;
+       }
      }
 
      pgOneClick(ind){
        this.setState({show:{pg: {type:[this.state.pg.type[ind]],other:[]},ug: {type:[],other:[]}}});
+        if(document.getElementById('pg')){
        document.getElementById('pg').style.display='block';
        document.getElementById('pgtype').style.display='block';
        document.getElementById('pgother').style.display='none';
        document.getElementById('ug').style.display='none';
+        }
      }
 
      ugotherClick(){
        this.setState({show:{pg: {type:[],other:[]},ug: {type:[],other:this.state.ug.other}}});
+         if(document.getElementById('ug')){
        document.getElementById('ug').style.display='block';
        document.getElementById('ugtype').style.display='none';
        document.getElementById('ugother').style.display='block';
        document.getElementById('pg').style.display='none';
+          }
      }
 
      pgotherClick(){
        this.setState({show:{pg: {type:[],other:this.state.pg.other},ug: {type:[],other:[]}}});
+        if(document.getElementById('ug')){
        document.getElementById('pg').style.display='block';
        document.getElementById('pgtype').style.display='none';
        document.getElementById('pgother').style.display='block';
        document.getElementById('ug').style.display='none';
+          }
      }
 
 
       allClick(){
         this.setState({show:{pg: {type:this.state.pg.type,other:this.state.pg.other},ug: {type:this.state.pg.type,other:this.state.pg.other}}});
+
+  if(document.getElementById('ug')){
         document.getElementById('ug').style.display='block';
         document.getElementById('ugtype').style.display='block';
         document.getElementById('ugother').style.display='block';
@@ -149,9 +190,9 @@ export default class Admission extends React.Component
         document.getElementById('pgtype').style.display='block';
         document.getElementById('pgother').style.display='block';
 
-        }
 
-
+       }
+      }
 
 
     /*     debounce()
@@ -183,7 +224,8 @@ export default class Admission extends React.Component
 
 
 componentDidMount(){
-  window.scrollTo(0,0);
+//  window.scrollTo(0,0);
+
   this.setState({show:{ug:this.state.ug,pg:this.state.pg}});
 fetch(url+'/api/admission',{ method:'GET'})
        .then(response=>{ return response.json()})
@@ -195,7 +237,6 @@ fetch(url+'/api/admission',{ method:'GET'})
               //  dispatch({type:'add_video',payload:body.video});
         })
        .catch(err=>{});
-
 
 }
 
@@ -215,12 +256,12 @@ render(){
                  <ul class='list-group sidenav_list' >
                    <li>
                      <Link class='list-group-item list-group-item-action active' data-toggle='list' href="#" onClick={this.allClick.bind(this)}>
-                      <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;All
+                      <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp; All
                      </Link>
                    </li>
                    <li>
                     <Link class='list-group-item list-group-item-action' data-toggle='list' href="#" onClick={this.ugClick.bind(this)}>
-                      <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;UG
+                      <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp; UG
                     </Link>
                    </li>
                    <li>
@@ -237,7 +278,7 @@ render(){
                                     </li>
                           })
                         }
-                    <li >
+                    <li>
                       <Link style={{paddingLeft:'30px'}} class='list-group-item list-group-item-action' data-toggle="list" href="#"  onClick={this.ugotherClick.bind(this)}>
                         <i style={{color:'green'}} class='fas fa-angle-right'></i>&nbsp;Important Details
                       </Link>
@@ -383,6 +424,8 @@ render(){
           </article>
           </section>
 
+
+      <Footer/>
 
       </div>
 	</div>

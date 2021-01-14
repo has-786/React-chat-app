@@ -8,12 +8,14 @@ h1 {
 	font-size: 60px;
 	text-align: center;
 	color: #FFF;
+	font-family: 'Roboto', Times, serif;
 }
 
 h3 {
 	font-size: 25px;
 	line-height: 34px;
 	font-weight: normal;
+	font-family: 'Roboto', Times, serif;
 
 }
 
@@ -31,7 +33,7 @@ h1 {
 	font-size:60px;
 
 	line-height: 70px;
-	font-family: 'Bree Serif', 'serif';
+	font-family: 'Roboto', Times, serif;
 	}
 
 #container {
@@ -340,7 +342,7 @@ td{background-color:#eeeeee; }
 
 .text{
 	font-size: 20px;
-	font-family: 'Times New Roman', Times, serif;
+	font-family: 'Roboto', Times, serif;
 
 }
 

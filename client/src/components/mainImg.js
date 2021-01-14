@@ -12,21 +12,21 @@ export default class MainImg extends React.Component {
       <img src="/assets/img/s1.jpg"/>
       <div class="text1" >
         <Link to='/appointment' ><p class='checkup'>Need A Doctor for Check-up?</p></Link>
-        <Link to='/appointment'><button>Get an appointment</button></Link>
+        <Link to='/appointment' class='aptbutton'><button class='aptbutton'>Get an appointment</button></Link>
       </div>
     </div>
     <div class="carousel-item">
       <img src="/assets/img/s2.jpg"/>
       <div class="text1">
         <Link to='/appointment'><p class='checkup'>Need A Doctor for Check-up?</p></Link>
-        <Link to='/appointment'><button>Get an appointment</button></Link>
+        <Link to='/appointment' class='aptbutton'><button >Get an appointment</button></Link>
       </div>
     </div>
     <div class="carousel-item">
       <img src="/assets/img/s2.jpg"/>
       <div class="text1">
         <Link to='/appointment'><p class='checkup'>Need A Doctor for Check-up?</p></Link>
-        <Link to='/appointment'><button>Get an appointment</button></Link>
+        <Link to='/appointment' class='aptbutton'><button class='aptbutton'>Get an appointment</button></Link>
       </div>
     </div>
   </div>

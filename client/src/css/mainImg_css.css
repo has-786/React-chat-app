@@ -58,3 +58,24 @@ background-color: whitesmoke;
 border: 1px solid #f79700;
 color: #f79700;
 }
+
+
+
+
+@media only screen and (max-width: 766px) {
+  .aptbutton{
+      float:left;
+      position: relative;
+      margin-right:170px;
+      margin-bottom: 10px;
+      margin-top:10px;
+
+
+  }
+  .aptbutton>button{  font-size:15px; display:inline-block;  white-space: nowrap;}
+}
+@media only screen and (min-width: 767px) {
+    .aptbutton{
+
+  }
+}
