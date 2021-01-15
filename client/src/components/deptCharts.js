@@ -264,40 +264,38 @@ export default class deptCharts extends React.Component{
 
       <Header />
         <Navbar/>
-        <i style={{fontSize:'30px'}} class='fa fa-bars burger' onClick={sidenavbar}></i>
-        <i style={{fontSize:'20px',opacity:0}} class='fa fa-bars burger'  onClick={sidenavbar}></i>
-
-      <section class="New_Department row">
+      <section class="New_Department row" onClick={sidenavbar}>
+          <i style={{fontSize:'30px'}} class='fa fa-bars burger' ></i>
 
           <nav class="side_navigation col-lg-3 mysidenavbar">
               <ul class="list-group sidenav_list">
-                  <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1"  onClick={sidenavbar}>Anatomy</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  onClick={sidenavbar}>Physiology</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3"  onClick={sidenavbar}>BioChemistry</a></li>
+                  <li><a class="list-group-item list-group-item-action active" data-toggle="list" href="#Info1"  >Anatomy</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info2"  >Physiology</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info3" >BioChemistry</a></li>
 
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  onClick={sidenavbar}>Pathology</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5"  onClick={sidenavbar}>Orthopaedic</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6"  onClick={sidenavbar}> Microbiology</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info4"  >Pathology</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info5">Orthopaedic</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info6" > Microbiology</a></li>
 
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info7"  onClick={sidenavbar}>Pharmacology </a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info8"  onClick={sidenavbar}>Social_medicine</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info9"  onClick={sidenavbar}>Forensic_medicine </a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info7"  >Pharmacology </a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info8" >Social_medicine</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info9" >Forensic_medicine </a></li>
 
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info10"  onClick={sidenavbar}> Medicine</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info11"  onClick={sidenavbar}>Pediatric </a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info12"  onClick={sidenavbar}> Tuberculosis</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info10"  > Medicine</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info11" >Pediatric </a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info12" > Tuberculosis</a></li>
 
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info13"  onClick={sidenavbar}> Skin</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info14"  onClick={sidenavbar}>Surgery </a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info15"  onClick={sidenavbar}>Ophthalmology</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info13"  > Skin</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info14" >Surgery </a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info15" >Ophthalmology</a></li>
 
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info16"  onClick={sidenavbar}> ENT</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info17"  onClick={sidenavbar}>Gynaecology</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info18"  onClick={sidenavbar}>Anaesthesiology</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info16" > ENT</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info17" >Gynaecology</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info18" >Anaesthesiology</a></li>
 
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info19"  onClick={sidenavbar}> RadioDiagnosis</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info20"  onClick={sidenavbar}>Dental</a></li>
-                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info21"  onClick={sidenavbar}>Psychiatry</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info19" > RadioDiagnosis</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info20" >Dental</a></li>
+                  <li><a class="list-group-item list-group-item-action" data-toggle="list" href="#Info21" >Psychiatry</a></li>
 
 
 
