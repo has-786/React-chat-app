@@ -10,6 +10,8 @@ export default class Award extends React.Component {
 
     constructor(props){
         super(props);
+
+        // state initialization
         this.state={
           data:
 
@@ -386,8 +388,9 @@ componentDidMount(){
   if(tabs.length)tabs[0].className+=" show active";
   var list=document.getElementsByClassName('list-group-item');
   if(list.length)list[0].className+=" active";
+  window.scrollTo(0,0);
 
-
+  // Fetching data from database
   fetch(url+'/api/awards',{ method:'GET'})
          .then(response=>{ return response.json()})
          .then((body)=>{
@@ -400,7 +403,7 @@ componentDidMount(){
 
     render(){
 
-      window.scrollTo(0,0);
+
 
         return (<div id='mainBody'>
 

@@ -15,6 +15,8 @@ export default class AcademicActivities extends React.Component
 {
     constructor(props){
       super(props);
+
+      // state initialization
       this.state={ user:"",
 
                   deptsData:[
@@ -89,18 +91,21 @@ export default class AcademicActivities extends React.Component
     }
 
       componentDidMount(){
+
         this.setState({show:{deptsData:this.state.deptsData,guestsData:this.state.guestsData,otherData:this.state.otherData}})
         window.scrollTo(0,0);
+
+        // Fetching data from database
+
        fetch(url+'/api/academicActivities',{ method:'GET'})
              .then(response=>{ return response.json()})
              .then((body)=>{
+               // set the state using response data from server
                     this.setState({deptsData:body.deptsData});
                     this.setState({guestsData:body.guestsData});
                     this.setState({otherData:body.otherData});
                     this.setState({show:{deptsData:this.state.deptsData,guestsData:this.state.guestsData,otherData:this.state.otherData}});
 
-                      //alert(body.msg);
-                    //  dispatch({type:'add_video',payload:body.video});
               })
              .catch(err=>{});
 
@@ -108,7 +113,7 @@ export default class AcademicActivities extends React.Component
 
 
       }
-
+        // To set only department activities in the table
      deptClick(){
 
        this.setState({show:{deptsData:this.state.deptsData,guestsData:[{name:null,events:[]}],otherData:[]}});
@@ -119,6 +124,7 @@ export default class AcademicActivities extends React.Component
         }
        sidenavbar();
       }
+      // To set only selected department activities in the table
 
      deptOneClick(ind){
        this.setState({show:{deptsData:[this.state.deptsData[ind]],guestsData:[{name:null,events:[]}],otherData:[]}});
@@ -127,6 +133,7 @@ export default class AcademicActivities extends React.Component
        document.getElementById('other').style.display='none';
      }
 
+     // To set only guest activities in the table
      guestClick(){
        this.setState({show:{guestsData:this.state.guestsData,deptsData:[{name:null,events:[]}],otherData:[]}});
        if( document.getElementById('dept')){
@@ -137,6 +144,7 @@ export default class AcademicActivities extends React.Component
        }
      }
 
+     // To set only selected guest activities in the table
      guestOneClick(ind){
        this.setState({show:{guestsData:[this.state.guestsData[ind]],deptsData:[{name:null,events:[]}],otherData:[]}});
        if( document.getElementById('guest')){
@@ -144,10 +152,10 @@ export default class AcademicActivities extends React.Component
        document.getElementById('guest').style.display='block';
        document.getElementById('other').style.display='none';
        }
-    //   this.closeNav();
          sidenavbar();
      }
 
+     // To set only other activities in the table
      otherClick(){
        this.setState({show:{guestsData:[{name:null,events:[]}],deptsData:[{name:null,events:[]}],otherData:this.state.otherData}});
        if( document.getElementById('dept')){
@@ -158,6 +166,7 @@ export default class AcademicActivities extends React.Component
        }
      }
 
+     // To set only all activities in the table
 
       allClick(){
         this.setState({show:{guestsData:this.state.guestsData,deptsData:this.state.deptsData,otherData:this.state.otherData}});

@@ -11,6 +11,7 @@ export default class teaching_staff extends React.Component {
     constructor(props){
         super(props);
 
+        // State initialization
         this.state={  user:"",
 
         AnatomyDept:[
@@ -95,15 +96,16 @@ export default class teaching_staff extends React.Component {
 
             this.setState({show:{AnatomyDept:this.state.AnatomyDept,PhysiologyDept:this.state.PhysiologyDept}})
 
+            // Fetching data from database
             fetch(url+'/api/teaching_staff',{ method:'GET'})
                .then(response=>{ return response.json()})
                .then((body)=>{
+
+                    // Set the state with response data from server
                       this.setState({AnatomyDept:body.AnatomyDept});
                       this.setState({PhysiologyDept:body.PhysiologyDept});
                       this.setState({show:{AnatomyDept:this.state.AnatomyDept,PhysiologyDept:this.state.PhysiologyDept}});
 
-                        //alert(body.msg);
-                      //  dispatch({type:'add_video',payload:body.video});
                 })
                .catch(err=>{});
 
@@ -115,7 +117,6 @@ export default class teaching_staff extends React.Component {
          this.setState({show:{AnatomyDept:this.state.AnatomyDept,PhysiologyDept:[{name:null,events:[]}]}});
          document.getElementById('anatomy').style.display='block';
          document.getElementById('physiology').style.display='none';
-
          sidenavbar();
 
         }
@@ -124,7 +125,6 @@ export default class teaching_staff extends React.Component {
          this.setState({show:{AnatomyDept:[this.state.AnatomyDept[ind]],PhysiologyDept:[{name:null,events:[]}]}});
          document.getElementById('anatomy').style.display='block';
          document.getElementById('physiology').style.display='none';
-
          sidenavbar();
        }
 
@@ -132,7 +132,6 @@ export default class teaching_staff extends React.Component {
          this.setState({show:{PhysiologyDept:this.state.PhysiologyDept,AnatomyDept:[{name:null,events:[]}]}});
          document.getElementById('anatomy').style.display='none';
          document.getElementById('physiology').style.display='block';
-
          sidenavbar();
        }
 
@@ -140,9 +139,7 @@ export default class teaching_staff extends React.Component {
          this.setState({show:{PhysiologyDept:[this.state.PhysiologyDept[ind]],AnatomyDept:[{name:null,events:[]}]}});
          document.getElementById('anatomy').style.display='none';
          document.getElementById('physiology').style.display='block';
-
-      //   this.closeNav();
-           sidenavbar();
+         sidenavbar();
        }
 
 
@@ -152,7 +149,6 @@ export default class teaching_staff extends React.Component {
           document.getElementById('anatomy').style.display='block';
           document.getElementById('physiology').style.display='block';
 
-      //    this.closeNav();
         }
     render(){
         return (<div id='mainBody'>
@@ -220,8 +216,9 @@ export default class teaching_staff extends React.Component {
 
                     <header id="article_heading">Teaching Staff</header>
                     <br/>
-                  <h3>B. J. Government Medical College, Pune</h3>
-                  <br/>
+                    <h3>B. J. Government Medical College, Pune</h3>
+                    <br/>
+                    
                   <button class="btn btn-primary"  onClick={(evt)=>this.props.history.push('/deptCharts')} style={{float:"right",backgroundColor:'#003a9b'}}>
                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bar-chart-line" viewBox="0 0 16 16">
                            <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z"></path>

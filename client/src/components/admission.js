@@ -15,9 +15,8 @@ export default class Admission extends React.Component
 {
     constructor(props){
       super(props);
-    //  this.searchbar=this.debounce();
-    //  this.shooting=this.throttle();
 
+      // state initialization
       this.state={ user:"",
                 ug:{
                   type:[{name:'MBBS Course',
@@ -110,6 +109,7 @@ export default class Admission extends React.Component
 
     }
 
+     //To set only UG admission data in the table
      ugClick(){
        this.setState({show:{pg: {type:[],other:[]},ug: {type:this.state.ug.type,other:this.state.ug.other}}});
        if(document.getElementById('ug'))
@@ -124,6 +124,8 @@ export default class Admission extends React.Component
 
      }
 
+
+     //To set only selected UG admission data in the table
      ugOneClick(ind){
        this.setState({show:{pg: {type:[],other:[]},ug: {type:[this.state.ug.type[ind]],other:[]}}});
 
@@ -135,6 +137,7 @@ export default class Admission extends React.Component
        }
      }
 
+     //To set only PG admission data in the table
      pgClick(){
        this.setState({show:{pg: {type:this.state.pg.type,other:this.state.pg.other},ug: {type:[],other:[]}}});
 
@@ -148,6 +151,7 @@ export default class Admission extends React.Component
        }
      }
 
+     //To set only selected PG admission data in the table
      pgOneClick(ind){
        this.setState({show:{pg: {type:[this.state.pg.type[ind]],other:[]},ug: {type:[],other:[]}}});
         if(document.getElementById('pg')){
@@ -158,6 +162,7 @@ export default class Admission extends React.Component
         }
      }
 
+     //To set only UG other facilities data in the table
      ugotherClick(){
        this.setState({show:{pg: {type:[],other:[]},ug: {type:[],other:this.state.ug.other}}});
          if(document.getElementById('ug')){
@@ -168,6 +173,7 @@ export default class Admission extends React.Component
           }
      }
 
+     //To set only PG results data in the table
      pgotherClick(){
        this.setState({show:{pg: {type:[],other:this.state.pg.other},ug: {type:[],other:[]}}});
         if(document.getElementById('ug')){
@@ -179,6 +185,8 @@ export default class Admission extends React.Component
      }
 
 
+
+     //To set only all admission data in the table
       allClick(){
         this.setState({show:{pg: {type:this.state.pg.type,other:this.state.pg.other},ug: {type:this.state.pg.type,other:this.state.pg.other}}});
 
@@ -227,14 +235,16 @@ componentDidMount(){
 //  window.scrollTo(0,0);
 
   this.setState({show:{ug:this.state.ug,pg:this.state.pg}});
-fetch(url+'/api/admission',{ method:'GET'})
+
+  //Fetching data from database
+  fetch(url+'/api/admission',{ method:'GET'})
        .then(response=>{ return response.json()})
        .then((body)=>{
+
+         // set the state using response data from server
               this.setState({ug:body.ug});
               this.setState({pg:body.pg});
               this.setState({show:{ug:body.ug,pg:body.pg}})
-                //alert(body.msg);
-              //  dispatch({type:'add_video',payload:body.video});
         })
        .catch(err=>{});
 

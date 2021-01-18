@@ -10,6 +10,8 @@ import url from "./url";
 export default class Department extends React.Component {
     constructor(props){
         super(props);
+
+        // State initialization
         this.state={
             display:"",info:[
 
@@ -46,6 +48,7 @@ export default class Department extends React.Component {
     }
 }
 
+// To show selected PDF in the iframe
 handleClick=name=>()=>{
     const elementsIndex = this.state.info.findIndex(element => element.name == name )
 
@@ -55,9 +58,13 @@ handleClick=name=>()=>{
 };
 
 componentDidMount(){
+
+   // Fetching data from database
     fetch(url+'/api/pdflinks',{ method:'GET'})
     .then(response=>{ return response.json()})
     .then((body)=>{
+
+        // set the state using response data from server
         this.setState({info:body});
      })
     .catch(err=>{});

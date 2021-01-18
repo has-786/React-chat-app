@@ -10,6 +10,8 @@ export class nonTeaching_staff extends React.Component {
   constructor(props) {
     super(props)
     this.sidenavbar=sidenavbar;
+
+    // State initialization
     this.state = {
        user:"",
        show:{
@@ -191,7 +193,7 @@ export class nonTeaching_staff extends React.Component {
         </article>
 
       </section>
-      
+
     </div>
 
 

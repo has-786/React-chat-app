@@ -11,6 +11,7 @@ import url from './url';
 
 export default class Recognition extends React.Component {
   state={link:""}
+
   handleClick=value=>()=>{
     this.setState({link:value});
 
