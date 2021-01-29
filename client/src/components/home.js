@@ -1,189 +1,217 @@
-import Navbar from './navbar';
-import '../css/home.css';
-import '../css/Homepage_Department.css';
-
-import React,{useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import url from './url';
-import Footer from './footer';
-import New_Department from './Homepage_Department';
-import UsefulLink from './UsefulLink';
-import MainImg from './mainImg';
-import Header from './header';
-
-export default function Home(props)
-{
-  const [usefulLink,setUsefulLink]=useState([]);
-  const [newsUpdate,setNewsUpdate]=useState([]);
+/*import io from 'socket.io-client';
+import {useRef} from 'react';
+const Home=(props)=>{
 
 
-  useEffect(()=>{
+  const nameRef=useRef(null);
+  const roomRef=useRef(null);
+  const userId=useRef(null);
+  const level=useRef(null);
+  const action=useRef(null);
 
-    fetch(url+'/api/getDataForHome',{ method:'GET'})
-         .then(response=>{ return response.json()})
-         .then((body)=>{
-                setUsefulLink(body.usefulLink);
-                setNewsUpdate(body.newsUpdate);
-          })
-         .catch(err=>{});
-  },[])
+  return <div>
+          <center><div>Chat 110</div>
+          <form >
+            <input type='text' name='userId' ref={userId} placeholder='your id'/><br /><br />
+            <input type='text' name='vendorId'    placeholder='vendor name' value='vendor 1'/><br /><br />
+            <input type='text' name='level' ref={level} placeholder='Level No.'/><br /><br />
 
-   return (  <div id="mainBody">
-      <Header />
-            <MainImg/>
-         <Navbar/>
-<div>
-<section>
-            <div class="row">
-              <div class='col-lg-6 ' style={{paddingLeft:'20px',marginBottom:'20px'}} >
-              <span style={{fontSize:'25px'}}>Useful links</span>
-              <br></br><br></br>
-{/*}                  <button  class='btn btn-success dropdown-toggle' data-toggle="collapse" data-target="#demo1"  style={{width:'100%'}}>Useful Links</button>
-                  <div id="demo1" class="collapse" >*/}
-                <div class='usefulLinks'>
-                {/*
-                        <a href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a><br></br><br></br>
-                        <a   href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a><br></br><br></br>
-                        <a   href="New Doc 2020-09-28.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>PG DMLT Admission 2020 - 21</a><br></br><br></br>
-                        <span id='more'>
-                          <a  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a><br></br><br></br>
-                          <a   href="2nd list B.Sc in PMT.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a><br></br><br></br>
-                          <a   href="B.Sc. in PMT 1st Merit list13102020174055.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a><br></br><br></br>
-                          <a  href="B. Sc. in PMT Provisional Merit list 2020-21.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>Provisional merit list of B. Sc. in PMT Merit list for A. Y. 2020-21</a><br></br><br></br>
-                          <a href="New Doc 2020-09-28.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>PG DMLT Admission 2020 - 21</a><br></br><br></br>
-                          <a  href="new doc 2020-03-24 14.41.59-20200324144406.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>बै. जी. शासकीय वैद्यकीय महाविद्यालय व ससून सर्वोपचार रुग्णालय, पुणे - शरीररचनाशास्त्र विभाग - देहदनाविषयी सविस्तर माहिती</a><br></br><br></br>
-                          <a  href="2nd list B.Sc in PMT.pdf" target="new"><i class='fas fa-angle-right' style={{color:'green'}}></i>2nd - Merit- cum- Selection list for B.Sc. in Paramedical Technology course A.Y. 2020-21</a><br></br><br></br>
-                        </span>*/}
-                        {usefulLink.slice(0,3).map(l=>{
-                        return <span>
-                                <a  href={l.link} ><i class='fas fa-angle-right' style={{color:'green'}}></i>&nbsp;{l.body}</a>
-                                <br></br><br></br>
-                               </span>
-                        })}
-                        <span id='more'>
-                        {usefulLink.slice(3,usefulLink.length).map(l=>{
-                        return   <span><a href={l.link} > <i class='fas fa-angle-right' style={{color:'green'}}></i>&nbsp;{l.body}</a>
-                                        <br></br><br></br>
-                                  </span>
-                        })}
-                        </span>
-                        <br></br>
+            <select name='action' ref={action}>
+              <option>Approved</option>
+              <option>Rejected</option>
+              <option>Reject & Remove from workflow</option>
+            </select>
+            <br /><br />
+            <button  value='submit' onClick={(evt)=>{alert(JSON.stringify(userId.current.value));submit(evt,userId.current.value,level.current.value,action.current.value)}}>Submit</button><br />
 
-                      <button  class='seemore' onClick={()=>myFunction()} class='seemore'  id="myBtn" >See More</button>
-                {/*  </div>*/}
-                  </div>
-              </div>
 
-              <div class='col-lg-6 newsupdates' style={{paddingLeft:'20px'}}>
-              <span style={{fontSize:'25px'}}>Upcoming news and events</span>
-              <br></br><br></br>
+          </form>
+          </center>
+         </div>
 
-                    <div style={{float:'left'}}>
-                    {newsUpdate.slice(0,3).map(l=>{
-                    return  <span>
-                    <p style={{font:'Roboto(regular) 14px',color:'#666666' }}><i class='fas fa-angle-right' style={{color:'green'}}></i>&nbsp;{l.body}</p><br></br><br></br>
-                            </span>
-                    })}
-                  <span id='more1'>
-                    {newsUpdate.slice(3,newsUpdate.length).map(l=>{
-                    return  <span>
-                    <p style={{font:'Roboto(regular) 14px',color:'#666666' }}><i class='fas fa-angle-right' style={{color:'green'}}></i>&nbsp;{l.body}</p>
-                      <br></br><br></br>
-                      </span>
-                    })}
-                    </span>
-                      <button class='seemore' onClick={()=>myFunction1()} id="myBtn1" >See More</button>
-                    </div>
-              </div>
-            </div>
-          </section>
-          <UsefulLink/>
 
-          <section id="why-us" class="why-us">
-          <div style={{padding:'10px'}}>
 
-                     <div class="icon-boxes d-flex flex-column justify-content-center">
-                       <div class="row">
-                         <div  class="col-lg-3 d-flex align-items-stretch">
-                           <div class="icon-box mt-4 mt-xl-0">
-                             <i class="fa fa-hospital"></i>
-                             <h4>Hospital</h4>
-                             <Link  style={{textDecoration:'underline',color:'blue'}} to='/hospital'><p style={{color:'blue'}}>Show the facilities</p></Link>
-                             <Link  style={{textDecoration:'underline',color:'blue'}} to='/hospital'><p style={{color:'blue'}}>How to book bed?</p></Link>
+}*/
+import React,{useState} from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
-                           </div>
-                         </div>
 
-                         <div class="col-lg-3 d-flex align-items-stretch">
-                           <div class="icon-box mt-4 mt-xl-0">
-                             <i class="fas fa-graduation-cap"></i>
-                             <h4>Admission</h4>
-                             <a  style={{textDecoration:'underline',color:'blue'}} href={url+'/uploads/UG admission.zip'}> <p style={{color:'blue'}}>Name of the Students for UG</p></a>
-                             <a  style={{textDecoration:'underline',color:'blue'}} href={url+'/uploads/PG admission.zip'}><p style={{color:'blue'}}>Name of the Students for PG</p></a>
-                           </div>
-                         </div>
-                         <div class="col-lg-3 d-flex align-items-stretch">
-                           <div class="icon-box mt-4 mt-xl-0">
-                             <i class="fas fa-award"></i>
-                             <h4>Results</h4>
-                             <a style={{textDecoration:'underline',color:'blue'}} href={url+"/uploads/UGresults.zip"} target="new">Check out UG Results</a><br></br><br></br>
-                             <a style={{textDecoration:'underline',color:'blue'}} href={url+"/uploads/PGresults.zip"} target="new">Check out PG Results</a><br></br><br></br>
-                             <a style={{textDecoration:'underline',color:'blue'}} href={url+"/uploads/BSC%20IN%20PMT%20Result%20Winter%202018.pdf"} target="new"> BSC IN PMT Result Winter 2018</a><br></br><br></br>
-                             <a style={{textDecoration:'underline',color:'blue'}} href={url+"/uploads/Result%20MBBS%20Winter%202018.pdf"} target="new"> Result MBBS Winter 2018</a><br></br><br></br>
-                          </div>
-                         </div>
-                         <div class="col-lg-3 d-flex align-items-stretch">
-                           <div class="icon-box mt-4 mt-xl-0">
-                             <i class="fas fa-book-reader"></i>
-                             <h4>Research Activities</h4>
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
-                             <Link to='/Research'><button style={{backgroundColor:'white',border:'1px solid grey',borderRadius:'5px',padding:'5px'}}>View</button></Link>
-                           </div>
-                         </div>
-                       </div>
-                     </div>
-                </div>
-             </section>
-	<br></br><br></br>
-      <New_Department />
-  <br></br><br></br>
+export default function Home(props) {
+  const classes = useStyles();
 
-    <Footer/>
+  const [userId,setUserId]=useState('');
+  const [level,setLevel]=useState('');
+  const [action,setAction]=useState('Select');
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper} >
+        <Avatar className={classes.avatar}>
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Approve
+        </Typography>
+        <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Enter Your Id"
+            name='userId'
+            value={userId}
+            onChange={(evt)=>setUserId(evt.target.value)}
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="Enter Vendor Id"
+            name='vendorId'
+            value='vendor 1'
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            type='number'
+            required
+            fullWidth
+            label="Enter Level"
+            value={level}
+            onChange={(evt)=>setLevel(evt.target.value)}
+            autoFocus
+          />
+          <FormHelperText>Select Action</FormHelperText>
 
-    </div>
-  </div>);
+          <Select
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          value={action}
+          onChange={(evt)=>setAction(evt.target.value)}
+          autoFocus
+          >
+            <MenuItem
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            value='Approved'>Approved</MenuItem>
+            <MenuItem
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            value='Rejected'>Rejected</MenuItem>
+            <MenuItem
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            value='Reject & Remove from workflow'>Reject & Remove from workflow</MenuItem>
+          </Select>
+
+
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={(evt)=>submit(evt,userId,level,action)}
+          >
+            Submit
+          </Button>
+
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            className={classes.submit}
+            onClick={(evt)=>final(evt)}
+          >
+            Final Result
+          </Button>
+
+        </form>
+      </div>
+    </Container>
+  );
 }
 
-function myFunction() {
-  var moreText = document.getElementById("more");
-  var btnText = document.getElementById("myBtn");
 
-  if (btnText.innerHTML === "See less") {
-    btnText.innerHTML = "See more";
-    moreText.style.display = "none";
-  } else {
-    btnText.innerHTML = "See less";
-    moreText.style.display = "inline";
-  }
+
+function submit(e,userId,level,action){
+  e.preventDefault();
+  /*
+  localStorage.setItem('name',name);
+  localStorage.setItem('room',room);
+  hist.push('/chat');*/
+  //    alert(userId+' '+level+' '+action)
+      const formData={userId,vendorId:'vendor 1',level,action}
+      if(userId=='' || level=='' || action==''){
+          alert('Please Fill The Places'); return;
+      }
+
+      fetch('http://localhost:5000/config',{ method:'POST',body:JSON.stringify(formData),headers:{'content-type':'application/json'}})
+      .then(response=>{ return response.json()})
+      .then((body)=>{
+               alert(body.msg);
+       })
+      .catch(err=>alert(JSON.stringify(err)));
+
 }
 
 
-function myFunction1() {
-  var moreText = document.getElementById("more1");
-  var btnText = document.getElementById("myBtn1");
 
-  if (btnText.innerHTML === "See less") {
-    btnText.innerHTML = "See more";
-    moreText.style.display = "none";
-  } else {
-    btnText.innerHTML = "See less";
-    moreText.style.display = "inline";
-  }
-}
-function timer(i)
-{
-  setTimeout(()=>{
-    console.log(i);
-  },i*1000);
+
+function final(e){
+  e.preventDefault();
+
+      const formData={vendorId:'vendor 1'}
+      fetch('http://localhost:5000/final',{ method:'POST',body:JSON.stringify(formData),headers:{'content-type':'application/json'}})
+      .then(response=>{ return response.json()})
+      .then((body)=>{
+               alert(body.finalResult);
+       })
+      .catch(err=>alert(JSON.stringify(err)));
 
 }
