@@ -18,8 +18,7 @@
     "socket.io": "^3.1.0"
     },
   "scripts": {
-    "start": "npm install && node server.js",
-    "postinstall": "cd client && npm run build"
+    "start": "npm install && node server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
