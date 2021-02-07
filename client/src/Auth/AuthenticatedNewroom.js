@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
 import axios from 'axios'
 import url from '../url'
+import Loading from '../components/loading'
 
 export default function Authenticatednewroom(Newroom,Authredirect){
 
@@ -27,7 +28,7 @@ export default function Authenticatednewroom(Newroom,Authredirect){
 
       })
    })
-   return (auth==0)?null:(auth==1)?<Newroom {...props}/>:<Authredirect redirect='signin'/>
+   return (auth==0)?<Loading />:(auth==1)?<Newroom {...props}/>:<Authredirect redirect='signin'/>
 //  return (auth)?<Home {...props}/>:<Authredirect/>
  }
 

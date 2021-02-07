@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
 import axios from 'axios'
 import url from '../url'
+import Loading from '../components/loading'
 
 export default function Authenticatedchatting(Chatting,Authredirect){
 
@@ -31,7 +32,7 @@ export default function Authenticatedchatting(Chatting,Authredirect){
       })
   })
 
-  return (auth==0)?null:(auth==1)?<Chatting {...props}/>:<Authredirect redirect={redirect}/>
+  return (auth==0)?<Loading />:(auth==1)?<Chatting {...props}/>:<Authredirect redirect={redirect}/>
 
  }
 
