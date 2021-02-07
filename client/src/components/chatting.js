@@ -208,21 +208,22 @@ const Chatting=(props)=>{
 
                <div style={{padding:'10px'}}>
                   <b>{msg.name}</b>
-                  <br /><br />
+                  <br />
                   <span>{msg.message}</span>
+                  <br />
                   <span style={{float:'right'}}>{msg.time}</span>
                 </div>
                 :(msg.flag==1)?
                 <div style={{padding:'10px'}}>
                   <b>{msg.name}</b>
-                  <br /><br />
+                  <br />
                   <span><img src={url+'/uploads/'+msg.path} height='100%' width='100%'/></span>
                   <span style={{float:'right'}}>{msg.time}</span>
                  </div>
                  :
                  <div style={{padding:'10px'}}>
                    <b>{msg.name}</b>
-                   <br /><br />
+                   <br />
                    <video width="100%" height="100%" controls>
                      <source src={url+'/uploads/'+msg.path} type="video/mp4" />
                      <source src={url+'/uploads/'+msg.path} type="video/ogg" />

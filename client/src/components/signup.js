@@ -58,13 +58,12 @@ export default function Signup(props) {
   const [password,setPassword]=useState('')
   const [confirmPassword,setConfirmPassword]=useState('')
   const [otp,setOtp]=useState('')
+  const [receivedOtp,setReceivedOtp]=useState('')
 
 
   	const register=(event)=>{
   		event.preventDefault();
 
-      const receivedOtp=localStorage.getItem('otp');
-      alert(receivedOtp)
       if(otp!=receivedOtp){
         alert('Incorrect OTP'); return;
       }
@@ -83,7 +82,7 @@ export default function Signup(props) {
           localStorage.setItem('name',name);
           localStorage.setItem('email',email);
           localStorage.setItem('token',token);
-          localStorage.removeItem('otp');
+          //localStorage.removeItem('otp');
 
           props.history.push('/');
         }
@@ -101,9 +100,11 @@ export default function Signup(props) {
         .then((response)=>{
             const body=response.data
             let receivedOtp=null;
-            if(body.status==1)receivedOtp=body.otp;
-             alert(body.msg);
-             localStorage.setItem('otp',receivedOtp);
+            alert(body.msg);
+
+            if(body.status==1)setReceivedOtp(body.otp);
+
+             //localStorage.setItem('otp',receivedOtp);
     		 })
          .catch(err=>console.log(err));
     }
