@@ -3,7 +3,7 @@ function con(mongoose){
 	//mongodb://localhost/test
 	// mongodb+srv://has_786:<password>@cluster0.torm7.mongodb.net/test
 //mongodb+srv://react:react@cluster0.vvcms.mongodb.net/test?retryWrites=true&w=majority
-mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://react:react@cluster0.vvcms.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
