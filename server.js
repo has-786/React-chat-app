@@ -167,6 +167,7 @@ app.post('/localSignin',(req,res,next)=>{
 	const email=req.body.email;
 	const pass=req.body.pass;
 
+<<<<<<< HEAD
 	 Users.findOne({email})
     .then(function(user1) {
 		if(user1) return bcrypt.compare(pass,user1.pass);
@@ -333,6 +334,15 @@ app.post('/exitRoom',checkAuth,(req,res)=>{
 	   }
 	})
 	.catch(err=>{console.log(err)})
+=======
+		Config(req,res,Approvals,Vendors)
+
+})
+
+
+app.post('/final',(req,res)=>{
+	FinalResult(req,res,Vendors)
+>>>>>>> V-comply 2
 })
 
 
