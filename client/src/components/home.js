@@ -1,54 +1,50 @@
-/*import io from 'socket.io-client';
-import {useRef} from 'react';
-const Home=(props)=>{
-
-
-  const nameRef=useRef(null);
-  const roomRef=useRef(null);
-  const userId=useRef(null);
-  const level=useRef(null);
-  const action=useRef(null);
-
-  return <div>
-          <center><div>Chat 110</div>
-          <form >
-            <input type='text' name='userId' ref={userId} placeholder='your id'/><br /><br />
-            <input type='text' name='vendorId'    placeholder='vendor name' value='vendor 1'/><br /><br />
-            <input type='text' name='level' ref={level} placeholder='Level No.'/><br /><br />
-
-            <select name='action' ref={action}>
-              <option>Approved</option>
-              <option>Rejected</option>
-              <option>Reject & Remove from workflow</option>
-            </select>
-            <br /><br />
-            <button  value='submit' onClick={(evt)=>{alert(JSON.stringify(userId.current.value));submit(evt,userId.current.value,level.current.value,action.current.value)}}>Submit</button><br />
-
-
-          </form>
-          </center>
-         </div>
-
-
-
-}*/
-import React,{useState} from 'react';
+import io from 'socket.io-client';
+import React,{useState,useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Select from '@material-ui/core/Select';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Draggable from 'react-draggable';
+
+
+import Fab from '@material-ui/core/Fab';
+
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import RoomIcon from '@material-ui/icons/Room';
+import GroupIcon from '@material-ui/icons/Group';
+
+import axios from 'axios'
+import url from '../url'
+import socket from '../socketurl'
+
+import Header from './header'
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -68,150 +64,244 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
+  }
+
 }));
 
-export default function Home(props) {
-  const classes = useStyles();
 
-  const [userId,setUserId]=useState('');
-  const [level,setLevel]=useState('');
-  const [action,setAction]=useState('Select');
+
+
+
+function Copyright() {
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper} >
-        <Avatar className={classes.avatar}>
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Approve
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Enter Your Id"
-            name='userId'
-            value={userId}
-            onChange={(evt)=>setUserId(evt.target.value)}
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Enter Vendor Id"
-            name='vendorId'
-            value='vendor 1'
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            type='number'
-            required
-            fullWidth
-            label="Enter Level"
-            value={level}
-            onChange={(evt)=>setLevel(evt.target.value)}
-            autoFocus
-          />
-          <FormHelperText>Select Action</FormHelperText>
-
-          <Select
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          value={action}
-          onChange={(evt)=>setAction(evt.target.value)}
-          autoFocus
-          >
-            <MenuItem
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            value='Approved'>Approved</MenuItem>
-            <MenuItem
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            value='Rejected'>Rejected</MenuItem>
-            <MenuItem
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            value='Reject & Remove from workflow'>Reject & Remove from workflow</MenuItem>
-          </Select>
-
-
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(evt)=>submit(evt,userId,level,action)}
-          >
-            Submit
-          </Button>
-
-          <Button
-            fullWidth
-            variant="contained"
-            color="secondary"
-            className={classes.submit}
-            onClick={(evt)=>final(evt)}
-          >
-            Final Result
-          </Button>
-
-        </form>
-      </div>
-    </Container>
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
   );
 }
 
 
-
-function submit(e,userId,level,action){
-  e.preventDefault();
-  /*
-  localStorage.setItem('name',name);
-  localStorage.setItem('room',room);
-  hist.push('/chat');*/
-  //    alert(userId+' '+level+' '+action)
-      const formData={userId,vendorId:'vendor 1',level,action}
-      if(userId=='' || level=='' || action==''){
-          alert('Please Fill The Places'); return;
-      }
-
-      fetch('http://localhost:5000/config',{ method:'POST',body:JSON.stringify(formData),headers:{'content-type':'application/json'}})
-      .then(response=>{ return response.json()})
-      .then((body)=>{
-               alert(body.msg);
-       })
-      .catch(err=>alert(JSON.stringify(err)));
-
-}
+export default function Home(props) {
 
 
 
 
-function final(e){
-  e.preventDefault();
 
-      const formData={vendorId:'vendor 1'}
-      fetch('http://localhost:5000/final',{ method:'POST',body:JSON.stringify(formData),headers:{'content-type':'application/json'}})
-      .then(response=>{ return response.json()})
-      .then((body)=>{
-               alert(body.finalResult);
-       })
-      .catch(err=>alert(JSON.stringify(err)));
+  const classes=useStyles()
+  const [rooms,setRooms]=useState([])
+  const [latest,setLatest]=useState([])
+  const [open, setOpen] = React.useState(false);
+  const [openDel, setOpenDel] = React.useState(false);
 
+  const [edit, setEdit] = React.useState(null);
+  const [newPassword, setNewPassword] = React.useState("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setEdit(null)
+    setOpen(false);
+  };
+
+  const handleClickOpenDel = () => {
+    setOpenDel(true);
+  };
+
+  const handleCloseDel = () => {
+    setEdit(null)
+    setOpenDel(false);
+  };
+
+  const token=localStorage.getItem('token')
+
+  const secureAxios=axios.create(
+                        {
+                         baseURL:url,
+                         headers:{
+                          "Authorization":`bearer ${token}`
+                        }
+                      })
+
+
+  useEffect(()=>{
+
+      secureAxios.get('getRooms')
+      .then((response)=>{
+            const body=response.data
+            setRooms(body.rooms)
+            setLatest(body.latest)
+      })
+      .catch(err=>{
+        alert(err)
+        props.history.push('/signin');
+      })
+
+  },[])
+
+
+  const editRoom=(room)=>{
+    secureAxios.post('editRoom',{room,newPassword})
+    .then((response)=>{
+          const body=response.data
+          if(body.status==1)alert(`Password updated successfully for room ${room}`)
+          else alert('Something went wrong')
+    })
+    .catch(err=>{
+      alert(err)
+      props.history.push('/signin');
+    })
+  }
+
+
+
+
+  const exitRoom=(room)=>{
+    secureAxios.post('exitRoom',{room})
+    .then((response)=>{
+          const body=response.data
+          if(body.status==1)setLatest(latest.filter(r=>r!=room))
+          else alert('Something went wrong')
+    })
+    .catch(err=>{
+      alert(err)
+      props.history.push('/signin')
+    })
+  }
+
+
+
+    const deleteRoom=(room)=>{
+      secureAxios.post('deleteRoom',{room})
+      .then((response)=>{
+            const body=response.data
+            if(body.status==1){setLatest(latest.filter(r=>r!=room)); setRooms(rooms.filter(r=>r!=room));}
+            else alert('Something went wrong')
+      })
+      .catch(err=>{
+        alert(err)
+        props.history.push('/signin')
+      })
+    }
+
+
+
+
+
+  return (
+    <>
+    <Header name='Home' {...props}/>
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Edit password for group {edit}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Enter new password below
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Password"
+            value={newPassword}
+            onChange={(evt)=>setNewPassword(evt.target.value)}
+            type="password"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={()=>{editRoom(edit); handleClose();}} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={openDel}
+        onClose={handleCloseDel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Delete group</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure want to delete group {edit}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDel} color="primary">
+            No
+          </Button>
+          <Button onClick={()=>{deleteRoom(edit); handleCloseDel();}} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+
+      <Fab color="primary" style={{height:'50px',width:'50px',float:'right'}}  aria-label="New Room" onClick={()=>props.history.push('/newroom')}>
+        <AddIcon />
+      </Fab>
+
+      <Divider />
+      <br/><br/>
+      <div>
+      <h6>My Groups</h6>
+      <Divider />
+      <List>
+        {rooms.sort((a,b)=>{return (a<b)?-1:1}).map((text, index) => (
+          <ListItem button key={text} onClick={()=>props.history.push(`/chat/${text}`)}>
+              <ListItemAvatar>
+                    <Avatar>
+                      <GroupIcon color="primary" />
+                    </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={text} />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete">
+                  <EditIcon color='primary' onClick={()=>{setEdit(text);  handleClickOpen();}}/>
+                </IconButton>
+                <IconButton edge="end" aria-label="delete">
+                  <DeleteIcon color='secondary' onClick={()=>{setEdit(text);  handleClickOpenDel();}}/>
+                </IconButton>
+              </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+      <br /><br />
+      <h6>All Groups</h6>
+      <Divider />
+      <List>
+        {latest.sort((a,b)=>{return (a<b)?-1:1}).map((text, index) => (
+          <ListItem button key={text} onClick={()=>props.history.push(`/chat/${text}`)}>
+              <ListItemAvatar>
+                    <Avatar>
+                      <GroupIcon color="primary" />
+                    </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={text} />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete" onClick={exitRoom.bind(this,text)}>
+                    <MeetingRoomIcon color='secondary'  />
+                </IconButton>
+              </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+      </div>
+      <Box mt={8} className={classes.footer}>
+        <Copyright />
+      </Box>
+    </Container>
+    </>
+  );
 }

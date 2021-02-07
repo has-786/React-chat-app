@@ -12,16 +12,14 @@ db.once('open', function() {
 }
 const integer={type:Number, validate : {validator : Number.isInteger}};
 
-const usersSchema=new mongoose.Schema({id:String,name:String,action:{type:String,default:'None'},status:{type:String,default:'Active'}})
+const usersSchema=new mongoose.Schema({name:String,email:String,pass:String,rooms:Array,latest:Array})
 const users=mongoose.model('users',usersSchema)
 
-const approvalsSchema=new mongoose.Schema({vendor:String,level:integer,type:String,users:[usersSchema]})
-const approvals=mongoose.model('approvals',approvalsSchema)
+const roomsSchema=new mongoose.Schema({name:String,pass:String,online:Array,msgs:Array})
+const rooms=mongoose.model('rooms',roomsSchema)
 
-const vendorsSchema=new mongoose.Schema({name:String,levels:integer,status:{type:String,default:'Active'}})
-const vendors=mongoose.model('vendors',vendorsSchema)
 
-module.exports={con,approvals,vendors};
+module.exports={con,users,rooms};
 
 /*
  [

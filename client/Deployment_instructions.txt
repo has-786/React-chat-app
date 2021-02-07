@@ -1,9 +1,0 @@
-The code is deployed and live on http://syedjahecs.000webhostapp.com/
-
-You can do following steps for deployment:
-
-1. $ npm install
-    It is used to download the node_modules.
-2. $ npm run build
-    Builds the app for production to the `build` folder.
-3. Use the files generated inside the build folder, place the files inside public_html folder of website to be deployed.
