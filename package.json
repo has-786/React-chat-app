@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/react": "^11.2.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.3",
@@ -33,18 +32,13 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
-    "react-test-renderer": "^17.0.1",
-    "redux": "^4.0.5",
-    "redux-logger": "^3.0.6",
     "request": "^2.88.2",
     "socket.io": "^3.1.0",
-    "socket.io-client": "^3.1.0",
-    "twilio": "^3.48.2",
-    "typescript": "^3.8.3"
+    "socket.io-client": "^3.1.0"
   },
   "scripts": {
     "start": "npm install && node server.js",
-    "heroku-postbuild": "cd client && npm install"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
