@@ -19,8 +19,9 @@ import axios from 'axios'
 import url from '../url'
 import '../css/chat.css'
 import Header from './header'
-import socket from '../socketurl'
+import io from 'socket.io-client';
 
+let socket;
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -85,41 +86,39 @@ const Chatting=(props)=>{
 
 
   useEffect(()=>{
-
-     if(!flag){
-       setFlag(true);
+       socket=io()
        socket.emit('create', room);
        socket.emit('new-user-joined',name,room);
-       getMessages(room)
 
-     }
+       getMessages(room)
        socket.on('user-joined',name=>{
          //setMsgs(msgs=>[...msgs,`${name} joined`])
       //    audio.play()
         // setMsgs(msgs=>[...msgs,{name:'',message:`${name} joined`,time:''}]);
-         //alert(`${name} joined`)
+      //   alert(`${name} joined on group ${room}`)
        })
 
        socket.on('user-left',name=>{
-         //alert(`${name} left`)
+         alert(`${name} left from group ${room}`)
          //setMsgs(msgs=>[...msgs,{name:'',message:`${name} left`,time:''}]);
        })
 
        socket.on('receive',data=>{
-         setMsgs(msgs=>[...msgs,data]);
+        // if(data.room===room){
+           setMsgs(msgs=>[...msgs,data]);
+           if(email!==data.email)audio.play();
+      //   }
          //const messages=document.getElementById('messages');
         // messages.scrollTop = messages.scrollHeight;
 
          //scrollToBottom(messages);
 
-         if(email!=data.email)audio.play();
        })
-       return ()=>{socket.disconnect();}
-},[])
+       return ()=>{socket.disconnect()}
+  },[])
 
 
-  function scrollToBottom() {
-    }
+
 
 
   function getMessages(room){
@@ -136,7 +135,6 @@ const Chatting=(props)=>{
       secureAxios.post('getMessages',{room})
       .then((response)=>{
             const body=response.data
-
             if(body.status==1)setMsgs(body.msgs)
       })
       .catch(err=>{})

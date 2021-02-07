@@ -4,7 +4,7 @@ const path=require('path')
 const fs=require('fs')
 app=express()
 var http = require('http').createServer(app);
-
+const router = express.Router({mergeParams: true})
 
 app.use('/',express.static(path.join(__dirname,'/')));
 app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
@@ -25,7 +25,7 @@ app.get('/newroom',(req,res)=>{
 app.get('/enterroom',(req,res)=>{
 	res.sendFile(path.join(__dirname,'client','build','index.html'));
 });
-app.get('/chat/[room]',(req,res)=>{
+router.get('/chat/:room',(req,res)=>{
 	res.sendFile(path.join(__dirname,'client','build','index.html'));
 });
 
@@ -44,8 +44,7 @@ const bodyParser=require('body-parser');
 const bcrypt=require('bcryptjs');
 
 app.use(bodyParser.json())
-//const io=require('socket.io')(socketport,{cors:true,origin:'192.168.0.6:3000'});
-var io = require('socket.io')(http);
+const io = require('socket.io')(http);
 let users={}
 let room;
 const appMail='syedhasnain9163@gmail.com'
@@ -83,13 +82,13 @@ io.sockets.on('connection',(socket)=>{
 						 			.then(update=>console.log(`Room ${message.room} message updated successfully`))
 						 			.catch(err=>console.log(err))
 
-									 io.sockets.in(message.room).emit('receive',{flag:message.flag,email:message.email,message:null,path:message.path,name:message.name,time:message.time})
+									 io.sockets.in(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:null,path:message.path,name:message.name,time:message.time})
 				    }
 						else console.log(err)
 				 });
 			 }
 			else {
-				io.sockets.in(message.room).emit('receive',{flag:message.flag,email:message.email,message:message.msg,name:message.name,time:message.time})
+				io.sockets.in(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:message.msg,name:message.name,time:message.time})
 				Rooms.updateOne({name:message.room},{$push:{msgs:{flag:message.flag,email:message.email,message:message.msg,path:message.path,name:message.name,time:message.time}}})
 				.then(update=>console.log(`Room ${message.room} message updated successfully`))
 				.catch(err=>console.log(err))
@@ -98,6 +97,7 @@ io.sockets.on('connection',(socket)=>{
 
 		// on disconnect
 		 socket.on('disconnect',(id)=>{
+			 socket.disconnect(true)
 			 console.log(id)
  	 	 })
  })
@@ -282,6 +282,7 @@ app.get('/getRooms',checkAuth,(req,res)=>{
 
 app.post('/chat/getMessages',checkAuth,(req,res)=>{
 	const room=req.body.room
+	console.log(room)
 	Rooms.findOne({name:room})
 	.then(room=>{
 		if(!room)res.send({msgs:null,status:0})

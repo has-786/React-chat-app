@@ -26,7 +26,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-
 import Fab from '@material-ui/core/Fab';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -130,7 +129,6 @@ export default function Home(props) {
 
 
   useEffect(()=>{
-
       secureAxios.get('getRooms')
       .then((response)=>{
             const body=response.data
