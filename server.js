@@ -2,13 +2,24 @@ const port=process.env.PORT || 5000;
 const express=require('express')
 const path=require('path')
 const fs=require('fs')
-app=express()
+//app=express()
+const app = express()
 var http = require('http').createServer(app);
-const router = express.Router({mergeParams: true})
 
-app.use('/',express.static(path.join(__dirname,'/')));
+const routes=['/','/signin','/signup','/newroom','/enterroom']
+routes.map(route=>app.use(route,express.static(path.join(__dirname, 'client','build'))))
+routes.map(route=>app.get(route,(req,res)=>{res.sendFile(path.join(__dirname,'client','build','index.html'));}))
+
+//app.use('/',express.static(path.join(__dirname,'/')));
 app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
-app.use(express.static(path.join(__dirname, 'client','build')));
+
+/*
+app.use('/',express.static(path.join(__dirname, 'client','build')));
+app.use('/chat/:room',express.static(path.join(__dirname, 'client','build')));
+app.use('/signin',express.static(path.join(__dirname, 'client','build')));
+app.use('/signup',express.static(path.join(__dirname, 'client','build')));
+app.use('/newroom',express.static(path.join(__dirname, 'client','build')));
+app.use('/enterroom',express.static(path.join(__dirname, 'client','build')));
 
 app.get('/',(req,res)=>{
 	res.sendFile(path.join(__dirname,'client','build','index.html'));
@@ -25,10 +36,10 @@ app.get('/newroom',(req,res)=>{
 app.get('/enterroom',(req,res)=>{
 	res.sendFile(path.join(__dirname,'client','build','index.html'));
 });
-router.get('/chat/:room',(req,res)=>{
+app.get('/chat/:room',(req,res)=>{
 	res.sendFile(path.join(__dirname,'client','build','index.html'));
 });
-
+*/
 //,'/signin','/signup','/newroom','/enterroom','/chat/*'
 
 
@@ -55,7 +66,6 @@ const db=require('./database/db.js');
 db.con(mongoose)
 const Users=db.users
 const Rooms=db.rooms
-
 
 io.sockets.on('connection',(socket)=>{
 
@@ -259,7 +269,7 @@ app.post('/enterroom',checkAuth,(req,res,next)=>{
 })
 
 
-app.get('/chat/getRooms',checkAuth,(req,res)=>{
+app.get("/*/getRooms",checkAuth,(req,res)=>{
 	const _id=req.userData._id
 	Users.findOne({_id})
 	.then(user=>{
@@ -268,6 +278,7 @@ app.get('/chat/getRooms',checkAuth,(req,res)=>{
 	})
 	.catch(err=>{console.log(err)})
 })
+
 
 app.get('/getRooms',checkAuth,(req,res)=>{
 	const _id=req.userData._id
@@ -278,6 +289,8 @@ app.get('/getRooms',checkAuth,(req,res)=>{
 	})
 	.catch(err=>{console.log(err)})
 })
+
+
 
 
 app.post('/chat/getMessages',checkAuth,(req,res)=>{

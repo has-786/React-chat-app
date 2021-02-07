@@ -84,9 +84,10 @@ const Chatting=(props)=>{
   const [message,setMessage]=useState("");
   const [flag,setFlag]=useState(false);
 
+  const socket=io()
 
   useEffect(()=>{
-       socket=io()
+
        socket.emit('create', room);
        socket.emit('new-user-joined',name,room);
 
@@ -104,15 +105,9 @@ const Chatting=(props)=>{
        })
 
        socket.on('receive',data=>{
-        // if(data.room===room){
            setMsgs(msgs=>[...msgs,data]);
            if(email!==data.email)audio.play();
-      //   }
-         //const messages=document.getElementById('messages');
-        // messages.scrollTop = messages.scrollHeight;
-
-         //scrollToBottom(messages);
-
+           window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
        })
        return ()=>{socket.disconnect()}
   },[])
@@ -136,6 +131,8 @@ const Chatting=(props)=>{
       .then((response)=>{
             const body=response.data
             if(body.status==1)setMsgs(body.msgs)
+      //      alert(document.getElementById('messages').scrollHeight)
+             window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
       })
       .catch(err=>{})
   }

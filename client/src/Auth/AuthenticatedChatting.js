@@ -9,7 +9,7 @@ export default function Authenticatedchatting(Chatting,Authredirect){
   const [auth,setAuth]=useState(0)
   const [redirect,setRedirect]=useState('signin')
   const room=props.match.params.room
-
+  //alert(props.match.params.room)
   useEffect(()=>{
     const token=localStorage.getItem('token')
     const secureAxios=axios.create(
@@ -24,7 +24,7 @@ export default function Authenticatedchatting(Chatting,Authredirect){
       .then((response)=>{
             const body=response.data
             if(!body.latest.includes(room)){ setRedirect('enterroom'); setAuth(2); }
-            else setAuth(1)
+            else {setAuth(1);}
       })
       .catch(err=>{
       //  alert(err)
