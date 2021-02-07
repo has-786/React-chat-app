@@ -107,7 +107,7 @@ const Chatting=(props)=>{
        socket.on('receive',data=>{
            setMsgs(msgs=>[...msgs,data]);
            if(email!==data.email)audio.play();
-           window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+           window.scrollTo({top:document.getElementById('container').scrollHeight,behaviour:'smooth'})
        })
        return ()=>{socket.disconnect()}
   },[])
@@ -132,7 +132,7 @@ const Chatting=(props)=>{
             const body=response.data
             if(body.status==1)setMsgs(body.msgs)
       //      alert(document.getElementById('messages').scrollHeight)
-             window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+          setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),300)   
       })
       .catch(err=>{})
   }
@@ -192,7 +192,7 @@ const Chatting=(props)=>{
   <Header name={room} {...props}/>
   </div>
   <div class={classes.main} >
-        <div class={classes.container} >
+        <div class={classes.container} id='container'>
           <div id='messages' class={classes.messageBox}  >
           {
             msgs.map(msg=>{
