@@ -47,17 +47,16 @@ const useStyles = makeStyles({
   messageBox:{
     display: 'flex',
     flexWrap: 'wrap',
-
   },
-  main:{ backgroundColor:'beige',paddingTop:'70px'},
+  main:{ backgroundColor:'beige',height:'100vh',paddingTop:'70px'},
   container:{
     width:'300px',
     margin:'auto',
     minHeight:'70vh',
     padding:'2px',
-    backgroundColor:'beige',
     borderRadius:'10px',
-    border:'2px solid pink'
+    border:'2px solid pink',
+    backgroundColor:'beige',
     },
 
   msgs:{
@@ -67,7 +66,11 @@ const useStyles = makeStyles({
     //backgroundColor:'blue',color:'white',marginLeft:'auto'
   },
   sendbox:{
-    width:'300px'
+    width:'100%'
+  },
+  download:{
+    marginRight:'-15px',
+    color:'white'
   }
 });
 
@@ -85,6 +88,15 @@ const Chatting=(props)=>{
   const [flag,setFlag]=useState(false);
 
   const socket=io()
+  const token=localStorage.getItem('token')
+  const secureAxios=axios.create(
+                        {
+                         baseURL:url,
+                         headers:{
+                          "Authorization":`bearer ${token}`
+                        }
+                      })
+
 
   useEffect(()=>{
 
@@ -118,29 +130,20 @@ const Chatting=(props)=>{
 
   function getMessages(room){
 
-    const token=localStorage.getItem('token')
-    const secureAxios=axios.create(
-                          {
-                           baseURL:url,
-                           headers:{
-                            "Authorization":`bearer ${token}`
-                          }
-                        })
 
       secureAxios.post('getMessages',{room})
       .then((response)=>{
             const body=response.data
             if(body.status==1)setMsgs(body.msgs)
       //      alert(document.getElementById('messages').scrollHeight)
-          setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),300)   
+            window.scrollTo({top:document.getElementById('container').scrollHeight,behaviour:'smooth'})
       })
       .catch(err=>{})
   }
 
 
-
-
   const sendMessage=(name,room,msg)=>{
+    if(msg==='')return;
     let h=new Date().getHours();
     let m=new Date().getMinutes();
     h=(parseInt(h/10)==0)?('0'+h):h;
@@ -152,14 +155,20 @@ const Chatting=(props)=>{
 
 
     async function sendFile(){
-  		//if(!this.state.username){alert('Please Login First');return false;}
+
+      let file=document.getElementById('file-input').files[0];
+
+      if(!document.getElementById('file-input').value)return
+      document.getElementById('file-input').value=''
+
+
       let h=new Date().getHours();
       let m=new Date().getMinutes();
       h=(parseInt(h/10)==0)?('0'+h):h;
       m=(parseInt(m/10)==0)?('0'+m):m;
       const time=h+":"+m;
-      let file=document.getElementById('file-input').files[0];
-      if(!file)return
+
+
       let flag=2;
       if(file.name.toLowerCase().includes('.jpg') || file.name.toLowerCase().includes('.png'))flag=1;
 
@@ -176,6 +185,7 @@ const Chatting=(props)=>{
       {
             let reader = new FileReader();
             reader.readAsDataURL(file);
+          //  alert(document.getElementById('file-input').files[0].value)
 
             reader.onloadend =await function () {
               const b64 = reader.result.replace(/^data:.+;base64,/, '');
@@ -195,7 +205,7 @@ const Chatting=(props)=>{
         <div class={classes.container} id='container'>
           <div id='messages' class={classes.messageBox}  >
           {
-            msgs.map(msg=>{
+            msgs.map((msg,id)=>{
               let includeStyle=(email===msg.email)?rightStyle:{};
 
               return <Paper  elevation={3} className={classes.msgs} style={includeStyle} >
@@ -212,7 +222,7 @@ const Chatting=(props)=>{
                 <div style={{padding:'10px'}}>
                   <b>{msg.name}</b>
                   <br />
-                  <span><img src={url+'/uploads/'+msg.path} height='100%' width='100%'/></span>
+                  <span><img id={id} src={'/uploads/'+msg.path} height='100%' width='100%' /></span>
                   <span style={{float:'right'}}>{msg.time}</span>
                  </div>
                  :

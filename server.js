@@ -8,13 +8,15 @@ const nodemailer=require('nodemailer');
 const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
 const bcrypt=require('bcryptjs');
+const cookieParser = require('cookie-parser');
 
 const router=express.Router()
 const app = express()
 const http = require('http').createServer(app);
 
 app.use(bodyParser.json())
-app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
+app.use(cookieParser());
+
 const cors = require('cors');
 app.use(cors());
 
@@ -27,6 +29,8 @@ const db=require('./database/db.js');
 db.con(mongoose)
 const Users=db.users
 const Rooms=db.rooms
+let room;
+
 
 io.sockets.on('connection',(socket)=>{
 
@@ -118,9 +122,9 @@ app.post('/localSignup',(req,res)=>{
 						var Newuser=new Users({name:name,email:email,pass:hash,rooms:[],latest:[]});
 						Newuser.save((err,user2)=>{ if(err){console.log(err); res.send({msg:"Someting Went Wrong",status:0}); }
 						                            else {console.log(user2);
-                                          const token=jwt.sign({_id:user2._id,email:email},secret,{
-                                            expiresIn:'1h'
-                                          })
+                                          const token=jwt.sign({_id:user2._id,email:email},secret,{  expiresIn:'1h'  })
+																					res.cookie('token',token,{maxAge:3600,httpOnly:true,sameSite:true})
+
                                           console.log('token '+token);
 																					console.log("User registered: "+name);
 
@@ -137,6 +141,7 @@ app.post('/localSignin',(req,res,next)=>{
 	const email=req.body.email;
 	const pass=req.body.pass;
 
+
 	 Users.findOne({email})
     .then(function(user1) {
 		if(user1) return bcrypt.compare(pass,user1.pass);
@@ -146,10 +151,9 @@ app.post('/localSignin',(req,res,next)=>{
 		 	   if(samePassword==true){
 					 Users.findOne({email:email},(err,user2)=>{
 						 console.log(user2);
-          	const token=jwt.sign({_id:user2._id,email:email},'access_token_secret',{
-            expiresIn:'1h'
-          	})
+          	 const token=jwt.sign({_id:user2._id,email:email},'access_token_secret',{expiresIn:'1h'})
           console.log('token '+token);
+					res.cookie('token',token,{maxAge:3600,httpOnly:true,sameSite:true})
 					res.send({token,name:user2.name,email:user2.email,msg:"Logged in successfully",status:1});  });
 		 }
 		 else res.send({name:"Wrong Credentials",status:0});
@@ -323,6 +327,13 @@ app.post('/deleteRoom',checkAuth,(req,res)=>{
 	})
 	.catch(err=>{console.log(err)})
 })
+
+
+app.get('/uploads/:img',checkAuth,(req,res)=>{
+
+			res.download('./uploads/'+req.params.img)
+})
+
 
 
 
