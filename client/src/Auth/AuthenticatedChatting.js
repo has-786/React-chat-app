@@ -27,10 +27,9 @@ export default function Authenticatedchatting(Chatting,Authredirect){
             else {setAuth(1);}
       })
       .catch(err=>{
-      //  alert(err)
         setAuth(2)
       })
-  })
+  },[])
 
   return (auth==0)?<Loading />:(auth==1)?<Chatting {...props}/>:<Authredirect redirect={redirect}/>
 

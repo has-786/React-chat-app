@@ -2,51 +2,6 @@ const port=process.env.PORT || 5000;
 const express=require('express')
 const path=require('path')
 const fs=require('fs')
-//app=express()
-const app = express()
-var http = require('http').createServer(app);
-
-const routes=['/','/signin','/signup','/newroom','/enterroom']
-routes.map(route=>app.use(route,express.static(path.join(__dirname, 'client','build'))))
-routes.map(route=>app.get(route,(req,res)=>{res.sendFile(path.join(__dirname,'client','build','index.html'));}))
-
-//app.use('/',express.static(path.join(__dirname,'/')));
-app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
-
-/*
-app.use('/',express.static(path.join(__dirname, 'client','build')));
-app.use('/chat/:room',express.static(path.join(__dirname, 'client','build')));
-app.use('/signin',express.static(path.join(__dirname, 'client','build')));
-app.use('/signup',express.static(path.join(__dirname, 'client','build')));
-app.use('/newroom',express.static(path.join(__dirname, 'client','build')));
-app.use('/enterroom',express.static(path.join(__dirname, 'client','build')));
-
-app.get('/',(req,res)=>{
-	res.sendFile(path.join(__dirname,'client','build','index.html'));
-});
-app.get('/signin',(req,res)=>{
-	res.sendFile(path.join(__dirname,'client','build','index.html'));
-});
-app.get('/signup',(req,res)=>{
-	res.sendFile(path.join(__dirname,'client','build','index.html'));
-});
-app.get('/newroom',(req,res)=>{
-	res.sendFile(path.join(__dirname,'client','build','index.html'));
-});
-app.get('/enterroom',(req,res)=>{
-	res.sendFile(path.join(__dirname,'client','build','index.html'));
-});
-app.get('/chat/:room',(req,res)=>{
-	res.sendFile(path.join(__dirname,'client','build','index.html'));
-});
-*/
-//,'/signin','/signup','/newroom','/enterroom','/chat/*'
-
-
-
-const cors = require('cors');
-app.use(cors());
-
 const checkAuth=require('./check-auth.js');
 const jwt=require('jsonwebtoken');
 const nodemailer=require('nodemailer');
@@ -54,10 +9,16 @@ const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
 const bcrypt=require('bcryptjs');
 
+const router=express.Router()
+const app = express()
+const http = require('http').createServer(app);
+
 app.use(bodyParser.json())
+app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
+const cors = require('cors');
+app.use(cors());
+
 const io = require('socket.io')(http);
-let users={}
-let room;
 const appMail='syedhasnain9163@gmail.com'
 const appMailPassword='labbaikyahussain'
 const secret='access_token_secret'
@@ -76,7 +37,6 @@ io.sockets.on('connection',(socket)=>{
 
 	// When new user joins
 		socket.on('new-user-joined',(name,room)=>{
-			console.log(users)
 			console.log(`user joined: ${name} on room ${room}`)
 			socket.broadcast.to(room).emit('user-joined',name)
 		})
@@ -269,7 +229,7 @@ app.post('/enterroom',checkAuth,(req,res,next)=>{
 })
 
 
-app.get("/*/getRooms",checkAuth,(req,res)=>{
+router.get('/getRooms',checkAuth,(req,res)=>{
 	const _id=req.userData._id
 	Users.findOne({_id})
 	.then(user=>{
@@ -279,21 +239,13 @@ app.get("/*/getRooms",checkAuth,(req,res)=>{
 	.catch(err=>{console.log(err)})
 })
 
+app.use('/',router)
+app.use('/chat',router)
+app.use('/chat/:room',router)
+app.use('/enterroom',router)
+app.use('/newroom',router)
 
-app.get('/getRooms',checkAuth,(req,res)=>{
-	const _id=req.userData._id
-	Users.findOne({_id})
-	.then(user=>{
-		console.log(user)
-		res.send({rooms:user.rooms,latest:user.latest})
-	})
-	.catch(err=>{console.log(err)})
-})
-
-
-
-
-app.post('/chat/getMessages',checkAuth,(req,res)=>{
+router.post('/getMessages',checkAuth,(req,res)=>{
 	const room=req.body.room
 	console.log(room)
 	Rooms.findOne({name:room})
@@ -305,7 +257,7 @@ app.post('/chat/getMessages',checkAuth,(req,res)=>{
 	})
 	.catch(err=>{console.log(err)})
  })
-
+app.use('/chat',router)
 
 app.post('/editRoom',checkAuth,(req,res)=>{
 	const room=req.body.room
@@ -373,6 +325,11 @@ app.post('/deleteRoom',checkAuth,(req,res)=>{
 })
 
 
+
+// rendering front-end
+const routes=['/','/signin','/signup','/newroom','/enterroom','/chat/:room']
+routes.map(route=>app.use(route,express.static(path.join(__dirname, 'client','build'))))
+routes.map(route=>app.get(route,(req,res)=>{res.sendFile(path.join(__dirname,'client','build','index.html'));}))
 
 
 http.listen(port,()=>{console.log(`Server running on port ${port}`)});

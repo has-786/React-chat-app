@@ -25,7 +25,7 @@ ReactDom.render(
     <Route  path='/signup' component={Signup} />
     <Route  path='/enterroom' component={Authenticatedenterroom(Enterroom,Authredirect)} />
     <Route  path='/newroom' component={Authenticatednewroom(Newroom,Authredirect)} />
-    <Route  path='/chat/:room' component={Authenticatedchatting(Chatting,Authredirect)} />
+    <Route  exact path='/chat/:room' component={Authenticatedchatting(Chatting,Authredirect)} />
   </Switch>
 </BrowserRouter>
 ,
