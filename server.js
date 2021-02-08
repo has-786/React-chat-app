@@ -329,8 +329,15 @@ app.post('/deleteRoom',checkAuth,(req,res)=>{
 })
 
 
-app.get('/uploads/:img',checkAuth,(req,res)=>{
-
+app.get('/uploads/:img/:token',(req,res)=>{
+	try {
+			const token = req.params.token
+			const decoded = jwt.verify(token, 'access_token_secret');
+	} catch (error) {
+			return res.status(401).json({
+					msg: 'You are not authorized!!!'
+			});
+	}
 			res.download('./uploads/'+req.params.img)
 })
 

@@ -222,7 +222,7 @@ const Chatting=(props)=>{
                 <div style={{padding:'10px'}}>
                   <b>{msg.name}</b>
                   <br />
-                  <span><img id={id} src={'/uploads/'+msg.path} height='100%' width='100%' /></span>
+                  <span><img src={`/uploads/${msg.path}/${token}`} height='100%' width='100%' /></span>
                   <span style={{float:'right'}}>{msg.time}</span>
                  </div>
                  :
