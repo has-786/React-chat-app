@@ -149,6 +149,13 @@ const Chatting=(props)=>{
     h=(parseInt(h/10)==0)?('0'+h):h;
     m=(parseInt(m/10)==0)?('0'+m):m;
     const time=h+":"+m;
+    var encrypted = CryptoJS.AES.encrypt(message, 'abc123xyz');
+    console.log(encrypted.toString())
+
+    var decrypted = CryptoJS.AES.decrypt(encrypted, key);
+    console.log(decrypted.toString())
+
+
     socket.emit('send',{flag:0,email,room,name,msg,time}); // setMsgs(msgs=>[...msgs,{name,message}]);
     setMessage("");
   }
