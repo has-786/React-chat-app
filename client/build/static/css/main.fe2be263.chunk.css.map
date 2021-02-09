@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/css/chat.css"],"names":[],"mappings":"AACA,yCACE,WACE,qBAAqB,CACrB,kBACF,CAEF","file":"main.fe2be263.chunk.css","sourcesContent":["\r\n@media only screen and (min-width: 769px) {\r\n  .container{\r\n    border:2px solid blue;\r\n    border-radius: 30px;\r\n  }\r\n\r\n}\r\n"]}
