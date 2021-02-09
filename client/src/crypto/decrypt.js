@@ -56,4 +56,4 @@ return (async ()=>{
 }
 //console.log(decoder.decode(decrypted));
 
-export default {decryptFun}
+export default decryptFun

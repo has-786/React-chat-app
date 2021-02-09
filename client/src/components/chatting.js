@@ -22,8 +22,8 @@ import url from '../url'
 import '../css/chat.css'
 import Header from './header'
 import io from 'socket.io-client';
-import decrypt from '../crypto/decrypt'
-import encrypt from '../crypto/encrypt'
+import decryptFun from '../crypto/decrypt'
+import encryptFun from '../crypto/encrypt'
 
 let socket;
 const useStyles = makeStyles({
@@ -130,13 +130,17 @@ const Chatting=(props)=>{
        socket.on('receive',data=>{
          if(email===data.email)return;
                 console.log('received')
-                console.log(data.salt,data.iv)
-                data.salt= new Uint8Array(data.salt) // salt and
-                data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
+
                 //console.log(data.salt,data.iv)
                 if(!data.path)
                 {
-                  decrypt.decryptFun(data.message,data.salt,data.iv)
+                  console.log(data.salt,data.iv)
+                  data.salt=data.salt.split(",")
+                  data.iv=data.iv.split(",")
+
+                  data.salt= new Uint8Array(data.salt) // salt and
+                  data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
+                  decryptFun(data.message,data.salt,data.iv)
                   .then(decrypted=>{
                       data.message=decrypted;  // decrypt the received message
                       setMsgs(msgs=>[...msgs,data]);
@@ -172,13 +176,19 @@ const Chatting=(props)=>{
                         const msgs=body.msgs
                         for(let i=0;i<msgs.length;i++){
                           const data=msgs[i]
-                          console.log("salt "+data.salt)
-                          console.log("iv "+data.iv)
+
                           console.log(data)
                           if(!data.path){
+                            console.log("salt "+data.salt)
+                            console.log("iv "+data.iv)
+                            data.salt=data.salt.split(",")
+                            data.iv=data.iv.split(",")
+                            for(let i=0;i<data.salt.length;i++)data.salt[i]=parseInt(data.salt[i])
+                            for(let i=0;i<data.iv.length;i++)data.iv[i]=parseInt(data.iv[i])
+
                             data.salt= new Uint8Array(data.salt) // salt and
                             data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
-                            await decrypt.decryptFun(data.message,data.salt,data.iv)
+                            await decryptFun(data.message,data.salt,data.iv)
                             .then(decrypted=>{
                                                 data.message=decrypted;  // decrypt the received message
                                                 setMsgs(msgs=>[...msgs,data])
@@ -210,13 +220,18 @@ const Chatting=(props)=>{
     var text = msg;
     document.getElementById('loader').style.display='block'
 
-    const salt = window.crypto.getRandomValues(new Uint8Array(16));
-    const iv = window.crypto.getRandomValues(new Uint8Array(16));
+    let salt = window.crypto.getRandomValues(new Uint8Array(16));
+    let iv = window.crypto.getRandomValues(new Uint8Array(16));
     console.log(salt,iv)
     setMsgs(msgs=>[...msgs,{flag:0,email,room,name,message:msg,time}]);
-    encrypt.encryptFun(text,salt,iv).then(encrypted=>{
+    encryptFun(text,salt,iv).then(encrypted=>{
       console.log(encrypted)
-      socket.emit('send',{flag:0,email,room,name,msg:encrypted,salt:[...salt],iv:[...iv],time}); // setMsgs(msgs=>[...msgs,{name,message}]);
+      salt=[...salt]
+      iv=[...iv]
+      salt=salt.join(",")
+      iv=iv.join(",")
+
+      socket.emit('send',{flag:0,email,room,name,msg:encrypted,salt,iv,time}); // setMsgs(msgs=>[...msgs,{name,message}]);
       document.getElementById('loader').style.display='none'
       console.log('sent')
       setMessage("");
