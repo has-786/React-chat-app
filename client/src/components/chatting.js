@@ -121,6 +121,7 @@ const Chatting=(props)=>{
        })
 
        socket.on('receive',data=>{
+         if(email===data.email)return;
                 console.log('received')
                 console.log(data.salt,data.iv)
                 data.salt= new Uint8Array(data.salt) // salt and
@@ -140,7 +141,7 @@ const Chatting=(props)=>{
                   setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),500)
                 }
 
-               if(email!==data.email)audio.play();
+                audio.play();
        })
        return ()=>{socket.disconnect()}
   },[])
@@ -205,7 +206,7 @@ const Chatting=(props)=>{
     const salt = window.crypto.getRandomValues(new Uint8Array(16));
     const iv = window.crypto.getRandomValues(new Uint8Array(16));
     console.log(salt,iv)
-
+    setMsgs(msgs=>[...msgs,{flag:0,email,room,name,message:msg,time}]);
     encrypt.encryptFun(text,salt,iv).then(encrypted=>{
       console.log(encrypted)
       socket.emit('send',{flag:0,email,room,name,msg:encrypted,salt:[...salt],iv:[...iv],time}); // setMsgs(msgs=>[...msgs,{name,message}]);
@@ -219,11 +220,11 @@ const Chatting=(props)=>{
 
 
     async function sendFile(){
-      document.getElementById('loader').style.display='block'
       let file=document.getElementById('file-input').files[0];
 
       if(!document.getElementById('file-input').value)return
       document.getElementById('file-input').value=''
+      document.getElementById('loader').style.display='block'
 
 
       let h=new Date().getHours();
@@ -243,6 +244,7 @@ const Chatting=(props)=>{
             .then(function (compressedFile) {
                 socket.emit('send',{flag,email,room,name,path:file.name,img:compressedFile,time});
                 document.getElementById('loader').style.display='none'
+                setMsgs(msgs=>[...msgs,{flag,email,room,name,path:file.name,time}]);
 
             })
             .catch(function (error) {alert(error.message); console.log(error.message);  });
@@ -257,6 +259,8 @@ const Chatting=(props)=>{
               const b64 = reader.result.replace(/^data:.+;base64,/, '');
               socket.emit('send',{flag,email,room,name,path:file.name,img:b64,time});
               document.getElementById('loader').style.display='none'
+              setMsgs(msgs=>[...msgs,{flag,email,room,name,path:file.name,time}]);
+
 
             };
        }

@@ -42,7 +42,7 @@ io.sockets.on('connection',(socket)=>{
 	// When new user joins
 		socket.on('new-user-joined',(name,room)=>{
 			console.log(`user joined: ${name} on room ${room}`)
-			socket.broadcast.to(room).emit('user-joined',name)
+			socket.to(room).emit('user-joined',name)
 		})
 
 	// When user sends a message
@@ -56,14 +56,14 @@ io.sockets.on('connection',(socket)=>{
 						 			.then(update=>console.log(`Room ${message.room} message updated successfully`))
 						 			.catch(err=>console.log(err))
 
-									 io.sockets.in(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:null,path:message.path,name:message.name,time:message.time})
+									 socket.to(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:null,path:message.path,name:message.name,time:message.time})
 				    }
 						else console.log(err)
 				 });
 			 }
 			else {
 
-				io.sockets.in(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,name:message.name,time:message.time})
+				socket.to(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,name:message.name,time:message.time})
 				Rooms.updateOne({name:message.room},{$push:{msgs:{flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,path:message.path,name:message.name,time:message.time}}})
 				.then(update=>console.log(`Room ${message.room} message updated successfully`))
 				.catch(err=>console.log(err))
