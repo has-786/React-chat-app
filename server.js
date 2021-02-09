@@ -20,7 +20,7 @@ app.use(cookieParser());
 const cors = require('cors');
 app.use(cors());
 
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {transports: ['websocket']});
 const appMail='syedhasnain9163@gmail.com'
 const appMailPassword='labbaikyahussain'
 const secret='access_token_secret'

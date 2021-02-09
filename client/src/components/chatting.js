@@ -52,9 +52,8 @@ const useStyles = makeStyles({
     display: 'flex',
     flexWrap: 'wrap',
     backgroundColor:'beige',
-    flexBasis:'100%',
   },
-  main:{ backgroundColor:'beige',height:'100%',paddingTop:'70px'},
+  main:{ backgroundColor:'beige',height:'100%',paddingTop:'70px',width:'100%'},
   container:{
     width:'300px',
     margin:'auto',
@@ -92,7 +91,7 @@ const Chatting=(props)=>{
   const [message,setMessage]=useState("");
   const [flag,setFlag]=useState(false);
 
-  const socket=io()
+  const socket=io(url,{transports: ['websocket']})
   const token=localStorage.getItem('token')
   const secureAxios=axios.create(
                         {
