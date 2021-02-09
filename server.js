@@ -62,8 +62,9 @@ io.sockets.on('connection',(socket)=>{
 				 });
 			 }
 			else {
-				io.sockets.in(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:message.msg,name:message.name,time:message.time})
-				Rooms.updateOne({name:message.room},{$push:{msgs:{flag:message.flag,email:message.email,message:message.msg,path:message.path,name:message.name,time:message.time}}})
+
+				io.sockets.in(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,name:message.name,time:message.time})
+				Rooms.updateOne({name:message.room},{$push:{msgs:{flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,path:message.path,name:message.name,time:message.time}}})
 				.then(update=>console.log(`Room ${message.room} message updated successfully`))
 				.catch(err=>console.log(err))
 		   }
@@ -188,7 +189,7 @@ app.post('/newroom',checkAuth,(req,res)=>{
 						                            else {console.log(room);
 
 																					console.log("Room created: "+name);
-																					Users.updateOne({_id:req.userData._id},{$push:{rooms:name}})
+																					Users.updateOne({_id:req.userData._id},{$push:{rooms:name,latest:name}})
 																					.then(update=>console.log('User room array updated'))
 																					.catch(err=>console.log(err))
 
@@ -256,11 +257,14 @@ router.post('/getMessages',checkAuth,(req,res)=>{
 	.then(room=>{
 		if(!room)res.send({msgs:null,status:0})
 		else{console.log(room)
+			console.log(room.msgs[0].salt)
+
 		res.send({msgs:room.msgs,status:1})
 	  }
 	})
 	.catch(err=>{console.log(err)})
  })
+
 app.use('/chat',router)
 
 app.post('/editRoom',checkAuth,(req,res)=>{

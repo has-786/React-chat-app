@@ -94,6 +94,7 @@ export default function Enterroom(props) {
                 autoComplete="email"
                 value={name}
                 onChange={(evt)=>setName(evt.target.value)}
+                autoFocus
               />
             </Grid>
             <Grid item xs={12}>

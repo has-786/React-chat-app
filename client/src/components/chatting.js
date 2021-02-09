@@ -20,6 +20,8 @@ import url from '../url'
 import '../css/chat.css'
 import Header from './header'
 import io from 'socket.io-client';
+import decrypt from '../crypto/decrypt'
+import encrypt from '../crypto/encrypt'
 
 let socket;
 const useStyles = makeStyles({
@@ -47,8 +49,10 @@ const useStyles = makeStyles({
   messageBox:{
     display: 'flex',
     flexWrap: 'wrap',
+    backgroundColor:'beige',
+    flexBasis:'100%',
   },
-  main:{ backgroundColor:'beige',height:'100vh',paddingTop:'70px'},
+  main:{ backgroundColor:'beige',height:'100%',paddingTop:'70px'},
   container:{
     width:'300px',
     margin:'auto',
@@ -56,7 +60,6 @@ const useStyles = makeStyles({
     padding:'2px',
     borderRadius:'10px',
     border:'2px solid pink',
-    backgroundColor:'beige',
     },
 
   msgs:{
@@ -87,7 +90,7 @@ const Chatting=(props)=>{
   const [message,setMessage]=useState("");
   const [flag,setFlag]=useState(false);
 
-  const socket=io()
+  const socket=io('192.168.0.6:5000')
   const token=localStorage.getItem('token')
   const secureAxios=axios.create(
                         {
@@ -117,14 +120,29 @@ const Chatting=(props)=>{
        })
 
        socket.on('receive',data=>{
-           setMsgs(msgs=>[...msgs,data]);
-           if(email!==data.email)audio.play();
-           window.scrollTo({top:document.getElementById('container').scrollHeight,behaviour:'smooth'})
+                console.log('received')
+                console.log(data.salt,data.iv)
+                data.salt= new Uint8Array(data.salt) // salt and
+                data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
+                //console.log(data.salt,data.iv)
+                if(!data.path)
+                {
+                  decrypt.decryptFun(data.message,data.salt,data.iv)
+                  .then(decrypted=>{
+                      data.message=decrypted;  // decrypt the received message
+                      setMsgs(msgs=>[...msgs,data]);
+                      window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+                   })
+                }
+                else {
+                  setMsgs(msgs=>[...msgs,data]);
+                  setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),500)
+                }
+
+               if(email!==data.email)audio.play();
        })
        return ()=>{socket.disconnect()}
   },[])
-
-
 
 
 
@@ -134,9 +152,41 @@ const Chatting=(props)=>{
       secureAxios.post('getMessages',{room})
       .then((response)=>{
             const body=response.data
-            if(body.status==1)setMsgs(body.msgs)
-      //      alert(document.getElementById('messages').scrollHeight)
-            window.scrollTo({top:document.getElementById('container').scrollHeight,behaviour:'smooth'})
+            if(body.status==1){
+              console.log(body.msgs.slice(body.msgs.length-10,body.msgs.length))
+
+
+
+
+            async function setData(){
+              await (async function(){
+                        const msgs=body.msgs
+                        for(let i=0;i<msgs.length;i++){
+                          const data=msgs[i]
+                          console.log("salt "+data.salt)
+                          console.log("iv "+data.iv)
+                          console.log(data)
+                          if(!data.path){
+                            data.salt= new Uint8Array(data.salt) // salt and
+                            data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
+                            await decrypt.decryptFun(data.message,data.salt,data.iv)
+                            .then(decrypted=>{
+                                                data.message=decrypted;  // decrypt the received message
+                                                setMsgs(msgs=>[...msgs,data])
+                             })
+                          }
+                          else setMsgs(msgs=>[...msgs,data])
+                        }
+                  })()
+
+                  window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+                  window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+                  window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+
+             }
+
+             setData();
+           }
       })
       .catch(err=>{})
   }
@@ -149,15 +199,19 @@ const Chatting=(props)=>{
     h=(parseInt(h/10)==0)?('0'+h):h;
     m=(parseInt(m/10)==0)?('0'+m):m;
     const time=h+":"+m;
-    var encrypted = CryptoJS.AES.encrypt(message, 'abc123xyz');
-    console.log(encrypted.toString())
+    var text = msg;
 
-    var decrypted = CryptoJS.AES.decrypt(encrypted, key);
-    console.log(decrypted.toString())
+    const salt = window.crypto.getRandomValues(new Uint8Array(16));
+    const iv = window.crypto.getRandomValues(new Uint8Array(16));
+    console.log(salt,iv)
 
+    encrypt.encryptFun(text,salt,iv).then(encrypted=>{
+      console.log(encrypted)
+      socket.emit('send',{flag:0,email,room,name,msg:encrypted,salt:[...salt],iv:[...iv],time}); // setMsgs(msgs=>[...msgs,{name,message}]);
+      setMessage("");
 
-    socket.emit('send',{flag:0,email,room,name,msg,time}); // setMsgs(msgs=>[...msgs,{name,message}]);
-    setMessage("");
+    })
+
   }
 
 

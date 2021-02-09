@@ -95,6 +95,7 @@ export default function Newroom(props) {
                 value={name}
                 onChange={(evt)=>setName(evt.target.value)}
                 autoComplete="email"
+                autoFocus
               />
             </Grid>
             <Grid item xs={12}>
