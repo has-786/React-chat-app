@@ -90,7 +90,7 @@ const Chatting=(props)=>{
   const [message,setMessage]=useState("");
   const [flag,setFlag]=useState(false);
 
-  const socket=io('192.168.0.6:5000')
+  const socket=io()
   const token=localStorage.getItem('token')
   const secureAxios=axios.create(
                         {
@@ -302,7 +302,7 @@ const Chatting=(props)=>{
          </div>
          <center>
              <div class={classes.sendbox}>
-               <input type='text' placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)}/>
+               <input type='text' placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)} autoFocus/>
                <button className='btn btn-primary' onClick={sendMessage.bind(this,name,room,message)}>Send</button>
              </div>
              <br />
@@ -310,7 +310,7 @@ const Chatting=(props)=>{
                  <label for="file-input">
                   <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
                  </label>
-                 <input id="file-input" type="file" style={{display:'none'}}/>
+                 <input id="file-input" type="file" style={{display:'none'}} />
                  <button className='btn btn-sm btn-danger' onClick={sendFile.bind(this)}>Send</button>
               </div>
            </center>
