@@ -180,8 +180,6 @@ const Chatting=(props)=>{
                   })()
 
                   window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
-                  window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
-                  window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
 
              }
 
