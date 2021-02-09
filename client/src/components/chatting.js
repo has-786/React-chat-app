@@ -91,7 +91,7 @@ const Chatting=(props)=>{
   const [message,setMessage]=useState("");
   const [flag,setFlag]=useState(false);
 
-  const socket=io(url,{transports: ['websocket'], upgrade: false})
+  const socket=io(url,{transports: ['websocket','polling']})
   const token=localStorage.getItem('token')
   const secureAxios=axios.create(
                         {

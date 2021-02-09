@@ -20,7 +20,7 @@ app.use(cookieParser());
 const cors = require('cors');
 app.use(cors());
 
-const io = require('socket.io')(http, {transports: ['websocket'], upgrade: false});
+const io = require('socket.io')(http, {transports: ['websocket','polling']});
 const appMail='syedhasnain9163@gmail.com'
 const appMailPassword='labbaikyahussain'
 const secret='access_token_secret'
@@ -257,7 +257,7 @@ router.post('/getMessages',checkAuth,(req,res)=>{
 	.then(room=>{
 		if(!room)res.send({msgs:null,status:0})
 		else{console.log(room)
-			console.log(room.msgs[0].salt)
+		//	console.log(room.msgs[0].salt)
 
 		res.send({msgs:room.msgs,status:1})
 	  }
