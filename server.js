@@ -51,6 +51,8 @@ io.sockets.on('connection',(socket)=>{
 
 			if(message.img){
 				 fs.writeFile("uploads/"+message.path, message.img,'base64',function(err) {
+					 io.to(message.room).emit('receiveimg',{room:message.room,flag:message.flag,email:message.email,message:null,path:message.path,name:message.name,time:message.time})
+
 					 if(!err){
 									 Rooms.updateOne({name:message.room},{$push:{msgs:{flag:message.flag,email:message.email,message:null,path:message.path,name:message.name,time:message.time}}})
 						 			.then(update=>console.log(`Room ${message.room} message updated successfully`))
