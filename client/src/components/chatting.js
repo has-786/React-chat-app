@@ -15,6 +15,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import imageCompression from 'browser-image-compression';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import axios from 'axios'
 import url from '../url'
 import '../css/chat.css'
@@ -191,6 +193,7 @@ const Chatting=(props)=>{
 
 
   const sendMessage=(name,room,msg)=>{
+
     if(msg==='')return;
     let h=new Date().getHours();
     let m=new Date().getMinutes();
@@ -198,6 +201,7 @@ const Chatting=(props)=>{
     m=(parseInt(m/10)==0)?('0'+m):m;
     const time=h+":"+m;
     var text = msg;
+    document.getElementById('loader').style.display='block'
 
     const salt = window.crypto.getRandomValues(new Uint8Array(16));
     const iv = window.crypto.getRandomValues(new Uint8Array(16));
@@ -206,6 +210,7 @@ const Chatting=(props)=>{
     encrypt.encryptFun(text,salt,iv).then(encrypted=>{
       console.log(encrypted)
       socket.emit('send',{flag:0,email,room,name,msg:encrypted,salt:[...salt],iv:[...iv],time}); // setMsgs(msgs=>[...msgs,{name,message}]);
+      document.getElementById('loader').style.display='none'
       setMessage("");
 
     })
@@ -214,7 +219,7 @@ const Chatting=(props)=>{
 
 
     async function sendFile(){
-
+      document.getElementById('loader').style.display='block'
       let file=document.getElementById('file-input').files[0];
 
       if(!document.getElementById('file-input').value)return
@@ -237,6 +242,8 @@ const Chatting=(props)=>{
             imageCompression(file, options)
             .then(function (compressedFile) {
                 socket.emit('send',{flag,email,room,name,path:file.name,img:compressedFile,time});
+                document.getElementById('loader').style.display='none'
+
             })
             .catch(function (error) {alert(error.message); console.log(error.message);  });
       }
@@ -249,6 +256,8 @@ const Chatting=(props)=>{
             reader.onloadend =await function () {
               const b64 = reader.result.replace(/^data:.+;base64,/, '');
               socket.emit('send',{flag,email,room,name,path:file.name,img:b64,time});
+              document.getElementById('loader').style.display='none'
+
             };
        }
   }
@@ -259,6 +268,8 @@ const Chatting=(props)=>{
   return <>
   <div style={{position:'fixed',width:'100%'}}>
   <Header name={room} {...props}/>
+  <center><CircularProgress id='loader' style={{color:'lightgreen',marginTop:'100px',display:'none'}}/></center>
+
   </div>
   <div class={classes.main} >
         <div class={classes.container} id='container'>
