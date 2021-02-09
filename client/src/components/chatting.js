@@ -122,6 +122,7 @@ const Chatting=(props)=>{
 
        socket.on('receiveimg',data=>{
           if(email===data.email){
+            document.getElementById('loader').style.display='none'
             setMsgs(msgs=>[...msgs,data]);
           }
        })
@@ -249,7 +250,7 @@ const Chatting=(props)=>{
             imageCompression(file, options)
             .then(function (compressedFile) {
                 socket.emit('send',{flag,email,room,name,path:file.name,img:compressedFile,time});
-                document.getElementById('loader').style.display='none'
+            //    document.getElementById('loader').style.display='none'
             //    setMsgs(msgs=>[...msgs,{flag,email,room,name,path:file.name,time}]);
 
             })
@@ -264,7 +265,7 @@ const Chatting=(props)=>{
             reader.onloadend =await function () {
               const b64 = reader.result.replace(/^data:.+;base64,/, '');
               socket.emit('send',{flag,email,room,name,path:file.name,img:b64,time});
-              document.getElementById('loader').style.display='none'
+              //document.getElementById('loader').style.display='none'
               //setMsgs(msgs=>[...msgs,{flag,email,room,name,path:file.name,time}]);
 
 
