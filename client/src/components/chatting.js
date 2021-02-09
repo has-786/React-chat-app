@@ -211,6 +211,7 @@ const Chatting=(props)=>{
       console.log(encrypted)
       socket.emit('send',{flag:0,email,room,name,msg:encrypted,salt:[...salt],iv:[...iv],time}); // setMsgs(msgs=>[...msgs,{name,message}]);
       document.getElementById('loader').style.display='none'
+      console.log('sent')
       setMessage("");
 
     })
