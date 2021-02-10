@@ -76,17 +76,17 @@ export default function Signin(props) {
 
       if(body.status==1){
         email=body.email;name=body.name;token=body.token;
-        toast.success('Signed in successfully')
+        toast.success('Signed in successfully',{autoClose:1000})
         localStorage.setItem('name',name);
         localStorage.setItem('email',email);
         localStorage.setItem('token',token);
 
         props.history.push('/');
       }
-      else toast.error('Something went wrong')
+      else toast.error('Something went wrong',{autoClose:1000})
 
 
-    }).catch(err=>toast.error('Something went wrong') );
+    }).catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
 }
 
 

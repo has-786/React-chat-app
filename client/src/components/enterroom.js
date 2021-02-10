@@ -63,10 +63,10 @@ export default function Enterroom(props) {
       .then((response)=>{
             const body=response.data
             if(body.status==1){   dispatch({type:'add_latest_group',payload:name});   props.history.push(`/chat/${name}`); }
-            else toast.error(body.msg)
+            else toast.error(body.msg,{autoClose:1500})
       })
       .catch(err=>{
-        toast.error(err)
+        toast.error(err,{autoClose:1000})
         props.history.push('/signin');
       })
 

@@ -67,10 +67,10 @@ export default function Signup(props) {
   		event.preventDefault();
 
       if(otp!=receivedOtp){
-        toast.error('Incorrect OTP'); return;
+        toast.error('Incorrect OTP',{autoClose:1000}); return;
       }
 
-      if(confirmPassword!=password){toast("Password and Confirm password don't match");}
+      if(confirmPassword!=password){toast("Password and Confirm password don't match",{autoClose:1000});}
 
   		const data={name,email,pass:password};
   		axios.post(url+'/localSignup',data)
@@ -79,7 +79,7 @@ export default function Signup(props) {
         let email=null,name=null,token=null;
       //  alert(body.msg);
         if(body.status==1){
-          toast.success('Signed up successfully')
+          toast.success('Signed up successfully',{autoClose:1000})
           email=body.email;name=body.name;token=body.token;
 
           localStorage.setItem('name',name);
@@ -105,8 +105,8 @@ export default function Signup(props) {
             let receivedOtp=null;
 
 
-            if(body.status==1){toast.info(body.msg);setReceivedOtp(body.otp);}
-            else toast.error(body.msg);
+            if(body.status==1){toast.info(body.msg,{autoClose:1000});setReceivedOtp(body.otp);}
+            else toast.error(body.msg,{autoClose:1000});
 
              //localStorage.setItem('otp',receivedOtp);
     		 })

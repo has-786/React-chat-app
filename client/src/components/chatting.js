@@ -26,6 +26,7 @@ import io from 'socket.io-client';
 import decryptFun from '../crypto/decrypt'
 import encryptFun from '../crypto/encrypt'
 
+const green='#23D0E0'
 let socket;
 const useStyles = makeStyles({
   root: {
@@ -51,22 +52,24 @@ const useStyles = makeStyles({
   },
   messageBox:{
     display: 'flex',
+    width:'100%',
     flexWrap: 'wrap',
-    backgroundColor:'beige',
+    backgroundColor:green,
   },
-  main:{ backgroundColor:'beige',height:'100%',paddingTop:'70px',width:'100%'},
+  main:{ backgroundColor:green,height:'100%',paddingTop:'70px',width:'100%'},
   container:{
     width:'300px',
     margin:'auto',
     minHeight:'70vh',
     padding:'2px',
     borderRadius:'10px',
-    border:'2px solid pink',
     },
 
   msgs:{
     width:'250px',
     marginBottom:'10px',
+    backgroundColor:'#fffcb7',
+    color:'black'
 
     //backgroundColor:'blue',color:'white',marginLeft:'auto'
   },
@@ -108,65 +111,51 @@ const Chatting=(props)=>{
 
   useEffect(()=>{
 
+       getMessages()
+
        socket.emit('create', room);
        socket.emit('new-user-joined',name,room);
-
-       getMessages(room)
-       socket.on('user-joined',name=>{
-         //setMsgs(msgs=>[...msgs,`${name} joined`])
-      //    audio.play()
-        // setMsgs(msgs=>[...msgs,{name:'',message:`${name} joined`,time:''}]);
-      //   alert(`${name} joined on group ${room}`)
-       })
-
-       socket.on('user-left',name=>{
-         alert(`${name} left from group ${room}`)
-         //setMsgs(msgs=>[...msgs,{name:'',message:`${name} left`,time:''}]);
-       })
 
        socket.on('receiveimg',data=>{
           if(email===data.email){
             document.getElementById('loader').style.display='none'
-            //setMsgs(msgs=>[...msgs,data]);
             dispatch({type:'add_chat',payload:{room,msg:data}})
           }
        })
 
        socket.on('receive',data=>{
          if(email===data.email)return;
-                console.log('received')
+         console.log('received');
+            (async ()=>{
 
-                //console.log(data.salt,data.iv)
-                if(!data.path)
-                {
-                  console.log(data.salt,data.iv)
-                  data.salt=data.salt.split(",")
-                  data.iv=data.iv.split(",")
+                    if(!data.path)
+                    {
+                      data.salt=data.salt.split(",")
+                      data.iv=data.iv.split(",")
 
-                  data.salt= new Uint8Array(data.salt) // salt and
-                  data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
-                  decryptFun(data.message,data.salt,data.iv)
-                  .then(decrypted=>{
-                      data.message=decrypted;  // decrypt the received message
-                    //  setMsgs(msgs=>[...msgs,data]);
+                      data.salt= new Uint8Array(data.salt) // salt and
+                      data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
 
-                      window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
-                   })
-                }
-                else {
-                  //setMsgs(msgs=>[...msgs,data]);
-                  setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),500)
-                }
+                await decryptFun(data.message,data.salt,data.iv)
+                      .then(decrypted=>{
+                          data.message=decrypted;  // decrypt the received message
+                          window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+                       })
+                    }
+                    else setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),500)
 
-                dispatch({type:'add_chat',payload:{room,msg:data}})
-                audio.play();
+                    dispatch({type:'add_chat',payload:{room,msg:data}})
+                    audio.play();
+            })()
+
        })
        return ()=>{socket.disconnect()}
   },[])
 
 
 
-  function getMessages(room){
+  function getMessages(){
+
       if(chat[room])return;
 
 
@@ -178,29 +167,29 @@ const Chatting=(props)=>{
               async function setData(){
                   await (async function(){
                         const msgs=body.msgs
-                        for(let i=0;i<msgs.length;i++){
-                          const data=msgs[i]
+                        for(let i=0;i<msgs.length;i++)
+                        {
+                              const data=msgs[i]
 
-                          console.log(data)
-                          if(!data.path){
-                            console.log("salt "+data.salt)
-                            console.log("iv "+data.iv)
-                            data.salt=data.salt.split(",")
-                            data.iv=data.iv.split(",")
-                            for(let i=0;i<data.salt.length;i++)data.salt[i]=parseInt(data.salt[i])
-                            for(let i=0;i<data.iv.length;i++)data.iv[i]=parseInt(data.iv[i])
+                              if(!data.path){
+                                console.log("salt "+data.salt)
+                                console.log("iv "+data.iv)
+                                data.salt=data.salt.split(",")
+                                data.iv=data.iv.split(",")
+                                for(let i=0;i<data.salt.length;i++)data.salt[i]=parseInt(data.salt[i])
+                                for(let i=0;i<data.iv.length;i++)data.iv[i]=parseInt(data.iv[i])
 
-                            data.salt= new Uint8Array(data.salt) // salt and
-                            data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
-                            await decryptFun(data.message,data.salt,data.iv)
-                            .then(decrypted=>{
-                                                data.message=decrypted;  // decrypt the received message
-                                              //  setMsgs(msgs=>[...msgs,data])
-                             })
-                          }
-                        }
-                        dispatch({type:'load_chat',payload:{room,msgs}})
-                        //alert(chat["A"]?.length)
+                                data.salt= new Uint8Array(data.salt) // salt and
+                                data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
+                                await decryptFun(data.message,data.salt,data.iv)
+                                .then(decrypted=>{
+                                                    data.message=decrypted;  // decrypt the received message
+                                 })
+                              }
+                           }
+                           dispatch({type:'load_chat',payload:{room,msgs}})
+
+
                   })()
 
                   window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
@@ -228,7 +217,6 @@ const Chatting=(props)=>{
     let salt = window.crypto.getRandomValues(new Uint8Array(16));
     let iv = window.crypto.getRandomValues(new Uint8Array(16));
     console.log(salt,iv)
-    //setMsgs(msgs=>[...msgs,{flag:0,email,room,name,message:msg,time}]);
     dispatch({type:'add_chat',payload:{room,msg:{flag:0,email,room,name,message:msg,time}}})
 
     encryptFun(text,salt,iv).then(encrypted=>{
@@ -264,7 +252,7 @@ const Chatting=(props)=>{
 
 
       let flag=2;
-      if(file.name.toLowerCase().includes('.jpg') || file.name.toLowerCase().includes('.png'))flag=1;
+      if(file.type.icludes('image*'))flag=1;
 
       if(flag==1)
       {
@@ -294,14 +282,13 @@ const Chatting=(props)=>{
             };
        }
   }
-
- const rightStyle={backgroundColor:'blue',color:'white',marginLeft:'auto'}
+ const rightStyle={marginLeft:'auto'}
  const arriveStyle={backgroundColor:'beige',color:'green',margin:'auto auto 10px auto'}
 
   return <>
   <div style={{position:'fixed',width:'100%'}}>
   <Header name={room} {...props}/>
-  <center><CircularProgress id='loader' style={{color:'lightgreen',marginTop:'100px',display:'none'}}/></center>
+  <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
 
   </div>
   <div class={classes.main} >

@@ -41,7 +41,10 @@ const chatReducer=(state={},action)=>{
           return newState
 
         case 'add_chat':
-          newState[action.payload.room]=[...newState[action.payload.room],action.payload.msg]
+          if(newState[action.payload.room])
+            newState[action.payload.room]=[...newState[action.payload.room],action.payload.msg]
+          else
+            newState[action.payload.room]=[action.payload.msg]
           return newState
 
         default:

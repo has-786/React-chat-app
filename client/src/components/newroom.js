@@ -63,11 +63,11 @@ export default function Newroom(props) {
       secureAxios.post('newroom',data)
       .then((response)=>{
                 const body=response.data
-                if(body.status==1){   toast.success(body.msg); dispatch({type:'add_my_group',payload:name}); props.history.push('/'); }
-                else toast.error(body.msg)
+                if(body.status==1){   toast.success(body.msg,{autoClose:1000}); dispatch({type:'add_my_group',payload:name}); props.history.push('/'); }
+                else toast.error(body.msg,{autoClose:1000})
         })
         .catch(err=>{
-            toast.error(err)
+            toast.error(err,{autoClose:1000})
             props.history.push('/signin');
         })
   }
