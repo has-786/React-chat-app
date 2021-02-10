@@ -199,7 +199,6 @@ const Chatting=(props)=>{
                              })
                           }
                         }
-                        alert(JSON.stringify(msgs)+" "+room)
                         dispatch({type:'load_chat',payload:{room,msgs}})
                         //alert(chat["A"]?.length)
                   })()
