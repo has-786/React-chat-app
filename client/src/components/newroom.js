@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {useDispatch,useSelector} from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,7 +16,9 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import url from '../url';
 import Header from './header'
-
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,6 +45,7 @@ export default function Newroom(props) {
 
   const [name,setName]=useState('');
   const [password,setPassword]=useState('');
+  const dispatch=useDispatch()
 
   const newroom=(evt)=>{
     evt.preventDefault()
@@ -59,11 +63,11 @@ export default function Newroom(props) {
       secureAxios.post('newroom',data)
       .then((response)=>{
                 const body=response.data
-                alert(body.msg)
-                if(body.status==1)props.history.push('/')
+                if(body.status==1){   toast.success(body.msg); dispatch({type:'add_my_group',payload:name}); props.history.push('/'); }
+                else toast.error(body.msg)
         })
         .catch(err=>{
-            alert(err)
+            toast.error(err)
             props.history.push('/signin');
         })
   }

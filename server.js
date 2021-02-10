@@ -95,7 +95,7 @@ app.post('/emailverify',(req,res)=>{
 					var transporter = nodemailer.createTransport({service:'Gmail',secure: false,auth: {user:appMail,pass:appMailPassword},tls: {
 	          rejectUnauthorized: false
 	         }});
-					const mailOptions = {from: appMail, to: email, subject: 'Shia Budget Email Verification OTP', text:'Your otp is '+otp};
+					const mailOptions = {from: appMail, to: email, subject: 'Socio We Email Verification OTP', text:'Your otp is '+otp};
 					transporter.sendMail(mailOptions, function (err, info) { if(err){res.send({status:0,msg:"Email Id not correct"}); console.log(err);}else {  console.log(info);  res.send({status:1,msg:'An OTP is sent to this email id',otp:otp}); }});
 
 		     	}
@@ -122,7 +122,7 @@ app.post('/localSignup',(req,res)=>{
 			    bcrypt.hash(pass,12,(err,hash)=>{
             //const token
 						console.log(hash)
-						var Newuser=new Users({name:name,email:email,pass:hash,rooms:[],latest:[]});
+						var Newuser=new Users({name:name,email:email,pass:hash,rooms:[],latest:[],pendings:[],friends:[]});
 						Newuser.save((err,user2)=>{ if(err){console.log(err); res.send({msg:"Someting Went Wrong",status:0}); }
 						                            else {console.log(user2);
                                           const token=jwt.sign({_id:user2._id,email:email},secret,{  expiresIn:'1h'  })
@@ -241,9 +241,9 @@ router.get('/getRooms',checkAuth,(req,res)=>{
 	Users.findOne({_id})
 	.then(user=>{
 		console.log(user)
-		res.send({rooms:user.rooms,latest:user.latest})
+		res.send({rooms:user.rooms,latest:user.latest,status:1})
 	})
-	.catch(err=>{console.log(err)})
+	.catch(err=>{console.log(err);	res.send({status:0})})
 })
 
 app.use('/',router)
@@ -309,7 +309,7 @@ app.post('/exitRoom',checkAuth,(req,res)=>{
 	   }
 	})
 	.catch(err=>{console.log(err)})
-		Config(req,res,Approvals,Vendors)
+		//Config(req,res,Approvals,Vendors)
 
 })
 

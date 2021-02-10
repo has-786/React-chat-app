@@ -14,7 +14,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import url from '../url';
-
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 function Copyright() {
   return (
@@ -65,18 +67,19 @@ export default function Signup(props) {
   		event.preventDefault();
 
       if(otp!=receivedOtp){
-        alert('Incorrect OTP'); return;
+        toast.error('Incorrect OTP'); return;
       }
 
-      if(confirmPassword!=password){alert("Password and Confirm password don't match");}
+      if(confirmPassword!=password){toast("Password and Confirm password don't match");}
 
   		const data={name,email,pass:password};
   		axios.post(url+'/localSignup',data)
       .then((response)=>{
         const body=response.data
         let email=null,name=null,token=null;
-        alert(body.msg);
+      //  alert(body.msg);
         if(body.status==1){
+          toast.success('Signed up successfully')
           email=body.email;name=body.name;token=body.token;
 
           localStorage.setItem('name',name);
@@ -100,9 +103,10 @@ export default function Signup(props) {
         .then((response)=>{
             const body=response.data
             let receivedOtp=null;
-            alert(body.msg);
 
-            if(body.status==1)setReceivedOtp(body.otp);
+
+            if(body.status==1){toast.info(body.msg);setReceivedOtp(body.otp);}
+            else toast.error(body.msg);
 
              //localStorage.setItem('otp',receivedOtp);
     		 })

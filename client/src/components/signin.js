@@ -16,6 +16,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import url from '../url'
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 function Copyright() {
   return (
@@ -70,18 +73,20 @@ export default function Signin(props) {
     .then((response)=>{
       const body=response.data
       let email=null,name=null,token=null;
-      alert(body.msg);
+
       if(body.status==1){
         email=body.email;name=body.name;token=body.token;
-
+        toast.success('Signed in successfully')
         localStorage.setItem('name',name);
         localStorage.setItem('email',email);
         localStorage.setItem('token',token);
 
         props.history.push('/');
       }
+      else toast.error('Something went wrong')
 
-    }).catch(err=>console.log(err));
+
+    }).catch(err=>toast.error('Something went wrong') );
 }
 
 

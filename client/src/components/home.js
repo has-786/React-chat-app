@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import React,{useState,useEffect} from 'react';
+import {useDispatch,useSelector} from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -25,7 +26,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import Fab from '@material-ui/core/Fab';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -41,6 +41,11 @@ import url from '../url'
 import socket from '../socketurl'
 
 import Header from './header'
+
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
+
 
 
 
@@ -91,11 +96,11 @@ export default function Home(props) {
 
 
   const classes=useStyles()
-  const [rooms,setRooms]=useState([])
-  const [latest,setLatest]=useState([])
+  const dispatch=useDispatch()
+//  const [rooms,setRooms]=useState([])
+//  const [latest,setLatest]=useState([])
   const [open, setOpen] = React.useState(false);
   const [openDel, setOpenDel] = React.useState(false);
-
   const [edit, setEdit] = React.useState(null);
   const [newPassword, setNewPassword] = React.useState("");
 
@@ -127,13 +132,21 @@ export default function Home(props) {
                         }
                       })
 
+  const exist=useSelector(state=>state.groupReducer.exist)
 
   useEffect(()=>{
+      if(exist)return;
+
       secureAxios.get('getRooms')
       .then((response)=>{
             const body=response.data
-            setRooms(body.rooms)
-            setLatest(body.latest)
+            //alert(body.status)
+            if(body.status==1){
+          //    alert(JSON.stringify(body))
+                dispatch({type:'load_group',payload:{latest:body.latest,rooms:body.rooms,exist:true}})
+            //  setRooms(body.rooms)
+            //  setLatest(body.latest)
+            }
       })
       .catch(err=>{
         alert(err)
@@ -144,11 +157,13 @@ export default function Home(props) {
 
 
   const editRoom=(room)=>{
+
     secureAxios.post('editRoom',{room,newPassword})
     .then((response)=>{
+
           const body=response.data
-          if(body.status==1)alert(`Password updated successfully for room ${room}`)
-          else alert('Something went wrong')
+          if(body.status==1){toast.success(`Password updated successfully for room ${room}`); dispatch({type:'edit_group'}); }
+          else toast.error('Something went wrong')
     })
     .catch(err=>{
       alert(err)
@@ -157,14 +172,13 @@ export default function Home(props) {
   }
 
 
-
-
   const exitRoom=(room)=>{
     secureAxios.post('exitRoom',{room})
     .then((response)=>{
           const body=response.data
-          if(body.status==1)setLatest(latest.filter(r=>r!=room))
-          else alert('Something went wrong')
+          if(body.status==1)
+            dispatch({type:'exit_group',payload:room})
+          else toast.error('Something went wrong')
     })
     .catch(err=>{
       alert(err)
@@ -178,18 +192,18 @@ export default function Home(props) {
       secureAxios.post('deleteRoom',{room})
       .then((response)=>{
             const body=response.data
-            if(body.status==1){setLatest(latest.filter(r=>r!=room)); setRooms(rooms.filter(r=>r!=room));}
-            else alert('Something went wrong')
+            if(body.status==1)
+              dispatch({type:'delete_my_group',payload:room})
+            else toast.error('Something went wrong')
       })
       .catch(err=>{
-        alert(err)
+        toast.error(err)
         props.history.push('/signin')
       })
     }
 
-
-
-
+    const rooms=useSelector(state=>state.groupReducer.rooms)
+    const latest=useSelector(state=>state.groupReducer.latest)
 
   return (
     <>
@@ -212,10 +226,10 @@ export default function Home(props) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={()=>{handleClose();  setNewPassword("");}} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{editRoom(edit); handleClose();}} color="primary">
+          <Button onClick={()=>{editRoom(edit); handleClose();  setNewPassword("");}} color="primary">
             Confirm
           </Button>
         </DialogActions>

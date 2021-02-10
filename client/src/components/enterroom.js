@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {useDispatch,useSelector} from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -40,6 +41,7 @@ export default function Enterroom(props) {
   const classes = useStyles();
   const [name,setName]=useState('');
   const [password,setPassword]=useState('');
+  const dispatch=useDispatch()
 
   const enterroom=(evt)=>{
     evt.preventDefault()
@@ -56,7 +58,7 @@ export default function Enterroom(props) {
       secureAxios.post('enterroom',data)
       .then((response)=>{
             const body=response.data
-            if(body.status==1)props.history.push(`/chat/${name}`)
+            if(body.status==1){   dispatch({type:'add_latest_group',payload:name});   props.history.push(`/chat/${name}`); }
             else alert(body.msg)
       })
       .catch(err=>{

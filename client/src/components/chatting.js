@@ -1,4 +1,5 @@
 import {React,useRef,useState,useEffect} from 'react';
+import {useDispatch,useSelector} from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -85,7 +86,10 @@ const Chatting=(props)=>{
   const name=localStorage.getItem('name')
   const audio=new Audio('../incoming.mp3')
   const classes = useStyles();
-  const [msgs,setMsgs]=useState([]);
+
+  const chat=useSelector(state=>state.chatReducer)
+  const dispatch=useDispatch()
+  //const [msgs,setMsgs]=useState([]);
   const [room,setRoom]=useState(props.match.params.room);
 
   const [message,setMessage]=useState("");
@@ -123,7 +127,8 @@ const Chatting=(props)=>{
        socket.on('receiveimg',data=>{
           if(email===data.email){
             document.getElementById('loader').style.display='none'
-            setMsgs(msgs=>[...msgs,data]);
+            //setMsgs(msgs=>[...msgs,data]);
+            dispatch({type:'add_chat',payload:{room,msg:data}})
           }
        })
 
@@ -143,15 +148,17 @@ const Chatting=(props)=>{
                   decryptFun(data.message,data.salt,data.iv)
                   .then(decrypted=>{
                       data.message=decrypted;  // decrypt the received message
-                      setMsgs(msgs=>[...msgs,data]);
+                    //  setMsgs(msgs=>[...msgs,data]);
+
                       window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
                    })
                 }
                 else {
-                  setMsgs(msgs=>[...msgs,data]);
+                  //setMsgs(msgs=>[...msgs,data]);
                   setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),500)
                 }
 
+                dispatch({type:'add_chat',payload:{room,msg:data}})
                 audio.play();
        })
        return ()=>{socket.disconnect()}
@@ -160,19 +167,16 @@ const Chatting=(props)=>{
 
 
   function getMessages(room){
+      if(chat[room])return;
 
 
       secureAxios.post('getMessages',{room})
       .then((response)=>{
             const body=response.data
             if(body.status==1){
-              console.log(body.msgs.slice(body.msgs.length-10,body.msgs.length))
 
-
-
-
-            async function setData(){
-              await (async function(){
+              async function setData(){
+                  await (async function(){
                         const msgs=body.msgs
                         for(let i=0;i<msgs.length;i++){
                           const data=msgs[i]
@@ -191,11 +195,13 @@ const Chatting=(props)=>{
                             await decryptFun(data.message,data.salt,data.iv)
                             .then(decrypted=>{
                                                 data.message=decrypted;  // decrypt the received message
-                                                setMsgs(msgs=>[...msgs,data])
+                                              //  setMsgs(msgs=>[...msgs,data])
                              })
                           }
-                          else setMsgs(msgs=>[...msgs,data])
                         }
+                        alert(JSON.stringify(msgs)+" "+room)
+                        dispatch({type:'load_chat',payload:{room,msgs}})
+                        //alert(chat["A"]?.length)
                   })()
 
                   window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
@@ -223,7 +229,9 @@ const Chatting=(props)=>{
     let salt = window.crypto.getRandomValues(new Uint8Array(16));
     let iv = window.crypto.getRandomValues(new Uint8Array(16));
     console.log(salt,iv)
-    setMsgs(msgs=>[...msgs,{flag:0,email,room,name,message:msg,time}]);
+    //setMsgs(msgs=>[...msgs,{flag:0,email,room,name,message:msg,time}]);
+    dispatch({type:'add_chat',payload:{room,msg:{flag:0,email,room,name,message:msg,time}}})
+
     encryptFun(text,salt,iv).then(encrypted=>{
       console.log(encrypted)
       salt=[...salt]
@@ -301,7 +309,7 @@ const Chatting=(props)=>{
         <div class={classes.container} id='container'>
           <div id='messages' class={classes.messageBox}  >
           {
-            msgs.map((msg,id)=>{
+            (chat[room]!=undefined)?chat[room].map((msg,id)=>{
               let includeStyle=(email===msg.email)?rightStyle:{};
 
               return <Paper  elevation={3} className={classes.msgs} style={includeStyle} >
@@ -334,6 +342,8 @@ const Chatting=(props)=>{
               }
               </Paper>
             })
+            :
+            null
           }
           </div>
          </div>
