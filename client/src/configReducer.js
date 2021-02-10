@@ -38,7 +38,6 @@ const chatReducer=(state={},action)=>{
     {
         case 'load_chat':
           newState[action.payload.room]=action.payload.msgs
-          alert(JSON.stringify(newState))
           return newState
 
         case 'add_chat':

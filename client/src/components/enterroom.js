@@ -17,6 +17,10 @@ import axios from 'axios'
 import url from '../url'
 import Header from './header'
 
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -59,10 +63,10 @@ export default function Enterroom(props) {
       .then((response)=>{
             const body=response.data
             if(body.status==1){   dispatch({type:'add_latest_group',payload:name});   props.history.push(`/chat/${name}`); }
-            else alert(body.msg)
+            else toast.error(body.msg)
       })
       .catch(err=>{
-        alert(err)
+        toast.error(err)
         props.history.push('/signin');
       })
 
