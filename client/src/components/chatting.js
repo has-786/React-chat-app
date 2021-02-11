@@ -190,9 +190,8 @@ const Chatting=(props)=>{
                                 await secureAxios.get('getUser')
                                     .then((response)=>{
                                           const body=response.data
-                                          dispatch({type:'load_user',payload:body})
-                                          socketConnections(socket,body.name,body.email)
-
+                                              dispatch({type:'load_user',payload:body})
+                                              socketConnections(socket,body.name,body.email)
                                      })
                                      .catch(err=>toast.error(err))
                              }
@@ -244,6 +243,7 @@ const Chatting=(props)=>{
 
        if(chat[room])return;
        getMessages(1)
+
        return ()=>{ socket.disconnect();  }
   },[])
 
@@ -265,13 +265,13 @@ const Chatting=(props)=>{
     let salt = window.crypto.getRandomValues(new Uint8Array(16));
     let iv = window.crypto.getRandomValues(new Uint8Array(16));
     console.log(salt,iv);
-  //  window.scrollTo({top:document.getElementById('messages').scrollHeight+500,behaviour:'smooth'})
+
     (async ()=>{
       await dispatch({type:'add_chat',payload:{room,msg:{flag:0,email,room,name,message:msg,time}}})
       window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
       sendbox.current.focus()
     })()
-    //setTimeout(()=>,0)
+
 
     encryptFun(text,salt,iv).then(encrypted=>{
       console.log(encrypted)
@@ -324,7 +324,7 @@ const Chatting=(props)=>{
             reader.readAsDataURL(file);
           //  alert(document.getElementById('file-input').files[0].value)
 
-            reader.onloadend =await function () {
+            reader.onloadend = await function () {
               const b64 = reader.result.replace(/^data:.+;base64,/, '');
               socket.emit('send',{flag,email,room,name,path:file.name,img:b64,time});
 
