@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import {useDispatch} from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,17 +8,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import axios from 'axios'
-import url from '../url'
+import axios from 'axios';
+import url from '../url';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
+
 
 function Copyright() {
   return (
@@ -45,11 +43,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
-  tabLink : {
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center"
-  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -59,37 +52,68 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signin(props) {
+export default function Changepassword(props) {
   const classes = useStyles();
   const token=localStorage.getItem('token')
+
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
+  const [confirmPassword,setConfirmPassword]=useState('')
+  const [otp,setOtp]=useState('')
+  const [receivedOtp,setReceivedOtp]=useState('')
 
-  const dispatch=useDispatch()
+  const secureAxios=axios.create(
+                        {
+                         baseURL:url,
+                         headers:{
+                          "Authorization":`bearer ${token}`
+                        }
+                      })
 
-  const login=(event)=>{
-    event.preventDefault();
-    const data={email,pass:password};
 
-    axios.post(url+'/localSignin',data)
-    .then((response)=>{
-      const body=response.data
-      let email=null,name=null,token=null;
+  	const changePassword=(event)=>{
+  		event.preventDefault();
 
-      if(body.status==1){
-        email=body.email;name=body.name;token=body.token;
-        toast.success('Signed in successfully',{autoClose:1000})
-        dispatch({type:'load_user',payload:{name,email}})
-
-        localStorage.setItem('token',token);
-
-        props.history.push('/');
+      if(otp!=receivedOtp){
+        toast.error('Incorrect OTP',{autoClose:1000}); return;
       }
-      else toast.error('Something went wrong',{autoClose:1000})
+
+      if(confirmPassword!=password){toast("Password and Confirm password don't match",{autoClose:1000});}
+
+  		const data={email,password};
+  		secureAxios.post('changePassword',data)
+      .then((response)=>{
+        const body=response.data
+        if(body.status==1){
+          toast.success('Password was changed successfully',{autoClose:2000})
+
+          props.history.push('/');
+        }
+        else toast.error('Something went wrong');
+  		})
+      .catch(err=>{console.log(err); toast.error('Something went wrong');});
+   }
 
 
-    }).catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
-}
+
+  	const forgotPassword=(event)=>{
+    		event.preventDefault();
+    		let data={email};
+        //alert(secureAxios)
+        secureAxios.post('forgotPassword',data)
+        .then((response)=>{
+            const body=response.data
+            let receivedOtp=null;
+
+
+            if(body.status==1){toast.info(body.msg,{autoClose:1000});setReceivedOtp(body.otp);}
+            else toast.error("Something went wrong",{autoClose:1000});
+
+    		 })
+         .catch(err=>{console.log(err); toast.error("Something went wrong",{autoClose:1000});});
+    }
+
+
 
 
   return (
@@ -100,7 +124,7 @@ export default function Signin(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Change password
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -116,6 +140,29 @@ export default function Signin(props) {
             onChange={(evt)=>setEmail(evt.target.value)}
             autoFocus
           />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            className={classes.submit}
+            onClick={forgotPassword}
+          >
+            Send OTP
+          </Button>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="otp"
+            label="Enter OTP"
+            name="otp"
+            value={otp}
+            onChange={(evt)=>setOtp(evt.target.value)}
+            autoFocus
+          />
+
           <TextField
             variant="outlined"
             margin="normal"
@@ -129,26 +176,34 @@ export default function Signin(props) {
             onChange={(evt)=>setPassword(evt.target.value)}
             autoComplete="current-password"
           />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            value={confirmPassword}
+            onChange={(evt)=>setConfirmPassword(evt.target.value)}
+            autoComplete="current-password"
+          />
 
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            onClick={login}
+            onClick={changePassword}
             className={classes.submit}
           >
-            Sign In
+            Submit
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to='/changePassword'>
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link to="/signup" variant="body2">
-                Don't have an account?
+              <Link href="#" variant="body2">
+                Back to Home
               </Link>
             </Grid>
           </Grid>

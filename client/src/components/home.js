@@ -133,6 +133,8 @@ export default function Home(props) {
                       })
 
   const exist=useSelector(state=>state.groupReducer.exist)
+  const email=useSelector(state=>state.userReducer.email)
+  const name=useSelector(state=>state.userReducer.name)
 
   useEffect(()=>{
       if(exist)return;
@@ -142,10 +144,8 @@ export default function Home(props) {
             const body=response.data
             //alert(body.status)
             if(body.status==1){
-          //    alert(JSON.stringify(body))
                 dispatch({type:'load_group',payload:{latest:body.latest,rooms:body.rooms,exist:true}})
-            //  setRooms(body.rooms)
-            //  setLatest(body.latest)
+                dispatch({type:'load_user',payload:{name:body.name,email:body.email}})
             }
       })
       .catch(err=>{
@@ -269,7 +269,7 @@ export default function Home(props) {
       <h6>My Groups</h6>
       <Divider />
       <List>
-        {rooms.sort((a,b)=>{return (a<b)?-1:1}).map((text, index) => (
+        {rooms?.sort((a,b)=>{return (a<b)?-1:1}).map((text, index) => (
           <ListItem button key={text} onClick={()=>props.history.push(`/chat/${text}`)}>
               <ListItemAvatar>
                     <Avatar>
@@ -292,7 +292,7 @@ export default function Home(props) {
       <h6>All Groups</h6>
       <Divider />
       <List>
-        {latest.sort((a,b)=>{return (a<b)?-1:1}).map((text, index) => (
+        {latest?.sort((a,b)=>{return (a<b)?-1:1}).map((text, index) => (
           <ListItem button key={text} onClick={()=>props.history.push(`/chat/${text}`)}>
               <ListItemAvatar>
                     <Avatar>

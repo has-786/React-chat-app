@@ -1,4 +1,5 @@
 import React,{createElement,useState,useEffect} from 'react'
+import {useDispatch,useSelector} from 'react-redux';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MailIcon from '@material-ui/icons/Mail';
 import HomeIcon from '@material-ui/icons/Home';
@@ -28,6 +29,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import axios from 'axios'
 import url from '../url'
 
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 const drawerWidth = 240;
 
@@ -64,9 +68,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const signout=(push)=>
+
+
+const signout=(push,dispatch)=>
 {
   localStorage.removeItem('token')
+  localStorage.removeItem('name')
+  localStorage.removeItem('email')
+
+  dispatch({type:'clear'})
   push('/signin')
 }
 
@@ -77,6 +87,7 @@ export default function Header(props)
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const dispatch=useDispatch()
 
      const handleDrawerToggle = () => {
        setMobileOpen(!mobileOpen);
@@ -84,7 +95,28 @@ export default function Header(props)
 
      const [latest,setLatest]=useState([])
      const token=localStorage.getItem('token')
-     const name=localStorage.getItem('name')
+
+
+     const email=useSelector(state=>state.userReducer.email)
+     const name=useSelector(state=>state.userReducer.name)
+
+    if(!name || !email)
+     {
+       const secureAxios=axios.create(
+                             {
+                              baseURL:url,
+                              headers:{
+                               "Authorization":`bearer ${token}`
+                             }
+                           })
+
+        secureAxios.get('getUser')
+        .then((response)=>{
+                              const body=response.data
+                              dispatch({type:'load_user',payload:body})
+        })
+        .catch(err=>toast.error(err))
+     }
      const menulist=[['Home','/',HomeIcon], ['Enter group','/enterroom',DirectionsRunIcon],['Create group','/newroom',AddIcon],['Sign out','/signin',ExitToAppIcon]]
 
      const secureAxios=axios.create(
@@ -95,15 +127,7 @@ export default function Header(props)
                            }
                          })
 
-     useEffect(()=>{
-         secureAxios.get('getRooms')
-         .then((response)=>{
-               const body=response.data
-               setLatest(body.latest)
-         })
-         .catch(err=>{  props.history.push('/signin');  })
-     },[])
-
+    
      const drawer = (
        <div>
        <center><AccountCircleIcon style={{color:'blue',width:'70px',height:'70px'}}/></center>
@@ -112,7 +136,7 @@ export default function Header(props)
          <Divider />
          <List>
            {menulist.map((items, index) => (
-             <ListItem button key={items[0]} onClick={()=>{(items[0]==='Sign out')?signout(props.history.push):props.history.push(items[1])}}>
+             <ListItem button key={items[0]} onClick={()=>{(items[0]==='Sign out')?signout(props.history.push,dispatch):props.history.push(items[1])}}>
                <ListItemIcon>{createElement(items[2], {})}</ListItemIcon>
                <ListItemText primary={items[0]} />
              </ListItem>

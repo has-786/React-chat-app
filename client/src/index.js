@@ -16,6 +16,7 @@ import Signin from './components/signin';
 import Signup from './components/signup';
 import Newroom from './components/newroom';
 import Enterroom from './components/enterroom';
+import Changepassword from './components/changePassword';
 
 import store from './configStore';
 
@@ -29,6 +30,7 @@ ReactDom.render(
       <Route  path='/signup' component={Signup} />
       <Route  path='/enterroom' component={Authenticatedenterroom(Enterroom,Authredirect)} />
       <Route  path='/newroom' component={Authenticatednewroom(Newroom,Authredirect)} />
+      <Route  path='/changePassword' component={Changepassword} />
       <Route  exact path='/chat/:room' component={Authenticatedchatting(Chatting,Authredirect)} />
     </Switch>
   </BrowserRouter>

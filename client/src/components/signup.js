@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {useDispatch} from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -61,6 +62,7 @@ export default function Signup(props) {
   const [confirmPassword,setConfirmPassword]=useState('')
   const [otp,setOtp]=useState('')
   const [receivedOtp,setReceivedOtp]=useState('')
+  const dispatch=useDispatch()
 
 
   	const register=(event)=>{
@@ -82,8 +84,8 @@ export default function Signup(props) {
           toast.success('Signed up successfully',{autoClose:1000})
           email=body.email;name=body.name;token=body.token;
 
-          localStorage.setItem('name',name);
-          localStorage.setItem('email',email);
+          dispatch({type:'load_user',payload:{name,email}})
+
           localStorage.setItem('token',token);
           //localStorage.removeItem('otp');
 
@@ -214,7 +216,7 @@ export default function Signup(props) {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link to='/changePassword' variant="body2">
                 Forgot password?
               </Link>
             </Grid>

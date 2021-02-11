@@ -26,7 +26,12 @@ import io from 'socket.io-client';
 import decryptFun from '../crypto/decrypt'
 import encryptFun from '../crypto/encrypt'
 
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
+
 const green='#23D0E0'
+
 let socket;
 const useStyles = makeStyles({
   root: {
@@ -48,7 +53,12 @@ const useStyles = makeStyles({
   },
   footer:{
     float:'right'
-
+  },
+  paging:{
+    margin:'auto',
+    backgroundColor:'beige',
+    color:'black',
+    marginBottom:'10px'
   },
   messageBox:{
     display: 'flex',
@@ -85,19 +95,19 @@ const useStyles = makeStyles({
 
 
 const Chatting=(props)=>{
-  const email=localStorage.getItem('email')
-  const name=localStorage.getItem('name')
+
   const audio=new Audio('../incoming.mp3')
   const classes = useStyles();
 
   const chat=useSelector(state=>state.chatReducer)
-  const dispatch=useDispatch()
-  //const [msgs,setMsgs]=useState([]);
-  const [room,setRoom]=useState(props.match.params.room);
+  const dispatch=useDispatch();
 
+  const [room,setRoom]=useState(props.match.params.room);
   const [message,setMessage]=useState("");
   const [flag,setFlag]=useState(false);
-
+  const [page,setPage]=useState(2);
+  const [olderMsgs,setOlderMsgs]=useState('block');
+  const sendbox=useRef(null)
   const socket=io(url,{transports: ['websocket','polling']})
   const token=localStorage.getItem('token')
   const secureAxios=axios.create(
@@ -109,98 +119,136 @@ const Chatting=(props)=>{
                       })
 
 
-  useEffect(()=>{
 
-       getMessages()
+    const email=useSelector(state=>state.userReducer.email)
+    const name=useSelector(state=>state.userReducer.name)
 
-       socket.emit('create', room);
-       socket.emit('new-user-joined',name,room);
+    const socketConnections=(socket,name,email)=>{
+      socket.emit('create', room)
+      socket.emit('user-joined',name,room)
+      socket.on('receiveimg',data=>{
+              if(email===data.email)
+              {
+                    document.getElementById('loader').style.display='none';
+                    (async ()=>{
+                        dispatch({type:'add_chat',payload:{room,msg:data}})
+                        setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),500)
+                        sendbox.current.focus()
+                    })()
+               }
+        })
 
-       socket.on('receiveimg',data=>{
-          if(email===data.email){
-            document.getElementById('loader').style.display='none'
-            dispatch({type:'add_chat',payload:{room,msg:data}})
-          }
-       })
 
-       socket.on('receive',data=>{
-         if(email===data.email)return;
-         console.log('received');
+      socket.on('receive',data=>{
+           if(email===data.email)return;
+            console.log('received');
             (async ()=>{
 
                     if(!data.path)
                     {
-                      data.salt=data.salt.split(",")
-                      data.iv=data.iv.split(",")
+                                    data.salt=data.salt.split(",")
+                                    data.iv=data.iv.split(",")
 
-                      data.salt= new Uint8Array(data.salt) // salt and
-                      data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
+                                    data.salt= new Uint8Array(data.salt) // salt and
+                                    data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
 
-                await decryptFun(data.message,data.salt,data.iv)
-                      .then(decrypted=>{
-                          data.message=decrypted;  // decrypt the received message
-                          window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
-                       })
-                    }
-                    else setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),500)
+                                    await decryptFun(data.message,data.salt,data.iv)
+                                    .then(decrypted=>{
+                                        data.message=decrypted;  // decrypt the received message
+                                    })
+                      }
 
-                    dispatch({type:'add_chat',payload:{room,msg:data}})
-                    audio.play();
-            })()
+                      (async ()=>{
+                                  dispatch({type:'add_chat',payload:{room,msg:data}})
+                                  if(!data.path)window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+                                  else setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),500)
 
-       })
-       return ()=>{socket.disconnect()}
+                                  sendbox.current.focus()
+                        })()
+
+                        audio.play();
+                })()
+          })
+
+    }
+
+
+    async function getMessages(page){
+
+      await  secureAxios.post('getMessages',{room,page})
+             .then((response)=>{
+              const body=response.data
+              if(body.status==1)
+              {
+                if(!body.end)setOlderMsgs('block')
+                else setOlderMsgs('none')
+
+                async function setData()
+                {
+                            if(page==1)
+                            {
+                                await secureAxios.get('getUser')
+                                    .then((response)=>{
+                                          const body=response.data
+                                          dispatch({type:'load_user',payload:body})
+                                          socketConnections(socket,body.name,body.email)
+
+                                     })
+                                     .catch(err=>toast.error(err))
+                             }
+
+
+                             await (async function(){
+                                  const msgs=body.msgs
+                                  for(let i=0;i<msgs.length;i++)
+                                  {
+                                        const data=msgs[i]
+
+                                        if(!data.path){
+                                          console.log("salt "+data.salt)
+                                          console.log("iv "+data.iv)
+                                          data.salt=data.salt.split(",")
+                                          data.iv=data.iv.split(",")
+                                          for(let i=0;i<data.salt.length;i++)data.salt[i]=parseInt(data.salt[i])
+                                          for(let i=0;i<data.iv.length;i++)data.iv[i]=parseInt(data.iv[i])
+
+                                          data.salt= new Uint8Array(data.salt) // salt and
+                                          data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
+                                          await decryptFun(data.message,data.salt,data.iv)
+                                          .then(decrypted=>{
+                                                              data.message=decrypted;  // decrypt the received message
+                                           })
+                                        }
+                                     }
+                                     dispatch({type:'load_chat',payload:{room,msgs}})
+                            })()
+
+                            if(page==1)
+                            {
+                               setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),350)
+                            }
+                            setPage(page=>page+1)
+               }
+
+               setData();
+
+             }
+        })
+        .catch(err=>{})
+
+
+
+    }
+
+  useEffect(()=>{
+
+       if(chat[room])return;
+       getMessages(1)
+       return ()=>{ socket.disconnect();  }
   },[])
 
 
 
-  function getMessages(){
-
-      if(chat[room])return;
-
-
-      secureAxios.post('getMessages',{room})
-      .then((response)=>{
-            const body=response.data
-            if(body.status==1){
-
-              async function setData(){
-                  await (async function(){
-                        const msgs=body.msgs
-                        for(let i=0;i<msgs.length;i++)
-                        {
-                              const data=msgs[i]
-
-                              if(!data.path){
-                                console.log("salt "+data.salt)
-                                console.log("iv "+data.iv)
-                                data.salt=data.salt.split(",")
-                                data.iv=data.iv.split(",")
-                                for(let i=0;i<data.salt.length;i++)data.salt[i]=parseInt(data.salt[i])
-                                for(let i=0;i<data.iv.length;i++)data.iv[i]=parseInt(data.iv[i])
-
-                                data.salt= new Uint8Array(data.salt) // salt and
-                                data.iv= new Uint8Array(data.iv)    //iv for decrypting the message
-                                await decryptFun(data.message,data.salt,data.iv)
-                                .then(decrypted=>{
-                                                    data.message=decrypted;  // decrypt the received message
-                                 })
-                              }
-                           }
-                           dispatch({type:'load_chat',payload:{room,msgs}})
-
-
-                  })()
-
-                  window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
-
-             }
-
-             setData();
-           }
-      })
-      .catch(err=>{})
-  }
 
 
   const sendMessage=(name,room,msg)=>{
@@ -216,8 +264,14 @@ const Chatting=(props)=>{
 
     let salt = window.crypto.getRandomValues(new Uint8Array(16));
     let iv = window.crypto.getRandomValues(new Uint8Array(16));
-    console.log(salt,iv)
-    dispatch({type:'add_chat',payload:{room,msg:{flag:0,email,room,name,message:msg,time}}})
+    console.log(salt,iv);
+  //  window.scrollTo({top:document.getElementById('messages').scrollHeight+500,behaviour:'smooth'})
+    (async ()=>{
+      await dispatch({type:'add_chat',payload:{room,msg:{flag:0,email,room,name,message:msg,time}}})
+      window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+      sendbox.current.focus()
+    })()
+    //setTimeout(()=>,0)
 
     encryptFun(text,salt,iv).then(encrypted=>{
       console.log(encrypted)
@@ -252,7 +306,7 @@ const Chatting=(props)=>{
 
 
       let flag=2;
-      if(file.type.icludes('image*'))flag=1;
+      if(file.type.includes('image'))flag=1;
 
       if(flag==1)
       {
@@ -260,8 +314,6 @@ const Chatting=(props)=>{
             imageCompression(file, options)
             .then(function (compressedFile) {
                 socket.emit('send',{flag,email,room,name,path:file.name,img:compressedFile,time});
-            //    document.getElementById('loader').style.display='none'
-            //    setMsgs(msgs=>[...msgs,{flag,email,room,name,path:file.name,time}]);
 
             })
             .catch(function (error) {alert(error.message); console.log(error.message);  });
@@ -275,9 +327,6 @@ const Chatting=(props)=>{
             reader.onloadend =await function () {
               const b64 = reader.result.replace(/^data:.+;base64,/, '');
               socket.emit('send',{flag,email,room,name,path:file.name,img:b64,time});
-              //document.getElementById('loader').style.display='none'
-              //setMsgs(msgs=>[...msgs,{flag,email,room,name,path:file.name,time}]);
-
 
             };
        }
@@ -294,7 +343,9 @@ const Chatting=(props)=>{
   <div class={classes.main} >
         <div class={classes.container} id='container'>
           <div id='messages' class={classes.messageBox}  >
+          <Paper elevation={3} className={classes.paging} style={{display:olderMsgs}} onClick={ getMessages.bind(this,page)}><button class='btn btn-sm' s>Older Messages</button></Paper>
           {
+
             (chat[room]!=undefined)?chat[room].map((msg,id)=>{
               let includeStyle=(email===msg.email)?rightStyle:{};
 
@@ -335,7 +386,7 @@ const Chatting=(props)=>{
          </div>
          <center>
              <div class={classes.sendbox}>
-               <input type='text' placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)} autoFocus/>
+               <input type='text' ref={sendbox} placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)} autoFocus/>
                <button className='btn btn-primary' onClick={sendMessage.bind(this,name,room,message)}>Send</button>
              </div>
              <br />

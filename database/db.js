@@ -18,7 +18,6 @@ const users=mongoose.model('users',usersSchema)
 const roomsSchema=new mongoose.Schema({name:String,pass:String,online:Array,msgs:Array})
 const rooms=mongoose.model('rooms',roomsSchema)
 
-
 module.exports={con,users,rooms};
 
 /*

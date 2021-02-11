@@ -141,7 +141,6 @@ export default function Profile(props) {
 
   }
 
-
     const friends=useSelector(state=>state.groupReducer.friends)
     const pendings=useSelector(state=>state.groupReducer.pendings)
 

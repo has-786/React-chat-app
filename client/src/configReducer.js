@@ -26,6 +26,9 @@ const groupReducer=(state={rooms:[],latest:[],exist:false},action)=>{
         case 'delete_my_group':
             return {...state,rooms:state.rooms.filter(r=>r!=action.payload),latest:state.latest.filter(l=>l!=action.payload)}
 
+        case 'clear':
+            return {}
+
         default:
           return state;
     }
@@ -37,7 +40,11 @@ const chatReducer=(state={},action)=>{
     switch(action.type)
     {
         case 'load_chat':
-          newState[action.payload.room]=action.payload.msgs
+          if(!newState[action.payload.room])
+            newState[action.payload.room]=action.payload.msgs
+          else
+            newState[action.payload.room]=[...action.payload.msgs,...newState[action.payload.room]]
+
           return newState
 
         case 'add_chat':
@@ -45,7 +52,27 @@ const chatReducer=(state={},action)=>{
             newState[action.payload.room]=[...newState[action.payload.room],action.payload.msg]
           else
             newState[action.payload.room]=[action.payload.msg]
+          //  alert(document.getElementById('messages').scrollHeight)
+        //  window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
+
           return newState
+
+        case 'clear':
+            return {}
+
+        default:
+          return state;
+    }
+}
+
+const userReducer=(state={name:null,email:null},action)=>{
+    switch(action.type)
+    {
+        case 'load_user':
+           return action.payload
+
+        case 'clear':
+            return {}
 
         default:
           return state;
@@ -53,6 +80,5 @@ const chatReducer=(state={},action)=>{
 }
 
 
-
-const reducer=combineReducers({groupReducer,chatReducer});
+const reducer=combineReducers({groupReducer,chatReducer,userReducer});
 export default reducer;
