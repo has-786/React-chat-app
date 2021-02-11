@@ -241,8 +241,8 @@ const Chatting=(props)=>{
 
   useEffect(()=>{
 
-       if(chat[room])return;
-       getMessages(1)
+       if(chat[room])socketConnections(socket,name,email)
+       else getMessages(1)
 
        return ()=>{ socket.disconnect();  }
   },[])
