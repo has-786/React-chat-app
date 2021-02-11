@@ -296,11 +296,6 @@ router.get('/getRooms',checkAuth,(req,res)=>{
 	.catch(err=>{console.log(err);	res.send({status:0})})
 })
 
-app.use('/',router)
-app.use('/chat',router)
-app.use('/chat/:room',router)
-app.use('/enterroom',router)
-app.use('/newroom',router)
 
 router.post('/getMessages',checkAuth,(req,res)=>{
 	const room=req.body.room
@@ -403,10 +398,18 @@ app.get('/uploads/:img/:token',(req,res)=>{
 })
 
 
-app.get('/getUser',checkAuth,(req,res)=>{
+router.get('/getUser',checkAuth,(req,res)=>{
 	res.send({name:req.userData.name,email:req.userData.email})
 })
 
+
+
+
+app.use('/',router)
+app.use('/chat',router)
+app.use('/chat/:room',router)
+app.use('/enterroom',router)
+app.use('/newroom',router)
 
 
 
