@@ -26,6 +26,7 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import axios from 'axios'
 import url from '../url'
@@ -91,7 +92,7 @@ export default function Header(props)
     const dispatch=useDispatch()
 
      const handleDrawerToggle = () => {
-       setMobileOpen(!mobileOpen);
+       (props.match.params.room)?props.history.push('/'):setMobileOpen(!mobileOpen);
      };
 
      const [latest,setLatest]=useState([])
@@ -156,7 +157,7 @@ export default function Header(props)
         onClick={handleDrawerToggle}
         className={classes.menuButton}
       >
-        <MenuIcon />
+       {(props.match.params.room)?<ArrowBackIcon />:<MenuIcon />}
       </IconButton>
       <Typography variant="h6" noWrap>
         {props.name}
