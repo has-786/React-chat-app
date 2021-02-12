@@ -32,6 +32,14 @@ const Rooms=db.rooms
 let room;
 
 
+  const generate=(email1,email2)=>{
+      let email4=(email1>email2)?email1:email2
+      let email3=(email1<email2)?email1:email2
+
+      return email3+'-'+email4
+  }
+
+
 io.sockets.on('connection',(socket)=>{
 
 		socket.on('create', function (myroom) {
@@ -301,10 +309,11 @@ router.post('/getMessages',checkAuth,(req,res)=>{
 	const room=req.body.room
 	const page=req.body.page
 	const size=10
+
 	const firstIndex=(page-1)*size
 	lastIndex=page*size
 	console.log(room)
-	Rooms.findOne({name:room},{msgs:{$slice:[firstIndex,lastIndex-firstIndex+1]}})
+  Rooms.findOne({name:room},{msgs:{$slice:[firstIndex,lastIndex-firstIndex+1]}})
 	.then(room=>{
 		console.log(room)
 		if(!room)res.send({msgs:null,status:0})
@@ -404,16 +413,92 @@ router.get('/getUser',checkAuth,(req,res)=>{
 
 
 
+router.get('/getFriend',checkAuth,(req,res)=>{
+	const _id=req.userData._id
+	Users.findOne({_id})
+	.then(user=>{
+			res.send({name:req.userData.name,email:req.userData.email,friends:user.friends,pendings:user.pendings,sent:user.sent,status:1})
+	})
+	.catch(err=>{res.send({status:0})})
+})
+
+
+router.post('/setFriend',checkAuth,(req,res)=>{
+		const _id=req.userData._id
+		const name=req.userData.name
+		const email=req.userData.email
+		const profile=req.body.profile
+		const profile2={name,email}
+
+		const option=req.body.option
+		console.log(profile)
+
+		if(option=='Accept'){
+
+				 Users.updateOne({_id},{$pull:{pendings:{email:profile.email}},$push:{friends:profile}})
+				.then(update=>{	console.log(update); 	})
+				.catch(err=>{     res.send({status:0})  })
+
+				 Users.updateOne({email:profile.email},{$pull:{sent:{email}},$push:{friends:profile2}})
+				 .then(update=>{		console.log(update); 	})
+				 .catch(err=>{     })
+
+				 console.log("Email "+email+" Profile "+profile.email)
+				 const roomName=generate(email,profile.email)
+
+				 Rooms.findOne({name:roomName})
+				 .then(room=>{
+					 if(room){console.log(roomName+' already'); res.send({status:1}); }
+					 else {
+										const Newroom=new Rooms({name:roomName,online:[],msgs:[]});
+										Newroom.save((err,room)=>{ if(err){console.log(err); res.send({msg:"Someting Went Wrong",status:0}); }
+																							 else if(room){
+																								 console.log(roomName+' created');
+																								 res.send({msg:"Successfully created",status:1});
+																							}
+																							else {
+																								console.log('Error')
+																									res.send({msg:"Someting Went Wrong",status:1});
+																							}
+										});
+					 }
+				 })
+
+		}
+
+		else if(option=='Disconnect' || option=='Cancel request')
+		{
+			Users.updateOne({_id},{$pull:{sent:{email:profile.email}},$pull:{pendings:{email:profile.email}},$pull:{friends:{email:profile.email}} })
+			.then(update=>{		console.log(update);	})
+			.catch(err=>{     })
+
+			Users.updateOne({email:profile.email},{$pull:{sent:{email:email}},$pull:{pendings:{email:email}},$pull:{friends:{email:email}}} )
+			.then(update=>{		console.log(update); 	res.send({status:1})	})
+			.catch(err=>{     res.send({status:0})  })
+		}
+
+		else
+		{
+			Users.updateOne({_id},{$push:{sent:profile}})
+			.then(update=>{ 	console.log(update); 			})
+			.catch(err=>{       })
+
+			Users.updateOne({email:profile.email},{$push:{pendings:profile2}})
+			.then(update=>{		console.log(update); res.send({status:1})	})
+			.catch(err=>{  res.send({status:0})  })
+		}
+})
+
+
+
 
 app.use('/',router)
 app.use('/chat',router)
 app.use('/chat/:room',router)
+app.use('/personal/:room/',router)
+app.use('/personal/:room/:emails',router)
 app.use('/enterroom',router)
 app.use('/newroom',router)
-
-
-
-
 
 // rendering front-end
 const routes=['/','/signin','/signup','/newroom','/enterroom','/chat/:room']

@@ -12,7 +12,7 @@ db.once('open', function() {
 }
 const integer={type:Number, validate : {validator : Number.isInteger}};
 
-const usersSchema=new mongoose.Schema({name:String,email:String,pass:String,rooms:Array,latest:Array,pendings:Array,friends:Array})
+const usersSchema=new mongoose.Schema({name:String,email:String,pass:String,rooms:Array,latest:Array,pendings:Array,friends:Array,sent:Array})
 const users=mongoose.model('users',usersSchema)
 
 const roomsSchema=new mongoose.Schema({name:String,pass:String,online:Array,msgs:Array})

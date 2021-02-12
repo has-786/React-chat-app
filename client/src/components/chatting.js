@@ -96,13 +96,15 @@ const useStyles = makeStyles({
 
 const Chatting=(props)=>{
 
-  const audio=new Audio('../incoming.mp3')
+  let audio=new Audio('../incoming.mp3')
   const classes = useStyles();
 
   const chat=useSelector(state=>state.chatReducer)
   const dispatch=useDispatch();
 
-  const [room,setRoom]=useState(props.match.params.room);
+  let room=props.match.params.room;
+  const roomName=props.roomName;
+
   const [message,setMessage]=useState("");
   const [flag,setFlag]=useState(false);
   const [page,setPage]=useState(2);
@@ -240,7 +242,6 @@ const Chatting=(props)=>{
     }
 
   useEffect(()=>{
-
        if(chat[room])socketConnections(socket,name,email)
        else getMessages(1)
 
@@ -259,7 +260,7 @@ const Chatting=(props)=>{
     h=(parseInt(h/10)==0)?('0'+h):h;
     m=(parseInt(m/10)==0)?('0'+m):m;
     const time=h+":"+m;
-    var text = msg;
+    var text = msg
     document.getElementById('loader').style.display='block'
 
     let salt = window.crypto.getRandomValues(new Uint8Array(16));
@@ -304,7 +305,6 @@ const Chatting=(props)=>{
       m=(parseInt(m/10)==0)?('0'+m):m;
       const time=h+":"+m;
 
-
       let flag=2;
       if(file.type.includes('image'))flag=1;
 
@@ -314,7 +314,6 @@ const Chatting=(props)=>{
             imageCompression(file, options)
             .then(function (compressedFile) {
                 socket.emit('send',{flag,email,room,name,path:file.name,img:compressedFile,time});
-
             })
             .catch(function (error) {alert(error.message); console.log(error.message);  });
       }
@@ -336,7 +335,7 @@ const Chatting=(props)=>{
 
   return <>
   <div style={{position:'fixed',width:'100%'}}>
-  <Header name={room} {...props}/>
+  <Header name={roomName} {...props}/>
   <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
 
   </div>

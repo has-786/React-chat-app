@@ -25,6 +25,7 @@ import Button from '@material-ui/core/Button';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 import axios from 'axios'
 import url from '../url'
@@ -117,7 +118,7 @@ export default function Header(props)
         })
         .catch(err=>toast.error(err))
      }
-     const menulist=[['Home','/',HomeIcon], ['Enter group','/enterroom',DirectionsRunIcon],['Create group','/newroom',AddIcon],['Sign out','/signin',ExitToAppIcon]]
+     const menulist=[['Home','/',HomeIcon],['Friends','/friends',AccountCircleIcon],['Enter group','/enterroom',DirectionsRunIcon],['Create group','/newroom',AddIcon],['Sign out','/signin',ExitToAppIcon]]
 
      const secureAxios=axios.create(
                            {
@@ -127,10 +128,10 @@ export default function Header(props)
                            }
                          })
 
-    
+
      const drawer = (
        <div>
-       <center><AccountCircleIcon style={{color:'blue',width:'70px',height:'70px'}}/></center>
+       <center><AccountBoxIcon style={{color:'blue',width:'70px',height:'70px'}}/></center>
        <center><p>{name}</p></center>
         <div className={classes.toolbar} style={{marginTop:'-60px'}}/>
          <Divider />

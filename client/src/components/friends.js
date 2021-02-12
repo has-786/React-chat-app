@@ -35,12 +35,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import CheckIcon from '@material-ui/icons/Check';
+import ClearIcon from '@material-ui/icons/Clear';
+import ChatIcon from '@material-ui/icons/Chat';
 
 import axios from 'axios'
 import url from '../url'
 import socket from '../socketurl'
 
 import Header from './header'
+import {connect} from './profile'
 
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -89,12 +94,32 @@ function Copyright() {
 }
 
 
-export default function Profile(props) {
-
-  const profile=props.match.params.email
+export default function Friends(props) {
 
   const classes=useStyles()
   const dispatch=useDispatch()
+
+  const [openAccept, setOpenAccept] = React.useState(false);
+  const [profile, setProfile] = React.useState(null);
+  const [openDisconnect, setOpenDisconnect] = React.useState(false);
+  const [disconnectStatus, setDisconnectStatus] = React.useState('Disconnect');
+
+
+  const handleClickOpenAccept = () => {
+    setOpenAccept(true);
+  };
+
+  const handleCloseAccept = () => {
+     setOpenAccept(false);
+  };
+
+  const handleClickOpenDisconnect = () => {
+    setOpenDisconnect(true);
+  };
+
+  const handleCloseDisconnect = () => {
+    setOpenDisconnect(false);
+  };
 
   const token=localStorage.getItem('token')
 
@@ -107,15 +132,23 @@ export default function Profile(props) {
                       })
 
   const exist=useSelector(state=>state.friendReducer.exist)
+  const name=useSelector(state=>state.userReducer.name)
+  const email=useSelector(state=>state.userReducer.email)
+  const friends=useSelector(state=>state.friendReducer.friends)
+  const pendings=useSelector(state=>state.friendReducer.pendings)
+
 
   useEffect(()=>{
+
       if(exist)return;
 
-      secureAxios.get('getFriends')
+      secureAxios.get('getFriend')
       .then((response)=>{
             const body=response.data
+
             if(body.status==1){
-                dispatch({type:'load_friend',payload:{friends:body.friends,pendings:body.pendings,exist:true}})
+                dispatch({type:'load_friend',payload:{friends:body.friends,pendings:body.pendings,sent:body.sent,exist:true}})
+                dispatch({type:'load_user',payload:{name:body.name,email:body.email,exist:true}})
             }
       })
       .catch(err=>{
@@ -125,35 +158,95 @@ export default function Profile(props) {
 
   },[])
 
-  const updateFriend=()=>{
-     const email=localStorage.getItem('email')
-     secureAxios.get('updateFriend')
-     .then((response)=>{
-           const body=response.data
-           if(body.status==1){
-               dispatch({type:'load_friend',payload:{friends:body.friends,pendings:body.pendings,exist:true}})
-           }
-     })
-     .catch(err=>{
-       toast.error(err)
-       props.history.push('/signin');
-     })
+  const generate=(email1,email2)=>{
 
+      let email3=(email1>email2)?email1:email2
+      let email4=(email1<email2)?email1:email2
+
+      return email4+'-'+email3
   }
 
-    const friends=useSelector(state=>state.groupReducer.friends)
-    const pendings=useSelector(state=>state.groupReducer.pendings)
 
-    if(friends.includes(profile))setStatus("Disconnect")
-    else if(pendings.includes(profile))setStatus("Accept")
 
   return (
     <>
-    <Header name='Profile' {...props}/>
+    <Header name='Connections' {...props}/>
+    <Dialog open={openAccept} onClose={handleCloseAccept} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Are you sure want to connect?</DialogTitle>
+        <DialogActions>
+          <Button onClick={()=>{handleCloseAccept();  }} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={()=>{connect(secureAxios,dispatch,profile,'Accept'); handleCloseAccept();}} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
 
+      <Dialog
+        open={openDisconnect}
+        onClose={handleCloseDisconnect}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Are you sure want to {disconnectStatus}</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleCloseDisconnect} color="primary">
+            No
+          </Button>
+          <Button onClick={()=>{connect(secureAxios,dispatch,profile,'Disconnect'); handleCloseDisconnect();}} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <button onClick={connect}>{status}</button>
+
+      <Divider />
+      <br/><br/>
+      <div>
+      <h6>Connection Requests</h6>
+      <Divider />
+      <List>
+        {pendings.sort((a,b)=>{return (a<b)?-1:1}).map((profile, index) => (
+          <ListItem button key={profile.name} onClick={()=>props.history.push(`/profile/${profile.email}-${profile.name}`)}>
+              <ListItemAvatar>
+                      <AccountCircleIcon color="primary" />
+              </ListItemAvatar>
+              <ListItemText primary={profile.name} />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete">
+                  <CheckIcon style={{color:'green'}} onClick={()=>{setProfile(profile);   handleClickOpenAccept();}}/>
+                </IconButton>
+                <IconButton edge="end" aria-label="delete">
+                  <ClearIcon color='secondary' onClick={()=>{setProfile(profile);  setDisconnectStatus('Decline'); handleClickOpenDisconnect();}}/>
+                </IconButton>
+              </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+      <br /><br />
+      <h6>Connections</h6>
+      <Divider />
+      <List>
+        {friends.sort((a,b)=>{return (a<b)?-1:1}).map((profile, index) => (
+          <ListItem button key={profile.name} onClick={()=>props.history.push(`/profile/${profile.email}-${profile.name}`)}>
+              <ListItemAvatar>
+                      <AccountCircleIcon color="primary" />
+              </ListItemAvatar>
+              <ListItemText primary={profile.name} />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete">
+                    <ClearIcon color='secondary' onClick={()=>{setProfile(profile); setDisconnectStatus('Disconnect'); handleClickOpenDisconnect();}} />
+                </IconButton>
+                <IconButton edge="end" aria-label="delete">
+                    <ChatIcon color='primary' onClick={()=>props.history.push(`/personal/${generate(profile.email,email)}/${profile.email}-${email}`)} />
+                </IconButton>
+              </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+      </div>
       <Box mt={8} className={classes.footer}>
         <Copyright />
       </Box>
