@@ -106,5 +106,16 @@ const friendReducer=(state={pendings:[],friends:[],sent:[],exist:false},action)=
 }
 
 
-const reducer=combineReducers({groupReducer,chatReducer,userReducer,friendReducer});
+const profileReducer=(state={},action)=>{
+    switch(action.type)
+    {
+        case 'load_profile':
+           return action.payload
+        default:
+          return state
+    }
+  }
+
+
+const reducer=combineReducers({groupReducer,chatReducer,userReducer,friendReducer,profileReducer});
 export default reducer;

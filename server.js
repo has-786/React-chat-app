@@ -489,14 +489,26 @@ router.post('/setFriend',checkAuth,(req,res)=>{
 		}
 })
 
+router.post('/getProfile',checkAuth,(req,res)=>{
+   Users.findOne({email:req.body.email})
+  .then(user=>{if(!user)res.send({status:0}); else res.send({name:user.name,email:user.email,status:1});})
+  .catch(err=>res.send({status:0}) )
+})
 
 
+router.post('/searchPeople',checkAuth,(req,res)=>{
+  const searchstring=req.body.searchstring
+   Users.find({$or:[{email:{$regex:new RegExp("^" + searchstring.toLowerCase(), "i")}},{name:{$regex:new RegExp("^" + searchstring.toLowerCase(), "i")}}]})
+  .then(users=>{ res.send({users,status:1});})
+  .catch(err=>res.send({status:0}) )
+})
 
 app.use('/',router)
 app.use('/chat',router)
 app.use('/chat/:room',router)
 app.use('/personal/:room/',router)
 app.use('/personal/:room/:emails',router)
+app.use('/profile/:profile/',router)
 app.use('/enterroom',router)
 app.use('/newroom',router)
 
@@ -504,6 +516,13 @@ app.use('/newroom',router)
 const routes=['/','/signin','/signup','/newroom','/enterroom','/chat/:room','/friends','/profile/:profile','/personal/:room/:emails']
 routes.map(route=>app.use(route,express.static(path.join(__dirname, 'client','build'))))
 routes.map(route=>app.get(route,(req,res)=>{res.sendFile(path.join(__dirname,'client','build','index.html'));}))
+
+/*
+const Tesseract=require('tesseract.js');
+Tesseract.recognize('https://i.pinimg.com/originals/b9/5c/ec/b95cece7d94a3d54fbf9d58fa8a26357.jpg','eng',{logger:m=>console.log(m)})
+.then(({data:{text}})=>console.log(text))
+*/
+
 
 
 http.listen(port,()=>{console.log(`Server running on port ${port}`)});

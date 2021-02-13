@@ -27,7 +27,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
+import Slide from '@material-ui/core/Slide';
 
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
@@ -35,6 +38,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
+import CloseIcon from '@material-ui/icons/Close';
 
 import axios from 'axios'
 import url from '../url'
@@ -51,6 +55,13 @@ toast.configure()
 
 
 const useStyles = makeStyles((theme) => ({
+  appBar: {
+   position: 'relative',
+ },
+ title: {
+   marginLeft: theme.spacing(2),
+   flex: 1,
+ },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -67,7 +78,8 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  }
+  },
+  main:{height:'100vh'}
 
 }));
 
@@ -103,6 +115,10 @@ export default function Home(props) {
   const [openDel, setOpenDel] = React.useState(false);
   const [edit, setEdit] = React.useState(null);
   const [newPassword, setNewPassword] = React.useState("");
+  const [openSearch, setOpenSearch] = React.useState(false);
+  const [searchstring, setSearchstring] = React.useState("");
+  const [searchList, setSearchList] = React.useState([]);
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -121,6 +137,7 @@ export default function Home(props) {
     setEdit(null)
     setOpenDel(false);
   };
+
 
   const token=localStorage.getItem('token')
 
@@ -202,12 +219,15 @@ export default function Home(props) {
       })
     }
 
+
+
     const rooms=useSelector(state=>state.groupReducer.rooms)
     const latest=useSelector(state=>state.groupReducer.latest)
 
   return (
-    <>
-    <Header name='Home' {...props}/>
+    <div class={classes.main}>
+
+
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit password for group {edit}</DialogTitle>
         <DialogContent>
@@ -313,6 +333,6 @@ export default function Home(props) {
         <Copyright />
       </Box>
     </Container>
-    </>
+    </div>
   );
 }

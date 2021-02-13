@@ -72,7 +72,9 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  }
+  },
+  main:{height:'100vh'}
+
 
 }));
 
@@ -169,8 +171,7 @@ export default function Friends(props) {
 
 
   return (
-    <>
-    <Header name='Connections' {...props}/>
+    <div class={classes.main}>
     <Dialog open={openAccept} onClose={handleCloseAccept} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Are you sure want to connect?</DialogTitle>
         <DialogActions>
@@ -251,6 +252,6 @@ export default function Friends(props) {
         <Copyright />
       </Box>
     </Container>
-    </>
+    </div>
   );
 }

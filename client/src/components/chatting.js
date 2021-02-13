@@ -21,7 +21,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios'
 import url from '../url'
 import '../css/chat.css'
-import Header from './header'
+import Header2 from './header2'
 import io from 'socket.io-client';
 import decryptFun from '../crypto/decrypt'
 import encryptFun from '../crypto/encrypt'
@@ -335,7 +335,7 @@ const Chatting=(props)=>{
 
   return <>
   <div style={{position:'fixed',width:'100%'}}>
-  <Header name={roomName} {...props}/>
+  <Header2 name={roomName} {...props}/>
   <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
 
   </div>

@@ -27,6 +27,31 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ChatIcon from '@material-ui/icons/Chat';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
+import CloseIcon from '@material-ui/icons/Close';
+import SearchIcon from '@material-ui/icons/Search';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+import Authenticatedhome from '../Auth/AuthenticatedHome';
+import Authenticatedprofile from '../Auth/AuthenticatedProfile';
+import Authenticatedchatting from '../Auth/AuthenticatedChatting';
+import Authredirect from '../Auth/AuthRedirect'
+
+import Home from './home';
+import Chatting from './chatting';
+import Profile from './profile';
+import Friends from './friends';
+
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
+import TextField from '@material-ui/core/TextField';
+import Slide from '@material-ui/core/Slide';
 
 import axios from 'axios'
 import url from '../url'
@@ -41,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
+    searchBar: {
+     position: 'relative',
+   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -62,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth
   },
   content: {
     flexGrow: 1,
@@ -82,6 +110,11 @@ const signout=(push,dispatch)=>
   push('/signin')
 }
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
 export default function Header(props)
 {
     const { window } = props;
@@ -91,14 +124,48 @@ export default function Header(props)
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const dispatch=useDispatch()
 
+
+
      const handleDrawerToggle = () => {
        (props.match.params.room)?props.history.push('/'):setMobileOpen(!mobileOpen);
      };
 
      const [latest,setLatest]=useState([])
-     const token=localStorage.getItem('token')
+     const [openSearch, setOpenSearch] = React.useState(false);
+     const [searchstring, setSearchstring] = React.useState("");
+     const [searchList, setSearchList] = React.useState([]);
+
+         const token=localStorage.getItem('token')
+
+         const secureAxios=axios.create(
+                               {
+                                baseURL:url,
+                                headers:{
+                                 "Authorization":`bearer ${token}`
+                               }
+                             })
+
+           const handleClickOpenSearch = () => {
+             setOpenSearch(true);
+           };
+
+           const handleCloseSearch = () => {
+             setOpenSearch(false);
+           };
 
 
+               const searching=(evt)=>{
+                 evt.preventDefault()
+                 setSearchstring(evt.target.value)
+
+                 secureAxios.post('searchPeople',{searchstring})
+                 .then(response=>{
+                     const body=response.data
+                     if(body.status)setSearchList(body.users)
+                     else toast.error('Something went wrong',{autoComplete:1500})
+                 })
+               }
+//alert(JSON.stringify(props))
      const email=useSelector(state=>state.userReducer.email)
      const name=useSelector(state=>state.userReducer.name)
 
@@ -119,20 +186,12 @@ export default function Header(props)
         })
         .catch(err=>toast.error(err))
      }
-     const menulist=[['Home','/',HomeIcon],['Friends','/friends',AccountCircleIcon],['Enter group','/enterroom',DirectionsRunIcon],['Create group','/newroom',AddIcon],['Sign out','/signin',ExitToAppIcon]]
-
-     const secureAxios=axios.create(
-                           {
-                            baseURL:url,
-                            headers:{
-                             "Authorization":`bearer ${token}`
-                           }
-                         })
+     const menulist=[['Enter group','/enterroom',DirectionsRunIcon],['Create group','/newroom',AddIcon],['Sign out','/signin',ExitToAppIcon]]
 
 
      const drawer = (
        <div>
-       <center><AccountBoxIcon style={{color:'blue',width:'70px',height:'70px'}}/></center>
+       <center><AccountCircleIcon style={{color:'blue',width:'70px',height:'70px'}}/></center>
        <center><p>{name}</p></center>
         <div className={classes.toolbar} style={{marginTop:'-60px'}}/>
          <Divider />
@@ -147,30 +206,65 @@ export default function Header(props)
        </div>
      );
 
-  return <div style={{marginBottom:'5px'}}>
+  return <div >
+     <Dialog fullScreen open={openSearch} onClose={handleCloseSearch} TransitionComponent={Transition}>
+       <AppBar className={classes.searchBar}>
+        <Toolbar>
+          <IconButton edge="start" color="inherit" onClick={handleCloseSearch} aria-label="close">
+            <CloseIcon />
+          </IconButton>
+          <TextField
+            style={{backgroundColor:'white',borderRadius:'10px'}}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            name="search"
+            label='Search people'
+            type="text"
+            value={searchstring}
+            onChange={searching}
+            autoComplete="current-password"
+          />
+        </Toolbar>
+      </AppBar>
+
+      <List>
+      {
+        searchList.map(user=>{
+            return <ListItem button>
+              <ListItemText primary={user.name} secondary={user.email} onClick={()=>props.history.push(`/profile/${user.email}-${user.name}`)}/>
+            </ListItem>
+        })
+      }
+      </List>
+      </Dialog>
   <AppBar position="static" className={classes.appBar}>
-    <Toolbar>
-      <IconButton
-        color="inherit"
+    <Tabs
+    variant="fullWidth"
+    indicatorColor="primary"
+    textColor="primary"
+    aria-label="icon tabs example"
+   >
+      <Tab icon={<HomeIcon style={{color:'white'}}/>}  onClick={()=>props.changeValue(0)} aria-label="phone" />
+      <Tab icon={<ChatIcon style={{color:'white'}}/>}  onClick={()=>props.changeValue(1)} aria-label="favorite" />
+      <Tab icon={<AccountBoxIcon style={{color:'white'}}/>}  onClick={()=>props.changeValue(2)} aria-label="person" />
+      <Tab icon={<SearchIcon style={{color:'white'}}/>}  onClick={handleClickOpenSearch} aria-label="search" />
+      <Tab icon={<MenuIcon style={{color:'white'}}/>}
         aria-label="open drawer"
         edge="start"
         onClick={handleDrawerToggle}
         className={classes.menuButton}
-      >
-       {(props.match.params.room)?<ArrowBackIcon />:<MenuIcon />}
-      </IconButton>
-      <Typography variant="h6" noWrap>
-        {props.name}
-      </Typography>
-    </Toolbar>
+      />
+    </Tabs>
+
   </AppBar>
-  <nav className={classes.drawer} aria-label="mailbox folders">
+  <nav className={classes.drawer}  aria-label="mailbox folders">
     {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
     <Hidden smUp implementation="css">
       <Drawer
         container={container}
         variant="temporary"
-        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+        anchor={'right'}
         open={mobileOpen}
         onClose={handleDrawerToggle}
         classes={{

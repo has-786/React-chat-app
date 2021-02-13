@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import url from '../url'
-import Header from './header'
+import Header2 from './header2'
 
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -76,7 +76,7 @@ export default function Enterroom(props) {
 
   return (
     <>
-    <Header name='Enter Group'  {...props}/>
+    <Header2 name='' {...props}/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>

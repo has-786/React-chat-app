@@ -38,12 +38,13 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import axios from 'axios'
 import url from '../url'
 import socket from '../socketurl'
 
-import Header from './header'
+import Header2 from './header2'
 
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -114,9 +115,10 @@ export default function Profile(props) {
   const [option, setOption] = useState("Connect");
 
   const token=localStorage.getItem('token')
-  let profile=props.match.params.profile
-  const [profileEmail,profileName]=profile.split('-')
-  profile={email:profileEmail,name:profileName}
+  const profile=useSelector(state=>state.profileReducer)
+  const profileName=profile.name
+  const profileEmail=profile.email
+  if(!profile.email)props.history.push('/')
 
   const secureAxios=axios.create(
                         {
@@ -160,7 +162,7 @@ export default function Profile(props) {
 
   return (
     <>
-    <Header name='Profile' {...props}/>
+    <Header2 name='Profile' {...props}/>
 
     <Container component="main" maxWidth="xs">
       <CssBaseline />
