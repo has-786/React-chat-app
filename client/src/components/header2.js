@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import {withRouter} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -28,7 +29,7 @@ export default function Header2(props) {
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <ArrowBackIcon onClick={()=>props.history.push('/')}/>
+            <ArrowBackIcon onClick={()=>props.history.goBack()}/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             {props.name}

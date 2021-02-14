@@ -393,7 +393,10 @@ const Chatting=(props)=>{
                  <label for="file-input">
                   <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
                  </label>
-                 <input id="file-input" type="file" style={{display:'none'}} />
+              {/*   <input id="file-input" type="file" style={{display:'none'}} onChange={(evt)=>{
+                  document.getElementById('preview').setAttribute('src', window.URL.createObjectURL(evt.target.files[0]))
+
+                }}/>*/}
                  <button className='btn btn-sm btn-danger' onClick={sendFile.bind(this)}>Send</button>
               </div>
            </center>

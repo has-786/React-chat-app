@@ -4,12 +4,12 @@ import axios from 'axios'
 import url from '../url'
 import Loading from '../components/loading'
 
-export default function Authenticatedhome(Home,Authredirect){
+export default function Authenticatedchats(Chats,Authredirect){
 
   return function Authenticate(props){
   const [auth,setAuth]=useState(0)
-  const exist=useSelector(state=>state.groupReducer.exist)
-
+  const exist=useSelector(state=>state.startReducer.exist)
+  const dispatch=useDispatch()
   useEffect(()=>{
     if(exist)setAuth(1);
     else
@@ -26,6 +26,7 @@ export default function Authenticatedhome(Home,Authredirect){
         secureAxios.get('getRooms')
         .then((response)=>{
               const body=response.data
+              dispatch({type:'start',exist:1})
               setAuth(1)
 
         })
@@ -34,7 +35,7 @@ export default function Authenticatedhome(Home,Authredirect){
     }
 
   },[])
-   return (auth==0)?<Loading />:(auth==1)?<Home {...props}/>:<Authredirect redirect='signin'/>
+   return (auth==0)?<Loading />:(auth==1)?<Chats {...props}/>:<Authredirect redirect='signin'/>
 //  return (auth)?<Home {...props}/>:<Authredirect/>
  }
 

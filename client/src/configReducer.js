@@ -116,6 +116,18 @@ const profileReducer=(state={},action)=>{
     }
   }
 
+  const startReducer=(state={exist:0},action)=>{
+      switch(action.type)
+      {
+          case 'start':
+             return {...state,exist:action.payload}
+          case 'end':
+             return {...state,exist:0}
+          default:
+            return state
+      }
+    }
 
-const reducer=combineReducers({groupReducer,chatReducer,userReducer,friendReducer,profileReducer});
+
+const reducer=combineReducers({groupReducer,chatReducer,userReducer,friendReducer,profileReducer,startReducer});
 export default reducer;

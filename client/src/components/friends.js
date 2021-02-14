@@ -172,6 +172,8 @@ export default function Friends(props) {
 
   return (
     <div class={classes.main}>
+    <Header {...props}/>
+
     <Dialog open={openAccept} onClose={handleCloseAccept} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Are you sure want to connect?</DialogTitle>
         <DialogActions>

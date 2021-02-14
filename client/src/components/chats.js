@@ -101,11 +101,7 @@ function Copyright() {
 }
 
 
-export default function Home(props) {
-
-
-
-
+export default function Chats(props) {
 
   const classes=useStyles()
   const dispatch=useDispatch()
@@ -226,6 +222,7 @@ export default function Home(props) {
 
   return (
     <div class={classes.main}>
+    <Header {...props}/>
 
 
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

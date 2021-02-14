@@ -37,15 +37,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import Authenticatedhome from '../Auth/AuthenticatedHome';
-import Authenticatedprofile from '../Auth/AuthenticatedProfile';
-import Authenticatedchatting from '../Auth/AuthenticatedChatting';
-import Authredirect from '../Auth/AuthRedirect'
-
-import Home from './home';
-import Chatting from './chatting';
-import Profile from './profile';
-import Friends from './friends';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -105,6 +96,7 @@ const signout=(push,dispatch)=>
   localStorage.removeItem('token')
   localStorage.removeItem('name')
   localStorage.removeItem('email')
+  localStorage.removeItem('value')
 
   dispatch({type:'clear'})
   push('/signin')
@@ -240,14 +232,15 @@ export default function Header(props)
       </Dialog>
   <AppBar position="static" className={classes.appBar}>
     <Tabs
+    style={{display:'flex'}}
     variant="fullWidth"
     indicatorColor="primary"
     textColor="primary"
     aria-label="icon tabs example"
    >
-      <Tab icon={<HomeIcon style={{color:'white'}}/>}  onClick={()=>props.changeValue(0)} aria-label="phone" />
-      <Tab icon={<ChatIcon style={{color:'white'}}/>}  onClick={()=>props.changeValue(1)} aria-label="favorite" />
-      <Tab icon={<AccountBoxIcon style={{color:'white'}}/>}  onClick={()=>props.changeValue(2)} aria-label="person" />
+      <Tab icon={<HomeIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/')} aria-label="phone" />
+      <Tab icon={<ChatIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/chats')} aria-label="favorite" />
+      <Tab icon={<AccountBoxIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/friends')} aria-label="person" />
       <Tab icon={<SearchIcon style={{color:'white'}}/>}  onClick={handleClickOpenSearch} aria-label="search" />
       <Tab icon={<MenuIcon style={{color:'white'}}/>}
         aria-label="open drawer"

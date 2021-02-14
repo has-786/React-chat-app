@@ -162,7 +162,7 @@ export default function Profile(props) {
 
   return (
     <>
-    <Header2 name='Profile' {...props}/>
+    <Header2 name='Profile'  {...props}/>
 
     <Container component="main" maxWidth="xs">
       <CssBaseline />
