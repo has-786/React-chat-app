@@ -508,14 +508,14 @@ router.post('/searchPeople',checkAuth,(req,res)=>{
 
 
 router.post('/uploadpost',checkAuth,(req,res)=>{
-  let img=req.body.img
+  const img=req.body.img
   const path=req.body.path
   const uploaderName=req.body.uploaderName
   const uploaderEmail=req.body.uploaderEmail
   const desc=req.body.desc
   const time=req.body.time
   const date=req.body.date
-  console.log(req.body)
+  console.log("Req body img "+req.body.img)
   if(img)
   {
     //img=img.replace(/^data:image\/png;base64,/, "");
@@ -560,9 +560,9 @@ app.post('/likePost',checkAuth,(req,res)=>{
 })
 
 app.post('/deletePost',checkAuth,(req,res)=>{
-  const {email,_id,liked}=req.body
+  const {email,_id}=req.body
 
-    Posts.deleteOne({_id})
+    Posts.deleteOne({_id,uploaderEmail:email})
     .then(deleted=>{console.log(deleted); res.send({status:1});})
     .catch(err=>{console.log(err); res.send({status:0});})
 

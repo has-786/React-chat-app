@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {useDispatch,useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -61,9 +62,12 @@ export default function Posts(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [index,setIndex]=React.useState(0);
+  const [read,setRead]=React.useState({});
   const email=useSelector(state=>state.userReducer.email)
   //const email='syedhasnain9163@gmail.com';
-    const handleClick = (event) => {
+    const handleClick = (event,ind) => {
+      setIndex(ind)
       setAnchorEl(event.currentTarget);
     };
 
@@ -79,6 +83,22 @@ export default function Posts(props) {
   const exist=useSelector(state=>state.postReducer.exist)
   const posts=useSelector(state=>state.postReducer.post)
 
+  const readmore=(ind)=>{
+    ///alert(evt.target.innerHTML)
+    if(!read[ind])
+    {
+      let temp=JSON.parse(JSON.stringify(read))
+      temp[ind]=true
+      setRead(temp)
+    }
+    else{
+          let temp=JSON.parse(JSON.stringify(read))
+          temp[ind]=false
+          setRead(temp)
+    }
+
+  }
+
   useEffect(()=>{
     console.log(posts)
     if(exist)return;
@@ -93,6 +113,7 @@ export default function Posts(props) {
                         .then((response)=>{
                           const body=response.data
 
+
                           if(body.status==1){
 
                             dispatch({type:'load_post',payload:body.post})
@@ -106,14 +127,16 @@ export default function Posts(props) {
 
   },[])
 
-    const hidePost=(_id)=>{
 
-      alert(posts.indexOf(posts.find(p=>p._id==_id)))
+    const hidePost=(index)=>{
+        const _id=posts[index]._id
         dispatch({type:'hide_post',payload:_id})
         handleClose()
     }
 
-      const deletePost=(email,_id)=>{
+      const deletePost=(email,index)=>{
+        const _id=posts[index]._id
+
         const secureAxios=axios.create(
                               {
                                baseURL:url,
@@ -178,8 +201,8 @@ export default function Posts(props) {
     <br /><br />
     <Divider />
     {
-      posts.map(p=>{
-        return  <Card className={classes.root}>
+      posts.map((p,ind)=>{
+        return <Card className={classes.root}>
           <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar}
@@ -191,7 +214,7 @@ export default function Posts(props) {
             action={
               <>
               <IconButton aria-label="settings">
-                <MoreVertIcon onClick={handleClick}/>
+                <MoreVertIcon onClick={(evt)=>handleClick(evt,ind)}/>
               </IconButton>
               <Menu
                 id="simple-menu"
@@ -200,20 +223,34 @@ export default function Posts(props) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={hidePost.bind(this,p._id)}>Hide</MenuItem>
-
-              {(email==p.uploaderEmail)?<MenuItem onClick={deletePost.bind(this,p.email,p._id)}>Delete</MenuItem>:null}
+              <MenuItem onClick={hidePost.bind(this,index)}>Hide</MenuItem>
+              {(email===posts[index].uploaderEmail)?<MenuItem onClick={deletePost.bind(this,email,index)}>Delete</MenuItem>:null}
               </Menu>
               </>
             }
             title={p.uploaderName}
             subheader={p.date}
           />
+          <CardContent>
+            <Typography paragraph>
+
+          {(p.desc.split(" ").length<=10)?p.desc
+            :
+            (read[ind])?p.desc:p.desc.split(" ").slice(0,10).join(" ")}
+            &nbsp;&nbsp;
+            {(p.desc.split(" ").length>10)?<Link style={{textDecoration:"none"}} onClick={readmore.bind(this,ind)}>{(!read[ind])?"Read more":"Read less"}</Link>
+            :null
+            }
+
+            </Typography>
+
+          </CardContent>
+
           <img src={`${url}/uploads/${p.path}/${token}`} width="100%" height="100%"/>
+
 
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
-              {p.desc.slice(0,30)}
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
@@ -237,7 +274,6 @@ export default function Posts(props) {
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Typography paragraph>
-               {p.desc}
               </Typography>
             </CardContent>
           </Collapse>

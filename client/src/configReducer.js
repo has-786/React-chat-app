@@ -138,7 +138,6 @@ const profileReducer=(state={},action)=>{
         switch(action.type)
         {
             case 'load_post':
-            // alert(action.payload.length)
                return {exist:true,post:action.payload.reverse()}
 
             case 'add_post':
@@ -163,15 +162,7 @@ const profileReducer=(state={},action)=>{
                 return {...state,post:newPost}
 
             case 'hide_post':
-               alert(action.payload)
-               let temp=[];
-               for(let i=0;i<state.post.length;i++)
-               {
-                 if(state.post[i]._id!=action.payload)temp.push(state.post[i])
-               }
-               alert(temp.length)
-               return {...state,post:temp}
-
+               return {...state,post:state.post.filter(p=>p._id!=action.payload)}
 
             case 'clear':
                 return {exist:false,post:[]}
