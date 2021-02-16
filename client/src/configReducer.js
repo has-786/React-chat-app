@@ -111,6 +111,8 @@ const profileReducer=(state={},action)=>{
     {
         case 'load_profile':
            return action.payload
+        case 'clear':
+           return {}
         default:
           return state
     }
@@ -120,14 +122,66 @@ const profileReducer=(state={},action)=>{
       switch(action.type)
       {
           case 'start':
-             return {...state,exist:action.payload}
+             return {exist:action.payload}
           case 'end':
-             return {...state,exist:0}
+             return {exist:0}
+          case 'clear':
+             return {exist:0}
           default:
             return state
       }
     }
 
 
-const reducer=combineReducers({groupReducer,chatReducer,userReducer,friendReducer,profileReducer,startReducer});
+    const postReducer=(state={exist:false,post:[]},action)=>{
+        const newPost=JSON.parse(JSON.stringify(state.post))
+        switch(action.type)
+        {
+            case 'load_post':
+            // alert(action.payload.length)
+               return {exist:true,post:action.payload.reverse()}
+
+            case 'add_post':
+                return {...state,post:[action.payload,...state.post]}
+
+            case 'like_post':
+                  for(let i=0;i<newPost.length;i++)
+                  {
+                    if(newPost[i]._id==action.payload._id){
+                      if(action.payload.liked)
+                      {
+                        newPost[i].likeCount--
+                        newPost[i].liked=false
+                      }
+                      else {
+                        newPost[i].likeCount++
+                        newPost[i].liked=true
+                      }
+                    }
+                  }
+
+                return {...state,post:newPost}
+
+            case 'hide_post':
+               alert(action.payload)
+               let temp=[];
+               for(let i=0;i<state.post.length;i++)
+               {
+                 if(state.post[i]._id!=action.payload)temp.push(state.post[i])
+               }
+               alert(temp.length)
+               return {...state,post:temp}
+
+
+            case 'clear':
+                return {exist:false,post:[]}
+
+            default:
+              return state;
+        }
+    }
+
+
+
+const reducer=combineReducers({groupReducer,chatReducer,userReducer,friendReducer,profileReducer,startReducer,postReducer});
 export default reducer;

@@ -166,7 +166,7 @@ export default function Profile(props) {
 
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <center><AccountBoxIcon style={{color:'blue',width:'70px',height:'70px'}}/></center>
+      <center><AccountBoxIcon style={{color:'lightgrey',width:'70px',height:'70px'}} /></center>
       <center><p>{profile.name}</p></center>
       <center><p>{status}</p></center>
 

@@ -29,6 +29,8 @@ const db=require('./database/db.js');
 db.con(mongoose)
 const Users=db.users
 const Rooms=db.rooms
+const Posts=db.posts
+
 let room;
 
 
@@ -201,8 +203,9 @@ app.post('/localSignin',(req,res,next)=>{
 
 	 Users.findOne({email})
     .then(function(user1) {
+      //if(!user1){user1={pass:'null'}}
 			console.log(user1.pass)
-		if(user1) return bcrypt.compare(pass,user1.pass);
+		  if(user1) return bcrypt.compare(pass,user1.pass);
     })
     .then(function(samePassword) {
          console.log(samePassword);
@@ -503,6 +506,95 @@ router.post('/searchPeople',checkAuth,(req,res)=>{
   .catch(err=>res.send({status:0}) )
 })
 
+
+router.post('/uploadpost',checkAuth,(req,res)=>{
+  let img=req.body.img
+  const path=req.body.path
+  const uploaderName=req.body.uploaderName
+  const uploaderEmail=req.body.uploaderEmail
+  const desc=req.body.desc
+  const time=req.body.time
+  const date=req.body.date
+  console.log(req.body)
+  if(img)
+  {
+    //img=img.replace(/^data:image\/png;base64,/, "");
+
+      fs.writeFile("uploads/"+path,img,'base64',function(err) {
+          if(!err)
+          {
+              const Newpost=new Posts({uploaderName,uploaderEmail,img:buffer,path,desc,time,date})
+              Newpost.save((err,post)=>{
+                           if(err){console.log(err); res.send({status:0,msg:'Something went wrong'}); }
+                           else {console.log(post);  res.send({status:1,msg:'Your post was successfully uploaded'}); }
+              })
+          }
+          else { console.log(err); res.send({status:0,msg:'Something went wrong'}); }
+      })
+  }
+  else
+  {
+      const Newpost=new Posts({uploaderName,uploaderEmail,img,path,desc,time,date})
+      Newpost.save((err,post)=>{
+                   if(err){console.log(err); res.send({status:0,msg:'Something went wrong'}); }
+                   else {console.log(post);  res.send({status:1,msg:'Your post was successfully uploaded'}); }
+      })
+   }
+
+
+})
+
+app.post('/likePost',checkAuth,(req,res)=>{
+  const {email,_id,liked}=req.body
+  if(liked){
+    Posts.updateOne({_id},{$pull:{like:email}})
+    .then(update=>{console.log(update); res.send({status:1}); })
+    .catch(err=>{console.log(err); res.send({status:1}); })
+  }
+  else
+  {
+    Posts.updateOne({_id},{$addToSet:{like:email}})
+    .then(update=>{console.log(update); res.send({status:1});})
+    .catch(err=>{console.log(err); res.send({status:0});})
+  }
+})
+
+app.post('/deletePost',checkAuth,(req,res)=>{
+  const {email,_id,liked}=req.body
+
+    Posts.deleteOne({_id})
+    .then(deleted=>{console.log(deleted); res.send({status:1});})
+    .catch(err=>{console.log(err); res.send({status:0});})
+
+})
+
+app.get('/getPost',checkAuth,(req,res)=>{
+      const email=req.userData.email
+      Users.findOne({email})
+      .then(user=>{
+          const friends=user.friends
+          let friendsEmail=[]
+          friends.map(f=>friendsEmail.push(f.email))
+
+          Posts.find({$or:[{uploaderEmail:{$in:friendsEmail}},{uploaderEmail:email}]})
+          .then(post=>{
+            let returnPost=JSON.parse(JSON.stringify(post))
+            for(let i=0;i<returnPost.length;i++)
+            {
+              returnPost[i].likeCount=returnPost[i].like.length
+              returnPost[i].liked=(returnPost[i].like.includes(email))?true:false;
+            }
+            console.log(returnPost)
+
+            res.send({status:1,post:returnPost})
+          })
+          .catch(err=>res.send({status:0}))
+      })
+      .catch(err=>res.send({status:0}))
+
+})
+
+
 app.use('/',router)
 app.use('/chat',router)
 app.use('/chat/:room',router)
@@ -523,7 +615,4 @@ const Tesseract=require('tesseract.js');
 Tesseract.recognize('https://i.pinimg.com/originals/b9/5c/ec/b95cece7d94a3d54fbf9d58fa8a26357.jpg','eng',{logger:m=>console.log(m)})
 .then(({data:{text}})=>console.log(text))
 */
-
-
-
 http.listen(port,()=>{console.log(`Server running on port ${port}`)});

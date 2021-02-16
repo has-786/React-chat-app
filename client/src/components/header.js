@@ -36,7 +36,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import Avatar from '@material-ui/core/Avatar';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -94,10 +94,6 @@ const useStyles = makeStyles((theme) => ({
 const signout=(push,dispatch)=>
 {
   localStorage.removeItem('token')
-  localStorage.removeItem('name')
-  localStorage.removeItem('email')
-  localStorage.removeItem('value')
-
   dispatch({type:'clear'})
   push('/signin')
 }
@@ -178,19 +174,19 @@ export default function Header(props)
         })
         .catch(err=>toast.error(err))
      }
-     const menulist=[['Enter group','/enterroom',DirectionsRunIcon],['Create group','/newroom',AddIcon],['Sign out','/signin',ExitToAppIcon]]
+     const menulist=[['Friends','/friends',AccountCircleIcon],['Chats','/chats',ChatIcon],['Enter group','/enterroom',DirectionsRunIcon],['Create group','/newroom',AddIcon],['Sign out','/signin',ExitToAppIcon]]
 
 
      const drawer = (
        <div>
-       <center><AccountCircleIcon style={{color:'blue',width:'70px',height:'70px'}}/></center>
+       <center>{<AccountCircleIcon style={{borderColor:'#00008B',color:'lightgrey',width:'70px',height:'70px'}}/>}</center>
        <center><p>{name}</p></center>
         <div className={classes.toolbar} style={{marginTop:'-60px'}}/>
          <Divider />
          <List>
            {menulist.map((items, index) => (
              <ListItem button key={items[0]} onClick={()=>{(items[0]==='Sign out')?signout(props.history.push,dispatch):props.history.push(items[1])}}>
-               <ListItemIcon>{createElement(items[2], {})}</ListItemIcon>
+               <ListItemIcon style={{color:'#00008B'}}>{createElement(items[2], {})}</ListItemIcon>
                <ListItemText primary={items[0]} />
              </ListItem>
            ))}
@@ -202,7 +198,7 @@ export default function Header(props)
      <Dialog fullScreen open={openSearch} onClose={handleCloseSearch} TransitionComponent={Transition}>
        <AppBar className={classes.searchBar}>
         <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={handleCloseSearch} aria-label="close">
+         <IconButton edge="start" color="inherit" onClick={handleCloseSearch} aria-label="close">
             <CloseIcon />
           </IconButton>
           <TextField

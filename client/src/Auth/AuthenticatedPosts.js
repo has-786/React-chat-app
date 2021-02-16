@@ -10,10 +10,10 @@ export default function Authenticatedposts(Posts,Authredirect){
 
   return function Authenticate(props){
   const [auth,setAuth]=useState(0)
-  const exist=useSelector(state=>state.startReducer.exist)
+  const email=useSelector(state=>state.userReducer.email)
   const dispatch=useDispatch()
   useEffect(()=>{
-      if(exist)setAuth(1)
+      if(email)setAuth(1)
       else
       {
         const token=localStorage.getItem('token')
@@ -25,10 +25,11 @@ export default function Authenticatedposts(Posts,Authredirect){
                               }
                             })
 
-          secureAxios.get('getRooms')
+          secureAxios.get('getUser')
           .then((response)=>{
                 const body=response.data
                 dispatch({type:'start',payload:1})
+                dispatch({type:'load_user',payload:{name:body.name,email:body.email}})
                 setAuth(1)
           })
           .catch(err=>{  setAuth(2);  })

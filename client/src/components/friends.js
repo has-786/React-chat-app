@@ -27,7 +27,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
-
+import { red } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
@@ -73,7 +73,11 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  main:{height:'100vh'}
+  main:{height:'100vh'},
+
+  avatar: {
+    backgroundColor: red[500],
+  }
 
 
 }));
@@ -172,7 +176,11 @@ export default function Friends(props) {
 
   return (
     <div class={classes.main}>
-    <Header {...props}/>
+    <div style={{position:'fixed',width:'100%'}}>
+      <Header {...props}/>
+    </div>
+    <br /><br /><br />
+
 
     <Dialog open={openAccept} onClose={handleCloseAccept} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Are you sure want to connect?</DialogTitle>
@@ -205,8 +213,6 @@ export default function Friends(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
 
-      <Divider />
-      <br/><br/>
       <div>
       <h6>Connection Requests</h6>
       <Divider />
@@ -234,9 +240,10 @@ export default function Friends(props) {
       <List>
         {friends.sort((a,b)=>{return (a<b)?-1:1}).map((profile, index) => (
           <ListItem button key={profile.name} onClick={()=>props.history.push(`/profile/${profile.email}-${profile.name}`)}>
-              <ListItemAvatar>
-                      <AccountCircleIcon color="primary" />
-              </ListItemAvatar>
+            <ListItemAvatar>  <Avatar className={classes.avatar}>
+                      {profile.name.split(" ").map(word=>word[0].toUpperCase())}
+              </Avatar>
+            </ListItemAvatar>
               <ListItemText primary={profile.name} />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="delete">

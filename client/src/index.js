@@ -24,6 +24,7 @@ import Newroom from './components/newroom';
 import Enterroom from './components/enterroom';
 import Changepassword from './components/changePassword';
 import Posts from './components/posts';
+import Uploadpost from './components/uploadpost';
 
 import store from './configStore';
 
@@ -43,6 +44,7 @@ ReactDom.render(
       <Route  path='/changePassword' component={Changepassword} />
       <Route  exact path='/chat/:room' component={Authenticatedchatting(Chatting,Authredirect)} />
       <Route  exact path='/personal/:room/:emails' component={AuthenticatedpersonalChatting(Chatting,Authredirect)} />
+      <Route  path='/uploadpost' component={Uploadpost} />
     </Switch>
   </BrowserRouter>
 </Provider>

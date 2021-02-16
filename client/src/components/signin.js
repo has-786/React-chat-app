@@ -77,6 +77,7 @@ export default function Signin(props) {
       let email=null,name=null,token=null;
 
       if(body.status==1){
+
         email=body.email;name=body.name;token=body.token;
         toast.success('Signed in successfully',{autoClose:1000})
         dispatch({type:'load_user',payload:{name,email}})
@@ -85,10 +86,11 @@ export default function Signin(props) {
 
         props.history.push('/');
       }
-      else toast.error('Something went wrong',{autoClose:1000})
+      else toast.error('Something went wrong',{autoClose:10000})
 
 
-    }).catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
+    })
+    .catch(err=>toast.error('Something went wrong'+err,{autoClose:1000}) );
 }
 
 

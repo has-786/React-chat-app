@@ -222,9 +222,10 @@ export default function Chats(props) {
 
   return (
     <div class={classes.main}>
-    <Header {...props}/>
-
-
+      <div style={{position:'fixed',width:'100%'}}>
+        <Header {...props}/>
+      </div>
+      <br /><br /><br />
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit password for group {edit}</DialogTitle>
         <DialogContent>
@@ -273,15 +274,13 @@ export default function Chats(props) {
           </Button>
         </DialogActions>
       </Dialog>
+      <Fab color="primary" style={{height:'45px',width:'45px',float:'right'}}  aria-label="New Room" onClick={()=>props.history.push('/newroom')}>
+            <AddIcon />
+      </Fab>
+      <br /><br />
     <Container component="main" maxWidth="xs">
       <CssBaseline />
 
-      <Fab color="primary" style={{height:'50px',width:'50px',float:'right'}}  aria-label="New Room" onClick={()=>props.history.push('/newroom')}>
-        <AddIcon />
-      </Fab>
-
-      <Divider />
-      <br/><br/>
       <div>
       <h6>My Groups</h6>
       <Divider />

@@ -18,7 +18,10 @@ const users=mongoose.model('users',usersSchema)
 const roomsSchema=new mongoose.Schema({name:String,pass:String,online:Array,msgs:Array})
 const rooms=mongoose.model('rooms',roomsSchema)
 
-module.exports={con,users,rooms};
+const postsSchema=new mongoose.Schema({uploaderName:String,uploaderEmail:String,path:String,time:Number,date:String,desc:String,like:Array,share:Array,comment:Array})
+const posts=mongoose.model('posts',postsSchema)
+
+module.exports={con,users,rooms,posts};
 
 /*
  [
