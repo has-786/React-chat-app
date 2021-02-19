@@ -38,6 +38,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
+import PersonIcon from '@material-ui/icons/Person';
 import CloseIcon from '@material-ui/icons/Close';
 
 import axios from 'axios'
@@ -105,34 +106,6 @@ export default function Chats(props) {
 
   const classes=useStyles()
   const dispatch=useDispatch()
-//  const [rooms,setRooms]=useState([])
-//  const [latest,setLatest]=useState([])
-  const [open, setOpen] = React.useState(false);
-  const [openDel, setOpenDel] = React.useState(false);
-  const [edit, setEdit] = React.useState(null);
-  const [newPassword, setNewPassword] = React.useState("");
-  const [openSearch, setOpenSearch] = React.useState(false);
-  const [searchstring, setSearchstring] = React.useState("");
-  const [searchList, setSearchList] = React.useState([]);
-
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setEdit(null)
-    setOpen(false);
-  };
-
-  const handleClickOpenDel = () => {
-    setOpenDel(true);
-  };
-
-  const handleCloseDel = () => {
-    setEdit(null)
-    setOpenDel(false);
-  };
 
 
   const token=localStorage.getItem('token')
@@ -145,80 +118,37 @@ export default function Chats(props) {
                         }
                       })
 
-  const exist=useSelector(state=>state.groupReducer.exist)
+  const exist=useSelector(state=>state.recentReducer.exist)
+  const chats=useSelector(state=>state.recentReducer.chats)
   const email=useSelector(state=>state.userReducer.email)
   const name=useSelector(state=>state.userReducer.name)
+  const [chatslocal,setChatslocal]=useState(chats)
+  const [searchstring, setSearchstring] = React.useState("");
 
   useEffect(()=>{
       if(exist)return;
 
-      secureAxios.get('getRooms')
+      secureAxios.get('getChat')
       .then((response)=>{
             const body=response.data
-            //alert(body.status)
-            if(body.status==1){
-                dispatch({type:'load_group',payload:{latest:body.latest,rooms:body.rooms,exist:true}})
-                dispatch({type:'load_user',payload:{name:body.name,email:body.email}})
-            }
+            if(body.status==1)
+                dispatch({type:'load_recent',payload:body.chats})
+                setChatslocal(body.chats)
+
       })
       .catch(err=>{
-        alert(err)
+        toast.error(err)
         props.history.push('/signin');
       })
 
   },[])
 
-
-  const editRoom=(room)=>{
-
-    secureAxios.post('editRoom',{room,newPassword})
-    .then((response)=>{
-
-          const body=response.data
-          if(body.status==1){toast.success(`Password updated successfully for room ${room}`); dispatch({type:'edit_group'}); }
-          else toast.error('Something went wrong')
-    })
-    .catch(err=>{
-      alert(err)
-      props.history.push('/signin');
-    })
+  const searching=(evt)=>{
+    evt.preventDefault()
+    const temp=chats.filter(c=>c.roomName.includes(evt.target.value) || c.room.includes(evt.target.value) )
+    if(temp.length==0)setChatslocal(chats)
+    else setChatslocal(temp)
   }
-
-
-  const exitRoom=(room)=>{
-    secureAxios.post('exitRoom',{room})
-    .then((response)=>{
-          const body=response.data
-          if(body.status==1)
-            dispatch({type:'exit_group',payload:room})
-          else toast.error('Something went wrong')
-    })
-    .catch(err=>{
-      alert(err)
-      props.history.push('/signin')
-    })
-  }
-
-
-
-    const deleteRoom=(room)=>{
-      secureAxios.post('deleteRoom',{room})
-      .then((response)=>{
-            const body=response.data
-            if(body.status==1)
-              dispatch({type:'delete_my_group',payload:room})
-            else toast.error('Something went wrong')
-      })
-      .catch(err=>{
-        toast.error(err)
-        props.history.push('/signin')
-      })
-    }
-
-
-
-    const rooms=useSelector(state=>state.groupReducer.rooms)
-    const latest=useSelector(state=>state.groupReducer.latest)
 
   return (
     <div class={classes.main}>
@@ -226,105 +156,37 @@ export default function Chats(props) {
         <Header {...props}/>
       </div>
       <br /><br /><br />
-    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Edit password for group {edit}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Enter new password below
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Password"
-            value={newPassword}
-            onChange={(evt)=>setNewPassword(evt.target.value)}
-            type="password"
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={()=>{handleClose();  setNewPassword("");}} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={()=>{editRoom(edit); handleClose();  setNewPassword("");}} color="primary">
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog
-        open={openDel}
-        onClose={handleCloseDel}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">Delete group</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure want to delete group {edit}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDel} color="primary">
-            No
-          </Button>
-          <Button onClick={()=>{deleteRoom(edit); handleCloseDel();}} color="primary" autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Fab color="primary" style={{height:'45px',width:'45px',float:'right'}}  aria-label="New Room" onClick={()=>props.history.push('/newroom')}>
-            <AddIcon />
-      </Fab>
-      <br /><br />
     <Container component="main" maxWidth="xs">
       <CssBaseline />
 
       <div>
-      <h6>My Groups</h6>
-      <Divider />
-      <List>
-        {rooms?.sort((a,b)=>{return (a<b)?-1:1}).map((text, index) => (
-          <ListItem button key={text} onClick={()=>props.history.push(`/chat/${text}`)}>
-              <ListItemAvatar>
-                    <Avatar>
-                      <GroupIcon color="primary" />
-                    </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={text} />
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete">
-                  <EditIcon color='primary' onClick={()=>{setEdit(text);  handleClickOpen();}}/>
-                </IconButton>
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon color='secondary' onClick={()=>{setEdit(text);  handleClickOpenDel();}}/>
-                </IconButton>
-              </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
+      <TextField
+        style={{backgroundColor:'white',borderRadius:'10px'}}
+        variant="outlined"
+        margin="normal"
+        fullWidth
+        name="search"
+        label='Search Chat'
+        type="text"
+        onChange={searching}
+        autoComplete="current-password"
+      />
       <br /><br />
-      <h6>All Groups</h6>
-      <Divider />
+
       <List>
-        {latest?.sort((a,b)=>{return (a<b)?-1:1}).map((text, index) => (
-          <ListItem button key={text} onClick={()=>props.history.push(`/chat/${text}`)}>
+        {chatslocal.map((c, index) => (
+          <ListItem button key={c.roomName} onClick={()=>props.history.push(c.link)}>
               <ListItemAvatar>
                     <Avatar>
-                      <GroupIcon color="primary" />
+                      {(c.room===c.roomName)?<GroupIcon color="primary" />:<PersonIcon color='primary'/>}
                     </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={text} />
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete" onClick={exitRoom.bind(this,text)}>
-                    <MeetingRoomIcon color='secondary'  />
-                </IconButton>
-              </ListItemSecondaryAction>
+              <ListItemText primary={c.roomName} />
           </ListItem>
         ))}
       </List>
       </div>
+
       <Box mt={8} className={classes.footer}>
         <Copyright />
       </Box>

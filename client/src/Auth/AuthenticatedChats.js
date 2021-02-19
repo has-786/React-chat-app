@@ -4,7 +4,7 @@ import axios from 'axios'
 import url from '../url'
 import Loading from '../components/loading'
 
-export default function Authenticatedchats(Chats,Authredirect){
+export default function Authenticatedgroups(Chats,Authredirect){
 
   return function Authenticate(props){
   const [auth,setAuth]=useState(0)
@@ -23,14 +23,14 @@ export default function Authenticatedchats(Chats,Authredirect){
                             }
                           })
 
-        secureAxios.get('getRooms')
-        .then((response)=>{
-              const body=response.data
-              dispatch({type:'start',exist:1})
-              setAuth(1)
-
-        })
-        .catch(err=>{ setAuth(2);  })
+      secureAxios.get('getUser')
+      .then((response)=>{
+                        const body=response.data
+                        dispatch({type:'start',payload:1})
+                        dispatch({type:'load_user',payload:{name:body.name,email:body.email}})
+                        setAuth(1)
+       })
+       .catch(err=>{  setAuth(2);  })
 
     }
 

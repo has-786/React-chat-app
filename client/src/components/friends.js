@@ -212,6 +212,7 @@ export default function Friends(props) {
       </Dialog>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <br />
 
       <div>
       <h6>Connection Requests</h6>

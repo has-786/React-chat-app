@@ -12,7 +12,7 @@ db.once('open', function() {
 }
 const integer={type:Number, validate : {validator : Number.isInteger}};
 
-const usersSchema=new mongoose.Schema({name:String,email:String,pass:String,rooms:Array,latest:Array,pendings:Array,friends:Array,sent:Array})
+const usersSchema=new mongoose.Schema({name:String,email:String,pass:String,rooms:Array,latest:Array,pendings:Array,friends:Array,sent:Array,recentChat:Array})
 const users=mongoose.model('users',usersSchema)
 
 const roomsSchema=new mongoose.Schema({name:String,pass:String,online:Array,msgs:Array})
@@ -21,7 +21,10 @@ const rooms=mongoose.model('rooms',roomsSchema)
 const postsSchema=new mongoose.Schema({uploaderName:String,uploaderEmail:String,path:String,time:Number,date:String,desc:String,like:Array,share:Array,comment:Array})
 const posts=mongoose.model('posts',postsSchema)
 
-module.exports={con,users,rooms,posts};
+const chatsSchema=new mongoose.Schema({email:String,chats:Array})
+const chats=mongoose.model('chats',chatsSchema)
+
+module.exports={con,users,rooms,posts,chats};
 
 /*
  [

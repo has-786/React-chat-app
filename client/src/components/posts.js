@@ -23,6 +23,8 @@ import Fab from '@material-ui/core/Fab';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Header from './header';
 import url from '../url';
@@ -176,7 +178,7 @@ export default function Posts(props) {
                           const body=response.data
 
                           if(body.status==1){
-
+                            alert('liked')
                             dispatch({type:'like_post',payload:{_id,liked}})
 
                             props.history.replace('/');
@@ -192,14 +194,17 @@ export default function Posts(props) {
     <div style={{position:'fixed',width:'100%'}}>
       <Header {...props}/>
     </div>
-    <br /><br/>
+    <br /><br/><br />
     <div>
 
     <Fab color="primary" style={{height:'45px',width:'45px',float:'right'}}  aria-label="New Room" onClick={()=>props.history.push('/uploadpost')}>
       <AddIcon />
     </Fab>
-    <br /><br />
+    <br /><br /><br />
     <Divider />
+    <Container component="main" maxWidth="xl">
+      <CssBaseline />
+
     {
       posts.map((p,ind)=>{
         return <Card className={classes.root}>
@@ -234,11 +239,11 @@ export default function Posts(props) {
           <CardContent>
             <Typography paragraph>
 
-          {(p.desc.split(" ").length<=10)?p.desc
+          {(p.desc.split(" ").length<=30)?p.desc
             :
-            (read[ind])?p.desc:p.desc.split(" ").slice(0,10).join(" ")}
+            (read[ind])?p.desc:p.desc.split(" ").slice(0,30).join(" ")}
             &nbsp;&nbsp;
-            {(p.desc.split(" ").length>10)?<Link style={{textDecoration:"none"}} onClick={readmore.bind(this,ind)}>{(!read[ind])?"Read more":"Read less"}</Link>
+            {(p.desc.split(" ").length>30)?<Link style={{textDecoration:"none",fontSize:'15px'}} onClick={readmore.bind(this,ind)}>{(!read[ind])?"read more":"read less"}</Link>
             :null
             }
 
@@ -274,16 +279,16 @@ export default function Posts(props) {
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Typography paragraph>
+              {p.comment.map(cmt=>{
+                <p>{cmt}</p>
+              })}
               </Typography>
             </CardContent>
           </Collapse>
         </Card>
-
-
-
-
       })
     }
+    </Container>
 
     </div>
     </>

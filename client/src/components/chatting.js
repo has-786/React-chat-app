@@ -77,9 +77,7 @@ const useStyles = makeStyles({
 
   msgs:{
     width:'250px',
-    marginBottom:'10px',
-    backgroundColor:'#fffcb7',
-    color:'black'
+    marginBottom:'10px'
 
     //backgroundColor:'blue',color:'white',marginLeft:'auto'
   },
@@ -101,9 +99,12 @@ const Chatting=(props)=>{
 
   const chat=useSelector(state=>state.chatReducer)
   const dispatch=useDispatch();
-
+  let link;
   let room=props.match.params.room;
+  const emails=props.match.params.emails;
   const roomName=props.roomName;
+  if(room!=roomName)link=`/personal/${room}/${emails}`;
+  else link=`/chat/${room}`;
 
   const [message,setMessage]=useState("");
   const [flag,setFlag]=useState(false);
@@ -142,6 +143,8 @@ const Chatting=(props)=>{
 
 
       socket.on('receive',data=>{
+           dispatch({type:'add_recent',payload:{room,roomName,link}})
+
            if(email===data.email)return;
             console.log('received');
             (async ()=>{
@@ -162,6 +165,7 @@ const Chatting=(props)=>{
 
                       (async ()=>{
                                   dispatch({type:'add_chat',payload:{room,msg:data}})
+
                                   if(!data.path)window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
                                   else setTimeout(()=>window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'}),500)
 
@@ -281,7 +285,7 @@ const Chatting=(props)=>{
       salt=salt.join(",")
       iv=iv.join(",")
 
-      socket.emit('send',{flag:0,email,room,name,msg:encrypted,salt,iv,time}); // setMsgs(msgs=>[...msgs,{name,message}]);
+      socket.emit('send',{flag:0,email,room,name,msg:encrypted,salt,iv,time,roomName,link}); // setMsgs(msgs=>[...msgs,{name,message}]);
       document.getElementById('loader').style.display='none'
       console.log('sent')
       setMessage("");
@@ -313,7 +317,7 @@ const Chatting=(props)=>{
             let options = { maxSizeMB: 1,  maxWidthOrHeight: 1920,  useWebWorker: true }
             imageCompression(file, options)
             .then(function (compressedFile) {
-                socket.emit('send',{flag,email,room,name,path:file.name,img:compressedFile,time});
+                socket.emit('send',{flag,email,room,name,path:file.name,img:compressedFile,time,roomName,link});
             })
             .catch(function (error) {alert(error.message); console.log(error.message);  });
       }
@@ -330,7 +334,7 @@ const Chatting=(props)=>{
             };
        }
   }
- const rightStyle={marginLeft:'auto'}
+ const rightStyle={marginLeft:'auto',backgroundColor:'#fffcb7',color:'black'}
  const arriveStyle={backgroundColor:'beige',color:'green',margin:'auto auto 10px auto'}
 
   return <>
@@ -352,16 +356,14 @@ const Chatting=(props)=>{
               {(msg.flag==0)?
 
                <div style={{padding:'10px'}}>
-                  <b>{msg.name}</b>
-                  <br />
+                  {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
                   <span>{msg.message}</span>
                   <br />
                   <span style={{float:'right'}}>{msg.time}</span>
                 </div>
                 :(msg.flag==1)?
                 <div style={{padding:'10px'}}>
-                  <b>{msg.name}</b>
-                  <br />
+                  {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
                   <span><img src={`/uploads/${msg.path}/${token}`} height='100%' width='100%' /></span>
                   <span style={{float:'right'}}>{msg.time}</span>
                  </div>

@@ -79,6 +79,7 @@ export default function Uploadpost(props) {
                         }
                       })
    const days=['January','February','March','April','May','June','July','August','September','October','November','December']
+
    async function upload(event){
     event.preventDefault();
 
@@ -96,15 +97,18 @@ export default function Uploadpost(props) {
     m=(parseInt(m/10)==0)?('0'+m):m;
 
     const date=`${days[month]} ${day}, ${year} ${h}:${m}`
-
-    let path,img;
     const file=document.getElementById('file-input').files[0]
-    if(file)
-    {
-      let options = { maxSizeMB: 1,  maxWidthOrHeight: 1920,  useWebWorker: true }
-      imageCompression(file, options)
-      .then(function (compressedFile) {
-          const data={uploaderName,uploaderEmail,desc,img:JSON.stringify(img),path:file.name,date,time};
+
+          let data=new FormData()
+          data.append('uploaderName',uploaderName)
+          data.append('uploaderEmail',uploaderEmail)
+          data.append('desc',desc)
+          data.append('path',file?.name)
+          data.append('time',time)
+          data.append('date',date)
+          data.append('file',file)
+
+
 
           secureAxios.post('uploadpost',data)
           .then((response)=>{
@@ -114,35 +118,12 @@ export default function Uploadpost(props) {
               if(file)file.value=""
               setDesc("")
               toast.success(body.msg,{autoClose:1000})
-              dispatch({type:'add_post',payload:data})
-
+              dispatch({type:'add_post',payload:{...body.post,liked:false,likeCount:0}})
               props.history.replace('/');
             }
             else toast.error('Something went wrong',{autoClose:1000})
           })
           .catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
-      })
-      .catch(function (error) {alert(error.message); console.log(error.message);  });
-
-    }
-    else {
-      const data={uploaderName,uploaderEmail,desc,img,path,date,time};
-
-      secureAxios.post('uploadpost',data)
-      .then((response)=>{
-        const body=response.data
-
-        if(body.status==1){
-          if(file)file.value=""
-          setDesc("")
-          toast.success(body.msg,{autoClose:1000})
-          dispatch({type:'add_post',payload:data})
-
-          props.history.replace('/');
-        }
-        else toast.error('Something went wrong',{autoClose:1000})
-      }).catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
-    }
 }
 
 
@@ -161,6 +142,8 @@ export default function Uploadpost(props) {
             variant="outlined"
             margin="normal"
             required
+            multiline
+            rows={2}
             fullWidth
             type='text'
             label="Add description"
@@ -168,10 +151,11 @@ export default function Uploadpost(props) {
             onChange={(evt)=>setDesc(evt.target.value)}
             autoFocus
           />
+          Add photo
           <label for="file-input">
            <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
           </label>
-          <input id="file-input" type="file" style={{display:'none'}} onChange={(evt)=>{
+          <input id="file-input" name='file' type="file" style={{display:'none'}} onChange={(evt)=>{
            document.getElementById('preview').setAttribute('src', window.URL.createObjectURL(evt.target.files[0]))
            }}/>
            <img id='preview' width='200px' height='200px'/>

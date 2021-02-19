@@ -30,6 +30,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ChatIcon from '@material-ui/icons/Chat';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import CloseIcon from '@material-ui/icons/Close';
+import GroupIcon from '@material-ui/icons/Group';
 import SearchIcon from '@material-ui/icons/Search';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -141,17 +142,31 @@ export default function Header(props)
              setOpenSearch(false);
            };
 
+           const debounce=(fun,d)=>{
+               let timer;
+               return function(){
+                 let context=this;
+                 clearTimeout(timer)
+                 timer=setTimeout(()=>{
+                   fun.apply(context,arguments)
+                 },d)
+              }
+           }
 
-               const searching=(evt)=>{
+               function searching(evt){
                  evt.preventDefault()
-                 setSearchstring(evt.target.value)
 
-                 secureAxios.post('searchPeople',{searchstring})
+                 secureAxios.post('searchPeople',{searchstring:evt.target.value})
                  .then(response=>{
                      const body=response.data
                      if(body.status)setSearchList(body.users)
                      else toast.error('Something went wrong',{autoComplete:1500})
                  })
+               }
+               const debouncedSearching=debounce(searching,300)
+               const handleSearch=(evt)=>{
+                  evt.preventDefault()
+                  debouncedSearching(evt)
                }
 //alert(JSON.stringify(props))
      const email=useSelector(state=>state.userReducer.email)
@@ -174,7 +189,7 @@ export default function Header(props)
         })
         .catch(err=>toast.error(err))
      }
-     const menulist=[['Friends','/friends',AccountCircleIcon],['Chats','/chats',ChatIcon],['Enter group','/enterroom',DirectionsRunIcon],['Create group','/newroom',AddIcon],['Sign out','/signin',ExitToAppIcon]]
+     const menulist=[['Friends','/friends',AccountBoxIcon],['Chats','/chats',ChatIcon],['Groups','/groups',GroupIcon],['Enter group','/enterroom',DirectionsRunIcon],['Create group','/newroom',AddIcon],['Sign out','/signin',ExitToAppIcon]]
 
 
      const drawer = (
@@ -209,8 +224,7 @@ export default function Header(props)
             name="search"
             label='Search people'
             type="text"
-            value={searchstring}
-            onChange={searching}
+            onChange={handleSearch}
             autoComplete="current-password"
           />
         </Toolbar>
@@ -235,7 +249,8 @@ export default function Header(props)
     aria-label="icon tabs example"
    >
       <Tab icon={<HomeIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/')} aria-label="phone" />
-      <Tab icon={<ChatIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/chats')} aria-label="favorite" />
+      <Tab icon={<ChatIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/chats')} aria-label="chat" />
+      <Tab icon={<GroupIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/groups')} aria-label="group" />
       <Tab icon={<AccountBoxIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/friends')} aria-label="person" />
       <Tab icon={<SearchIcon style={{color:'white'}}/>}  onClick={handleClickOpenSearch} aria-label="search" />
       <Tab icon={<MenuIcon style={{color:'white'}}/>}

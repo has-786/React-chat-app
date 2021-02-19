@@ -19,6 +19,7 @@ app.use(cookieParser());
 
 const cors = require('cors');
 app.use(cors());
+const {multer,storage}=require('./multer.js');
 
 const io = require('socket.io')(http, {transports: ['websocket','polling']});
 const appMail='sociowe9163@gmail.com'
@@ -30,6 +31,7 @@ db.con(mongoose)
 const Users=db.users
 const Rooms=db.rooms
 const Posts=db.posts
+const Chats=db.chats
 
 let room;
 
@@ -53,11 +55,14 @@ io.sockets.on('connection',(socket)=>{
 		socket.on('user-joined',(name,room)=>{
 			console.log(`user joined: ${name} on room ${room}`)
 			socket.to(room).emit('user-joined',name)
+
 		})
 
 	// When user sends a message
 		socket.on('send',message=>{
+
 			console.log(message)
+      const {email,room,roomName,link}=message
 
 			if(message.img){
 				 fs.writeFile("uploads/"+message.path, message.img,'base64',function(err) {
@@ -75,11 +80,23 @@ io.sockets.on('connection',(socket)=>{
 			 }
 			else {
 
-				socket.to(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,name:message.name,time:message.time})
-				Rooms.updateOne({name:message.room},{$push:{msgs:{$each:[{flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,path:message.path,name:message.name,time:message.time}],$position:0}}})
-				.then(update=>console.log(`Room ${message.room} message updated successfully`))
-				.catch(err=>console.log(err))
+  				socket.to(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,name:message.name,time:message.time})
+
+  				Rooms.updateOne({name:message.room},{$push:{msgs:{$each:[{flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,path:message.path,name:message.name,time:message.time}],$position:0}}})
+  				.then(update=>console.log(`Room ${message.room} message updated successfully`))
+  				.catch(err=>console.log(err))
+
 		   }
+
+
+      Users.updateOne({email},{ $pull:{recentChat:{roomName:roomName}}   })
+              .then(update=>{console.log('Chat updated')  })
+              .catch(err=>console.log(err))
+
+       Users.updateOne({email},{ $push:{recentChat:{$each:[{room,roomName,link}],$position:0}}   })
+       .then(update=>{console.log('Chat updated')  })
+       .catch(err=>console.log(err))
+
 	  })
 
 		// on disconnect
@@ -500,14 +517,26 @@ router.post('/getProfile',checkAuth,(req,res)=>{
 
 
 router.post('/searchPeople',checkAuth,(req,res)=>{
-  const searchstring=req.body.searchstring
-   Users.find({$or:[{email:{$regex:new RegExp("^" + searchstring.toLowerCase(), "i")}},{name:{$regex:new RegExp("^" + searchstring.toLowerCase(), "i")}}]})
-  .then(users=>{ res.send({users,status:1});})
+    const searchstring=req.body.searchstring
+    if(searchstring==='')res.send({users:[],status:1})
+    else{
+     Users.find({$or:[{email:{$regex:`.*${searchstring.toLowerCase()}.*`,$options:'i'}},{name:{$regex:`.*${searchstring.toLowerCase()}.*`,$options:'i'}}]})
+    .then(users=>{console.log(users); res.send({users,status:1});})
+    .catch(err=>res.send({status:0}) )
+    }
+})
+
+
+router.get('/getChat',checkAuth,(req,res)=>{
+   const email=req.userData.email
+
+   Users.findOne({email})
+  .then(chats=>{ console.log(chats); res.send({chats:chats.recentChat,status:1});})
   .catch(err=>res.send({status:0}) )
 })
 
 
-router.post('/uploadpost',checkAuth,(req,res)=>{
+router.post('/uploadpost',checkAuth,multer({storage}).single('file'),(req,res)=>{
   const img=req.body.img
   const path=req.body.path
   const uploaderName=req.body.uploaderName
@@ -516,31 +545,12 @@ router.post('/uploadpost',checkAuth,(req,res)=>{
   const time=req.body.time
   const date=req.body.date
   console.log("Req body img "+req.body.img)
-  if(img)
-  {
-    //img=img.replace(/^data:image\/png;base64,/, "");
 
-      fs.writeFile("uploads/"+path,img,'base64',function(err) {
-          if(!err)
-          {
-              const Newpost=new Posts({uploaderName,uploaderEmail,img:buffer,path,desc,time,date})
-              Newpost.save((err,post)=>{
-                           if(err){console.log(err); res.send({status:0,msg:'Something went wrong'}); }
-                           else {console.log(post);  res.send({status:1,msg:'Your post was successfully uploaded'}); }
-              })
-          }
-          else { console.log(err); res.send({status:0,msg:'Something went wrong'}); }
-      })
-  }
-  else
-  {
-      const Newpost=new Posts({uploaderName,uploaderEmail,img,path,desc,time,date})
+      const Newpost=new Posts({uploaderName,uploaderEmail,path,desc,time,date})
       Newpost.save((err,post)=>{
                    if(err){console.log(err); res.send({status:0,msg:'Something went wrong'}); }
-                   else {console.log(post);  res.send({status:1,msg:'Your post was successfully uploaded'}); }
+                   else {console.log(post);  res.send({status:1,msg:'Your post was successfully uploaded',post}); }
       })
-   }
-
 
 })
 
@@ -615,4 +625,12 @@ const Tesseract=require('tesseract.js');
 Tesseract.recognize('https://i.pinimg.com/originals/b9/5c/ec/b95cece7d94a3d54fbf9d58fa8a26357.jpg','eng',{logger:m=>console.log(m)})
 .then(({data:{text}})=>console.log(text))
 */
+
+
+
+
+
+
+
+
 http.listen(port,()=>{console.log(`Server running on port ${port}`)});

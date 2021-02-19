@@ -172,7 +172,21 @@ const profileReducer=(state={},action)=>{
         }
     }
 
+    const recentReducer=(state={exist:0,chats:[]},action)=>{
+        switch(action.type)
+        {
+            case 'load_recent':
+               return {exist:1,chats:action.payload}
+            case 'add_recent':
+              return {exist:1,chats:[action.payload,...state.chats.filter(c=>c.roomName!=action.payload.roomName)]}
+            case 'clear':
+               return {exist:0,chats:[]}
+            default:
+              return state
+        }
+      }
 
 
-const reducer=combineReducers({groupReducer,chatReducer,userReducer,friendReducer,profileReducer,startReducer,postReducer});
+
+const reducer=combineReducers({groupReducer,chatReducer,userReducer,friendReducer,profileReducer,startReducer,postReducer,recentReducer});
 export default reducer;
