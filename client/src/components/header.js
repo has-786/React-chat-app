@@ -109,8 +109,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Header(props)
 {
-    //const { window } = props;
-    const container = document.body;//window !== undefined ? () => window().document.body : undefined;
+    const { window } = props;
+    const container = window !== undefined ? () => window().document.body : undefined;
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
