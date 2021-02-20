@@ -27,13 +27,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
-
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import RoomIcon from '@material-ui/icons/Room';
@@ -113,11 +114,13 @@ export default function Profile(props) {
 
   const [status, setStatus] = useState("Not connected");
   const [option, setOption] = useState("Connect");
+  const [openDp, setOpenDp] = React.useState(false);
 
   const token=localStorage.getItem('token')
   const profile=useSelector(state=>state.profileReducer)
   const profileName=profile.name
   const profileEmail=profile.email
+  const profileDp=profile.path
   if(!profile.email)props.history.push('/')
 
   const secureAxios=axios.create(
@@ -131,10 +134,49 @@ export default function Profile(props) {
   const exist=useSelector(state=>state.friendReducer.exist)
   const email=useSelector(state=>state.userReducer.email)
   const name=useSelector(state=>state.userReducer.name)
+  const dp=useSelector(state=>state.userReducer.path)
   const friends=useSelector(state=>state.friendReducer.friends)
   const pendings=useSelector(state=>state.friendReducer.pendings)
   const sent=useSelector(state=>state.friendReducer.sent)
 
+
+             const handleCloseDp= () => {
+                    setOpenDp(false);
+              };
+              const handleOpenDp= () => {
+                      setOpenDp(true);
+
+               };
+
+
+              const uploadDp=()=>{
+                let file=document.getElementById('file-input').files[0];
+
+                if(!document.getElementById('file-input').value)return
+                document.getElementById('file-input').value=''
+                document.getElementById('loader').style.display='block'
+
+                let data=new FormData()
+                data.append('file',file)
+                data.append('path',file.name)
+
+                secureAxios.post('updateDp',data)
+                .then((response)=>{
+                  const body=response.data
+
+                  if(body.status==1){
+                    if(file)file.value=""
+                    document.getElementById('loader').style.display='none'
+                    dispatch({type:'load_user',payload:{name,email,path:file.name}})
+                    localStorage.setItem('token',body.token)
+                    handleCloseDp()
+                  }
+                  else toast.error('Something went wrong',{autoClose:1000})
+                })
+                .catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
+
+
+              }
   useEffect(()=>{
       if(friends?.find(profile=>profile.email==profileEmail)){setStatus('Connected'); setOption('Disconnect');  }
       else if(pendings?.find(profile=>profile.email==profileEmail)){setStatus('Pending'); setOption('Accept'); }
@@ -149,7 +191,7 @@ export default function Profile(props) {
 
             if(body.status==1){
                 dispatch({type:'load_friend',payload:{pendings:body.pendings,friends:body.friends,sent:body.sent,exist:true}})
-                dispatch({type:'load_user',payload:{name:body.name,email:body.email,exist:true}})
+                dispatch({type:'load_user',payload:{name:body.name,email:body.email,path:body.path,exist:true}})
             }
       })
       .catch(err=>{
@@ -162,16 +204,52 @@ export default function Profile(props) {
 
   return (
     <>
+    <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
     <Header2 name='Profile'  {...props}/>
+    <Dialog
+      open={openDp}
+      onClose={handleCloseDp}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+    {
+      (email===profileEmail)?
+      <>
+        <DialogTitle>Change Profile Picure</DialogTitle>
+        <label for="file-input">
+         <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
+        </label>
+        <input id="file-input" name='file' type="file" style={{display:'none'}} onChange={(evt)=>{
+         document.getElementById('preview').setAttribute('src', window.URL.createObjectURL(evt.target.files[0]))
+         }}/>
+         <center><img id='preview' src={url+`/uploads/${profileDp}/${token}`} width='300px' height='300px'/></center>
+         <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={uploadDp}
+          >
+            Upload
+          </Button>
+        </>
+      :
+      <center><img id='preview' src={url+`/uploads/${profileDp}/${token}`} width='300px' height='300px'/></center>
+    }
+    </Dialog>
 
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <center><AccountBoxIcon style={{color:'lightgrey',width:'70px',height:'70px'}} /></center>
+      <center><Avatar src={url+`/uploads/${profileDp}/${token}`}  style={{borderColor:'#00008B',color:'lightgrey',width:'70px',height:'70px'}} onClick={handleOpenDp}></Avatar></center>
       <center><p>{profile.name}</p></center>
-      <center><p>{status}</p></center>
+      {(email!=profileEmail)?
+        <>
+          <center><p>{status}</p></center>
 
-      <button class='btn btn-sm btn-primary' onClick={connect.bind(this,secureAxios,dispatch,profile,option)} >{option}</button>
-      {(status=='Pending')?<button class='btn btn-sm btn-danger' onClick={connect.bind(this,secureAxios,dispatch,profile,'Disconnect')}>Decline</button>:null }
+          <button class='btn btn-sm btn-primary' onClick={connect.bind(this,secureAxios,dispatch,profile,option)} >{option}</button>
+          {(status=='Pending')?<button class='btn btn-sm btn-danger' onClick={connect.bind(this,secureAxios,dispatch,profile,'Disconnect')}>Decline</button>:null }
+        </>
+        :null
+      }
       <Box mt={8} className={classes.footer}>
         <Copyright />
       </Box>

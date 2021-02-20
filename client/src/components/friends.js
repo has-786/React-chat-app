@@ -39,6 +39,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import ChatIcon from '@material-ui/icons/Chat';
+import PersonIcon from '@material-ui/icons/Person';
 
 import axios from 'axios'
 import url from '../url'
@@ -154,7 +155,7 @@ export default function Friends(props) {
 
             if(body.status==1){
                 dispatch({type:'load_friend',payload:{friends:body.friends,pendings:body.pendings,sent:body.sent,exist:true}})
-                dispatch({type:'load_user',payload:{name:body.name,email:body.email,exist:true}})
+                dispatch({type:'load_user',payload:{name:body.name,email:body.email,path:body.path,exist:true}})
             }
       })
       .catch(err=>{
@@ -221,7 +222,9 @@ export default function Friends(props) {
         {pendings.sort((a,b)=>{return (a<b)?-1:1}).map((profile, index) => (
           <ListItem button key={profile.name} onClick={()=>props.history.push(`/profile/${profile.email}-${profile.name}`)}>
               <ListItemAvatar>
-                      <AccountCircleIcon color="primary" />
+                <Avatar src={url+`/uploads/${profile.path}/${token}`}>
+                  <PersonIcon color='lightgrey'/>
+                </Avatar>
               </ListItemAvatar>
               <ListItemText primary={profile.name} />
               <ListItemSecondaryAction>
@@ -241,9 +244,10 @@ export default function Friends(props) {
       <List>
         {friends.sort((a,b)=>{return (a<b)?-1:1}).map((profile, index) => (
           <ListItem button key={profile.name} onClick={()=>props.history.push(`/profile/${profile.email}-${profile.name}`)}>
-            <ListItemAvatar>  <Avatar className={classes.avatar}>
-                      {profile.name.split(" ").map(word=>word[0].toUpperCase())}
-              </Avatar>
+            <ListItemAvatar>
+            <Avatar src={url+`/uploads/${profile.path}/${token}`}>
+              <PersonIcon color='lightgrey'/>
+            </Avatar>
             </ListItemAvatar>
               <ListItemText primary={profile.name} />
               <ListItemSecondaryAction>

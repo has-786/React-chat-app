@@ -39,6 +39,7 @@ import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
 import CloseIcon from '@material-ui/icons/Close';
+import PersonIcon from '@material-ui/icons/Person';
 
 import axios from 'axios'
 import url from '../url'
@@ -158,7 +159,7 @@ export default function Groups(props) {
             //alert(body.status)
             if(body.status==1){
                 dispatch({type:'load_group',payload:{latest:body.latest,rooms:body.rooms,exist:true}})
-                dispatch({type:'load_user',payload:{name:body.name,email:body.email}})
+                dispatch({type:'load_user',payload:{name:body.name,email:body.email,path:body.path}})
             }
       })
       .catch(err=>{
@@ -289,7 +290,7 @@ export default function Groups(props) {
           <ListItem button key={text} onClick={()=>props.history.push(`/chat/${text}`)}>
               <ListItemAvatar>
                     <Avatar>
-                      <GroupIcon color="primary" />
+                      <GroupIcon color="lightgrey" />
                     </Avatar>
               </ListItemAvatar>
               <ListItemText primary={text} />
@@ -312,7 +313,7 @@ export default function Groups(props) {
           <ListItem button key={text} onClick={()=>props.history.push(`/chat/${text}`)}>
               <ListItemAvatar>
                     <Avatar>
-                      <GroupIcon color="primary" />
+                      <GroupIcon color="lightgrey" />
                     </Avatar>
               </ListItemAvatar>
               <ListItemText primary={text} />

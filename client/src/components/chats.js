@@ -177,10 +177,11 @@ export default function Chats(props) {
         {chatslocal.map((c, index) => (
           <ListItem button key={c.roomName} onClick={()=>props.history.push(c.link)}>
               <ListItemAvatar>
-                    <Avatar>
-                      {(c.room===c.roomName)?<GroupIcon color="primary" />:<PersonIcon color='primary'/>}
+                    <Avatar src={url+`/uploads/${c.dp}/${token}`}>
+                    {(c.room===c.roomName)?<GroupIcon color="lightgrey" />:<PersonIcon color='lightgrey'/>}
                     </Avatar>
               </ListItemAvatar>
+
               <ListItemText primary={c.roomName} />
           </ListItem>
         ))}

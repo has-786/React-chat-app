@@ -30,6 +30,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ChatIcon from '@material-ui/icons/Chat';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import CloseIcon from '@material-ui/icons/Close';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 import GroupIcon from '@material-ui/icons/Group';
 import SearchIcon from '@material-ui/icons/Search';
 import Dialog from '@material-ui/core/Dialog';
@@ -38,6 +39,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Avatar from '@material-ui/core/Avatar';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -71,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
-    },
+    }
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -106,12 +109,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Header(props)
 {
-    const { window } = props;
-    const container = window !== undefined ? () => window().document.body : undefined;
+    //const { window } = props;
+    const container = document.body;//window !== undefined ? () => window().document.body : undefined;
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const dispatch=useDispatch()
+
 
 
 
@@ -121,6 +125,8 @@ export default function Header(props)
 
      const [latest,setLatest]=useState([])
      const [openSearch, setOpenSearch] = React.useState(false);
+     const [openDp, setOpenDp] = React.useState(false);
+
      const [searchstring, setSearchstring] = React.useState("");
      const [searchList, setSearchList] = React.useState([]);
 
@@ -142,6 +148,44 @@ export default function Header(props)
              setOpenSearch(false);
            };
 
+           const handleCloseDp= () => {
+                  setOpenDp(false);
+            };
+            const handleOpenDp= () => {
+                    setOpenDp(true);
+
+             };
+
+
+            const uploadDp=()=>{
+              let file=document.getElementById('file-input').files[0];
+
+              if(!document.getElementById('file-input').value)return
+              document.getElementById('file-input').value=''
+              document.getElementById('loader').style.display='block'
+
+              let data=new FormData()
+              data.append('file',file)
+              data.append('path',file.name)
+
+              secureAxios.post('updateDp',data)
+              .then((response)=>{
+                const body=response.data
+
+                if(body.status==1){
+                  if(file)file.value=""
+                  document.getElementById('loader').style.display='none'
+                  dispatch({type:'load_user',payload:{name,email,path:file.name}})
+                  localStorage.setItem('token',body.token)
+                  handleCloseDp()
+                }
+                else toast.error('Something went wrong',{autoClose:1000})
+              })
+              .catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
+
+
+            }
+
            const debounce=(fun,d)=>{
                let timer;
                return function(){
@@ -153,6 +197,7 @@ export default function Header(props)
               }
            }
 
+
                function searching(evt){
                  evt.preventDefault()
 
@@ -163,14 +208,17 @@ export default function Header(props)
                      else toast.error('Something went wrong',{autoComplete:1500})
                  })
                }
-               const debouncedSearching=debounce(searching,300)
+
                const handleSearch=(evt)=>{
                   evt.preventDefault()
                   debouncedSearching(evt)
                }
-//alert(JSON.stringify(props))
-     const email=useSelector(state=>state.userReducer.email)
-     const name=useSelector(state=>state.userReducer.name)
+
+               const debouncedSearching=debounce(searching,300)
+
+    const email=useSelector(state=>state.userReducer.email)
+    const name=useSelector(state=>state.userReducer.name)
+    const dp=useSelector(state=>state.userReducer.path)
 
     if(!name || !email)
      {
@@ -194,7 +242,7 @@ export default function Header(props)
 
      const drawer = (
        <div>
-       <center>{<AccountCircleIcon style={{borderColor:'#00008B',color:'lightgrey',width:'70px',height:'70px'}}/>}</center>
+       <center>{<Avatar src={url+`/uploads/${dp}/${token}`} style={{borderColor:'#00008B',color:'lightgrey',marginTop:'10px',width:'70px',height:'70px'}} onClick={handleOpenDp}></Avatar>}</center>
        <center><p>{name}</p></center>
         <div className={classes.toolbar} style={{marginTop:'-60px'}}/>
          <Divider />
@@ -210,36 +258,68 @@ export default function Header(props)
      );
 
   return <div >
-     <Dialog fullScreen open={openSearch} onClose={handleCloseSearch} TransitionComponent={Transition}>
-       <AppBar className={classes.searchBar}>
-        <Toolbar>
-         <IconButton edge="start" color="inherit" onClick={handleCloseSearch} aria-label="close">
-            <CloseIcon />
-          </IconButton>
-          <TextField
-            style={{backgroundColor:'white',borderRadius:'10px'}}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="search"
-            label='Search people'
-            type="text"
-            onChange={handleSearch}
-            autoComplete="current-password"
-          />
-        </Toolbar>
-      </AppBar>
+            <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
+            <Dialog
+              open={openDp}
+              onClose={handleCloseDp}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">Change Profile Picture</DialogTitle>
+              <label for="file-input">
+               <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
+              </label>
+              <input id="file-input" name='file' type="file" style={{display:'none'}} onChange={(evt)=>{
+               document.getElementById('preview').setAttribute('src', window.URL.createObjectURL(evt.target.files[0]))
+               }}/>
+               <center><img id='preview' src={url+`/uploads/${dp}/${token}`} width='300px' height='300px'/></center>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={uploadDp}
+              >
+                Upload
+              </Button>
+            </Dialog>
 
-      <List>
-      {
-        searchList.map(user=>{
-            return <ListItem button>
-              <ListItemText primary={user.name} secondary={user.email} onClick={()=>props.history.push(`/profile/${user.email}-${user.name}`)}/>
-            </ListItem>
-        })
-      }
-      </List>
-      </Dialog>
+
+           <Dialog fullScreen open={openSearch} onClose={handleCloseSearch} TransitionComponent={Transition}>
+             <AppBar className={classes.searchBar}>
+              <Toolbar>
+               <IconButton edge="start" color="inherit" onClick={handleCloseSearch} aria-label="close">
+                  <CloseIcon />
+                </IconButton>
+                <TextField
+                  style={{backgroundColor:'white',borderRadius:'10px'}}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  name="search"
+                  label='Search people'
+                  type="text"
+                  onChange={handleSearch}
+                  autoComplete="current-password"
+                  autoFocus
+                />
+              </Toolbar>
+            </AppBar>
+
+            <List>
+            {
+              searchList.map(user=>{
+                  return <ListItem button>
+                    <ListItemAvatar>
+                      <Avatar src={url+`/uploads/${user.path}/${token}`} style={{borderColor:'#00008B',color:'lightgrey'}}>
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={user.name} secondary={user.email} onClick={()=>props.history.push(`/profile/${user.email}-${user.name}`)}/>
+                  </ListItem>
+              })
+            }
+            </List>
+            </Dialog>
+
   <AppBar position="static" className={classes.appBar}>
     <Tabs
     style={{display:'flex'}}

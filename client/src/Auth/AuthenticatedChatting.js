@@ -44,7 +44,7 @@ export default function Authenticatedchatting(Chatting,Authredirect){
 
   },[])
 
-  return (auth==0)?<Loading />:(auth==1)?<Chatting roomName={room} {...props}/>:<Authredirect redirect={redirect}/>
+  return (auth==0)?<Loading />:(auth==1)?<Chatting roomName={room}  {...props}/>:<Authredirect redirect={redirect}/>
 
  }
 

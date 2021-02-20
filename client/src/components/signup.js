@@ -10,6 +10,8 @@ import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -74,7 +76,15 @@ export default function Signup(props) {
 
       if(confirmPassword!=password){toast("Password and Confirm password don't match",{autoClose:1000});}
 
-  		const data={name,email,pass:password};
+      const file=document.getElementById('file-input').files[0]
+
+            let data=new FormData()
+            data.append('name',name)
+            data.append('email',email)
+            data.append('pass',password)
+            data.append('path',file?.name)
+            data.append('file',file)
+
   		axios.post(url+'/localSignup',data)
       .then((response)=>{
         const body=response.data
@@ -84,10 +94,9 @@ export default function Signup(props) {
           toast.success('Signed up successfully',{autoClose:1000})
           email=body.email;name=body.name;token=body.token;
 
-          dispatch({type:'load_user',payload:{name,email}})
+          dispatch({type:'load_user',payload:{name,email,path:file?.name}})
 
           localStorage.setItem('token',token);
-          //localStorage.removeItem('otp');
 
           props.history.push('/');
         }
@@ -105,7 +114,6 @@ export default function Signup(props) {
         .then((response)=>{
             const body=response.data
             let receivedOtp=null;
-
 
             if(body.status==1){toast.info(body.msg,{autoClose:1000});setReceivedOtp(body.otp);}
             else toast.error(body.msg,{autoClose:1000});
@@ -154,6 +162,7 @@ export default function Signup(props) {
             onChange={(evt)=>setEmail(evt.target.value)}
             autoFocus
           />
+
           <Button
             type="submit"
             fullWidth
@@ -203,7 +212,14 @@ export default function Signup(props) {
             onChange={(evt)=>setConfirmPassword(evt.target.value)}
             autoComplete="current-password"
           />
-
+          Add photo
+          <label for="file-input">
+           <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
+          </label>
+          <input id="file-input" name='file' type="file" style={{display:'none'}} onChange={(evt)=>{
+           document.getElementById('preview').setAttribute('src', window.URL.createObjectURL(evt.target.files[0]))
+           }}/>
+           <img id='preview' width='100%' height='100%'/>
           <Button
             type="submit"
             fullWidth

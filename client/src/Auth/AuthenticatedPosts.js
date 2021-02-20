@@ -29,7 +29,7 @@ export default function Authenticatedposts(Posts,Authredirect){
           .then((response)=>{
                 const body=response.data
                 dispatch({type:'start',payload:1})
-                dispatch({type:'load_user',payload:{name:body.name,email:body.email}})
+                dispatch({type:'load_user',payload:{name:body.name,email:body.email,path:body.path}})
                 setAuth(1)
           })
           .catch(err=>{  setAuth(2);  })

@@ -67,6 +67,7 @@ export default function Uploadpost(props) {
   const classes = useStyles();
   const uploaderName=useSelector(state=>state.userReducer.name)
   const uploaderEmail=useSelector(state=>state.userReducer.email)
+  const uploaderDp=useSelector(state=>state.userReducer.path)
 
   const [desc,setDesc]=useState('')
   const dispatch=useDispatch()
@@ -98,17 +99,18 @@ export default function Uploadpost(props) {
 
     const date=`${days[month]} ${day}, ${year} ${h}:${m}`
     const file=document.getElementById('file-input').files[0]
+        if(file.type.includes('image') || file.type.includes('video')){}
+        else {toast.error('Only images and videos are allowed'); return false;}
 
           let data=new FormData()
           data.append('uploaderName',uploaderName)
           data.append('uploaderEmail',uploaderEmail)
+          data.append('uploaderDp',uploaderDp)
           data.append('desc',desc)
           data.append('path',file?.name)
           data.append('time',time)
           data.append('date',date)
           data.append('file',file)
-
-
 
           secureAxios.post('uploadpost',data)
           .then((response)=>{
@@ -125,6 +127,7 @@ export default function Uploadpost(props) {
           })
           .catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
 }
+
 
 
   return (
@@ -151,14 +154,21 @@ export default function Uploadpost(props) {
             onChange={(evt)=>setDesc(evt.target.value)}
             autoFocus
           />
-          Add photo
+          Add Profile Picure
           <label for="file-input">
            <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
           </label>
           <input id="file-input" name='file' type="file" style={{display:'none'}} onChange={(evt)=>{
-           document.getElementById('preview').setAttribute('src', window.URL.createObjectURL(evt.target.files[0]))
+            const type=evt.target.files[0].type;
+            const name=evt.target.files[0].type;
+            if(type.includes('image'))document.getElementById('previewI').setAttribute('src', window.URL.createObjectURL(evt.target.files[0]))
+            else {document.getElementById('previewV').style.display='block';document.getElementById('previewV').setAttribute('src', window.URL.createObjectURL(evt.target.files[0])); }
            }}/>
-           <img id='preview' width='200px' height='200px'/>
+          <img id='previewI' width='100%' height='100%'/>
+          <video id='previewV' style={{display:'none'}} width="100%" height="100%" controls>
+              <source  type="video/mp4" />
+              <source  type="video/ogg" />
+          </video>
           <Button
             type="submit"
             fullWidth

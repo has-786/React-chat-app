@@ -17,7 +17,8 @@ import Container from '@material-ui/core/Container';
 import imageCompression from 'browser-image-compression';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import GetAppIcon from '@material-ui/icons/GetApp';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import axios from 'axios'
 import url from '../url'
 import '../css/chat.css'
@@ -76,7 +77,7 @@ const useStyles = makeStyles({
     },
 
   msgs:{
-    width:'250px',
+    width:'260px',
     marginBottom:'10px'
 
     //backgroundColor:'blue',color:'white',marginLeft:'auto'
@@ -102,7 +103,8 @@ const Chatting=(props)=>{
   let link;
   let room=props.match.params.room;
   const emails=props.match.params.emails;
-  const roomName=props.roomName;
+  const {roomName,dp}=props;
+
   if(room!=roomName)link=`/personal/${room}/${emails}`;
   else link=`/chat/${room}`;
 
@@ -143,12 +145,12 @@ const Chatting=(props)=>{
 
 
       socket.on('receive',data=>{
-           dispatch({type:'add_recent',payload:{room,roomName,link}})
+           dispatch({type:'add_recent',payload:{room,roomName,link,dp}})
 
            if(email===data.email)return;
+
             console.log('received');
             (async ()=>{
-
                     if(!data.path)
                     {
                                     data.salt=data.salt.split(",")
@@ -241,16 +243,14 @@ const Chatting=(props)=>{
         })
         .catch(err=>{})
 
-
-
     }
 
-  useEffect(()=>{
-       if(chat[room])socketConnections(socket,name,email)
-       else getMessages(1)
+    useEffect(()=>{
+         if(chat[room])socketConnections(socket,name,email)
+         else getMessages(1)
 
-       return ()=>{ socket.disconnect();  }
-  },[])
+         return ()=>{ socket.disconnect();  }
+    },[])
 
 
 
@@ -285,7 +285,7 @@ const Chatting=(props)=>{
       salt=salt.join(",")
       iv=iv.join(",")
 
-      socket.emit('send',{flag:0,email,room,name,msg:encrypted,salt,iv,time,roomName,link}); // setMsgs(msgs=>[...msgs,{name,message}]);
+      socket.emit('send',{flag:0,email,room,name,msg:encrypted,path:null,salt,iv,time,roomName,link,dp}); // setMsgs(msgs=>[...msgs,{name,message}]);
       document.getElementById('loader').style.display='none'
       console.log('sent')
       setMessage("");
@@ -309,82 +309,111 @@ const Chatting=(props)=>{
       m=(parseInt(m/10)==0)?('0'+m):m;
       const time=h+":"+m;
 
-      let flag=2;
+      let flag=4;
       if(file.type.includes('image'))flag=1;
+      else if(file.type.includes('video'))flag=2;
+      else if(file.type.includes('audio'))flag=3;
+      //alert(file.type)
 
-      if(flag==1)
-      {
-            let options = { maxSizeMB: 1,  maxWidthOrHeight: 1920,  useWebWorker: true }
-            imageCompression(file, options)
-            .then(function (compressedFile) {
-                socket.emit('send',{flag,email,room,name,path:file.name,img:compressedFile,time,roomName,link});
-            })
-            .catch(function (error) {alert(error.message); console.log(error.message);  });
-      }
-      else
-      {
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-          //  alert(document.getElementById('file-input').files[0].value)
+      let data=new FormData()
+      data.append('file',file)
 
-            reader.onloadend = await function () {
-              const b64 = reader.result.replace(/^data:.+;base64,/, '');
-              socket.emit('send',{flag,email,room,name,path:file.name,img:b64,time});
+      secureAxios.post('sendFile',data)
+      .then((response)=>{
+        const body=response.data
 
-            };
-       }
+        if(body.status==1){
+          if(file)file.value=""
+          document.getElementById('loader').style.display='none'
+          dispatch({type:'add_chat',payload:{room,msg:{flag,email,room,name,msg:null,path:file.name,time,roomName,link}}})
+
+          socket.emit('send',{flag,email,room,name,msg:null,path:file.name,time,roomName,link,dp}); // setMsgs(msgs=>[...msgs,{name,message}]);
+        }
+        else toast.error('Something went wrong',{autoClose:1000})
+      })
+      .catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
+
+
+
   }
+
+
+  const download=(path)=>{
+    const a=document.createElement('a')
+    a.href=path
+    a.click()
+  }
+
  const rightStyle={marginLeft:'auto',backgroundColor:'#fffcb7',color:'black'}
  const arriveStyle={backgroundColor:'beige',color:'green',margin:'auto auto 10px auto'}
 
   return <>
   <div style={{position:'fixed',width:'100%'}}>
-  <Header2 name={roomName} {...props}/>
-  <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
-
+    <Header2 name={roomName} dp={dp} {...props}/>
+    <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
   </div>
+
   <div class={classes.main} >
         <div class={classes.container} id='container'>
           <div id='messages' class={classes.messageBox}  >
-          <Paper elevation={3} className={classes.paging} style={{display:olderMsgs}} onClick={ getMessages.bind(this,page)}><button class='btn btn-sm' s>Older Messages</button></Paper>
-          {
+            <Paper elevation={3} className={classes.paging} style={{display:olderMsgs}} onClick={ getMessages.bind(this,page)}><button class='btn btn-sm' s>Older Messages</button></Paper>
+            {
+              (chat[room]!=undefined)?chat[room].map((msg,id)=>{
+                let includeStyle=(email===msg.email)?rightStyle:{};
 
-            (chat[room]!=undefined)?chat[room].map((msg,id)=>{
-              let includeStyle=(email===msg.email)?rightStyle:{};
-
-              return <Paper  elevation={3} className={classes.msgs} style={includeStyle} >
-              {(msg.flag==0)?
-
-               <div style={{padding:'10px'}}>
-                  {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
-                  <span>{msg.message}</span>
-                  <br />
-                  <span style={{float:'right'}}>{msg.time}</span>
-                </div>
-                :(msg.flag==1)?
-                <div style={{padding:'10px'}}>
-                  {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
-                  <span><img src={`/uploads/${msg.path}/${token}`} height='100%' width='100%' /></span>
-                  <span style={{float:'right'}}>{msg.time}</span>
-                 </div>
-                 :
-                 <div style={{padding:'10px'}}>
-                   <b>{msg.name}</b>
-                   <br />
-                   <video width="100%" height="100%" controls>
-                     <source src={url+'/uploads/'+msg.path} type="video/mp4" />
-                     <source src={url+'/uploads/'+msg.path} type="video/ogg" />
-                   </video>
-                   <span style={{float:'right'}}>{msg.time}</span>
+                return <Paper  elevation={3} className={classes.msgs} style={includeStyle} >
+                {(msg.flag==0)?
+                  <div style={{padding:'10px'}}>
+                    {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
+                    <span>{msg.message}</span>
+                    <br />
+                    <span style={{float:'right'}}>{msg.time}</span>
                   </div>
-              }
-              </Paper>
-            })
-            :
-            null
-          }
+                  :(msg.flag==1)?
+                   <div style={{padding:'10px'}}>
+                    {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
+                    <span><img src={`/uploads/${msg.path}/${token}`} height='100%' width='100%' /></span>
+                    <span >{msg.path}&nbsp;&nbsp; <CloudDownloadIcon color='primary' style={{float:'right'}} onClick={download.bind(this,url+`/uploads/${msg.path}/${token}`)}/></span>
+                    <br /><br />
+                    <span style={{float:'right'}}>{msg.time}</span>
+                   </div>
+                  :(msg.flag==2)?
+                   <div style={{padding:'10px'}}>
+                   {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
+                   <video width="100%" height="100%" controls>
+                     <source src={url+`/uploads/${msg.path}/${token}`} type="video/mp4" />
+                     <source src={url+`/uploads/${msg.path}/${token}`} type="video/wav" />
+                     <source src={url+`/uploads/${msg.path}/${token}`}  type="video/ogg" />
+                   </video>
+                     <span >{msg.path}&nbsp;&nbsp; <CloudDownloadIcon color='primary' style={{float:'right'}} onClick={download.bind(this,url+`/uploads/${msg.path}/${token}`)}/></span>
+                     <br /><br />
+                     <span style={{float:'right'}}>{msg.time}</span>
+                    </div>
+                    :(msg.flag==3)?
+                      <div style={{padding:'10px'}}>
+                          {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
+                            <audio controls>
+                              <source src={url+`/uploads/${msg.path}/${token}`} type="audio/ogg" />
+                              <source src={url+`/uploads/${msg.path}/${token}`}  type="audio/mpeg" />
+                            </audio>
+                            <span >{msg.path}&nbsp;&nbsp; <CloudDownloadIcon color='primary' style={{float:'right'}} onClick={download.bind(this,url+`/uploads/${msg.path}/${token}`)}/></span>
+                            <br /><br />
+                            <span style={{float:'right'}}>{msg.time}</span>
+                       </div>
+                     :
+                      <div style={{padding:'10px'}}>
+                           {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
+                           <span> {msg.path}&nbsp;&nbsp; <CloudDownloadIcon color='primary' style={{float:'right'}} onClick={download.bind(this,url+`/uploads/${msg.path}/${token}`)}/></span>
+                           <br /><br />
+                           <span style={{float:'right'}}>{msg.time}</span>
+                       </div>
+                }
+                </Paper>
+              })
+              :null
+            }
           </div>
-         </div>
+          </div>
          <center>
              <div class={classes.sendbox}>
                <input type='text' ref={sendbox} placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)} autoFocus/>

@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: 'lightgrey',
   },
 }));
 
@@ -166,6 +166,8 @@ export default function Posts(props) {
 
 
   const likePost=(email,_id,liked)=>{
+      dispatch({type:'like_post',payload:{_id,liked}})
+
     const secureAxios=axios.create(
                           {
                            baseURL:url,
@@ -178,9 +180,6 @@ export default function Posts(props) {
                           const body=response.data
 
                           if(body.status==1){
-                            alert('liked')
-                            dispatch({type:'like_post',payload:{_id,liked}})
-
                             props.history.replace('/');
                           }
                           else toast.error('Something went wrong',{autoClose:1000})
@@ -196,7 +195,6 @@ export default function Posts(props) {
     </div>
     <br /><br/><br />
     <div>
-
     <Fab color="primary" style={{height:'45px',width:'45px',float:'right'}}  aria-label="New Room" onClick={()=>props.history.push('/uploadpost')}>
       <AddIcon />
     </Fab>
@@ -204,16 +202,15 @@ export default function Posts(props) {
     <Divider />
     <Container component="main" maxWidth="xl">
       <CssBaseline />
-
     {
       posts.map((p,ind)=>{
         return <Card className={classes.root}>
           <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar}
-            //  src="https://media-exp1.licdn.com/dms/image/C5103AQH7Z-tFum_fGg/profile-displayphoto-shrink_400_400/0/1529940395952?e=1619049600&v=beta&t=zwUfkkCN8y_FHshFVUFnoz0R02zFo_arICIr9l9VOwA"
-              >
-              {p.uploaderName.split(" ").map(word=>word[0].toUpperCase()) }
+                src={`${url}/uploads/${p.uploaderDp}/${token}`}
+                 onClick={()=>props.history.push(`/profile/${p.uploaderEmail}-${p.uploaderName}`)}
+                >
               </Avatar>
             }
             action={
@@ -239,9 +236,10 @@ export default function Posts(props) {
           <CardContent>
             <Typography paragraph>
 
-          {(p.desc.split(" ").length<=30)?p.desc
-            :
-            (read[ind])?p.desc:p.desc.split(" ").slice(0,30).join(" ")}
+            {(p.desc.split(" ").length<=30)?p.desc
+              :
+              (read[ind])?p.desc:p.desc.split(" ").slice(0,30).join(" ")
+            }
             &nbsp;&nbsp;
             {(p.desc.split(" ").length>30)?<Link style={{textDecoration:"none",fontSize:'15px'}} onClick={readmore.bind(this,ind)}>{(!read[ind])?"read more":"read less"}</Link>
             :null
@@ -251,7 +249,17 @@ export default function Posts(props) {
 
           </CardContent>
 
-          <img src={`${url}/uploads/${p.path}/${token}`} width="100%" height="100%"/>
+
+
+            { (p.path!='undefined' && (p.path.includes('.jpg') || p.path.includes('.png') || p.path.includes('.jpeg')))?<img src={`${url}/uploads/${p.path}/${token}`} width="100%" height="100%" />
+              :(p.path!='undefined' && (p.path.includes('.mp4') || p.path.includes('.wav') || p.path.includes('.ogg')))?
+              <video width="100%" height="100%" controls>
+                  <source src={url+`/uploads/${p.path}/${token}`} type="video/mp4" />
+                  <source src={url+`/uploads/${p.path}/${token}`} type="video/wav" />
+                  <source src={url+`/uploads/${p.path}/${token}`}  type="video/ogg" />
+                </video>
+                :null
+            }
 
 
           <CardContent>

@@ -74,19 +74,19 @@ export default function Signin(props) {
     axios.post(url+'/localSignin',data)
     .then((response)=>{
       const body=response.data
-      let email=null,name=null,token=null;
+      let email=null,name=null,token=null,path=null;
 
       if(body.status==1){
 
-        email=body.email;name=body.name;token=body.token;
+        email=body.email;name=body.name;token=body.token;path=body.path;
         toast.success('Signed in successfully',{autoClose:1000})
-        dispatch({type:'load_user',payload:{name,email}})
+        dispatch({type:'load_user',payload:{name,email,path}})
 
         localStorage.setItem('token',token);
 
         props.history.push('/');
       }
-      else toast.error('Something went wrong',{autoClose:10000})
+      else toast.error('Something went wrong',{autoClose:1000})
 
 
     })

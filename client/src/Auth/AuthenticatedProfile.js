@@ -29,7 +29,7 @@ export default function Authenticatedprofile(Profile,Authredirect){
                 const body=response.data
 //                alert(body.status)
                 if(body.status==1){
-                  dispatch({type:'load_profile',payload:{name:body.name,email:body.email}})
+                  dispatch({type:'load_profile',payload:{name:body.name,email:body.email,path:body.path}})
                   setAuth(1)
                 }
                 else setAuth(2)

@@ -8,6 +8,9 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Avatar from '@material-ui/core/Avatar';
+import url from '../url';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header2(props) {
   const classes = useStyles();
-
+  const token=localStorage.getItem('token')
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -31,6 +34,12 @@ export default function Header2(props) {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <ArrowBackIcon onClick={()=>props.history.goBack()}/>
           </IconButton>
+          {(props.dp)?
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              <Avatar src={url+`/uploads/${props.dp}/${token}`} style={{backgroundColor:'lightgrey'}}></Avatar>
+            </IconButton>
+            :null
+          }
           <Typography variant="h6" className={classes.title}>
             {props.name}
           </Typography>

@@ -62,38 +62,21 @@ io.sockets.on('connection',(socket)=>{
 		socket.on('send',message=>{
 
 			console.log(message)
-      const {email,room,roomName,link}=message
+      const {email,room,roomName,link,dp}=message
 
-			if(message.img){
-				 fs.writeFile("uploads/"+message.path, message.img,'base64',function(err) {
-					 io.to(message.room).emit('receiveimg',{room:message.room,flag:message.flag,email:message.email,message:null,path:message.path,name:message.name,time:message.time})
+  		socket.to(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:message.msg,path:message.path,salt:message.salt,iv:message.iv,name:message.name,time:message.time})
 
-					 if(!err){
-									 Rooms.updateOne({name:message.room},{$push:{msgs:{$each:[{flag:message.flag,email:message.email,message:null,path:message.path,name:message.name,time:message.time}],$position:0}}})
-						 			.then(update=>console.log(`Room ${message.room} message updated successfully`))
-						 			.catch(err=>console.log(err))
+  		Rooms.updateOne({name:message.room},{$push:{msgs:{$each:[{flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,path:message.path,name:message.name,time:message.time}],$position:0}}})
+  		.then(update=>console.log(`Room ${message.room} message updated successfully`))
+  		.catch(err=>console.log(err))
 
-									 socket.to(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:null,path:message.path,name:message.name,time:message.time})
-				    }
-						else console.log(err)
-				 });
-			 }
-			else {
-
-  				socket.to(message.room).emit('receive',{room:message.room,flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,name:message.name,time:message.time})
-
-  				Rooms.updateOne({name:message.room},{$push:{msgs:{$each:[{flag:message.flag,email:message.email,message:message.msg,salt:message.salt,iv:message.iv,path:message.path,name:message.name,time:message.time}],$position:0}}})
-  				.then(update=>console.log(`Room ${message.room} message updated successfully`))
-  				.catch(err=>console.log(err))
-
-		   }
 
 
       Users.updateOne({email},{ $pull:{recentChat:{roomName:roomName}}   })
               .then(update=>{console.log('Chat updated')  })
               .catch(err=>console.log(err))
 
-       Users.updateOne({email},{ $push:{recentChat:{$each:[{room,roomName,link}],$position:0}}   })
+       Users.updateOne({email},{ $push:{recentChat:{$each:[{room,roomName,link,dp}],$position:0}}   })
        .then(update=>{console.log('Chat updated')  })
        .catch(err=>console.log(err))
 
@@ -105,6 +88,11 @@ io.sockets.on('connection',(socket)=>{
 			 console.log(reason)
  	 	 })
 
+ })
+
+
+ router.post('/sendFile',checkAuth,multer({storage}).single('file'),(req,res)=>{
+    res.send({status:1})
  })
 
 
@@ -180,11 +168,12 @@ app.post('/changePassword',(req,res)=>{
 
 
 
-app.post('/localSignup',(req,res)=>{
+app.post('/localSignup',multer({storage}).single('file'),(req,res)=>{
 
 	const email=req.body.email;
 	const name=req.body.name;
 	const pass=req.body.pass;
+  const path=req.body.path;
 	console.log(pass)
 	// store to database
 
@@ -195,17 +184,17 @@ app.post('/localSignup',(req,res)=>{
 			    bcrypt.hash(pass,12,(err,hash)=>{
             //const token
 						console.log(hash)
-						var Newuser=new Users({name:name,email:email,pass:hash,rooms:[],latest:[],pendings:[],friends:[]});
+						var Newuser=new Users({name,email,path,pass:hash,rooms:[],latest:[],pendings:[],friends:[]});
 						Newuser.save((err,user2)=>{ if(err){console.log(err); res.send({msg:"Someting Went Wrong",status:0}); }
 						                            else {console.log(user2);
-                                          const token=jwt.sign({_id:user2._id,email,name},secret,{  expiresIn:'1h'  })
+                                          const token=jwt.sign({_id:user2._id,email,name,path},secret,{  expiresIn:'1h'  })
 //																					res.cookie('token',token,{maxAge:3600,httpOnly:true,sameSite:true})
 
                                           console.log('token '+token);
 																					console.log("User registered: "+name);
 
 
-                                          res.send({token:token,name:user2.name,email:user2.email,msg:"Successfully Registered",status:1}); }
+                                          res.send({token:token,name:user2.name,email:user2.email,path,msg:"Successfully Registered",status:1}); }
 						});
 				});
 			}
@@ -229,10 +218,10 @@ app.post('/localSignin',(req,res,next)=>{
 		 	   if(samePassword==true){
 					 Users.findOne({email:email},(err,user2)=>{
 						 console.log(user2);
-          	 const token=jwt.sign({_id:user2._id,email:email,name:user2.name},'access_token_secret',{expiresIn:'1h'})
+          	 const token=jwt.sign({_id:user2._id,email:email,name:user2.name,path:user2.path},'access_token_secret',{expiresIn:'1h'})
           	 console.log('token '+token);
 
-					res.send({token,name:user2.name,email:user2.email,msg:"Logged in successfully",status:1});  });
+					res.send({token,name:user2.name,email:user2.email,path:user2.path,msg:"Logged in successfully",status:1});  });
 		 }
 		 else res.send({name:"Wrong Credentials",status:0});
      })
@@ -315,11 +304,12 @@ router.get('/getRooms',checkAuth,(req,res)=>{
 	const _id=req.userData._id
   const name=req.userData.name
 	const email=req.userData.email
+  const path=req.userData.path
 
 	Users.findOne({_id})
 	.then(user=>{
 		console.log(user)
-		res.send({rooms:user.rooms,latest:user.latest,status:1,email,name})
+		res.send({rooms:user.rooms,latest:user.latest,status:1,email,name,path})
 	})
 	.catch(err=>{console.log(err);	res.send({status:0})})
 })
@@ -428,7 +418,8 @@ app.get('/uploads/:img/:token',(req,res)=>{
 
 
 router.get('/getUser',checkAuth,(req,res)=>{
-	res.send({name:req.userData.name,email:req.userData.email})
+  console.log(req.userData)
+	res.send({name:req.userData.name,email:req.userData.email,path:req.userData.path})
 })
 
 
@@ -437,7 +428,7 @@ router.get('/getFriend',checkAuth,(req,res)=>{
 	const _id=req.userData._id
 	Users.findOne({_id})
 	.then(user=>{
-			res.send({name:req.userData.name,email:req.userData.email,friends:user.friends,pendings:user.pendings,sent:user.sent,status:1})
+			res.send({name:req.userData.name,email:req.userData.email,path:req.userData.path,friends:user.friends,pendings:user.pendings,sent:user.sent,status:1})
 	})
 	.catch(err=>{res.send({status:0})})
 })
@@ -445,10 +436,9 @@ router.get('/getFriend',checkAuth,(req,res)=>{
 
 router.post('/setFriend',checkAuth,(req,res)=>{
 		const _id=req.userData._id
-		const name=req.userData.name
-		const email=req.userData.email
+		const {name,email,path}=req.userData
 		const profile=req.body.profile
-		const profile2={name,email}
+		const profile2={name,email,path}
 
 		const option=req.body.option
 		console.log(profile)
@@ -488,13 +478,28 @@ router.post('/setFriend',checkAuth,(req,res)=>{
 
 		else if(option=='Disconnect' || option=='Cancel request')
 		{
-			Users.updateOne({_id},{$pull:{sent:{email:profile.email}},$pull:{pendings:{email:profile.email}},$pull:{friends:{email:profile.email}} })
+			Users.updateOne({_id},{$pull:{friends:{email:profile.email}} })
 			.then(update=>{		console.log(update);	})
 			.catch(err=>{     })
 
-			Users.updateOne({email:profile.email},{$pull:{sent:{email:email}},$pull:{pendings:{email:email}},$pull:{friends:{email:email}}} )
+        Users.updateOne({_id},{$pull:{sent:{email:profile.email}} })
+        .then(update=>{		console.log(update);	})
+        .catch(err=>{     })
+
+          Users.updateOne({_id},{$pull:{pendings:{email:profile.email}} })
+          .then(update=>{		console.log(update);	})
+          .catch(err=>{     })
+
+			Users.updateOne({email:profile.email},{$pull:{friends:{email:email}}} )
 			.then(update=>{		console.log(update); 	res.send({status:1})	})
 			.catch(err=>{     res.send({status:0})  })
+      Users.updateOne({email:profile.email},{$pull:{sent:{email}} })
+      .then(update=>{		console.log(update);	})
+      .catch(err=>{     })
+
+        Users.updateOne({email:profile.email},{$pull:{pendings:{email}} })
+        .then(update=>{		console.log(update);	})
+        .catch(err=>{     })
 		}
 
 		else
@@ -511,7 +516,7 @@ router.post('/setFriend',checkAuth,(req,res)=>{
 
 router.post('/getProfile',checkAuth,(req,res)=>{
    Users.findOne({email:req.body.email})
-  .then(user=>{if(!user)res.send({status:0}); else res.send({name:user.name,email:user.email,status:1});})
+  .then(user=>{if(!user)res.send({status:0}); else res.send({name:user.name,email:user.email,path:user.path,status:1});})
   .catch(err=>res.send({status:0}) )
 })
 
@@ -541,12 +546,13 @@ router.post('/uploadpost',checkAuth,multer({storage}).single('file'),(req,res)=>
   const path=req.body.path
   const uploaderName=req.body.uploaderName
   const uploaderEmail=req.body.uploaderEmail
+  const uploaderDp=req.body.uploaderDp
   const desc=req.body.desc
   const time=req.body.time
   const date=req.body.date
   console.log("Req body img "+req.body.img)
 
-      const Newpost=new Posts({uploaderName,uploaderEmail,path,desc,time,date})
+      const Newpost=new Posts({uploaderName,uploaderEmail,uploaderDp,path,desc,time,date})
       Newpost.save((err,post)=>{
                    if(err){console.log(err); res.send({status:0,msg:'Something went wrong'}); }
                    else {console.log(post);  res.send({status:1,msg:'Your post was successfully uploaded',post}); }
@@ -602,6 +608,22 @@ app.get('/getPost',checkAuth,(req,res)=>{
       })
       .catch(err=>res.send({status:0}))
 
+})
+
+router.post('/updateDp',checkAuth,multer({storage}).single('file'),(req,res)=>{
+  console.log(req.body.path)
+  console.log(req.userData)
+  const {path}=req.body
+  const {_id,name,email}=req.userData
+  Users.updateOne({email},{path})
+  .then(update=>{
+    const token=jwt.sign({_id,email,name,path},'access_token_secret',{expiresIn:'1h'})
+    res.send({status:1,token});
+    Posts.updateMany({uploaderEmail:email},{uploaderDp:path})
+    .then(update=>console.log('Posts updated with new dp'))
+    .catch(err=>console.log(err))
+  })
+  .catch(err=>res.send({status:0}))
 })
 
 

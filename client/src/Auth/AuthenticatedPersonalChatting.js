@@ -5,7 +5,8 @@ import url from '../url'
 import Loading from '../components/loading'
 
 export default function Authenticatedpersonalchatting(Chatting,Authredirect){
-  let friendName=""
+  let friendName="",friendDp="";
+
   return function Authenticate(props){
   const [auth,setAuth]=useState(0)
   const [redirect,setRedirect]=useState('')
@@ -22,6 +23,7 @@ export default function Authenticatedpersonalchatting(Chatting,Authredirect){
         if(exist){
           //alert(JSON.stringify(friends))
           friendName=friends.find(f=>f.email==email)?.name
+          friendDp=friends.find(f=>f.email==email)?.path
 
       //    alert(friendName)
           if(!friendName){ setRedirect(''); setAuth(2); }
@@ -44,6 +46,7 @@ export default function Authenticatedpersonalchatting(Chatting,Authredirect){
                 dispatch({type:'load_friend',payload:{friends:body.friends,pendings:body.pendings,sent:body.sent,exist:true}})
 
                 friendName=body.friends.find(f=>f.email==email)?.name
+                friendDp=body.friends.find(f=>f.email==email)?.path
             //    alert(friendName)
 
                 if(!friendName){ setRedirect(''); setAuth(2); }
@@ -57,7 +60,7 @@ export default function Authenticatedpersonalchatting(Chatting,Authredirect){
 
   },[])
 
-  return (auth==0)?<Loading />:(auth==1)?<Chatting roomName={friendName} {...props}/>:<Authredirect redirect={redirect}/>
+  return (auth==0)?<Loading />:(auth==1)?<Chatting roomName={friendName} dp={friendDp} {...props}/>:<Authredirect redirect={redirect}/>
 
  }
 

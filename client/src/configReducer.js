@@ -63,19 +63,20 @@ const chatReducer=(state={},action)=>{
     }
 }
 
-const userReducer=(state={name:null,email:null},action)=>{
+const userReducer=(state={name:null,email:null,path:null},action)=>{
     switch(action.type)
     {
         case 'load_user':
            return action.payload
 
         case 'clear':
-            return {name:null,email:null}
+            return {name:null,email:null,path:null}
 
         default:
           return state;
     }
 }
+
 
 
 const friendReducer=(state={pendings:[],friends:[],sent:[],exist:false},action)=>{
