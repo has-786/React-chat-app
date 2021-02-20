@@ -638,7 +638,7 @@ app.use('/enterroom',router)
 app.use('/newroom',router)
 
 // rendering front-end
-const routes=['/','/signin','/signup','/newroom','/enterroom','/chat/:room','/friends','/profile/:profile','/personal/:room/:emails']
+const routes=['/','/signin','/signup','/newroom','/enterroom','/chats','/groups','/chat/:room','/friends','/profile/:profile','/personal/:room/:emails']
 routes.map(route=>app.use(route,express.static(path.join(__dirname, 'client','build'))))
 routes.map(route=>app.get(route,(req,res)=>{res.sendFile(path.join(__dirname,'client','build','index.html'));}))
 
