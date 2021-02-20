@@ -331,7 +331,6 @@ export default function Header(props)
       <Tab icon={<HomeIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/')} aria-label="phone" />
       <Tab icon={<ChatIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/chats')} aria-label="chat" />
       <Tab icon={<GroupIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/groups')} aria-label="group" />
-      <Tab icon={<AccountBoxIcon style={{color:'white'}}/>}  onClick={()=>props.history.push('/friends')} aria-label="person" />
       <Tab icon={<SearchIcon style={{color:'white'}}/>}  onClick={handleClickOpenSearch} aria-label="search" />
       <Tab icon={<MenuIcon style={{color:'white'}}/>}
         aria-label="open drawer"
