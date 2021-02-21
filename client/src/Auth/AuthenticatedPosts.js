@@ -12,6 +12,7 @@ export default function Authenticatedposts(Posts,Authredirect){
   const [auth,setAuth]=useState(0)
   const email=useSelector(state=>state.userReducer.email)
   const dispatch=useDispatch()
+
   useEffect(()=>{
       if(email)setAuth(1)
       else

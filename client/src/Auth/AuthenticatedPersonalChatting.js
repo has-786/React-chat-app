@@ -9,7 +9,7 @@ export default function Authenticatedpersonalchatting(Chatting,Authredirect){
 
   return function Authenticate(props){
   const [auth,setAuth]=useState(0)
-  const [redirect,setRedirect]=useState('')
+  const [redirect,setRedirect]=useState('signin')
 
   const [email,myEmail]=props.match.params.emails.split('-')
 

@@ -154,8 +154,6 @@ export default function Posts(props) {
 
                                 dispatch({type:'hide_post',payload:_id})
                                 toast.success('Post was deleted',{autoClose:1500})
-
-                                props.history.replace('/');
                               }
                               else toast.error('Something went wrong',{autoClose:1000})
                             }).catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
@@ -179,9 +177,7 @@ export default function Posts(props) {
                         .then((response)=>{
                           const body=response.data
 
-                          if(body.status==1){
-                            props.history.replace('/');
-                          }
+                          if(body.status==1){  }
                           else toast.error('Something went wrong',{autoClose:1000})
                         }).catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
 
