@@ -342,6 +342,8 @@ export default function Header(props)
 
   </AppBar>
   <nav className={classes.drawer}  aria-label="mailbox folders">
+    <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
+
     {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
     <Hidden smUp implementation="css">
       <Drawer
@@ -372,7 +374,6 @@ export default function Header(props)
       </Drawer>
     </Hidden>
   </nav>
-  <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
 
   </div>
 
