@@ -158,16 +158,18 @@ export default function Header(props)
 
 
             const uploadDp=()=>{
+
               let file=document.getElementById('file-input').files[0];
 
               if(!document.getElementById('file-input').value)return
+              
+              handleCloseDp()
               document.getElementById('file-input').value=''
               document.getElementById('loader').style.display='block'
 
               let data=new FormData()
               data.append('file',file)
               data.append('path',file.name)
-
               secureAxios.post('updateDp',data)
               .then((response)=>{
                 const body=response.data
@@ -177,7 +179,6 @@ export default function Header(props)
                   document.getElementById('loader').style.display='none'
                   dispatch({type:'load_user',payload:{name,email,path:file.name}})
                   localStorage.setItem('token',body.token)
-                  handleCloseDp()
                 }
                 else toast.error('Something went wrong',{autoClose:1000})
               })

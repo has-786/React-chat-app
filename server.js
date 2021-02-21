@@ -629,6 +629,8 @@ router.post('/updateDp',checkAuth,multer({storage}).single('file'),(req,res)=>{
 
 app.use('/',router)
 app.use('/chat',router)
+app.use('/chats',router)
+app.use('/groups',router)
 app.use('/chat/:room',router)
 app.use('/personal/:room/',router)
 app.use('/personal/:room/:emails',router)
