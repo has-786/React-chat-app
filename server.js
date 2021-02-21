@@ -112,7 +112,11 @@ app.post('/emailverify',(req,res)=>{
 	          rejectUnauthorized: false
 	         }});
 					const mailOptions = {from: appMail, to: email, subject: 'Socio We Email Verification OTP', text:'Your otp is '+otp};
-					transporter.sendMail(mailOptions, function (err, info) { if(err){res.send({status:0,msg:"Email Id not correct"}); console.log(err);}else {  console.log(info);  res.send({status:1,msg:'An OTP is sent to this email id',otp:otp}); }});
+					transporter.sendMail(mailOptions, function (err, info) {
+            if(err){res.send({status:0,msg:"Email Id not correct"}); console.log(err);}
+            else {  console.log(info);  res.send({status:1,msg:'An OTP is sent to this email id',otp:otp});
+                }
+          });
 
 		     	}
 	   });
@@ -187,7 +191,7 @@ app.post('/localSignup',multer({storage}).single('file'),(req,res)=>{
 						var Newuser=new Users({name,email,path,pass:hash,rooms:[],latest:[],pendings:[],friends:[]});
 						Newuser.save((err,user2)=>{ if(err){console.log(err); res.send({msg:"Someting Went Wrong",status:0}); }
 						                            else {console.log(user2);
-                                          const token=jwt.sign({_id:user2._id,email,name,path},secret,{  expiresIn:'1h'  })
+                                          const token=jwt.sign({_id:user2._id,email,name,path},secret,{  expiresIn:'24h'  })
 //																					res.cookie('token',token,{maxAge:3600,httpOnly:true,sameSite:true})
 
                                           console.log('token '+token);
@@ -218,7 +222,7 @@ app.post('/localSignin',(req,res,next)=>{
 		 	   if(samePassword==true){
 					 Users.findOne({email:email},(err,user2)=>{
 						 console.log(user2);
-          	 const token=jwt.sign({_id:user2._id,email:email,name:user2.name,path:user2.path},'access_token_secret',{expiresIn:'1h'})
+          	 const token=jwt.sign({_id:user2._id,email:email,name:user2.name,path:user2.path},'access_token_secret',{expiresIn:'24h'})
           	 console.log('token '+token);
 
 					res.send({token,name:user2.name,email:user2.email,path:user2.path,msg:"Logged in successfully",status:1});  });
@@ -617,7 +621,7 @@ router.post('/updateDp',checkAuth,multer({storage}).single('file'),(req,res)=>{
   const {_id,name,email}=req.userData
   Users.updateOne({email},{path})
   .then(update=>{
-    const token=jwt.sign({_id,email,name,path},'access_token_secret',{expiresIn:'1h'})
+    const token=jwt.sign({_id,email,name,path},'access_token_secret',{expiresIn:'24h'})
     res.send({status:1,token});
     Posts.updateMany({uploaderEmail:email},{uploaderDp:path})
     .then(update=>console.log('Posts updated with new dp'))
