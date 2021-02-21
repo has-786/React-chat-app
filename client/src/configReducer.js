@@ -55,6 +55,10 @@ const chatReducer=(state={},action)=>{
 
           return newState
 
+        case 'delete_chat':
+            delete newState[action.payload]
+            return newState
+
         case 'clear':
             return {}
 

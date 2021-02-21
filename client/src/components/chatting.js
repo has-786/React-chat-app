@@ -253,7 +253,7 @@ const Chatting=(props)=>{
          if(chat[room])socketConnections(socket,name,email)
          else getMessages(1)
 
-         return ()=>{ socket.disconnect();  }
+         return ()=>{ socket.disconnect(); dispatch({type:'delete_chat',payload:room}); }
     },[])
 
 
