@@ -153,7 +153,7 @@ export default function Profile(props) {
                 let file=document.getElementById('file-input').files[0];
 
                 if(!document.getElementById('file-input').value)return
-                
+
                 handleCloseDp()
 
                 document.getElementById('file-input').value=''
@@ -206,8 +206,8 @@ export default function Profile(props) {
 
   return (
     <>
-    <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
     <Header2 name='Profile'  {...props}/>
+    <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
     <Dialog
       open={openDp}
       onClose={handleCloseDp}

@@ -162,7 +162,7 @@ export default function Header(props)
               let file=document.getElementById('file-input').files[0];
 
               if(!document.getElementById('file-input').value)return
-              
+
               handleCloseDp()
               document.getElementById('file-input').value=''
               document.getElementById('loader').style.display='block'
@@ -259,7 +259,6 @@ export default function Header(props)
      );
 
   return <div >
-            <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
             <Dialog
               open={openDp}
               onClose={handleCloseDp}
@@ -373,6 +372,8 @@ export default function Header(props)
       </Drawer>
     </Hidden>
   </nav>
+  <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
+
   </div>
 
 
