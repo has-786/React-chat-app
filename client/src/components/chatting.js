@@ -95,7 +95,6 @@ const useStyles = makeStyles({
 
 const Chatting=(props)=>{
 
-  let audio=new Audio('../incoming.mp3')
   const classes = useStyles();
 
   const chat=useSelector(state=>state.chatReducer)
@@ -107,6 +106,11 @@ const Chatting=(props)=>{
 
   if(room!=roomName)link=`/personal/${room}/${emails}`;
   else link=`/chat/${room}`;
+
+
+    let audio;
+    if(room===roomName)audio=new Audio('../incoming.mp3')
+    else audio=new Audio('../../incoming.mp3')
 
   const [message,setMessage]=useState("");
   const [flag,setFlag]=useState(false);
@@ -145,9 +149,9 @@ const Chatting=(props)=>{
 
 
       socket.on('receive',data=>{
-           dispatch({type:'add_recent',payload:{room,roomName,link,dp}})
 
            if(email===data.email)return;
+           dispatch({type:'add_recent',payload:{room,roomName,link,dp}})
 
             console.log('received');
             (async ()=>{
@@ -273,6 +277,8 @@ const Chatting=(props)=>{
 
     (async ()=>{
       await dispatch({type:'add_chat',payload:{room,msg:{flag:0,email,room,name,message:msg,time}}})
+      dispatch({type:'add_recent',payload:{room,roomName,link,dp}})
+
       window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})
       sendbox.current.focus()
     })()
@@ -313,7 +319,6 @@ const Chatting=(props)=>{
       if(file.type.includes('image'))flag=1;
       else if(file.type.includes('video'))flag=2;
       else if(file.type.includes('audio'))flag=3;
-      //alert(file.type)
 
       let data=new FormData()
       data.append('file',file)
@@ -326,6 +331,7 @@ const Chatting=(props)=>{
           if(file)file.value=""
           document.getElementById('loader').style.display='none'
           dispatch({type:'add_chat',payload:{room,msg:{flag,email,room,name,msg:null,path:file.name,time,roomName,link}}})
+          dispatch({type:'add_recent',payload:{room,roomName,link,dp}})
 
           socket.emit('send',{flag,email,room,name,msg:null,path:file.name,time,roomName,link,dp}); // setMsgs(msgs=>[...msgs,{name,message}]);
         }
