@@ -623,9 +623,27 @@ router.post('/updateDp',checkAuth,multer({storage}).single('file'),(req,res)=>{
   .then(update=>{
     const token=jwt.sign({_id,email,name,path},'access_token_secret',{expiresIn:'24h'})
     res.send({status:1,token});
+
     Posts.updateMany({uploaderEmail:email},{uploaderDp:path})
-    .then(update=>console.log('Posts updated with new dp'))
+    .then(update=>{if(update)console.log('Posts updated with new dp');})
     .catch(err=>console.log(err))
+
+    Users.updateMany({email:{$ne:email},recentChat:{$elemMatch:{room:{$regex:`.*${email}.*`}}}},{$set:{"recentChat.$.dp":path}})
+    .then(update=>{if(update)console.log('Recentchats updated with new dp');})
+    .catch(err=>console.log(err))
+
+    Users.updateMany({pendings:{$elemMatch:{email}}},{$set:{"pendings.$.path":path}})
+    .then(update=>{if(update)console.log('Pendings updated with new dp');})
+    .catch(err=>console.log(err))
+
+    Users.updateMany({sent:{$elemMatch:{email}}},{$set:{"sent.$.path":path}})
+    .then(update=>{if(update)console.log('Sents updated with new dp');})
+    .catch(err=>console.log(err))
+
+    Users.updateMany({friends:{$elemMatch:{email}}},{$set:{"friends.$.path":path}})
+    .then(update=>{if(update)console.log('Friends updated with new dp');})
+    .catch(err=>console.log(err))
+
   })
   .catch(err=>res.send({status:0}))
 })

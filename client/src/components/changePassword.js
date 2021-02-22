@@ -78,7 +78,9 @@ export default function Changepassword(props) {
         toast.error('Incorrect OTP',{autoClose:1000}); return;
       }
 
-      if(confirmPassword!=password){toast("Password and Confirm password don't match",{autoClose:1000});}
+      if(password.length<6){toast.error("Password length must be at least 6",{autoClose:2000}); return; }
+
+      if(confirmPassword!=password){toast.error("Password and Confirm password don't match",{autoClose:2000}); return; }
 
   		const data={email,password};
   		secureAxios.post('changePassword',data)
@@ -182,7 +184,7 @@ export default function Changepassword(props) {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Confirm password"
             type="password"
             id="password"
             value={confirmPassword}

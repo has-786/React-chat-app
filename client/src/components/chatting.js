@@ -19,6 +19,13 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import axios from 'axios'
 import url from '../url'
 import '../css/chat.css'
@@ -83,7 +90,10 @@ const useStyles = makeStyles({
     //backgroundColor:'blue',color:'white',marginLeft:'auto'
   },
   sendbox:{
-    width:'100%'
+    width:'100%',
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'center'
   },
   download:{
     marginRight:'-15px',
@@ -112,7 +122,18 @@ const Chatting=(props)=>{
     if(room===roomName)audio=new Audio('../incoming.mp3')
     else audio=new Audio('../../incoming.mp3')
 
+    const [openFile, setOpenFile] =useState(false);
+
+    const handleCloseFile= () => { document.getElementById('file-input').value=""; setPreviewD(""); setPreviewI(""); setPreviewV(""); setOpenFile(false); };
+    function handleOpenFile() {
+      setOpenFile(true);
+     };
+
   const [message,setMessage]=useState("");
+  const [previewD,setPreviewD]=useState("");
+  const [previewI,setPreviewI]=useState("");
+  const [previewV,setPreviewV]=useState("");
+
   const [flag,setFlag]=useState(false);
   const [page,setPage]=useState(2);
   const [olderMsgs,setOlderMsgs]=useState('block');
@@ -302,12 +323,14 @@ const Chatting=(props)=>{
 
 
     async function sendFile(){
+
       let file=document.getElementById('file-input').files[0];
 
       if(!document.getElementById('file-input').value)return
       document.getElementById('file-input').value=''
       document.getElementById('loader').style.display='block'
 
+      handleCloseFile();
 
       let h=new Date().getHours();
       let m=new Date().getMinutes();
@@ -424,17 +447,42 @@ const Chatting=(props)=>{
              <div class={classes.sendbox}>
                <input type='text' ref={sendbox} placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)} autoFocus/>
                <button className='btn btn-primary' onClick={sendMessage.bind(this,name,room,message)}>Send</button>
-             </div>
-             <br />
-             <div class={classes.sendbox}>
-                 <label for="file-input">
-                  <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
-                 </label>
-                 <input id="file-input" type="file" style={{display:'none'}} onChange={(evt)=>{
-                //  document.getElementById('preview').setAttribute('src', window.URL.createObjectURL(evt.target.files[0]))
-                  }}/>
-                 <button className='btn btn-sm btn-danger' onClick={sendFile.bind(this)}>Send</button>
+               <label for="file-input">
+                <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
+               </label>
+               <input id="file-input" type="file" style={{display:'none'}} onChange={(evt)=>{
+                   handleOpenFile();
+                    (evt.target.files[0].type.includes('image'))?setPreviewI(window.URL.createObjectURL(evt.target.files[0]))
+                   :(evt.target.files[0].type.includes('video'))?setPreviewV(window.URL.createObjectURL(evt.target.files[0]))
+                   :setPreviewD(evt.target.files[0].name)
+                }}/>
               </div>
+              </center>
+              <center>
+                  <Dialog
+                    open={openFile}
+                    onClose={handleCloseFile}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <center>
+                      <img src={previewI} style={{display:(previewI!="")?'block':'none'}} width='100%' height='100%'/>
+                      <video style={{display:(previewV!="")?'block':'none'}} width="100%" height="100%" controls>
+                          <source src={previewV}  type="video/mp4" />
+                          <source src={previewV}  type="video/ogg" />
+                      </video>
+
+                      <div style={{display:(previewD!="")?'block':'none',padding:'50px'}}>{previewD}</div>
+                    </center>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      onClick={sendFile.bind(this)}
+                    >
+                      Send
+                    </Button>
+                  </Dialog>
            </center>
     </div>
   </>

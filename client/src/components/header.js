@@ -116,10 +116,7 @@ export default function Header(props)
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const dispatch=useDispatch()
 
-
-
-
-     const handleDrawerToggle = () => {
+    const handleDrawerToggle = () => {
        (props.match.params.room)?props.history.push('/'):setMobileOpen(!mobileOpen);
      };
 
@@ -157,6 +154,7 @@ export default function Header(props)
              };
 
 
+
             const uploadDp=()=>{
 
               let file=document.getElementById('file-input').files[0];
@@ -183,8 +181,6 @@ export default function Header(props)
                 else toast.error('Something went wrong',{autoClose:1000})
               })
               .catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
-
-
             }
 
            const debounce=(fun,d)=>{
@@ -197,7 +193,6 @@ export default function Header(props)
                  },d)
               }
            }
-
 
                function searching(evt){
                  evt.preventDefault()

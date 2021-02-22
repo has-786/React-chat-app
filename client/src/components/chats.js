@@ -134,7 +134,6 @@ export default function Chats(props) {
             if(body.status==1)
                 dispatch({type:'load_recent',payload:body.chats})
                 setChatslocal(body.chats)
-
       })
       .catch(err=>{
         toast.error(err)

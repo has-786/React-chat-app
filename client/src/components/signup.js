@@ -73,8 +73,9 @@ export default function Signup(props) {
       if(otp!=receivedOtp){
         toast.error('Incorrect OTP',{autoClose:1000}); return;
       }
+      if(password.length<6){toast.error("Password length must be at least 6",{autoClose:2000}); return; }
 
-      if(confirmPassword!=password){toast("Password and Confirm password don't match",{autoClose:1000});}
+      if(confirmPassword!=password){toast.error("Password and Confirm password don't match",{autoClose:2000}); return;}
 
       const file=document.getElementById('file-input').files[0]
 
@@ -205,7 +206,7 @@ export default function Signup(props) {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Confirm password"
             type="password"
             id="password"
             value={confirmPassword}
