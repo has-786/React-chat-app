@@ -39,7 +39,6 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
 
 const green='#23D0E0'
-
 let socket;
 const useStyles = makeStyles({
   root: {
@@ -72,15 +71,16 @@ const useStyles = makeStyles({
     display: 'flex',
     width:'100%',
     flexWrap: 'wrap',
-    backgroundColor:green,
+    backgroundColor:green
   },
-  main:{ backgroundColor:green,height:'100%',paddingTop:'70px',width:'100%'},
+  main:{backgroundColor:green,paddingTop:'70px',width:'100%'},
   container:{
     width:'300px',
     margin:'auto',
     minHeight:'70vh',
     padding:'2px',
-    borderRadius:'10px'
+    borderRadius:'10px',
+    backgroundColor:green,
   },
 
   msgs:{
@@ -88,7 +88,8 @@ const useStyles = makeStyles({
     marginBottom:'10px'
   },
   sendbox:{
-    width:'300px'
+    width:'300px',
+    backgroundColor:green,
   },
   download:{
     marginRight:'-15px',
@@ -266,10 +267,15 @@ const Chatting=(props)=>{
     }
 
     useEffect(()=>{
+      document.querySelector('body').style.backgroundColor=green
+
          if(chat[room])socketConnections(socket,name,email)
          else getMessages(1)
 
-         return ()=>{ socket.disconnect(); dispatch({type:'delete_chat',payload:room}); }
+         return ()=>{
+           document.querySelector('body').style.backgroundColor=""
+           socket.disconnect(); dispatch({type:'delete_chat',payload:room});
+         }
     },[])
 
 
@@ -400,13 +406,13 @@ const Chatting=(props)=>{
         </center>
 
 
-  <div style={{position:'fixed',width:'100%'}}>
+  <div style={{position:'fixed',width:'100%',zIndex:10}}>
     <Header2 name={roomName} dp={dp} {...props}/>
     <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
   </div>
 
-  <div class={classes.main} >
-        <div class={classes.container} id='container'>
+  <div class={classes.main} style={{backgroundColor:green}} >
+        <div class={classes.container} id='container' >
           <div id='messages' class={classes.messageBox}  >
             <Paper elevation={3} className={classes.paging} style={{display:olderMsgs}} onClick={ getMessages.bind(this,page)}><button class='btn btn-sm' s>Older Messages</button></Paper>
             {
@@ -466,21 +472,23 @@ const Chatting=(props)=>{
             }
           </div>
           </div>
-          <center>
-             <div class={classes.sendbox}>
-                 <TextField type='text' ref={sendbox} style={{width:'240px'}} placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)} autoFocus/>
-                 <SendIcon color='primary' onClick={sendMessage.bind(this,name,room,message)} />
-                 <label for="file-input">
-                  <AttachFileIcon color='secondary' style={{marginLeft:'5px'}}/>
-                 </label>
-                 <input id="file-input" type="file" style={{display:'none'}} onChange={(evt)=>{
-                     handleOpenFile();
-                      (evt.target.files[0].type.includes('image'))?setPreviewI(window.URL.createObjectURL(evt.target.files[0]))
-                     :(evt.target.files[0].type.includes('video'))?setPreviewV(window.URL.createObjectURL(evt.target.files[0]))
-                     :setPreviewD(evt.target.files[0].name)
-                  }}/>
-              </div>
-           </center>
+          <div >
+            <center>
+               <div class={classes.sendbox} style={{marginBottom:'40px'}}>
+                   <TextField type='text' ref={sendbox} style={{width:'240px'}} placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)} autoFocus/>
+                   <SendIcon color='primary' onClick={sendMessage.bind(this,name,room,message)} />
+                   <label for="file-input">
+                    <AttachFileIcon color='secondary' style={{marginLeft:'5px'}}/>
+                   </label>
+                   <input id="file-input" type="file" style={{display:'none'}} onChange={(evt)=>{
+                       handleOpenFile();
+                        (evt.target.files[0].type.includes('image'))?setPreviewI(window.URL.createObjectURL(evt.target.files[0]))
+                       :(evt.target.files[0].type.includes('video'))?setPreviewV(window.URL.createObjectURL(evt.target.files[0]))
+                       :setPreviewD(evt.target.files[0].name)
+                    }}/>
+                </div>
+             </center>
+           </div>
     </div>
   </>
 }
