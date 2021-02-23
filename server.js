@@ -73,12 +73,16 @@ io.sockets.on('connection',(socket)=>{
 
 
       Users.updateOne({email},{ $pull:{recentChat:{roomName:roomName}}   })
-              .then(update=>{console.log(update+' Chat updated')  })
+              .then(update=>{
+                              console.log(update+' Chat updated') 
+                              Users.updateOne({email},{ $push:{recentChat:{$each:[{room,roomName,link,dp}],$position:0}}   })
+                              .then(update=>{console.log(update+' Chat updated')  })
+                              .catch(err=>console.log(err))
+
+             })
               .catch(err=>console.log(err))
 
-       Users.updateOne({email},{ $push:{recentChat:{$each:[{room,roomName,link,dp}],$position:0}}   })
-       .then(update=>{console.log(update+' Chat updated')  })
-       .catch(err=>console.log(err))
+
 
 	  })
 

@@ -19,7 +19,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-
+import SendIcon from '@material-ui/icons/Send';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -80,20 +80,15 @@ const useStyles = makeStyles({
     margin:'auto',
     minHeight:'70vh',
     padding:'2px',
-    borderRadius:'10px',
-    },
+    borderRadius:'10px'
+  },
 
   msgs:{
     width:'260px',
     marginBottom:'10px'
-
-    //backgroundColor:'blue',color:'white',marginLeft:'auto'
   },
   sendbox:{
-    width:'100%',
-    display:'flex',
-    alignItems:'center',
-    justifyContent:'center'
+    width:'300px'
   },
   download:{
     marginRight:'-15px',
@@ -377,6 +372,34 @@ const Chatting=(props)=>{
  const arriveStyle={backgroundColor:'beige',color:'green',margin:'auto auto 10px auto'}
 
   return <>
+          <center>
+              <Dialog
+                open={openFile}
+                onClose={handleCloseFile}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <center>
+                  <img src={previewI} style={{display:(previewI!="")?'block':'none'}} width='100%' height='100%'/>
+                  <video style={{display:(previewV!="")?'block':'none'}} width="100%" height="100%" controls>
+                      <source src={previewV}  type="video/mp4" />
+                      <source src={previewV}  type="video/ogg" />
+                  </video>
+
+                  <div style={{display:(previewD!="")?'block':'none',padding:'50px'}}>{previewD}</div>
+                </center>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={sendFile.bind(this)}
+                >
+                  Send
+                </Button>
+              </Dialog>
+        </center>
+
+
   <div style={{position:'fixed',width:'100%'}}>
     <Header2 name={roomName} dp={dp} {...props}/>
     <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
@@ -443,46 +466,20 @@ const Chatting=(props)=>{
             }
           </div>
           </div>
-         <center>
+          <center>
              <div class={classes.sendbox}>
-               <input type='text' ref={sendbox} placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)} autoFocus/>
-               <button className='btn btn-primary' onClick={sendMessage.bind(this,name,room,message)}>Send</button>
-               <label for="file-input">
-                <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
-               </label>
-               <input id="file-input" type="file" style={{display:'none'}} onChange={(evt)=>{
-                   handleOpenFile();
-                    (evt.target.files[0].type.includes('image'))?setPreviewI(window.URL.createObjectURL(evt.target.files[0]))
-                   :(evt.target.files[0].type.includes('video'))?setPreviewV(window.URL.createObjectURL(evt.target.files[0]))
-                   :setPreviewD(evt.target.files[0].name)
-                }}/>
+                 <TextField type='text' ref={sendbox} style={{width:'240px'}} placeholder='Type your message here' value={message} onChange={(evt)=>setMessage(evt.target.value)} autoFocus/>
+                 <SendIcon color='primary' onClick={sendMessage.bind(this,name,room,message)} />
+                 <label for="file-input">
+                  <AttachFileIcon color='secondary' style={{marginLeft:'5px'}}/>
+                 </label>
+                 <input id="file-input" type="file" style={{display:'none'}} onChange={(evt)=>{
+                     handleOpenFile();
+                      (evt.target.files[0].type.includes('image'))?setPreviewI(window.URL.createObjectURL(evt.target.files[0]))
+                     :(evt.target.files[0].type.includes('video'))?setPreviewV(window.URL.createObjectURL(evt.target.files[0]))
+                     :setPreviewD(evt.target.files[0].name)
+                  }}/>
               </div>
-              </center>
-              <center>
-                  <Dialog
-                    open={openFile}
-                    onClose={handleCloseFile}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                  >
-                    <center>
-                      <img src={previewI} style={{display:(previewI!="")?'block':'none'}} width='100%' height='100%'/>
-                      <video style={{display:(previewV!="")?'block':'none'}} width="100%" height="100%" controls>
-                          <source src={previewV}  type="video/mp4" />
-                          <source src={previewV}  type="video/ogg" />
-                      </video>
-
-                      <div style={{display:(previewD!="")?'block':'none',padding:'50px'}}>{previewD}</div>
-                    </center>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      onClick={sendFile.bind(this)}
-                    >
-                      Send
-                    </Button>
-                  </Dialog>
            </center>
     </div>
   </>
