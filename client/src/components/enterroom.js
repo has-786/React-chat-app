@@ -66,7 +66,7 @@ export default function Enterroom(props) {
             else toast.error(body.msg,{autoClose:1500})
       })
       .catch(err=>{
-        toast.error(err,{autoClose:1000})
+        toast.error(err,{autoClose:1500})
         props.history.push('/signin');
       })
 

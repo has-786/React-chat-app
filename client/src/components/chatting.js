@@ -104,7 +104,7 @@ const Chatting=(props)=>{
 
   const chat=useSelector(state=>state.chatReducer)
   const dispatch=useDispatch();
-  let link;
+  let link
   let room=props.match.params.room;
   const emails=props.match.params.emails;
   const {roomName,dp}=props;
