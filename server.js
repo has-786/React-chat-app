@@ -74,7 +74,7 @@ io.sockets.on('connection',(socket)=>{
 
       Users.updateOne({email},{ $pull:{recentChat:{roomName:roomName}}   })
               .then(update=>{
-                              console.log(update+' Chat updated') 
+                              console.log(update+' Chat updated')
                               Users.updateOne({email},{ $push:{recentChat:{$each:[{room,roomName,link,dp}],$position:0}}   })
                               .then(update=>{console.log(update+' Chat updated')  })
                               .catch(err=>console.log(err))
@@ -656,6 +656,7 @@ router.post('/updateDp',checkAuth,multer({storage}).single('file'),(req,res)=>{
 app.use('/',router)
 app.use('/chat',router)
 app.use('/chats',router)
+app.use('/friends',router)
 app.use('/groups',router)
 app.use('/chat/:room',router)
 app.use('/personal/:room/',router)
