@@ -344,7 +344,7 @@ export default function Header(props)
       <Drawer
         container={container}
         variant="temporary"
-        anchor={'right'}
+        anchor='right'
         open={mobileOpen}
         onClose={handleDrawerToggle}
         classes={{
