@@ -13,8 +13,10 @@ export default function Loading() {
 
   return (
     <div className={classes.root}>
-      <center><CircularProgress />
-      <div>Loading...Please wait</div></center>
+      <center>
+        <CircularProgress />
+        <div>Loading...Please wait</div>
+      </center>
     </div>
   );
 }

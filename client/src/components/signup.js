@@ -11,9 +11,11 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import url from '../url';
@@ -40,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    boxShadow:'0px 0px 3px 3px blue',
+    padding:'30px'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -64,10 +68,13 @@ export default function Signup(props) {
   const [confirmPassword,setConfirmPassword]=useState('')
   const [otp,setOtp]=useState('')
   const [receivedOtp,setReceivedOtp]=useState('')
+  const [loader,setLoader]=useState('none')
   const dispatch=useDispatch()
 
 
   	const register=(event)=>{
+      setLoader('block')
+
   		event.preventDefault();
 
       if(otp!=receivedOtp){
@@ -88,6 +95,8 @@ export default function Signup(props) {
 
   		axios.post(url+'/localSignup',data)
       .then((response)=>{
+        setLoader('none')
+
         const body=response.data
         let email=null,name=null,token=null;
       //  alert(body.msg);
@@ -102,7 +111,7 @@ export default function Signup(props) {
           props.history.push('/');
         }
   		})
-      .catch(err=>console.log(err));
+      .catch(err=>{    setLoader('none');console.log(err); });
    }
 
 
@@ -113,6 +122,8 @@ export default function Signup(props) {
         //alert(secureAxios)
         axios.post(url+'/emailverify',data)
         .then((response)=>{
+          setLoader('none')
+
             const body=response.data
             let receivedOtp=null;
 
@@ -121,7 +132,7 @@ export default function Signup(props) {
 
              //localStorage.setItem('otp',receivedOtp);
     		 })
-         .catch(err=>console.log(err));
+         .catch(err=>{   setLoader('none'); console.log(err); });
     }
 
 
@@ -130,7 +141,9 @@ export default function Signup(props) {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <Paper  elevation={3} className={classes.paper}>
+      <CircularProgress style={{position:'fixed',top:'70px',display:loader}}/>
+
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -244,7 +257,7 @@ export default function Signup(props) {
             </Grid>
           </Grid>
         </form>
-      </div>
+      </Paper>
       <Box mt={8}>
         <Copyright />
       </Box>

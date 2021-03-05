@@ -13,8 +13,12 @@ import GroupIcon from '@material-ui/icons/Group';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+
 import axios from 'axios'
 import url from '../url';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import Header2 from './header2'
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    boxShadow:'0px 0px 3px 3px blue',
+    padding:'30px'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -45,9 +51,11 @@ export default function Newroom(props) {
 
   const [name,setName]=useState('');
   const [password,setPassword]=useState('');
+  const [loader,setLoader]=useState('none');
   const dispatch=useDispatch()
 
   const newroom=(evt)=>{
+    setLoader('block')
     evt.preventDefault()
 
     const token=localStorage.getItem('token')
@@ -62,11 +70,13 @@ export default function Newroom(props) {
       const data={name,pass:password}
       secureAxios.post('newroom',data)
       .then((response)=>{
+                setLoader('none')
                 const body=response.data
                 if(body.status==1){   toast.success(body.msg,{autoClose:1000}); dispatch({type:'add_my_group',payload:name}); props.history.push('/'); }
                 else toast.error(body.msg,{autoClose:1000})
         })
         .catch(err=>{
+            setLoader('none')
             toast.error(err,{autoClose:1000})
             props.history.push('/signin');
         })
@@ -79,7 +89,9 @@ export default function Newroom(props) {
     <Header2 name='' {...props}/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <Paper elevation={3} className={classes.paper}>
+      <CircularProgress style={{position:'fixed',top:'70px',display:loader}}/>
+
         <Avatar className={classes.avatar}>
           <GroupIcon />
         </Avatar>
@@ -136,7 +148,7 @@ export default function Newroom(props) {
           </Grid>
 
         </form>
-      </div>
+      </Paper>
     </Container>
     </>
   );

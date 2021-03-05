@@ -11,11 +11,13 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import GroupIcon from '@material-ui/icons/Group';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import url from '../url'
 import Header2 from './header2'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    boxShadow:'0px 0px 3px 3px blue',
+    padding:'30px'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -45,9 +49,12 @@ export default function Enterroom(props) {
   const classes = useStyles();
   const [name,setName]=useState('');
   const [password,setPassword]=useState('');
+  const [loader,setLoader]=useState('none');
+
   const dispatch=useDispatch()
 
   const enterroom=(evt)=>{
+    setLoader('block')
     evt.preventDefault()
     const token=localStorage.getItem('token')
     const secureAxios=axios.create(
@@ -61,11 +68,13 @@ export default function Enterroom(props) {
       const data={name,pass:password}
       secureAxios.post('enterroom',data)
       .then((response)=>{
+            setLoader('none')
             const body=response.data
             if(body.status==1){   dispatch({type:'add_latest_group',payload:name});   props.history.push(`/chat/${name}`); }
             else toast.error(body.msg,{autoClose:1500})
       })
       .catch(err=>{
+        setLoader('none')
         toast.error(err,{autoClose:1500})
         props.history.push('/signin');
       })
@@ -79,7 +88,9 @@ export default function Enterroom(props) {
     <Header2 name='' {...props}/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <Paper className={classes.paper}>
+      <CircularProgress style={{position:'fixed',top:'70px',display:loader}}/>
+
         <Avatar className={classes.avatar} >
           <GroupIcon/>
 
@@ -136,7 +147,7 @@ export default function Enterroom(props) {
             </Grid>
           </Grid>
         </form>
-      </div>
+      </Paper>
     </Container>
     </>
   );

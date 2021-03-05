@@ -13,8 +13,11 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import axios from 'axios'
 import url from '../url'
 import {toast} from 'react-toastify';
@@ -40,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    boxShadow:'0px 0px 3px 3px blue',
+    padding:'30px'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -48,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
   tabLink : {
     display:"flex",
     alignItems:"center",
-    justifyContent:"center"
+    justifyContent:"center",
+
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -64,15 +70,19 @@ export default function Signin(props) {
   const token=localStorage.getItem('token')
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
-
+  const [loader,setLoader]=useState('none')
   const dispatch=useDispatch()
 
   const login=(event)=>{
+    setLoader('block')
+
     event.preventDefault();
     const data={email,pass:password};
 
     axios.post(url+'/localSignin',data)
     .then((response)=>{
+      setLoader('none')
+
       const body=response.data
       let email=null,name=null,token=null,path=null;
 
@@ -90,14 +100,16 @@ export default function Signin(props) {
 
 
     })
-    .catch(err=>toast.error('Something went wrong'+err,{autoClose:1000}) );
+    .catch(err=>{   setLoader('none'); toast.error('Something went wrong'+err,{autoClose:1000});} );
 }
 
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <Paper  elevation={3} className={classes.paper}>
+      <CircularProgress style={{position:'fixed',top:'70px',display:loader}}/>
+
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -155,7 +167,7 @@ export default function Signin(props) {
             </Grid>
           </Grid>
         </form>
-      </div>
+      </Paper>
       <Box mt={8}>
         <Copyright />
       </Box>

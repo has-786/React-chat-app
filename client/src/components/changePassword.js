@@ -10,6 +10,9 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
@@ -38,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    boxShadow:'0px 0px 3px 3px blue',
+    padding:'30px'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -61,7 +66,7 @@ export default function Changepassword(props) {
   const [confirmPassword,setConfirmPassword]=useState('')
   const [otp,setOtp]=useState('')
   const [receivedOtp,setReceivedOtp]=useState('')
-
+  const [loader,setLoader]=useState('none')
   const secureAxios=axios.create(
                         {
                          baseURL:url,
@@ -73,6 +78,7 @@ export default function Changepassword(props) {
 
   	const changePassword=(event)=>{
   		event.preventDefault();
+      setLoader('block')
 
       if(otp!=receivedOtp){
         toast.error('Incorrect OTP',{autoClose:1000}); return;
@@ -85,25 +91,27 @@ export default function Changepassword(props) {
   		const data={email,password};
   		secureAxios.post('changePassword',data)
       .then((response)=>{
+        setLoader('none')
         const body=response.data
         if(body.status==1){
           toast.success('Password was changed successfully',{autoClose:2000})
-
           props.history.push('/');
         }
         else toast.error('Something went wrong');
   		})
-      .catch(err=>{console.log(err); toast.error('Something went wrong');});
+      .catch(err=>{console.log(err); setLoader('none'); toast.error('Something went wrong');});
    }
 
 
 
   	const forgotPassword=(event)=>{
+        setLoader('block')
     		event.preventDefault();
     		let data={email};
         //alert(secureAxios)
         secureAxios.post('forgotPassword',data)
         .then((response)=>{
+            setLoader('none')
             const body=response.data
             let receivedOtp=null;
 
@@ -112,7 +120,7 @@ export default function Changepassword(props) {
             else toast.error("Something went wrong",{autoClose:1000});
 
     		 })
-         .catch(err=>{console.log(err); toast.error("Something went wrong",{autoClose:1000});});
+         .catch(err=>{console.log(err); setLoader('none'); toast.error("Something went wrong",{autoClose:1000});});
     }
 
 
@@ -121,7 +129,9 @@ export default function Changepassword(props) {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <Paper  elevation={3} className={classes.paper}>
+      <CircularProgress style={{position:'fixed',top:'70px',display:loader}}/>
+
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -204,13 +214,13 @@ export default function Changepassword(props) {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link to="/" variant="body2">
                 Back to Home
               </Link>
             </Grid>
           </Grid>
         </form>
-      </div>
+      </Paper>
       <Box mt={8}>
         <Copyright />
       </Box>

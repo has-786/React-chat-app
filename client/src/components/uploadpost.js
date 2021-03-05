@@ -14,7 +14,9 @@ import Tabs from '@material-ui/core/Tabs';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import imageCompression from 'browser-image-compression';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -44,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    boxShadow:'0px 0px 3px 3px blue',
+    padding:'30px'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -70,6 +74,8 @@ export default function Uploadpost(props) {
   const uploaderDp=useSelector(state=>state.userReducer.path)
 
   const [desc,setDesc]=useState('')
+  const [loader,setLoader]=useState('none')
+
   const dispatch=useDispatch()
   const token=localStorage.getItem('token')
   const secureAxios=axios.create(
@@ -82,6 +88,9 @@ export default function Uploadpost(props) {
    const days=['January','February','March','April','May','June','July','August','September','October','November','December']
 
    async function upload(event){
+
+     setLoader('block')
+
     event.preventDefault();
 
     const dateObj = new Date();
@@ -114,6 +123,7 @@ export default function Uploadpost(props) {
 
           secureAxios.post('uploadpost',data)
           .then((response)=>{
+            setLoader('none')
             const body=response.data
 
             if(body.status==1){
@@ -125,7 +135,7 @@ export default function Uploadpost(props) {
             }
             else toast.error('Something went wrong',{autoClose:1000})
           })
-          .catch(err=>toast.error('Something went wrong',{autoClose:1000}) );
+          .catch(err=>{  setLoader('none'); toast.error('Something went wrong',{autoClose:1000}); });
 }
 
 
@@ -133,9 +143,9 @@ export default function Uploadpost(props) {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <Paper  elevation={3}  className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <AddPhotoAlternateIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Add Post
@@ -154,7 +164,7 @@ export default function Uploadpost(props) {
             onChange={(evt)=>setDesc(evt.target.value)}
             autoFocus
           />
-          Add Profile Picure
+          Add Photo
           <label for="file-input">
            <AttachFileIcon style={{color:'blue',width:'80px',cursor:'pointer'}}/>
           </label>
@@ -179,8 +189,15 @@ export default function Uploadpost(props) {
           >
             Post
           </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link to="/" variant="body2">
+                Back to Home
+              </Link>
+            </Grid>
+          </Grid>
         </form>
-      </div>
+      </Paper>
       <Box mt={8}>
         <Copyright />
       </Box>
