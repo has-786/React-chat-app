@@ -1,6 +1,7 @@
 import {React,useRef,useState,useEffect} from 'react';
 import {useDispatch,useSelector} from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -65,27 +66,30 @@ const useStyles = makeStyles({
     margin:'auto',
     backgroundColor:'beige',
     color:'black',
-    marginBottom:'10px'
+    marginBottom:'10px',
+    width:'120px',
+    textAlign:'center'
   },
   messageBox:{
-    display: 'flex',
     width:'100%',
     flexWrap: 'wrap',
     backgroundColor:green
   },
   main:{backgroundColor:green,paddingTop:'70px',width:'100%'},
   container:{
-    width:'300px',
     margin:'auto',
     minHeight:'70vh',
     padding:'2px',
     borderRadius:'10px',
-    backgroundColor:green,
+    backgroundColor:green
+    ,display:'flex',flexFlow:'row wrap',alignItems:'center',justifyContent:'center'
   },
 
   msgs:{
-    width:'260px',
-    marginBottom:'10px'
+    width:'250px',
+    maxWidth:'80%',
+    marginBottom:'10px',
+    paddingBottom:'12px'
   },
   sendbox:{
     width:'300px',
@@ -102,6 +106,7 @@ const useStyles = makeStyles({
 const Chatting=(props)=>{
 
   const classes = useStyles();
+  const matches = useMediaQuery('(min-width:600px)');
 
   const chat=useSelector(state=>state.chatReducer)
   const dispatch=useDispatch();
@@ -143,8 +148,6 @@ const Chatting=(props)=>{
                           "Authorization":`bearer ${token}`
                         }
                       })
-
-
 
     const email=useSelector(state=>state.userReducer.email)
     const name=useSelector(state=>state.userReducer.name)
@@ -411,15 +414,15 @@ const Chatting=(props)=>{
     <center><CircularProgress id='loader' style={{marginTop:'100px',display:'none'}}/></center>
   </div>
 
-  <div class={classes.main} style={{backgroundColor:green}} >
-        <div class={classes.container} id='container' >
+  <div class={classes.main}  >
+        <div class={classes.container} id='container' style={{width:(matches)?'50%':'100%'}}>
           <div id='messages' class={classes.messageBox}  >
-            <Paper elevation={3} className={classes.paging} style={{display:olderMsgs}} onClick={ getMessages.bind(this,page)}><button class='btn btn-sm' s>Older Messages</button></Paper>
+            <Paper elevation={3} className={classes.paging} style={{display:olderMsgs}} onClick={ getMessages.bind(this,page)}><button class='btn btn-sm' >Older Messages</button></Paper>
             {
               (chat[room]!=undefined)?chat[room].map((msg,id)=>{
                 let includeStyle=(email===msg.email)?rightStyle:{};
 
-                return <Paper  elevation={3} className={classes.msgs} style={includeStyle} >
+                return <Paper  elevation={3} className={classes.msgs} style={{...includeStyle}} >
                 {(msg.flag==0)?
                   <div style={{padding:'10px'}}>
                     {(room===roomName)?<><b>{msg.name}</b><br/></>:null}
@@ -433,7 +436,7 @@ const Chatting=(props)=>{
                     <span><img src={`/uploads/${msg.path}/${token}`} height='100%' width='100%' /></span>
                     <span >{msg.path}&nbsp;&nbsp; <CloudDownloadIcon color='primary' style={{float:'right'}} onClick={download.bind(this,url+`/uploads/${msg.path}/${token}`)}/></span>
                     <br /><br />
-                    <span style={{float:'right'}}>{msg.time}</span>
+                    <span  style={{float:'right',paddingBottom:'50px'}}>{msg.time}</span>
                    </div>
                   :(msg.flag==2)?
                    <div style={{padding:'10px'}}>

@@ -20,6 +20,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Header from './header'
 import axios from 'axios'
 import url from '../url'
 import {toast} from 'react-toastify';
@@ -141,6 +142,9 @@ export default function Uploadpost(props) {
 
 
   return (
+    <>
+        <Header name='' {...props}/>
+
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Paper  elevation={3}  className={classes.paper}>
@@ -202,5 +206,6 @@ export default function Uploadpost(props) {
         <Copyright />
       </Box>
     </Container>
+    </>
   );
 }

@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import Header from './header'
 import axios from 'axios'
 import url from '../url'
 import {toast} from 'react-toastify';
@@ -105,6 +105,9 @@ export default function Signin(props) {
 
 
   return (
+    <>
+        <Header name='' {...props}/>
+
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Paper  elevation={3} className={classes.paper}>
@@ -172,5 +175,6 @@ export default function Signin(props) {
         <Copyright />
       </Box>
     </Container>
+    </>
   );
 }
