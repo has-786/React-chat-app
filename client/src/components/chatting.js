@@ -301,7 +301,7 @@ const Chatting=(props)=>{
     console.log(salt,iv);
 
     (async ()=>{
-      await dispatch({type:'add_chat',payload:{room,msg:{flag:0,email,room,name,message:msg,time}}})
+      dispatch({type:'add_chat',payload:{room,msg:{flag:0,email,room,name,message:msg,time}}})
       dispatch({type:'add_recent',payload:{room,roomName,link,dp}})
 
       window.scrollTo({top:document.getElementById('messages').scrollHeight,behaviour:'smooth'})

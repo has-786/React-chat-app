@@ -1,4 +1,4 @@
-const port=process.env.PORT || 5001;
+const port=5001;
 const express=require('express')
 const path=require('path')
 const fs=require('fs')
@@ -656,6 +656,36 @@ app.get('/getPost',checkAuth,(req,res)=>{
       .catch(err=>res.send({status:0}))
 
 })
+
+router.post('/addComment',checkAuth,(req,res)=>{
+	const {_id,type,comment,index}=req.body
+	console.log(req.body)
+	if(type==='comment'){
+		Posts.updateOne({_id},{$push:{comment:{$each:[comment],$position:0}}})
+		.then(update=>{if(update)res.send({status:1}); else res.send({status:0});})
+		.catch(err=>res.send({status:0}))
+	}
+	else{
+		const commentData=[]
+	    Posts.findOne({_id})
+		.then(post=>{
+					let commentData=post.comment;
+					let reply=commentData[index].reply;
+					reply=[comment,...reply]
+					Posts.updateOne({_id},{$set:{comment:commentData}})
+					.then(update=>{if(update)res.send({status:1}); else res.send({status:0});})
+					.catch(err=>res.send({status:0}))
+
+
+		})
+		.catch(err=>res.send({status:0}))
+
+	}
+	
+
+
+})
+
 
 router.post('/updateDp',checkAuth,multer({storage}).single('file'),(req,res)=>{
   console.log(req.body.path)

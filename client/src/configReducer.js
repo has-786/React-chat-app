@@ -139,7 +139,8 @@ const profileReducer=(state={},action)=>{
 
 
     const postReducer=(state={exist:false,post:[]},action)=>{
-        const newPost=JSON.parse(JSON.stringify(state.post))
+        const newPost=[...state.post]
+        let comment,reply;
         switch(action.type)
         {
             case 'load_post':
@@ -169,6 +170,19 @@ const profileReducer=(state={},action)=>{
             case 'hide_post':
                return {...state,post:state.post.filter(p=>p._id!=action.payload)}
 
+            case 'add_comment':
+               comment=newPost.find(p=>p._id===action.payload._id).comment
+               comment=[action.payload.comment,...comment]
+               newPost.find(p=>p._id===action.payload._id).comment=comment
+               return {...state,post:newPost}
+     
+            case 'add_reply':
+              reply=newPost.find(p=>p._id===action.payload._id).comment[action.payload.index].reply
+              reply=[action.payload.comment,...reply]
+              newPost.find(p=>p._id===action.payload._id).comment[action.payload.index].reply=reply
+
+              return {...state,post:newPost}
+      
             case 'clear':
                 return {exist:false,post:[]}
 
@@ -190,6 +204,9 @@ const profileReducer=(state={},action)=>{
               return state
         }
       }
+
+      
+
 
 
 

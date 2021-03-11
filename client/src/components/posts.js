@@ -20,11 +20,20 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Button from '@material-ui/core/Button';
+import SendIcon from '@material-ui/icons/Send';
+import PersonIcon from '@material-ui/icons/Person';
+import TextField from '@material-ui/core/TextField';
 
 import Header from './header';
 import url from '../url';
@@ -38,7 +47,8 @@ toast.configure()
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 500,
-    margin:'auto'
+    margin:'auto',
+    marginBottom:'10px'
   },
   media: {// 4:
     paddingTop: '100%', // 16:9
@@ -66,7 +76,14 @@ export default function Posts(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [index,setIndex]=React.useState(0);
   const [read,setRead]=React.useState({});
+  const [comment,setComment]=React.useState(null);
+
+  const [replyVisible,setReplyVisible]=React.useState(false);
+
   const email=useSelector(state=>state.userReducer.email)
+  const dp=useSelector(state=>state.userReducer.path)
+  const name=useSelector(state=>state.userReducer.name)
+
   //const email='syedhasnain9163@gmail.com';
     const handleClick = (event,ind) => {
       setIndex(ind)
@@ -101,16 +118,18 @@ export default function Posts(props) {
 
   }
 
+  const secureAxios=axios.create(
+    {
+     baseURL:url,
+     headers:{
+      "Authorization":`bearer ${token}`
+    }
+  })
+
   useEffect(()=>{
     console.log(posts)
     if(exist)return;
-    const secureAxios=axios.create(
-                          {
-                           baseURL:url,
-                           headers:{
-                            "Authorization":`bearer ${token}`
-                          }
-                        })
+   
                         secureAxios.get('getPost')
                         .then((response)=>{
                           const body=response.data
@@ -128,6 +147,82 @@ export default function Posts(props) {
 
 
   },[])
+
+
+  const addComment=(type,_id,index)=>{
+    let comment=""
+    if(type==='comment')
+    {
+        comment=document.getElementById(_id).value
+        document.getElementById(_id).value=""
+    }
+    else
+    {
+      comment=document.getElementById(_id+index).value
+      document.getElementById(_id+index).value=""
+    }
+
+    const commentData={name,email,path:dp,content:comment,reply:[]}
+
+    secureAxios.post('addComment',{_id,type,comment:commentData,index})
+    .then((response)=>{
+      const body=response.data
+      if(body.status==1){
+        dispatch({type:`add_${type}`,payload:{_id,comment:commentData,index}});   toast.success(`Your ${type} was added`,{autoClose:1000});
+      }
+      else toast.error('Something went wrong',{autoClose:2000})
+    })
+    .catch(err=>toast.error('Something went wrong '+err,{autoClose:2000}) );
+
+  }
+
+  const showComments=(_id,cmnts,type,index)=>{
+    //alert(JSON.stringify(cmnts))
+      return <>
+       <List>
+        {
+          cmnts?.map((c,index)=>{
+           return <ListItem>
+                <ListItemAvatar>
+                  <Avatar src={url+`/uploads/${c.path}/${token}`}>
+                    <PersonIcon color='lightgrey'/>
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText secondary={c.content}  primary={c.name} />
+                
+                    <ListItemSecondaryAction>
+                  
+                    {(type==='comment')?<Button color='primary' data-toggle="collapse" data-target={"#reply"+_id+index}>Reply</Button>:null}
+                    
+                    </ListItemSecondaryAction>
+                    <br /><br />
+                    {
+                      (type==='comment')?
+                      <ListItemSecondaryAction  id={"reply"+_id+index} class='collapse' style={{paddingLeft:'50px'}}>
+                          {showComments(_id,c.reply,'reply',index)}
+                      </ListItemSecondaryAction>
+                      :null
+                    }
+            </ListItem>
+          })
+          
+        }
+        </List>
+        <>
+          { (type==='reply')?
+            <>
+            <TextField label={`Add a reply`} id={_id+index} style={{marginLeft:'5px',width:'92%'}} />
+            <SendIcon color='secondary' style={{float:'right'}} onClick={()=>addComment('reply',_id,index)} />
+          </>
+            :null
+          }
+         </>
+      </>
+        
+        
+      
+      
+  }
 
 
     const hidePost=(index)=>{
@@ -199,7 +294,7 @@ export default function Posts(props) {
     <Container component="main" maxWidth="xl">
       <CssBaseline />
     {
-      posts.map((p,ind)=>{
+      posts?.map((p,ind)=>{
         return <Card className={classes.root}>
           <CardHeader
             avatar={
@@ -258,10 +353,6 @@ export default function Posts(props) {
             }
 
 
-          <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
-            </Typography>
-          </CardContent>
           <CardActions disableSpacing>
             <IconButton aria-label="add to favorites">
               <ThumbUpAltIcon onClick={likePost.bind(this,email,p._id,p.liked)} color={(p.liked)?'Primary':''}/>
@@ -269,27 +360,18 @@ export default function Posts(props) {
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
+           
           </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph>
-              {p.comment.map(cmt=>{
-                <p>{cmt}</p>
-              })}
-              </Typography>
-            </CardContent>
-          </Collapse>
-        </Card>
+          <Button color='secondary' data-toggle="collapse"  data-target={"#reply"+p._id} style={{textTransform:'none',float:'right',marginTop:'-50px'}}>Comments</Button>
+              <br />
+              
+                <CardContent id={"reply"+p._id} class='collapse'>
+                    
+                  <TextField label={`Add a comment`} id={p._id} style={{marginLeft:'5px',width:'92%'}} />
+                  <SendIcon color='secondary' style={{float:'right'}} onClick={()=>addComment('comment',p._id)} />
+                    {showComments(p._id,p.comment,'comment')}
+                </CardContent>
+            </Card>
       })
     }
     </Container>
