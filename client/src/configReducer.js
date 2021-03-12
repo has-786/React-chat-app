@@ -183,6 +183,26 @@ const profileReducer=(state={},action)=>{
 
               return {...state,post:newPost}
       
+            case 'edit_comment':
+              newPost.find(p=>p._id===action.payload._id).comment[action.payload.index1]=action.payload.commentData
+              return {...state,post:newPost}
+
+            case 'edit_reply':
+
+            newPost.find(p=>p._id===action.payload._id).comment[action.payload.index].reply[action.payload.index1]=action.payload.commentData
+              return {...state,post:newPost}
+        
+            case 'delete_comment':
+              newPost.find(p=>p._id===action.payload._id).comment.splice(action.payload.index1,1)
+              return {...state,post:newPost}
+
+        
+            case 'delete_reply':  
+              newPost.find(p=>p._id===action.payload._id).comment[action.payload.index].reply.splice(action.payload.index1,1)
+              return {...state,post:newPost}
+
+
+
             case 'clear':
                 return {exist:false,post:[]}
 

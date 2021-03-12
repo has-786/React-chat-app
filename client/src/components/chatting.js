@@ -39,7 +39,8 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
 
-const green='#23D0E0'
+const green='#fffcb7'
+//'#23D0E0'
 let socket;
 const useStyles = makeStyles({
   root: {
@@ -73,16 +74,17 @@ const useStyles = makeStyles({
   messageBox:{
     width:'100%',
     flexWrap: 'wrap',
-    backgroundColor:green
+    backgroundColor:'#23D0E0',
+    borderRadius:'10px'
   },
-  main:{backgroundColor:green,paddingTop:'70px',width:'100%'},
+  main:{backgroundColor:'white',paddingTop:'70px',width:'100%'},
   container:{
     margin:'auto',
     minHeight:'70vh',
     padding:'2px',
     borderRadius:'10px',
-    backgroundColor:green
-    ,display:'flex',flexFlow:'row wrap',alignItems:'center',justifyContent:'center'
+    backgroundColor:"#23D0E0",
+    display:'flex',flexFlow:'row wrap',alignItems:'center',justifyContent:'center'
   },
 
   msgs:{
@@ -93,7 +95,6 @@ const useStyles = makeStyles({
   },
   sendbox:{
     width:'300px',
-    backgroundColor:green,
   },
   download:{
     marginRight:'-15px',
@@ -266,11 +267,10 @@ const Chatting=(props)=>{
              }
         })
         .catch(err=>{})
-
     }
 
     useEffect(()=>{
-      document.querySelector('body').style.backgroundColor=green
+     // document.querySelector('body').style.backgroundColor=green
 
          if(chat[room])socketConnections(socket,name,email)
          else getMessages(1)

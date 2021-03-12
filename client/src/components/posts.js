@@ -25,6 +25,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -74,9 +79,17 @@ export default function Posts(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorElCmt, setAnchorElCmt] = React.useState(null);
+
+  const [inde,setInde]=React.useState(0);
   const [index,setIndex]=React.useState(0);
+  const [index1,setIndex1]=React.useState(0);
+  const [type,setType]=React.useState("");
+  const [_id,set_Id]=React.useState("");
+
   const [read,setRead]=React.useState({});
   const [comment,setComment]=React.useState(null);
+  const [openNewComment,setOpenNewComment]=React.useState(false);
 
   const [replyVisible,setReplyVisible]=React.useState(false);
 
@@ -84,14 +97,35 @@ export default function Posts(props) {
   const dp=useSelector(state=>state.userReducer.path)
   const name=useSelector(state=>state.userReducer.name)
 
+  const handleOpenNewComment=()=>{
+    setOpenNewComment(true)
+  }
+  const handleCloseNewComment=()=>{
+    setOpenNewComment(false)
+  }
+
   //const email='syedhasnain9163@gmail.com';
     const handleClick = (event,ind) => {
-      setIndex(ind)
+      setInde(ind)
       setAnchorEl(event.currentTarget);
     };
 
     const handleClose = () => {
       setAnchorEl(null);
+    };
+
+    const handleClickCmt = (event,type,_id,index1,index,comment) => {
+      setIndex(index)
+      setIndex1(index1)
+      set_Id(_id) 
+      setType(type)
+      setComment(comment)
+
+      setAnchorElCmt(event.currentTarget);
+    };
+
+    const handleCloseCmt = () => {
+      setAnchorElCmt(null);
     };
 
   const handleExpandClick = () => {
@@ -161,6 +195,7 @@ export default function Posts(props) {
       comment=document.getElementById(_id+index).value
       document.getElementById(_id+index).value=""
     }
+    if(comment==="")return;
 
     const commentData={name,email,path:dp,content:comment,reply:[]}
 
@@ -176,13 +211,72 @@ export default function Posts(props) {
 
   }
 
-  const showComments=(_id,cmnts,type,index)=>{
-    //alert(JSON.stringify(cmnts))
+  const editComment=(type,_id,index1,index,comment)=>{
+    const commentData={name,email,path:dp,content:comment,reply:[]}
+
+    secureAxios.post('editComment',{type,_id,index1,index,commentData})
+    .then((response)=>{
+      const body=response.data
+      if(body.status==1){
+        dispatch({type:`edit_${type}`,payload:{_id,index1,index,commentData}});   toast.success(`Your ${type} was edited`,{autoClose:1000});
+      }
+      else toast.error('Something went wrong',{autoClose:2000})
+    })
+    .catch(err=>toast.error('Something went wrong '+err,{autoClose:2000}) );
+  }
+
+
+  const deleteComment=()=>{
+    secureAxios.post('deleteComment',{type,_id,index1,index})
+    .then((response)=>{
+      const body=response.data
+      if(body.status==1){
+        dispatch({type:`delete_${type}`,payload:{_id,index1,index}});   toast.success(`Your ${type} was deleted`,{autoClose:1000});
+      }
+      else toast.error('Something went wrong',{autoClose:2000})
+    })
+    .catch(err=>toast.error('Something went wrong '+err,{autoClose:2000}) );
+    handleCloseCmt();
+
+  }
+
+  function EditcommentDialog({comment}){
+
+    const [newComment,setNewComment]=useState(comment)
+
+    return <Dialog open={openNewComment} onClose={handleCloseNewComment} aria-labelledby="form-dialog-title">
+    <DialogTitle id="form-dialog-title">Edit comment</DialogTitle>
+    <DialogContent>
+      <TextField
+        autoFocus
+        margin="dense"
+        id="name"
+        label="Write comment"
+        value={newComment}
+        onChange={(evt)=>setNewComment(evt.target.value)}
+        type="text"
+        fullWidth
+      />
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={()=>{handleCloseCmt(); handleCloseNewComment();  setNewComment(""); }} color="primary">
+        Cancel
+      </Button>
+      <Button onClick={()=>{ editComment(type,_id,index1,index,newComment); handleCloseCmt(); handleCloseNewComment();  setNewComment("");}} color="primary">
+        Confirm
+      </Button>
+    </DialogActions>
+  </Dialog>
+  }
+
+  const showComments=(uploaderEmail,_id,cmnts,type,index)=>{
+   // alert(JSON.stringify(cmnts))
       return <>
        <List>
         {
-          cmnts?.map((c,index)=>{
+          cmnts?.map((c,index1)=>{
            return <ListItem>
+             
                 <ListItemAvatar>
                   <Avatar src={url+`/uploads/${c.path}/${token}`}>
                     <PersonIcon color='lightgrey'/>
@@ -191,15 +285,30 @@ export default function Posts(props) {
                 <ListItemText secondary={c.content}  primary={c.name} />
                 
                     <ListItemSecondaryAction>
-                  
-                    {(type==='comment')?<Button color='primary' data-toggle="collapse" data-target={"#reply"+_id+index}>Reply</Button>:null}
-                    
+
+                    {(type==='comment')?<Button color='primary' data-toggle="collapse" data-target={"#reply"+_id+index1}>Reply</Button>:null}
+                      <>
+                        <IconButton aria-label="settings">
+                          <MoreVertIcon onClick={(evt)=>handleClickCmt(evt,type,_id,index1,index,c.content)}/>
+                        </IconButton>
+
+                        <Menu
+                          id="simple-menu-comment"
+                          anchorEl={anchorElCmt}
+                          keepMounted
+                          open={Boolean(anchorElCmt)}
+                          onClose={handleCloseCmt}
+                        >
+                        {(email===c.email)?<MenuItem onClick={()=>{    handleOpenNewComment();}}>Edit</MenuItem>:null}
+                        {(email===c.email && email===uploaderEmail)?<MenuItem onClick={deleteComment.bind(this)}>Delete</MenuItem>:null}
+                        </Menu>
+                      </>
                     </ListItemSecondaryAction>
                     <br /><br />
                     {
                       (type==='comment')?
-                      <ListItemSecondaryAction  id={"reply"+_id+index} class='collapse' style={{paddingLeft:'50px'}}>
-                          {showComments(_id,c.reply,'reply',index)}
+                      <ListItemSecondaryAction  id={"reply"+_id+index1} class='collapse' style={{paddingLeft:'50px'}}>
+                          {showComments(uploaderEmail,_id,c.reply,'reply',index1)}
                       </ListItemSecondaryAction>
                       :null
                     }
@@ -212,11 +321,13 @@ export default function Posts(props) {
           { (type==='reply')?
             <>
             <TextField label={`Add a reply`} id={_id+index} style={{marginLeft:'5px',width:'92%'}} />
-            <SendIcon color='secondary' style={{float:'right'}} onClick={()=>addComment('reply',_id,index)} />
+            <SendIcon color='secondary' style={{float:'right',marginTop:'15px'}} onClick={()=>addComment('reply',_id,index)} />
           </>
             :null
           }
+          <br />
          </>
+
       </>
         
         
@@ -281,7 +392,7 @@ export default function Posts(props) {
 
   return (
     <>
-    <div style={{position:'fixed',width:'100%'}}>
+    <div style={{position:'fixed',width:'100%',zIndex:10}}>
       <Header {...props}/>
     </div>
     <br /><br/><br />
@@ -316,8 +427,8 @@ export default function Posts(props) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-              <MenuItem onClick={hidePost.bind(this,index)}>Hide</MenuItem>
-              {(email===posts[index].uploaderEmail)?<MenuItem onClick={deletePost.bind(this,email,index)}>Delete</MenuItem>:null}
+                <MenuItem onClick={hidePost.bind(this,inde)}>Hide</MenuItem>
+                {(email===posts[inde].uploaderEmail)?<MenuItem onClick={deletePost.bind(this,email,inde)}>Delete</MenuItem>:null}
               </Menu>
               </>
             }
@@ -339,9 +450,6 @@ export default function Posts(props) {
             </Typography>
 
           </CardContent>
-
-
-
             { (p.path!='undefined' && (p.path.includes('.jpg') || p.path.includes('.png') || p.path.includes('.jpeg')))?<img src={`${url}/uploads/${p.path}/${token}`} width="100%" height="100%" />
               :(p.path!='undefined' && (p.path.includes('.mp4') || p.path.includes('.wav') || p.path.includes('.ogg')))?
               <video width="100%" height="100%" controls>
@@ -355,27 +463,29 @@ export default function Posts(props) {
 
           <CardActions disableSpacing>
             <IconButton aria-label="add to favorites">
-              <ThumbUpAltIcon onClick={likePost.bind(this,email,p._id,p.liked)} color={(p.liked)?'Primary':''}/>
+              <ThumbUpAltIcon  onClick={likePost.bind(this,email,p._id,p.liked)} color={(p.liked)?'Primary':''}/>
             </IconButton > {p.likeCount}
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
-           
           </CardActions>
-          <Button color='secondary' data-toggle="collapse"  data-target={"#reply"+p._id} style={{textTransform:'none',float:'right',marginTop:'-50px'}}>Comments</Button>
-              <br />
-              
-                <CardContent id={"reply"+p._id} class='collapse'>
-                    
-                  <TextField label={`Add a comment`} id={p._id} style={{marginLeft:'5px',width:'92%'}} />
-                  <SendIcon color='secondary' style={{float:'right'}} onClick={()=>addComment('comment',p._id)} />
-                    {showComments(p._id,p.comment,'comment')}
-                </CardContent>
+          
+           <CardContent>
+             <Button color='secondary' data-toggle="collapse"  data-target={"#reply"+p._id} style={{textTransform:'none',float:'right',marginTop:'-67px',fontSize:'17px'}}>Comments</Button>
+          </CardContent>   
+                  <CardContent id={"reply"+p._id} class='collapse' style={{marginTop:'-30px'}}>
+                      {showComments(p.uploaderEmail,p._id,p.comment,'comment')}
+                  </CardContent>
+                  <TextField label={`Add a comment`} id={p._id} style={{width:'92%',marginLeft:'5px',marginTop:'-20px'}} />
+                  <SendIcon color='secondary' style={{float:'right',marginTop:'0px'}} onClick={()=>addComment('comment',p._id)} />
+                  <br /><br />
             </Card>
       })
     }
     </Container>
+    <EditcommentDialog  {...{comment}}/>
 
+    
     </div>
     </>
   );

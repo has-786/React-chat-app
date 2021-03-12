@@ -18,7 +18,6 @@ import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
 import url from '../url';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import Header2 from './header2'
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

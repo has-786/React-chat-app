@@ -1,4 +1,4 @@
-const port=5001;
+const port=process.env.PORT || 5001;
 const express=require('express')
 const path=require('path')
 const fs=require('fs')
@@ -687,6 +687,85 @@ router.post('/addComment',checkAuth,(req,res)=>{
 })
 
 
+
+router.post('/deleteComment',checkAuth,(req,res)=>{
+
+	const {_id,type,index1,index}=req.body
+	if(type==='comment')
+	{
+		Posts.findOne({_id})
+		.then(post=>{
+				let comment=post.comment
+				comment.splice(index1,1)
+				Posts.updateOne({_id},{comment})
+				.then(update=>{
+					if(!update)res.send({status:0})
+					else res.send({status:1})
+				})
+		})
+		.catch(err=>res.send({status:0}))
+
+	}
+	else{
+		Posts.findOne({_id})
+		.then(post=>{
+				let comment=post.comment
+				comment[index].reply.splice(index1,1)
+				Posts.updateOne({_id},{comment})
+				.then(update=>{
+					if(!update)res.send({status:0})
+					else res.send({status:1})
+				})
+		})
+		.catch(err=>res.send({status:0}))
+	}
+})
+
+
+
+router.post('/editComment',checkAuth,(req,res)=>{
+
+	const {_id,type,index1,index,commentData}=req.body
+	console.log(req.body)
+	if(type==='comment')
+	{
+		Posts.findOne({_id})
+		.then(post=>{
+				let comment=post.comment
+				comment[index1]=commentData
+
+				Posts.updateOne({_id},{comment})
+				.then(update=>{
+					if(!update)res.send({status:0})
+					else res.send({status:1})
+				})
+		})
+		.catch(err=>res.send({status:0}))
+
+	}
+	else{
+		Posts.findOne({_id})
+		.then(post=>{
+				let comment=post.comment
+				comment[index].reply[index1]=commentData
+
+				Posts.updateOne({_id},{comment})
+				.then(update=>{
+					if(!update)res.send({status:0})
+					else res.send({status:1})
+				})
+		})
+		.catch(err=>res.send({status:0}))
+	}
+})
+
+
+
+
+
+
+
+
 router.post('/updateDp',checkAuth,multer({storage}).single('file'),(req,res)=>{
   console.log(req.body.path)
   console.log(req.userData)
@@ -699,6 +778,27 @@ router.post('/updateDp',checkAuth,multer({storage}).single('file'),(req,res)=>{
 
     Posts.updateMany({uploaderEmail:email},{uploaderDp:path})
     .then(update=>{if(update)console.log('Posts updated with new dp');})
+    .catch(err=>console.log(err))
+
+	Posts.find({})
+    .then(post=>{
+		for(let i=0;i<post.length;i++)
+		{
+			let c=post[i].comment
+			for(let j=0;j<c.length;j++){
+				if(c[j].email===email){c[j].path=path;}
+				let r=c[j].reply
+				for(let k=0;k<r.length;k++)
+				{
+					if(r[k].email===email){r[k].path=path;}
+				}
+			}
+			Posts.updateOne({_id:post[i]._id},{comment:c})
+			.then(update=>{})
+			.catch(err=>console.log(err))
+
+		}
+	})
     .catch(err=>console.log(err))
 
     Users.updateMany({email:{$ne:email},recentChat:{$elemMatch:{room:{$regex:`.*${email}.*`}}}},{$set:{"recentChat.$.dp":path}})
