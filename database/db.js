@@ -24,7 +24,10 @@ const posts=mongoose.model('posts',postsSchema)
 const chatsSchema=new mongoose.Schema({email:String,chats:Array})
 const chats=mongoose.model('chats',chatsSchema)
 
-module.exports={con,users,rooms,posts,chats};
+const urlSchema = new mongoose.Schema({urlCode: String,longUrl: String,shortUrl: String,clickCount: Number });
+const urls=mongoose.model('urls',urlSchema)
+
+module.exports={con,users,rooms,posts,chats,urls};
 
 /*
  [
