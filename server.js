@@ -1,4 +1,3 @@
-const port = process.env.PORT || 5001;
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -6,6 +5,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 require('dotenv').config()
 
+const port = process.env.PORT || 5001;
 const router = express.Router();
 const app = express();
 const http = require("http").createServer(app);
