@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "npm install && node server.js",
-    "build": "cd client && npm run build && cd.."
+    "build": "cd client && npm install && npm run build && cd.."
   },
   "eslintConfig": {
     "extends": "react-app"
