@@ -1,6 +1,5 @@
-import {Redirect} from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 
-export default function Authredirect({redirect}){
-  return <Redirect to={'/'+redirect} />
-
+export default function Authredirect({ redirect }) {
+  return <Redirect to={"/" + redirect} />;
 }

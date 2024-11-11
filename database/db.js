@@ -1,103 +1,63 @@
-const mongoose=require('mongoose');
-function con(mongoose){
-	//mongodb://localhost/test
-	// mongodb+srv://has_786:<password>@cluster0.torm7.mongodb.net/test
-//mongodb+srv://react:react@cluster0.vvcms.mongodb.net/test?retryWrites=true&w=majority
-mongoose.connect('mongodb+srv://react:react@cluster0.vvcms.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Database is connected');
+const mongoose = require("mongoose");
+function con(mongoose) {
+  const mongoUrl = process.env.MONGODB_URI
+  //"mongodb://localhost:27017/example";
+  mongoose.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+  const db = mongoose.connection;
+  db.on("error", console.error.bind(console, "connection error:"));
+  db.once("open", function () {
+    console.info("Database is connected");
+  });
+}
+
+const usersSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  path: String,
+  pass: String,
+  rooms: Array,
+  latest: Array,
+  pendings: Array,
+  friends: Array,
+  sent: Array,
+  recentChat: Array
 });
-}
-const integer={type:Number, validate : {validator : Number.isInteger}};
+const users = mongoose.model("users", usersSchema);
 
-const usersSchema=new mongoose.Schema({name:String,email:String,path:String,pass:String,rooms:Array,latest:Array,pendings:Array,friends:Array,sent:Array,recentChat:Array})
-const users=mongoose.model('users',usersSchema)
+const roomsSchema = new mongoose.Schema({
+  name: String,
+  pass: String,
+  online: Array,
+  msgs: Array
+});
+const rooms = mongoose.model("rooms", roomsSchema);
 
-const roomsSchema=new mongoose.Schema({name:String,pass:String,online:Array,msgs:Array})
-const rooms=mongoose.model('rooms',roomsSchema)
+const postsSchema = new mongoose.Schema({
+  uploaderName: String,
+  uploaderEmail: String,
+  uploaderDp: String,
+  path: String,
+  time: Number,
+  date: String,
+  desc: String,
+  like: Array,
+  share: Array,
+  comment: Array
+});
+const posts = mongoose.model("posts", postsSchema);
 
-const postsSchema=new mongoose.Schema({uploaderName:String,uploaderEmail:String,uploaderDp:String,path:String,time:Number,date:String,desc:String,like:Array,share:Array,comment:Array})
-const posts=mongoose.model('posts',postsSchema)
+const chatsSchema = new mongoose.Schema({ email: String, chats: Array });
+const chats = mongoose.model("chats", chatsSchema);
 
-const chatsSchema=new mongoose.Schema({email:String,chats:Array})
-const chats=mongoose.model('chats',chatsSchema)
+const urlSchema = new mongoose.Schema({
+  urlCode: String,
+  longUrl: String,
+  shortUrl: String,
+  clickCount: Number
+});
+const urls = mongoose.model("urls", urlSchema);
 
-const urlSchema = new mongoose.Schema({urlCode: String,longUrl: String,shortUrl: String,clickCount: Number });
-const urls=mongoose.model('urls',urlSchema)
-
-module.exports={con,users,rooms,posts,chats,urls};
-
-/*
- [
-{
-    "_id" : ObjectId("6012e7ff0925205565c49419"),
-    "vendor" : "vendor 1",
-    "level" : NumberInt(1),
-    "type" : "Sequential",
-    "users" : [
-        {
-            "id" : "1",
-            "name" : "Elsa Ingram",
-            "action" : "None",
-            "status":"Active"
-        },
-        {
-            "id" : "2",
-            "name" : "Nick Holden",
-            "action" : "None",
-            "status":"Active"
-
-        }
-    ]
-}
-{
-    "_id" : ObjectId("6012e87b0925205565c49429"),
-    "vendor" : "vendor 1",
-    "level" : NumberInt(2),
-    "type" : "Round-robin",
-    "users" : [
-        {
-            "id" : "3",
-            "name" : "Paul Marsh",
-            "action" : "None",
-            "status":"Active"
-        },
-        {
-            "id" : "4",
-            "name" : "D Joshi",
-            "action" : "None",
-            "status":"Active"
-        },
-        {
-            "id" : "5",
-            "name" : "John",
-            "action" : "None",
-            "status":"Active"
-        }
-    ]
-}
-{
-    "_id" : ObjectId("6012e9410925205565c49434"),
-    "vendor" : "vendor 1",
-    "level" : NumberInt(3),
-    "type" : "Any-one",
-    "users" : [
-        {
-            "id" : "2",
-            "name" : "Nick Holden",
-            "action" : "None",
-            "status":"Active"
-        },
-        {
-            "id" : "5",
-            "name" : "John",
-            "action" : "None",
-            "status":"Active"
-        }
-    ]
-}
-]
-
-*/
+module.exports = { con, users, rooms, posts, chats, urls };
