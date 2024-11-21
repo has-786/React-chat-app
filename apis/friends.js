@@ -1,13 +1,12 @@
 const checkAuth = require("./utils/check-auth.js");
-
+const { generate } = require('./utils/helpers.js')
 const db = require("../database/db.js");
 const Users = db.users;
 const Rooms = db.rooms;
 
 module.exports = (app, router) => {
     router.get("/getFriend", checkAuth, (req, res) => {
-    const _id = req.userData._id;
-    Users.findOne({ _id })
+    Users.findOne({ email: req.userData?.email })
       .then((user) => {
         res.send({
           name: req.userData.name,
@@ -25,7 +24,6 @@ module.exports = (app, router) => {
   });
 
   router.post("/setFriend", checkAuth, (req, res) => {
-    const _id = req.userData._id;
     const { name, email, path } = req.userData;
     const profile = req.body.profile;
     const profile2 = { name, email, path };
@@ -33,9 +31,9 @@ module.exports = (app, router) => {
     const option = req.body.option;
     console.log(profile);
 
-    if (option == "Accept") {
+    if (option === "Accept") {
       Users.updateOne(
-        { _id },
+        { email: req.userData.email },
         {
           $pull: { pendings: { email: profile.email } },
           $push: { friends: profile }
@@ -80,21 +78,21 @@ module.exports = (app, router) => {
           });
         }
       });
-    } else if (option == "Disconnect" || option == "Cancel request") {
-      Users.updateOne({ _id }, { $pull: { friends: { email: profile.email } } })
+    } else if (option === "Disconnect" || option === "Cancel request") {
+      Users.updateOne({ email: req.userData.email }, { $pull: { friends: { email: profile.email } } })
         .then((update) => {
           console.log(update);
         })
         .catch((err) => {});
 
-      Users.updateOne({ _id }, { $pull: { sent: { email: profile.email } } })
+      Users.updateOne({ email: req.userData.email }, { $pull: { sent: { email: profile.email } } })
         .then((update) => {
           console.log(update);
         })
         .catch((err) => {});
 
       Users.updateOne(
-        { _id },
+        { email: req.userData.email },
         { $pull: { pendings: { email: profile.email } } }
       )
         .then((update) => {
@@ -128,7 +126,7 @@ module.exports = (app, router) => {
         })
         .catch((err) => {});
     } else {
-      Users.updateOne({ _id }, { $push: { sent: profile } })
+      Users.updateOne({ email: req.userData.email }, { $push: { sent: profile } })
         .then((update) => {
           console.log(update);
         })

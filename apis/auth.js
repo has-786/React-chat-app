@@ -17,8 +17,6 @@ const { multer, storage } = require("./utils/multer.js");
 const appMail = process.env.EMAIL_ID
 const appMailPassword = process.env.EMAIL_PASSWORD
 const secret = "access_token_secret";
-
-const { generate } = require("./utils/helpers.js");
 const db = require("../database/db.js");
 const Users = db.users;
 
@@ -191,6 +189,7 @@ module.exports = (app, router) => {
 
     Users.findOne({ email })
       .then(function (user1) {
+        console.log('user1', user1)
         console.log(user1.pass);
         if (user1) return bcrypt.compare(pass, user1.pass);
       })

@@ -39,7 +39,7 @@ import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 import PersonIcon from "@material-ui/icons/Person";
 import TextField from "@material-ui/core/TextField";
-
+import Empty from './empty'
 import Header from "./header";
 import url from "../url";
 import axios from "axios";
@@ -75,7 +75,15 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '30px',
     marginTop: '45px',
     marginLeft: '100px',
+    minHeight: '100vh',
     background: 'linear-gradient(to right, #4682B4, #87CEEB)'
+  },
+  empty: {
+    position: 'fixed',
+    left: '25%',
+    width: '100%',
+    top: '50vh',
+    zIndex: '1'
   }
 }));
 
@@ -435,6 +443,7 @@ export default function Posts(props) {
       .catch((err) => toast.error("Something went wrong", { autoClose: 1000 }));
   };
 
+  console.log('posts', posts)
   return (
       <div class={classes.main}>
         <Fab
@@ -447,7 +456,8 @@ export default function Posts(props) {
         </Fab>
         <Container component="main" maxWidth="xl" >
           <CssBaseline />
-          {posts?.map((p, ind) => {
+          {
+            !!posts?.length ? posts.map((p, ind) => {
             return (
               <Card className={classes.root}>
                 <CardHeader
@@ -591,7 +601,9 @@ export default function Posts(props) {
                 />
               </Card>
             );
-          })}
+          }) : <div className={classes.empty}>
+            <Empty />
+        </div>}
         </Container>
         <EditcommentDialog {...{ comment }} />
       </div>

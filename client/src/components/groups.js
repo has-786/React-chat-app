@@ -30,7 +30,7 @@ import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import axios from "axios";
 import url from "../url";
 import Copyright from "./copyright";
-import Header from "./header";
+import Empty from "./empty";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -70,6 +70,20 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     marginTop: '20px'
+  },
+  heading: {
+    fontSize: '14px',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold'
+  },
+  list: {
+    padding: '10px 0 40px 0'
+  },
+  empty: {
+    padding: '10px 10px 40px 10px',
+    marginLeft: '30%',
+    marginRight: '30%',
+    color: '#848884'
   }
 }));
 
@@ -261,75 +275,83 @@ export default function Groups(props) {
       </Fab>
       <Container component="main" maxWidth="xs">
         <div class={classes.container}>
-          <h6>My Groups</h6>
+          <div class={classes.heading}>My Groups</div>
           <Divider />
-          <List>
-            {rooms
-              ?.sort((a, b) => (a < b ? -1 : 1))
-              .map((text) => (
-                <ListItem
-                  button
-                  key={text}
-                  onClick={() => props.history.push(`/chat/${text}`)}
-                >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <GroupIcon color="lightgrey" />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={text} />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete">
-                      <EditIcon
-                        color="primary"
-                        onClick={() => {
-                          setEdit(text);
-                          handleClickOpen();
-                        }}
-                      />
-                    </IconButton>
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon
-                        color="secondary"
-                        onClick={() => {
-                          setEdit(text);
-                          handleClickOpenDel();
-                        }}
-                      />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-          </List>
-          <h6>All Groups</h6>
+          {
+            !!rooms?.length ? <div class={classes.list}>
+            <List>
+              {rooms
+                ?.sort((a, b) => (a < b ? -1 : 1))
+                .map((text) => (
+                  <ListItem
+                    button
+                    key={text}
+                    onClick={() => props.history.push(`/chat/${text}`)}
+                  >
+                    <ListItemAvatar>
+                      <Avatar>
+                        <GroupIcon color="lightgrey" />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={text} />
+                    <ListItemSecondaryAction>
+                      <IconButton edge="end" aria-label="delete">
+                        <EditIcon
+                          color="primary"
+                          onClick={() => {
+                            setEdit(text);
+                            handleClickOpen();
+                          }}
+                        />
+                      </IconButton>
+                      <IconButton edge="end" aria-label="delete">
+                        <DeleteIcon
+                          color="secondary"
+                          onClick={() => {
+                            setEdit(text);
+                            handleClickOpenDel();
+                          }}
+                        />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+            </List>
+          </div> : <Empty />
+          }
+          <div class={classes.heading}>All Groups</div>
           <Divider />
-          <List>
-            {latest
-              ?.sort((a, b) => (a < b ? -1 : 1))
-              .map((text) => (
-                <ListItem
-                  button
-                  key={text}
-                  onClick={() => props.history.push(`/chat/${text}`)}
-                >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <GroupIcon color="lightgrey" />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={text} />
-                  <ListItemSecondaryAction>
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={exitRoom.bind(this, text)}
-                    >
-                      <MeetingRoomIcon color="secondary" />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-          </List>
+          {
+            !!latest?.length ? <div class={classes.list}>
+              <List>
+              {latest
+                ?.sort((a, b) => (a < b ? -1 : 1))
+                .map((text) => (
+                  <ListItem
+                    button
+                    key={text}
+                    onClick={() => props.history.push(`/chat/${text}`)}
+                  >
+                    <ListItemAvatar>
+                      <Avatar>
+                        <GroupIcon color="lightgrey" />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={text} />
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={exitRoom.bind(this, text)}
+                      >
+                        <MeetingRoomIcon color="secondary" />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+              </List>
+          </div> : <Empty />
+          }
         </div>
       </Container>
     </div>

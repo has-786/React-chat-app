@@ -1,10 +1,8 @@
 const db = require("../database/db.js");
-const Users = db.users;
-const Rooms = db.rooms;
-const express = require('express')
-const app = express();
 
 module.exports = (io) => {
+  const Users = db.users, Rooms = db.rooms
+  
   io.sockets.on("connection", (socket) => {
     socket.on("create", function (myroom) {
       console.log(myroom);

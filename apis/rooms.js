@@ -45,7 +45,7 @@ module.exports = (app, router) => {
 
               console.log("Room created: " + name);
               Users.updateOne(
-                { _id: req.userData._id },
+                { email: req.userData.email },
                 { $push: { rooms: name, latest: name } }
               )
                 .then((update) => console.log("User room array updated"))
@@ -75,7 +75,7 @@ module.exports = (app, router) => {
         if (samePassword) {
           console.log(room);
           Users.updateOne(
-            { _id: req.userData._id, latest: { $ne: name } },
+            { email: req.userData.email, latest: { $ne: name } },
             { $push: { latest: { $each: [name], $sort: -1 } } }
           )
             .then((update) => console.log("User room array updated"))
@@ -93,12 +93,11 @@ module.exports = (app, router) => {
   });
 
   router.get("/getRooms", checkAuth, (req, res) => {
-    const _id = req.userData._id;
     const name = req.userData.name;
     const email = req.userData.email;
     const path = req.userData.path;
 
-    Users.findOne({ _id })
+    Users.findOne({ email })
       .then((user) => {
         console.log(user);
         res.send({
@@ -118,7 +117,6 @@ module.exports = (app, router) => {
 
   app.post("/editRoom", checkAuth, (req, res) => {
     const room = req.body.room;
-    const _id = req.userData._id;
     const newPassword = req.body.newPassword;
 
     bcrypt.hash(newPassword, 12, (err, hash) => {
@@ -148,8 +146,8 @@ module.exports = (app, router) => {
 
   app.post("/exitRoom", checkAuth, (req, res) => {
     const room = req.body.room;
-    const _id = req.userData._id;
-    Users.updateOne({ _id }, { $pull: { latest: room } })
+    const email = req.userData.email;
+    Users.updateOne({ email }, { $pull: { latest: room } })
       .then((update) => {
         if (!update) res.send({ status: 0 });
         else {

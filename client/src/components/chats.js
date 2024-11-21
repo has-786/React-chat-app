@@ -3,9 +3,6 @@ import { useDispatch, useSelector } from "react-redux"
 import Avatar from "@material-ui/core/Avatar"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import TextField from "@material-ui/core/TextField"
-import Link from "@material-ui/core/Link"
-import Box from "@material-ui/core/Box"
-import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
 import List from "@material-ui/core/List"
@@ -18,6 +15,8 @@ import PersonIcon from "@material-ui/icons/Person"
 import axios from "axios"
 import url from "../url"
 import Copyright from "./copyright"
+import Empty from "./empty";
+
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 toast.configure()
@@ -72,7 +71,17 @@ export default function Chats(props) {
   const exist = useSelector(state => state.recentReducer.exist)
   const chats = useSelector(state => state.recentReducer.chats)
   const [ chatslocal, setChatslocal ] = useState(chats)
-
+  secureAxios.interceptors.request.use(config => {
+    console.log('axios config', config)
+    return config
+  })
+  secureAxios.interceptors.response.use(res => {
+    console.log('axios res', res)
+    return res
+  }, err => {
+    console.log('axios err', err)
+  })
+  
   useEffect(() => {
     if (exist) return
 
@@ -119,7 +128,8 @@ export default function Chats(props) {
           />
           <br />
           <br />
-          <List>
+          {
+            !!chatslocal?.length ?  <List>
             {chatslocal.map((c, index) =>
               <ListItem
                 button
@@ -137,7 +147,8 @@ export default function Chats(props) {
                 <ListItemText primary={c.roomName} />
               </ListItem>
             )}
-          </List>
+          </List> : <Empty />
+          }
         </div>
       </Container>
     </div>

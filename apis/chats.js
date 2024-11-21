@@ -33,7 +33,7 @@ module.exports = (app, router) => {
     const size = 10;
 
     const firstIndex = (page - 1) * size;
-    lastIndex = page * size;
+    const lastIndex = page * size;
     console.log(room);
     Rooms.findOne(
       { name: room },

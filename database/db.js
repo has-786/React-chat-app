@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 function con(mongoose) {
   const mongoUrl = process.env.MONGODB_URI
   //"mongodb://localhost:27017/example";
@@ -26,6 +27,7 @@ const usersSchema = new mongoose.Schema({
   recentChat: Array
 });
 const users = mongoose.model("users", usersSchema);
+console.log('users', users.find({}).then(u => console.log('u', u)).catch(err => console.log(err)))
 
 const roomsSchema = new mongoose.Schema({
   name: String,

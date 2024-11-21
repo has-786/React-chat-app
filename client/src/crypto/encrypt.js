@@ -35,26 +35,23 @@ const PBKDF2 = async (
 };
 
 const encryptFun = (text, salt, iv) => {
-  console.log("salt " + salt + " iv " + iv);
-  console.log(text);
+  
   text = encoder.encode(text);
 
-  console.log(text);
   return (async () => {
     const key = await PBKDF2("my password", salt, 100000, 256, "SHA-256");
-    let encrypted = await window.crypto.subtle.encrypt(
+    const encrypted = await window.crypto.subtle.encrypt(
       { name: "AES-CBC", iv },
       key,
       text
     );
-    console.log(`Encrypted ${encrypted}`);
 
     const concatennated = toBase64([
       ...salt,
       ...iv,
       ...new Uint8Array(encrypted)
     ]);
-    console.log(`concatennated ${concatennated}`);
+  
     return concatennated;
   })();
 };

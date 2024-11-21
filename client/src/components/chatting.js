@@ -16,14 +16,16 @@ import url from "../url";
 import "../css/chat.css";
 import Header2 from "./header2";
 import io from "socket.io-client";
-import decryptFun from "../crypto/decrypt";
 import encryptFun from "../crypto/encrypt";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Empty from "./empty";
+import { decryptMsg } from "../crypto/helpers";
+import { getCurrentTime } from "../helpers";
+
 toast.configure();
 
-let socket;
 const useStyles = makeStyles({
   root: {
     minWidth: 275
@@ -90,7 +92,14 @@ const useStyles = makeStyles({
     color: "white"
   },
   section: {
-    background: "linear-gradient(to right, #4682B4, #87CEEB)"
+  background: "linear-gradient(to right, #4682B4, #87CEEB)"
+  },
+  empty: {
+    position: 'fixed',
+    width: '100%',
+    left: '22%',
+    top: '42vh',
+    zIndex: '1'
   }
 });
 
@@ -148,70 +157,47 @@ const Chatting = (props) => {
   const email = useSelector((state) => state.userReducer.email);
   const name = useSelector((state) => state.userReducer.name);
 
+  useEffect(() => {
+    if (chat[room]) socketConnections(socket, name, email);
+    else getMessages(1);
+
+    return () => {
+      document.querySelector("body").style.backgroundColor = "";
+      socket.disconnect();
+      dispatch({ type: "delete_chat", payload: room });
+    };
+  }, []);
+
   const socketConnections = (socket, name, email) => {
     socket.emit("create", room);
     socket.emit("user-joined", name, room);
     socket.on("receiveimg", (data) => {
       if (email === data.email) {
-        document.getElementById("loader").style.display = "none"(async () => {
+        document.getElementById("loader").style.display = "none"
+        
+        (async () => {
           dispatch({ type: "add_chat", payload: { room, msg: data } });
-          setTimeout(
-            () =>
-              window.scrollTo({
-                top: document.getElementById("messages").scrollHeight,
-                behaviour: "smooth"
-              }),
-            500
-          );
+          setTimeout(() => window.scrollTo({ top: document.getElementById("messages").scrollHeight, behaviour: "smooth" }), 500);
           sendbox.current.focus();
         })();
       }
     });
 
-    socket.on("receive", (data) => {
+    socket.on("receive", async (data) => {
       console.log("receive data", data);
       if (email === data.email) return;
       dispatch({ type: "add_recent", payload: { room, roomName, link, dp } });
-      (async () => {
-          if (!data.path) {
-            data.salt = data.salt.split(",");
-            data.iv = data.iv.split(",");
+          
+      if (!data.path) { await decryptMsg(data) }
 
-            data.salt = new Uint8Array(data.salt);
-            data.iv = new Uint8Array(data.iv);
+      dispatch({ type: "add_chat", payload: { room, msg: data } });
 
-            await decryptFun(data.message, data.salt, data.iv).then(
-              (decrypted) => {
-                data.message = decrypted;
-              }
-            );
-          }
-
-          (async () => {
-            dispatch({ type: "add_chat", payload: { room, msg: data } });
-
-            if (!data.path)
-              window.scrollTo({
-                top: document.getElementById("messages")?.scrollHeight,
-                behaviour: "smooth"
-              });
-            else
-              setTimeout(
-                () =>
-                  window.scrollTo({
-                    top: document.getElementById("messages").scrollHeight,
-                    behaviour: "smooth"
-                  }),
-                500
-              );
-
-            sendbox.current.focus();
-          })();
-
-          audio.play();
-        }
-      )();
-    });
+      if (!data.path) window.scrollTo({ top: document.getElementById("messages")?.scrollHeight, behaviour: "smooth" })
+      else setTimeout(() => window.scrollTo({ top: document.getElementById("messages").scrollHeight, behaviour: "smooth" }), 500)
+      
+      sendbox.current.focus();
+      audio.play();
+    })
   };
 
   async function getMessages(page) {
@@ -241,20 +227,7 @@ const Chatting = (props) => {
                 const data = msgs[i];
 
                 if (!data.path) {
-                  data.salt = data.salt.split(",");
-                  data.iv = data.iv.split(",");
-
-                  data.salt = data.salt.map((s) => parseInt(s));
-                  data.iv = data.iv.map((iv) => parseInt(iv));
-
-                  data.salt = new Uint8Array(data.salt); // salt and
-                  data.iv = new Uint8Array(data.iv); //iv for decrypting the message
-
-                  await decryptFun(data.message, data.salt, data.iv).then(
-                    (decrypted) => {
-                      data.message = decrypted; // decrypt the received message
-                    }
-                  );
+                  await decryptMsg(data)
                 }
               }
               dispatch({ type: "load_chat", payload: { room, msgs } });
@@ -279,77 +252,39 @@ const Chatting = (props) => {
       .catch((err) => {});
   }
 
-  useEffect(() => {
-    if (chat[room]) socketConnections(socket, name, email);
-    else getMessages(1);
-
-    return () => {
-      document.querySelector("body").style.backgroundColor = "";
-      socket.disconnect();
-      dispatch({ type: "delete_chat", payload: room });
-    };
-  }, []);
-
-  const getCurrentTime = () => {
-    let h = new Date().getHours();
-    let m = new Date().getMinutes();
-    h = parseInt(h / 10) === 0 ? "0" + h : h;
-    m = parseInt(m / 10) === 0 ? "0" + m : m;
-    return h + ":" + m;
-  };
-
-  const sendMessage = (name, room, msg) => {
+  const sendMessage = async (name, room, msg) => {
     if (msg === "") return;
-    const time = getCurrentTime();
-    let text = msg;
+    const time = getCurrentTime(), text = msg;
     document.getElementById("loader").style.display = "block";
 
-    console.log('window.crypto.getRandomValues', window.crypto.getRandomValues)
-    let salt = window.crypto.getRandomValues(new Uint8Array(16)),
-    iv = window.crypto.getRandomValues(new Uint8Array(16));
+    dispatch({ type: "add_chat", payload: { room, msg: { flag: 0, email, room, name, message: msg, time }}});
+    dispatch({ type: "add_recent", payload: { room, roomName, link, dp } });
 
-    (async () => {
-      dispatch({
-        type: "add_chat",
-        payload: {
-          room,
-          msg: { flag: 0, email, room, name, message: msg, time }
-        }
-      });
-      dispatch({ type: "add_recent", payload: { room, roomName, link, dp } });
+    window.scrollTo({ top: document.getElementById("messages").scrollHeight, behaviour: "smooth" });
 
-      window.scrollTo({
-        top: document.getElementById("messages").scrollHeight,
-        behaviour: "smooth"
-      });
+    sendbox.current.focus();
 
-      sendbox.current.focus();
-    })();
+    const salt = window.crypto.getRandomValues(new Uint8Array(16)),
+          iv = window.crypto.getRandomValues(new Uint8Array(16)),
+          encrypted = await encryptFun(text, salt, iv)
+    console.log(encrypted);
 
-    encryptFun(text, salt, iv).then((encrypted) => {
-      console.log(encrypted);
-      salt = [...salt];
-      iv = [...iv];
-      salt = salt.join(",");
-      iv = iv.join(",");
-
-      socket.emit("send", {
+    socket.emit("send", {
         flag: 0,
         email,
         room,
         name,
         msg: encrypted,
         path: null,
-        salt,
-        iv,
+        salt: [...salt].join(","),
+        iv: [...iv].join(","),
         time,
         roomName,
         link,
         dp
-      });
-      document.getElementById("loader").style.display = "none";
-      setMessage("");
     });
+    document.getElementById("loader").style.display = "none";
+    setMessage("");
   };
 
   async function sendFile() {
@@ -379,6 +314,7 @@ const Chatting = (props) => {
         if (body.status === 1) {
           if (file) file.value = "";
           document.getElementById("loader").style.display = "none";
+          
           dispatch({
             type: "add_chat",
             payload: {
@@ -506,8 +442,7 @@ const Chatting = (props) => {
                 See Older Messages
               </Paper>
             )}
-            {!!chat[room] &&
-              chat[room].map((msg) => {
+            {!!chat[room]?.length ? chat[room].map((msg) => {
                 let includeStyle = email === msg.email ? rightStyle : {};
 
                 return (
@@ -658,7 +593,7 @@ const Chatting = (props) => {
                     )}
                   </Paper>
                 );
-              })}
+              }) : <div className={classes.empty}><Empty /></div>}
           </div>
         </div>
         <div>

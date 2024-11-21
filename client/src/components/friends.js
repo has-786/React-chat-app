@@ -4,13 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -30,7 +23,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import ChatIcon from "@material-ui/icons/Chat";
 import PersonIcon from "@material-ui/icons/Person";
 import Copyright from "./copyright";
-
+import Empty from './empty'
 import axios from "axios";
 import url from "../url";
 
@@ -58,6 +51,8 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2)
   },
   main: {
+    paddingTop: '30px',
+    marginTop: '45px',
     height: "100vh",
     marginLeft: '100px',
     background: 'linear-gradient(to right, #4682B4, #87CEEB)'
@@ -67,6 +62,14 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     marginTop: '10px'
+  },
+  heading: {
+    fontSize: '14px',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold'
+  },
+  list: {
+    padding: '10px 0 40px 0'
   }
 }));
 
@@ -116,6 +119,7 @@ export default function Friends(props) {
       .get("getFriend")
       .then(response => {
         const body = response.data;
+        console.log('body', body)
 
         if (body.status == 1) {
           dispatch({
@@ -150,6 +154,9 @@ export default function Friends(props) {
 
     return email4 + "-" + email3;
   };
+
+  console.log('pendings', pendings)
+  console.log('friends', friends)
 
   return (
     <div class={classes.main}>
@@ -205,9 +212,11 @@ export default function Friends(props) {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div class={classes.container}>
-          <h6>Connection Requests</h6>
+          <div className={classes.heading}>Connection Requests</div>
           <Divider />
-          <List>
+          {
+            !!pendings?.length ? <div className={classes.list}>
+            <List>
             {pendings
               .sort((a, b) => {
                 return a < b ? -1 : 1;
@@ -251,57 +260,65 @@ export default function Friends(props) {
                 </ListItem>
               )}
           </List>
+          </div>
+          : <Empty />
+          }
           <br />
           <br />
-          <h6>Friends</h6>
+          <div className={classes.heading}>Friends</div>
           <Divider />
-          <List>
-            {friends
-              .sort((a, b) => {
-                return a < b ? -1 : 1;
-              })
-              .map((profile, index) =>
-                <ListItem
-                  button
-                  key={profile.name}
-                  onClick={() =>
-                    props.history.push(
-                      `/profile/${profile.email}-${profile.name}`
-                    )}
-                >
-                  <ListItemAvatar>
-                    <Avatar src={url + `/uploads/${profile.path}/${token}`}>
-                      <PersonIcon color="lightgrey" />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={profile.name} />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete">
-                      <ClearIcon
-                        color="secondary"
-                        onClick={() => {
-                          setProfile(profile);
-                          setDisconnectStatus("Disconnect");
-                          handleClickOpenDisconnect();
-                        }}
-                      />
-                    </IconButton>
-                    <IconButton edge="end" aria-label="delete">
-                      <ChatIcon
-                        color="primary"
-                        onClick={() =>
-                          props.history.push(
-                            `/personal/${generate(
-                              profile.email,
-                              email
-                            )}/${profile.email}-${email}`
-                          )}
-                      />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              )}
-          </List>
+          {
+            !!friends?.length ? <div className={classes.list}>
+            <List>
+              {friends
+                .sort((a, b) => {
+                  return a < b ? -1 : 1;
+                })
+                .map((profile, index) =>
+                  <ListItem
+                    button
+                    key={profile.name}
+                    onClick={() =>
+                      props.history.push(
+                        `/profile/${profile.email}-${profile.name}`
+                      )}
+                  >
+                    <ListItemAvatar>
+                      <Avatar src={url + `/uploads/${profile.path}/${token}`}>
+                        <PersonIcon color="lightgrey" />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={profile.name} />
+                    <ListItemSecondaryAction>
+                      <IconButton edge="end" aria-label="delete">
+                        <ClearIcon
+                          color="secondary"
+                          onClick={() => {
+                            setProfile(profile);
+                            setDisconnectStatus("Disconnect");
+                            handleClickOpenDisconnect();
+                          }}
+                        />
+                      </IconButton>
+                      <IconButton edge="end" aria-label="delete">
+                        <ChatIcon
+                          color="primary"
+                          onClick={() =>
+                            props.history.push(
+                              `/personal/${generate(
+                                profile.email,
+                                email
+                              )}/${profile.email}-${email}`
+                            )}
+                        />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                )}
+            </List>
+          </div>
+          : <Empty />
+          }
         </div>
       </Container>
     </div>

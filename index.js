@@ -58,7 +58,16 @@ routes.map(route =>
 		res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 	})
 );
+// if(!http.listening) http.listen(port, () => {
+// 	console.log(`Server running on port ${port}`);
+// });
 
 http.listen(port, () => {
-	console.log(`Server running on port ${port}`);
-});
+		console.log(`Server running on port ${port}`);
+	});
+
+// app.listen(port, () => {
+// 	console.log(`Server running on port ${port}`);
+// });
+
+module.exports = app
